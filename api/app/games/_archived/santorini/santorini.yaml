@@ -1,0 +1,52 @@
+panels:
+  game_progress:
+    panel_id: game_progress
+    name: Game Progress
+    required: true
+  main_board:
+    panel_id: main_board
+    name: Main Board
+    required: true
+  stairwell:
+    panel_id: stairwell
+    name: Stairwell
+  rooftop:
+    panel_id: rooftop
+    name: Rooftop
+
+components:
+  worker1:
+    component_type: worker
+    panel_reference: game_progress
+    phase_name: setup
+    hp: 1
+    max_hp: 1
+  worker2:
+    component_type: worker
+    panel_reference: game_progress
+    phase_name: setup
+    hp: 1
+    max_hp: 1
+  worker3:
+    component_type: worker
+    panel_reference: game_progress
+    phase_name: setup
+    hp: 1
+    max_hp: 1
+  worker4:
+    component_type: worker
+    panel_reference: game_progress
+    phase_name: setup
+    hp: 1
+    max_hp: 1
+
+phases:
+  setup:
+    name: Setup
+    steps: 1
+  building:
+    name: Building
+    steps: 3
+  scoring:
+    name: Scoring
+    steps: 2

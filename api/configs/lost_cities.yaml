@@ -1,0 +1,260 @@
+# Lost Cities configuration
+game_id: lost_cities
+name: Lost Cities
+type: lost_cities
+cover-image: api/img/lost_cities/lost-cities-box-art.webp
+hover_zoom: true
+difficulty:
+  easy: 100
+  medium: 300
+  hard: 500
+  default: medium
+
+panels:
+  game_progress:
+    name: Game Progress
+    required: true
+  main_board:
+    name: Main Board
+    required: true
+    components:
+      # Background board
+      board_bg:
+        name: Board Background
+        shape: rectangle
+        color: "#2d5a2d"
+        z_index: 0
+        clickable: false
+        grid:
+          rows: 3
+          columns: 12
+      # Expedition spaces for player 1 (top row)
+      p1_blue_exp:
+        name: "P1 Blue Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/b_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p1_blue_exp"
+        clickable: false
+        hover_text: "Blue expedition (Himalayas)"
+      p1_yellow_exp:
+        name: "P1 Yellow Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/y_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p1_yellow_exp"
+        clickable: false
+        hover_text: "Yellow expedition (Desert)"
+      p1_red_exp:
+        name: "P1 Red Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/r_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p1_red_exp"
+        clickable: false
+        hover_text: "Red expedition (Volcanoes)"
+      p1_white_exp:
+        name: "P1 White Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/w_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p1_white_exp"
+        clickable: false
+        hover_text: "White expedition (Neptune's Realm)"
+      p1_green_exp:
+        name: "P1 Green Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/g_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p1_green_exp"
+        clickable: false
+        hover_text: "Green expedition (Brazilian Rain Forest)"
+      # Expedition spaces for player 2 (bottom row)
+      p2_blue_exp:
+        name: "P2 Blue Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/b_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p2_blue_exp"
+        clickable: false
+        hover_text: "Blue expedition (Himalayas)"
+      p2_yellow_exp:
+        name: "P2 Yellow Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/y_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p2_yellow_exp"
+        clickable: false
+        hover_text: "Yellow expedition (Desert)"
+      p2_red_exp:
+        name: "P2 Red Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/r_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p2_red_exp"
+        clickable: false
+        hover_text: "Red expedition (Volcanoes)"
+      p2_white_exp:
+        name: "P2 White Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/w_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p2_white_exp"
+        clickable: false
+        hover_text: "White expedition (Neptune's Realm)"
+      p2_green_exp:
+        name: "P2 Green Expedition"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/g_base.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "p2_green_exp"
+        clickable: false
+        hover_text: "Green expedition (Brazilian Rain Forest)"
+      # Discard piles (middle row)
+      blue_discard:
+        name: "Blue Discard Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "blue_discard"
+        clickable: true
+        hover_text: "Blue discard pile"
+      yellow_discard:
+        name: "Yellow Discard Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "yellow_discard"
+        clickable: true
+        hover_text: "Yellow discard pile"
+      red_discard:
+        name: "Red Discard Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "red_discard"
+        clickable: true
+        hover_text: "Red discard pile"
+      white_discard:
+        name: "White Discard Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "white_discard"
+        clickable: true
+        hover_text: "White discard pile"
+      green_discard:
+        name: "Green Discard Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "green_discard"
+        clickable: true
+        hover_text: "Green discard pile"
+      # Draw pile (far right)
+      draw_pile:
+        name: "Draw Pile"
+        shape: rectangle
+        background_image: "api/img/lost_cities/cards/card_backs.jpg"
+        z_index: 5
+        grid:
+          rows: 1
+          columns: 1
+        stackable: true
+        stack_name: "draw_pile"
+        clickable: true
+        hover_text: "Draw pile"
+  player_hand:
+    name: Player Hand
+    required: false
+    components:
+      hand_area:
+        name: Hand Area
+        shape: rectangle
+        color: "#1a1a2e"
+        z_index: 10
+        grid:
+          rows: 1
+          columns: 10
+        stackable: false
+        clickable: true
+        hover_text: "Your hand - click a card to play"
+
+rounds:
+  - name: Main Game
+    turns:
+      - name: Player Turn
+        phases:
+          - name: play_a_card
+            text: "Play a Card to either an Expedition or to a discard pile"
+            order: 1
+            confirm:
+              required: false
+          - name: draw_a_card
+            text: "Draw a new card but not one you Discarded"
+            order: 2
+            confirm:
+              required: false
+
+min_players: 2
+max_players: 2

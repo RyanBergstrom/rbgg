@@ -1,0 +1,67 @@
+# Checkers (American draughts) configuration
+game_id: checkers
+name: Checkers
+type: checkers
+cover-image: api/img/checkers/checkersCover.webp
+difficulty:
+  easy: 50
+  medium: 300
+  hard: 1500
+  expert: 5000
+  default: medium
+
+panels:
+  game_progress:
+    name: Game Progress
+    required: true
+  main_board:
+    name: Main Board
+    required: true
+    components:
+      board:
+        name: Board
+        shape: rectangle
+        color: "#b58863"
+        z_index: 0
+        clickable: false
+        grid:
+          rows: 8
+          columns: 8
+      red_pieces:
+        name: Red Pieces
+        shape: circle
+        color: "#cc0000"
+        z_index: 10
+        stackable: true
+        stack_name: "red_pool"
+        rotate: null
+        hover_text: "Red piece"
+      black_pieces:
+        name: Black Pieces
+        shape: circle
+        color: "#222222"
+        z_index: 10
+        stackable: true
+        stack_name: "black_pool"
+        rotate: null
+        hover_text: "Black piece"
+
+rounds:
+  - name: Main Game
+    turns:
+      - name: Player Turn
+        phases:
+          - name: Player_Turn
+            text: "Make your move"
+            order: 1
+            confirm:
+              required: false
+            timeout_seconds: null
+          - name: Pass_Turn
+            text: "Confirm your move"
+            order: 2
+            confirm:
+              name: "Confirm"
+              description: "End your turn"
+              required: true
+            timeout_seconds: null

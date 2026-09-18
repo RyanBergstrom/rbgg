@@ -1,0 +1,106 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '14px' }}}%%
+
+graph TB
+    subgraph Frontend ["Frontend (Svelte)"]
+        FE["SvelteKit App"]
+        CB["CheckersBoard.svelte"]
+        GP["GameProgressPanel.svelte"]
+    end
+
+    subgraph API ["FastAPI Routes — app/routes/"]
+        R_MOVE["POST /moves/{game_id}/move<br/><i>submit_move</i>"]
+        R_CONFIRM["POST /moves/confirm/{game_id}<br/><i>confirm_turn</i>"]
+        R_AI["POST /moves/ai<br/><i>post_ai_move</i>"]
+        R_LEGAL["POST /moves/legal-moves<br/><i>get_legal_moves</i>"]
+        R_START["POST /moves/start-session/{game_id}<br/><i>start_session</i>"]
+    end
+
+    subgraph Core ["Core Engine — app/core/"]
+        GE["GameEngine<br/>Phase-aware orchestrator"]
+        MP["MovePipeline<br/>Validate → Apply → Win check"]
+        GS["GameState (Pydantic)<br/>Canonical data model"]
+        GStore["game_store<br/>In-memory dict"]
+        CFG["config_loader<br/>YAML → typed dataclasses"]
+        LOG["log.py<br/>@trace_fn decorator"]
+    end
+
+    subgraph Config ["YAML Config — configs/"]
+        YAML["checkers.yaml"]
+        YAML_PANELS["panels:<br/>game_progress, main_board<br/>→ components: board, pieces"]
+        YAML_ROUNDS["rounds:<br/>Main Game → Player Turn<br/>→ phases: Player_Turn, Pass_Turn"]
+    end
+
+    subgraph Game ["Game Logic — app/games/checkers/"]
+        VAL["CheckersValidator<br/>(LegalMoveValidator ABC)"]
+        SER["serialize.py<br/>initial_board, board_to_cells"]
+        REG["registry / catalog<br/>register_game, register_validator"]
+    end
+
+    subgraph Persistence ["Persistence"]
+        REPO["repository.py<br/>SQLite sessions"]
+        DB["db.py<br/>sqlite3 connection"]
+    end
+
+    %% Frontend → Routes
+    FE -->|"POST move"| R_MOVE
+    FE -->|"POST confirm"| R_CONFIRM
+    FE -->|"POST ai"| R_AI
+    FE -->|"POST legal-moves"| R_LEGAL
+    FE -->|"POST start-session"| R_START
+    CB -->|"dispatch('move')"| FE
+    GP -->|"dispatch('confirm')"| FE
+
+    %% Routes → Core
+    R_MOVE --> GE
+    R_CONFIRM --> GE
+    R_AI --> GE
+    R_LEGAL --> GE
+    R_START --> GS
+    R_START --> GE
+
+    %% Core internals
+    GE -->|"submit_move()"| MP
+    GE -->|"confirm_turn()"| MP
+    GE -->|"get_legal_moves()"| MP
+    GE -->|"build_screen_state()"| CFG
+    MP -->|"validate_move()"| VAL
+    MP -->|"apply_move()"| VAL
+    MP -->|"check_win()"| VAL
+    GE --> GStore
+    R_START --> GStore
+    GStore --> REPO
+    REPO --> DB
+
+    %% Config
+    CFG --> YAML
+    YAML --> YAML_PANELS
+    YAML --> YAML_ROUNDS
+
+    %% Game-specific
+    GE -->|"loads game_id"| REG
+    REG --> VAL
+    VAL --> SER
+    GE -->|"serialize_for_screen()"| SER
+
+    %% Logging
+    LOG -.->|"decorates"| GE
+    LOG -.->|"decorates"| MP
+    LOG -.->|"decorates"| VAL
+    LOG -.->|"decorates"| R_MOVE
+    LOG -.->|"decorates"| R_CONFIRM
+    LOG -.->|"decorates"| R_AI
+
+    %% Styling
+    classDef core fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    classDef game fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef config fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    classDef route fill:#fce4ec,stroke:#c62828,stroke-width:2px
+    classDef frontend fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef persist fill:#efebe9,stroke:#5d4037,stroke-width:2px
+
+    class GE,MP,GS,GStore,CFG,LOG core
+    class VAL,SER,REG game
+    class YAML,YAML_PANELS,YAML_ROUNDS config
+    class R_MOVE,R_CONFIRM,R_AI,R_LEGAL,R_START route
+    class FE,CB,GP frontend
+    class REPO,DB persist

@@ -1,0 +1,189 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '12px' }}}%%
+
+sequenceDiagram
+    autonumber
+    box rgb(252, 228, 236) UI Layer
+        participant UI as UI (Svelte)
+    end
+    box rgb(252, 228, 236) Routes
+        participant MV as moves.py
+    end
+    box rgb(225, 245, 254) Core Engine
+        participant GE as engine.py<br/>GameEngine
+        participant MP as engine.py<br/>MovePipeline
+    end
+    box rgb(255, 243, 224) Game Interface
+        participant ABC as legal_move_interface.py<br/>LegalMoveValidator
+    end
+    box rgb(232, 245, 233) Checkers Game
+        participant VAL as checkers/validator.py<br/>CheckersValidator
+        participant SER as checkers/serialize.py
+    end
+    box rgb(243, 229, 245) Config
+        participant CL as config_loader.py
+        participant YAML as checkers.yaml
+    end
+    box rgb(239, 235, 233) Infrastructure
+        participant GS as game_state.py
+        participant GStore as game_store.py
+        participant REPO as repository.py
+    end
+    box rgb(224, 242, 241) Registry
+        participant CAT as catalog.py
+        participant REG as registry.py
+    end
+
+    rect rgb(225, 245, 254)
+        Note over UI,REG: ═══ Journey 1: Load New Game ═══
+
+        UI->>MV: POST /start-session/checkers
+        MV->>CAT: get_game("checkers")
+        CAT-->>MV: GameInfo
+        MV->>REG: ensure_validator("checkers")
+        REG-->>MV: CheckersValidator
+        MV->>GS: Creates GameState(players, phase=0)
+        MV->>GStore: set_state("checkers", state)
+        MV->>REPO: create_session(profile, game_id)
+        REPO-->>MV: session
+        MV->>GStore: set_state("checkers", state, session_id)
+
+        MV->>GE: GameEngine("checkers", validator)
+        GE->>CL: load_game_config("checkers")
+        CL->>YAML: Read checkers.yaml
+        YAML-->>CL: raw config
+        CL-->>GE: GameConfig(panels, rounds)
+
+        MV->>GE: build_screen_state(state, [])
+        GE->>GS: getattr(state, "game_data")
+        GE->>VAL: serialize_for_screen(game_data)
+        VAL->>SER: board_to_cells(board)
+        SER-->>VAL: cells array
+        VAL-->>GE: {board, cells}
+        GE-->>MV: screen_state JSON
+
+        MV-->>UI: {session_id, screen_state, player}
+    end
+
+    rect rgb(225, 245, 254)
+        Note over UI,REG: ═══ Journey 2: Human Player Turn ═══
+
+        UI->>MV: POST /checkers/move {move_id, from, to}
+        MV->>GStore: get_state("checkers")
+        GStore-->>MV: GameState
+
+        MV->>GE: submit_move(state, move, version)
+        GE->>GE: _build_state_dict(state)
+        GE->>MP: submit_move(state_dict, move, version)
+
+        MP->>ABC: validate_move(state, move)
+        ABC->>VAL: validate_move(state, move)
+        Note right of VAL: check turn order<br/>piece ownership<br/>mandatory jump<br/>must_jump_from
+        VAL-->>ABC: true
+        ABC-->>MP: true
+
+        MP->>ABC: apply_move(state, move)
+        ABC->>VAL: apply_move(state, move)
+        Note right of VAL: move piece<br/>remove captured<br/>promote king<br/>detect multi-jump
+        VAL-->>ABC: {game_data}
+        ABC-->>MP: {game_data}
+
+        MP->>ABC: check_win(new_state)
+        ABC->>VAL: check_win(state)
+        VAL-->>ABC: None
+        ABC-->>MP: None
+
+        MP-->>GE: {status: "accepted", new_state}
+
+        alt Multi-jump required (must_jump_from set)
+            GE-->>MV: status="accepted", same player continues
+        else Confirm phase (confirm_required=true)
+            GE->>GE: should_show_confirm(state)
+            GE->>CL: Read PhaseConfig
+            GE-->>MV: status="confirm_required"
+        else Normal move
+            GE->>GE: advance_phase(state)
+            Note left of GE: phase_index++ or<br/>player_index++
+            GE-->>MV: status="accepted"
+        end
+
+        MV->>GStore: set_state("checkers", state)
+        MV->>REPO: save_game_state(session_id, data)
+
+        MV->>GE: build_screen_state(state, legal_moves)
+        GE->>VAL: serialize_for_screen(game_data)
+        VAL-->>GE: cells
+        GE-->>MV: screen_state
+
+        MV-->>UI: {status, screen_state}
+    end
+
+    rect rgb(255, 243, 224)
+        Note over UI,REG: ═══ Journey 2b: Confirm Turn ═══
+
+        UI->>MV: POST /confirm/checkers
+        MV->>GStore: get_state("checkers")
+        MV->>GE: confirm_turn(state)
+        GE->>GE: should_show_confirm(state)
+        GE->>GE: advance_phase(state)
+        Note left of GE: reset phase=0<br/>player_index++<br/>new TurnInfo
+        GE-->>MV: {status: "turn_complete"}
+
+        MV->>GStore: set_state("checkers", state)
+        MV->>REPO: save_game_state(session_id, data)
+
+        MV->>GE: build_screen_state(state, legal_moves)
+        GE-->>MV: screen_state
+        MV-->>UI: {status, screen_state}
+    end
+
+    rect rgb(232, 245, 233)
+        Note over UI,REG: ═══ Journey 3: AI Player Turn ═══
+
+        UI->>MV: POST /ai {gameId: "checkers"}
+        MV->>GStore: get_state("checkers")
+        GStore-->>MV: GameState
+
+        MV->>GE: get_legal_moves(state, "player_2")
+        GE->>ABC: get_legal_moves(state_dict, "player_2")
+        ABC->>VAL: get_legal_moves(state, "player_2")
+        VAL-->>ABC: legal_moves list
+        ABC-->>GE: legal_moves
+        GE-->>MV: candidate_moves
+
+        MV->>VAL: recommend_ai_move(state, candidates)
+        VAL-->>MV: chosen_move
+
+        MV->>GE: submit_move(state, chosen_move)
+        GE->>MP: submit_move(state_dict, move, None)
+        MP->>ABC: validate_move / apply_move / check_win
+        ABC->>VAL: delegates to CheckersValidator
+        VAL-->>ABC: results
+        ABC-->>MP: results
+        MP-->>GE: {status, new_state}
+        GE-->>MV: result
+
+        loop Multi-jump continuation
+            MV->>GE: get_legal_moves(state, "player_2")
+            GE->>VAL: get_legal_moves(state, "player_2")
+            VAL-->>GE: jumps from must_jump_from
+            GE-->>MV: candidate_moves
+            MV->>VAL: recommend_ai_move(state, candidates)
+            VAL-->>MV: chosen_move
+            MV->>GE: submit_move(state, chosen_move)
+            GE-->>MV: result
+        end
+
+        MV->>GE: confirm_turn(state)
+        GE->>GE: advance_phase(state)
+        GE-->>MV: {status: "turn_complete"}
+
+        MV->>GStore: set_state("checkers", state)
+        MV->>REPO: save_game_state(session_id, data)
+
+        MV->>GE: build_screen_state(state, legal_moves_for_next_player)
+        GE->>VAL: serialize_for_screen(game_data)
+        VAL-->>GE: cells
+        GE-->>MV: screen_state
+
+        MV-->>UI: {status, move, screen_state}
+    end

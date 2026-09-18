@@ -1,0 +1,568 @@
+{
+    "panels": [
+        {
+            "id": "game_progress",
+            "name": "Game Progress",
+            "components": []
+        },
+        {
+            "id": "main_board",
+            "name": "Main Board",
+            "components": [
+                {
+                    "id": "board_bg",
+                    "name": "Board Background",
+                    "shape": "rectangle",
+                    "z_index": 0,
+                    "clickable": false,
+                    "color": "#2d5a2d",
+                    "grid": {
+                        "rows": 3,
+                        "columns": 12
+                    }
+                },
+                {
+                    "id": "p1_blue_exp",
+                    "name": "P1 Blue Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/b_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Blue expedition (Himalayas)",
+                    "stackable": true,
+                    "stack_name": "p1_blue_exp"
+                },
+                {
+                    "id": "p1_yellow_exp",
+                    "name": "P1 Yellow Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/y_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Yellow expedition (Desert)",
+                    "stackable": true,
+                    "stack_name": "p1_yellow_exp"
+                },
+                {
+                    "id": "p1_red_exp",
+                    "name": "P1 Red Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/r_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Red expedition (Volcanoes)",
+                    "stackable": true,
+                    "stack_name": "p1_red_exp"
+                },
+                {
+                    "id": "p1_white_exp",
+                    "name": "P1 White Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/w_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "White expedition (Neptune's Realm)",
+                    "stackable": true,
+                    "stack_name": "p1_white_exp"
+                },
+                {
+                    "id": "p1_green_exp",
+                    "name": "P1 Green Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/g_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Green expedition (Brazilian Rain Forest)",
+                    "stackable": true,
+                    "stack_name": "p1_green_exp"
+                },
+                {
+                    "id": "p2_blue_exp",
+                    "name": "P2 Blue Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/b_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Blue expedition (Himalayas)",
+                    "stackable": true,
+                    "stack_name": "p2_blue_exp"
+                },
+                {
+                    "id": "p2_yellow_exp",
+                    "name": "P2 Yellow Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/y_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Yellow expedition (Desert)",
+                    "stackable": true,
+                    "stack_name": "p2_yellow_exp"
+                },
+                {
+                    "id": "p2_red_exp",
+                    "name": "P2 Red Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/r_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Red expedition (Volcanoes)",
+                    "stackable": true,
+                    "stack_name": "p2_red_exp"
+                },
+                {
+                    "id": "p2_white_exp",
+                    "name": "P2 White Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/w_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "White expedition (Neptune's Realm)",
+                    "stackable": true,
+                    "stack_name": "p2_white_exp"
+                },
+                {
+                    "id": "p2_green_exp",
+                    "name": "P2 Green Expedition",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": false,
+                    "background_image": "api/img/lost_cities/cards/g_base.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Green expedition (Brazilian Rain Forest)",
+                    "stackable": true,
+                    "stack_name": "p2_green_exp"
+                },
+                {
+                    "id": "blue_discard",
+                    "name": "Blue Discard Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Blue discard pile",
+                    "stackable": true,
+                    "stack_name": "blue_discard"
+                },
+                {
+                    "id": "yellow_discard",
+                    "name": "Yellow Discard Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Yellow discard pile",
+                    "stackable": true,
+                    "stack_name": "yellow_discard"
+                },
+                {
+                    "id": "red_discard",
+                    "name": "Red Discard Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Red discard pile",
+                    "stackable": true,
+                    "stack_name": "red_discard"
+                },
+                {
+                    "id": "white_discard",
+                    "name": "White Discard Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "White discard pile",
+                    "stackable": true,
+                    "stack_name": "white_discard"
+                },
+                {
+                    "id": "green_discard",
+                    "name": "Green Discard Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Green discard pile",
+                    "stackable": true,
+                    "stack_name": "green_discard"
+                },
+                {
+                    "id": "draw_pile",
+                    "name": "Draw Pile",
+                    "shape": "rectangle",
+                    "z_index": 5,
+                    "clickable": true,
+                    "background_image": "api/img/lost_cities/cards/card_backs.jpg",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 1
+                    },
+                    "hover_text": "Draw pile",
+                    "stackable": true,
+                    "stack_name": "draw_pile"
+                }
+            ]
+        },
+        {
+            "id": "player_hand",
+            "name": "Player Hand",
+            "components": [
+                {
+                    "id": "hand_area",
+                    "name": "Hand Area",
+                    "shape": "rectangle",
+                    "z_index": 10,
+                    "clickable": true,
+                    "color": "#1a1a2e",
+                    "grid": {
+                        "rows": 1,
+                        "columns": 10
+                    },
+                    "hover_text": "Your hand - click a card to play"
+                }
+            ]
+        }
+    ],
+    "phase": {
+        "phase_name": "play_a_card",
+        "phase_text": "Play a Card to either an Expedition or to a discard pile",
+        "confirm_required": false,
+        "confirm_name": "Confirm",
+        "confirm_description": "",
+        "round_name": "Main Game",
+        "turn_name": "Player Turn"
+    },
+    "legal_moves": [
+        {
+            "move_id": "discard_b_7_0",
+            "type": "discard",
+            "card": "b_7",
+            "color": "blue",
+            "hand_index": 0,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_g_9_1",
+            "type": "discard",
+            "card": "g_9",
+            "color": "green",
+            "hand_index": 1,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "play_exp_g_i_2",
+            "type": "play_expedition",
+            "card": "g_i",
+            "color": "green",
+            "hand_index": 2,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_g_i_2",
+            "type": "discard",
+            "card": "g_i",
+            "color": "green",
+            "hand_index": 2,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_g_3_3",
+            "type": "discard",
+            "card": "g_3",
+            "color": "green",
+            "hand_index": 3,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_b_5_4",
+            "type": "discard",
+            "card": "b_5",
+            "color": "blue",
+            "hand_index": 4,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_y_10_5",
+            "type": "discard",
+            "card": "y_10",
+            "color": "yellow",
+            "hand_index": 5,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_g_10_6",
+            "type": "discard",
+            "card": "g_10",
+            "color": "green",
+            "hand_index": 6,
+            "player_id": "player_1"
+        },
+        {
+            "move_id": "discard_r_3_7",
+            "type": "discard",
+            "card": "r_3",
+            "color": "red",
+            "hand_index": 7,
+            "player_id": "player_1"
+        }
+    ],
+    "current_player": "player_1",
+    "winner": null,
+    "game_data": {
+        "player_hands": {
+            "player_1": [
+                {
+                    "id": "hand_0",
+                    "card": "b_7",
+                    "image": "/api/v1/img/lost_cities/cards/b_7.jpg",
+                    "color": "b",
+                    "value": "7",
+                    "is_investment": false,
+                    "number": 7,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_1",
+                    "card": "g_9",
+                    "image": "/api/v1/img/lost_cities/cards/g_9.jpg",
+                    "color": "g",
+                    "value": "9",
+                    "is_investment": false,
+                    "number": 9,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_2",
+                    "card": "g_i",
+                    "image": "/api/v1/img/lost_cities/cards/g_i.jpg",
+                    "color": "g",
+                    "value": "i",
+                    "is_investment": true,
+                    "number": null,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_3",
+                    "card": "g_3",
+                    "image": "/api/v1/img/lost_cities/cards/g_3.jpg",
+                    "color": "g",
+                    "value": "3",
+                    "is_investment": false,
+                    "number": 3,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_4",
+                    "card": "b_5",
+                    "image": "/api/v1/img/lost_cities/cards/b_5.jpg",
+                    "color": "b",
+                    "value": "5",
+                    "is_investment": false,
+                    "number": 5,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_5",
+                    "card": "y_10",
+                    "image": "/api/v1/img/lost_cities/cards/y_10.jpg",
+                    "color": "y",
+                    "value": "10",
+                    "is_investment": false,
+                    "number": 10,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_6",
+                    "card": "g_10",
+                    "image": "/api/v1/img/lost_cities/cards/g_10.jpg",
+                    "color": "g",
+                    "value": "10",
+                    "is_investment": false,
+                    "number": 10,
+                    "face_up": true
+                },
+                {
+                    "id": "hand_7",
+                    "card": "r_3",
+                    "image": "/api/v1/img/lost_cities/cards/r_3.jpg",
+                    "color": "r",
+                    "value": "3",
+                    "is_investment": false,
+                    "number": 3,
+                    "face_up": true
+                }
+            ],
+            "player_2": [
+                {
+                    "id": "hand_0",
+                    "card": "r_9",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_1",
+                    "card": "b_2",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_2",
+                    "card": "r_7",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_3",
+                    "card": "r_4",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_4",
+                    "card": "b_i",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_5",
+                    "card": "w_9",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_6",
+                    "card": "b_3",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                },
+                {
+                    "id": "hand_7",
+                    "card": "w_6",
+                    "image": "/api/v1/img/lost_cities/cards/card_backs.jpg",
+                    "face_up": false
+                }
+            ]
+        },
+        "expeditions": {
+            "player_1": {
+                "blue": [],
+                "yellow": [],
+                "red": [],
+                "white": [],
+                "green": []
+            },
+            "player_2": {
+                "blue": [],
+                "yellow": [],
+                "red": [],
+                "white": [],
+                "green": []
+            }
+        },
+        "discard_piles": {
+            "blue": {
+                "cards": [],
+                "top_card": null,
+                "count": 0
+            },
+            "yellow": {
+                "cards": [],
+                "top_card": null,
+                "count": 0
+            },
+            "red": {
+                "cards": [],
+                "top_card": null,
+                "count": 0
+            },
+            "white": {
+                "cards": [],
+                "top_card": null,
+                "count": 0
+            },
+            "green": {
+                "cards": [],
+                "top_card": null,
+                "count": 0
+            }
+        },
+        "draw_pile": {
+            "count": 44,
+            "image": "/api/v1/img/lost_cities/cards/card_backs.jpg"
+        },
+        "current_phase": "play_a_card",
+        "current_player": "player_1",
+        "last_discarded": null,
+        "round": 1,
+        "scores": {
+            "player_1": 0,
+            "player_2": 0
+        },
+        "game_over": false,
+        "round_over": false,
+        "pending_draw": false
+    },
+    "config": {
+        "hover_zoom": true
+    }
+}

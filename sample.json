@@ -1,0 +1,541 @@
+{
+    "panels": [
+        {
+            "id": "game_progress",
+            "name": "Game Progress",
+            "components": []
+        },
+        {
+            "id": "main_board",
+            "name": "Main Board",
+            "components": [
+                {
+                    "id": "board",
+                    "name": "Board",
+                    "shape": "rectangle",
+                    "z_index": 0,
+                    "clickable": false,
+                    "color": "#b58863",
+                    "grid": {
+                        "rows": 8,
+                        "columns": 8,
+                        "cells": [
+                            [
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r0c3",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r0c5",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r0c7",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r1c0",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r1c2",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r1c4",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r1c6",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r2c3",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r2c5",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r2c7",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r3c0",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r4c5",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r5c0",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r5c6",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r6c1",
+                                        "type": "black",
+                                        "color": "#222222",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r6c3",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r6c5",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r6c7",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                }
+                            ],
+                            [
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r7c0",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r7c2",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r7c4",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                },
+                                {
+                                    "color": "#b58863",
+                                    "piece": {
+                                        "id": "r7c6",
+                                        "type": "red",
+                                        "color": "#cc0000",
+                                        "king": false
+                                    }
+                                },
+                                {
+                                    "color": "#f0d9b5",
+                                    "piece": null
+                                }
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "id": "red_pieces",
+                    "name": "Red Pieces",
+                    "shape": "circle",
+                    "z_index": 10,
+                    "clickable": true,
+                    "color": "#cc0000",
+                    "hover_text": "Red piece",
+                    "stackable": true,
+                    "stack_name": "red_pool"
+                },
+                {
+                    "id": "black_pieces",
+                    "name": "Black Pieces",
+                    "shape": "circle",
+                    "z_index": 10,
+                    "clickable": true,
+                    "color": "#222222",
+                    "hover_text": "Black piece",
+                    "stackable": true,
+                    "stack_name": "black_pool"
+                }
+            ]
+        }
+    ],
+    "phase": {
+        "phase_name": "Player_Turn",
+        "phase_text": "Make your move",
+        "confirm_required": false,
+        "confirm_name": "Confirm",
+        "confirm_description": "",
+        "round_name": "Main Game",
+        "turn_name": "Player Turn"
+    },
+    "legal_moves": [
+        {
+            "move_id": "jump_7_0_5_2",
+            "type": "jump",
+            "from_row": 7,
+            "from_col": 0,
+            "over_row": 6,
+            "over_col": 1,
+            "to_row": 5,
+            "to_col": 2,
+            "player_id": "player_1"
+        }
+    ],
+    "current_player": "player_1",
+    "winner": null,
+    "game_data": {
+        "board": [
+            [
+                0,
+                0,
+                0,
+                3,
+                0,
+                3,
+                0,
+                3
+            ],
+            [
+                3,
+                0,
+                3,
+                0,
+                3,
+                0,
+                3,
+                0
+            ],
+            [
+                0,
+                0,
+                0,
+                3,
+                0,
+                3,
+                0,
+                3
+            ],
+            [
+                3,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            [
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0
+            ],
+            [
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0
+            ],
+            [
+                0,
+                3,
+                0,
+                1,
+                0,
+                1,
+                0,
+                1
+            ],
+            [
+                1,
+                0,
+                1,
+                0,
+                1,
+                0,
+                1,
+                0
+            ]
+        ]
+    }
+}

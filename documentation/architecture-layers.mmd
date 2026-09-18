@@ -1,0 +1,63 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '13px' }}}%%
+
+graph TB
+    subgraph L1 ["Layer 1: Routes"]
+        direction TB
+        R1["start_session<br/><i>creates game + session</i>"]
+        R2["submit_move<br/><i>validate + apply + phase</i>"]
+        R3["confirm_turn<br/><i>advance past confirm</i>"]
+        R4["get_legal_moves<br/><i>moves + screen_state</i>"]
+        R5["post_ai_move<br/><i>AI move + auto-confirm</i>"]
+    end
+
+    subgraph L2 ["Layer 2: Core Engine"]
+        direction TB
+        GE["GameEngine — engine.py<br/>submit_move, confirm_turn<br/>advance_phase, build_screen_state"]
+        MP["MovePipeline — engine.py<br/>schema → legal → version → apply → win"]
+    end
+
+    subgraph L3 ["Layer 3: Game Interface"]
+        direction TB
+        ABC["LegalMoveValidator — legal_move_interface.py<br/>validate_move · get_legal_moves<br/>apply_move · check_win<br/>recommend_ai_move · serialize_for_screen"]
+    end
+
+    subgraph L4 ["Layer 4: Checkers Rules"]
+        direction TB
+        VAL["CheckersValidator — checkers/validator.py<br/>8×8 board · mandatory capture<br/>multi-jump · king promotion"]
+        SER["serialize — checkers/serialize.py<br/>initial_board · board_to_cells"]
+    end
+
+    subgraph CFG ["Config"]
+        direction TB
+        Y["checkers.yaml<br/>panels · components · phases"]
+        CL["config_loader.py — config_schema.py<br/>YAML → typed dataclasses"]
+    end
+
+    subgraph INFRA ["Infrastructure"]
+        direction TB
+        GS["game_state.py<br/>GameState, PlayerInfo, TurnInfo"]
+        STORE["game_store.py<br/>in-memory dict"]
+        REPO["repository.py + db.py<br/>SQLite persistence"]
+        LOG["log.py<br/>@trace_fn · trace · trace_api"]
+    end
+
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L2 -.->|"reads phases + UI layout"| CFG
+    L2 --> INFRA
+    L4 --> INFRA
+
+    classDef route fill:#fce4ec,stroke:#c62828
+    classDef core fill:#e1f5fe,stroke:#0288d1
+    classDef iface fill:#fff3e0,stroke:#f57c00
+    classDef game fill:#e8f5e9,stroke:#388e3c
+    classDef config fill:#f3e5f5,stroke:#7b1fa2
+    classDef infra fill:#efebe9,stroke:#5d4037
+
+    class R1,R2,R3,R4,R5 route
+    class GE,MP core
+    class ABC iface
+    class VAL,SER game
+    class Y,CL config
+    class GS,STORE,REPO,LOG infra

@@ -1,0 +1,17 @@
+This project rbgg is an online board game engine which has a flexible re-usable game engine 
+and custom work for implimenting board games to play against AI bots.
+
+There is an exstensive guide for adding new games.  You need to follow that guide 
+and update a status file named after the game for the status as you move forward.  
+
+***gamename-stat.md***
+
+I the human will prepare some information for a game implimentation and place all 
+of the resources into a game specific folder.  Please start by scanning the entire
+project to get an idea of the framework, and previous games implimented, then proceed
+to the game we want you to impliment.  Within the game folder you will find images and
+other information I the human have prepared.  So now you can begin.
+
+Here is the game implimentation guide: documentation/adding-a-new-game-guide.md
+
+The game I want you to impliment is "documentation/lost-cities"

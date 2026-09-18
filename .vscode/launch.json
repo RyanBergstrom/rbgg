@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Simulate Game (MCTS v3)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/api/scripts/simulate_game.py",
+      "cwd": "${workspaceFolder}/api",
+      "console": "integratedTerminal",
+      "args": []
+    },
+    {
+      "name": "Simulate Game (full game)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/api/scripts/simulate_game.py",
+      "cwd": "${workspaceFolder}/api",
+      "console": "integratedTerminal",
+      "args": ["--full-game"]
+    }
+  ]
+}

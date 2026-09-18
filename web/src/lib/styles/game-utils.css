@@ -1,0 +1,56 @@
+/* ============================================
+   Game UI Utilities — shared across all games
+   ============================================ */
+
+/* --- Card States --- */
+
+/* A card that has a legal move available */
+.game-card.playable {
+  border: 2px solid #ffd700;
+}
+
+.game-card.playable:hover {
+  border-color: #fff;
+  transform: translateY(-4px);
+}
+
+/* A card the player has clicked to play/discard */
+.game-card.selected {
+  border: 2px solid #4caf50;
+  transform: translateY(-8px);
+  box-shadow: 0 0 16px rgba(76, 175, 80, 0.6);
+}
+
+/* --- Destination States --- */
+
+/* A slot where the selected card can be legally placed */
+.game-slot.legal-destination {
+  border-color: #4caf50 !important;
+  box-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+  cursor: pointer;
+}
+
+.game-slot.legal-destination:hover {
+  border-color: #66bb6a;
+  transform: scale(1.05);
+}
+
+/* A pile the player can legally draw from */
+.game-slot.legal-draw {
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 12px rgba(33, 150, 243, 0.6);
+  cursor: pointer;
+}
+
+.game-slot.legal-draw:hover {
+  border-color: #42a5f5;
+  transform: scale(1.05);
+}
+
+/* --- Disabled / Locked --- */
+
+.game-card.disabled,
+.game-slot.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

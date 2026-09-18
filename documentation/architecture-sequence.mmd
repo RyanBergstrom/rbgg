@@ -1,0 +1,65 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'fontSize': '13px' }}}%%
+
+sequenceDiagram
+    autonumber
+    participant FE as Frontend (Svelte)
+    participant Route as Route Handler
+    participant GE as GameEngine
+    participant MP as MovePipeline
+    participant Val as CheckersValidator
+    participant Store as game_store
+    participant YAML as checkers.yaml
+
+    Note over FE,YAML: === Player makes a move ===
+
+    FE->>Route: POST /api/v1/checkers/move {move_id, from_row, to_row, ...}
+    Route->>Store: get_state("checkers")
+    Store-->>Route: GameState
+
+    Route->>GE: submit_move(state, move, expected_version)
+    GE->>MP: submit_move(state_dict, move, expected_version)
+
+    MP->>Val: validate_move(state, move)
+    Note right of Val: Check turn order, piece ownership,<br/>mandatory jump, must_jump_from
+    Val-->>MP: true
+
+    MP->>Val: apply_move(state, move)
+    Note right of Val: Move piece, remove captured,<br/>promote king, detect multi-jump
+    Val-->>MP: {game_data: {board, must_jump_from?}}
+
+    MP->>Val: check_win(new_state)
+    Val-->>MP: None (or winner_id)
+
+    MP-->>GE: {move_id, status, new_state, winner}
+
+    alt Multi-jump required (must_jump_from set)
+        GE-->>Route: status="accepted", same player continues
+    else Confirm required (phase.confirm_required=true)
+        GE-->>Route: status="confirm_required"
+    else Normal move
+        GE->>GE: advance_phase(state)
+        Note left of GE: phase_index++ or<br/>player_index++, reset phases
+        GE-->>Route: status="accepted", next player
+    end
+
+    Route->>Store: set_state("checkers", state)
+    Route->>Route: build_screen_state(state, legal_moves)
+    Route->>YAML: Read panels, components, grid config
+    Route->>Val: serialize_for_screen(game_data)
+    Note right of Val: Convert board array → cells<br/>with piece type/color/king
+    Val-->>Route: {cells: [...]}
+
+    Route-->>FE: {status, screen_state: {panels, phase, legal_moves, ...}}
+
+    Note over FE,YAML: === If confirm_required, player confirms ===
+
+    FE->>Route: POST /api/v1/moves/confirm/checkers
+    Route->>Store: get_state("checkers")
+    Route->>GE: confirm_turn(state)
+    GE->>GE: should_show_confirm(state)
+    Note left of GE: Read YAML phase config
+    GE->>GE: advance_phase(state)
+    Note left of GE: Reset phase_index=0,<br/>player_index++, new TurnInfo
+    GE-->>Route: {status: "turn_complete"}
+    Route->>Store: set_state("checkers", state)
+    Route-->>FE: {status, screen_state: {current_player: "player_2", ...}}
