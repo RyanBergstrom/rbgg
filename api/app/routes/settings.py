@@ -13,6 +13,7 @@ SETTINGS_FILE = Path(__file__).resolve().parent.parent.parent / "settings.json"
 
 DEFAULT_SETTINGS: dict[str, Any] = {
     "hover_zoom_percent": 150,
+    "show_ai_controls": True,
 }
 
 

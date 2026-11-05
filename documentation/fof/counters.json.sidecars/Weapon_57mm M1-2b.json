@@ -1,0 +1,61 @@
+{
+  "id": "US-Weapon_57mm M1-2b.png",
+  "path": "documentation\\fof\\images\\Weapon_57mm M1-2b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Weapon_57mm M1-2b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "9a9a26273658397ae77ddc17509778a657c6c3b12bbdbf47a6098d3b1eec61b1",
+    "classified_at": "2026-11-04T00:52:30.419353+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "5",
+    "platoon": "5",
+    "squad_number": "7",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "H",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='| am 7mm\\nFire Team\\nse \u00a2 H ar\\nSiem)'"
+  }
+}

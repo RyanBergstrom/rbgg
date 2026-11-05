@@ -1,7 +1,9 @@
-import { c as create_ssr_component } from "../../chunks/ssr.js";
-const Layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  return `${slots.default ? slots.default({}) : ``}`;
-});
-export {
-  Layout as default
-};
+import { c as slot } from "../../chunks/server.js";
+//#region src/routes/+layout.svelte
+function _layout($$renderer, $$props) {
+	$$renderer.push(`<!--[-->`);
+	slot($$renderer, $$props, "default", {}, null);
+	$$renderer.push(`<!--]-->`);
+}
+//#endregion
+export { _layout as default };

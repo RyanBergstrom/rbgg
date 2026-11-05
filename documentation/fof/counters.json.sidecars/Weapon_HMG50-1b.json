@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Weapon_HMG50-1b.png",
+  "path": "documentation\\fof\\images\\Weapon_HMG50-1b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Weapon_HMG50-1b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "928b6d6ee3a96b0ad1483e48b3b6819d33c862fbde88762a61eacf636034daa9",
+    "classified_at": "2026-11-04T00:52:45.090417+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='cos 50 cal HG\\nFire Tea\\nHe C ed cere!\\nwe 6'"
+  }
+}

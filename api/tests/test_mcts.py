@@ -167,6 +167,41 @@ class TestMCTSEngineUnit:
         # (the validator clears must_jump_from when no more jumps)
         assert new_state["current_player_index"] == 1
 
+    def test_apply_move_retains_player_for_jump_continuation(self):
+        """A jump with another available capture keeps the same player."""
+        validator = CheckersValidator()
+        engine = MCTSEngine(validator, MCTSConfig(seed=42))
+        board = [[EMPTY] * 8 for _ in range(8)]
+        board[5][0] = RED
+        board[4][1] = BLACK
+        board[2][3] = BLACK
+        state = _make_state(board=board)
+        move = validator.get_legal_moves(state, "player_1")[0]
+
+        new_state = engine._apply_move_to_state(state, move)
+
+        assert new_state["current_player_index"] == 0
+        assert new_state["game_data"]["must_jump_from"] == {"row": 3, "col": 2}
+
+    def test_expanded_node_has_opponent_moves(self):
+        """MCTS expansion should continue with legal moves for player two."""
+        validator = CheckersValidator()
+        engine = MCTSEngine(validator, MCTSConfig(seed=42))
+        state = _make_state()
+        legal_moves = validator.get_legal_moves(state, "player_1")
+        root = MCTSNode(
+            state=state,
+            move=None,
+            parent=None,
+            untried_moves=list(legal_moves),
+            player_just_moved="player_2",
+        )
+
+        child = engine._expand(root)
+
+        assert engine._current_player_id(child.state) == "player_2"
+        assert validator.get_legal_moves(child.state, "player_2")
+
 
 # ── MCTSEngine integration tests ───────────────────────────────────
 
@@ -216,6 +251,20 @@ class TestMCTSEngineIntegration:
 
         assert result1.move["move_id"] == result2.move["move_id"]
         assert result1.visit_count == result2.visit_count
+
+    def test_search_uses_multi_ply_signal_beyond_root_only_policy(self):
+        """The tactical opening should not collapse to the first legal move."""
+        validator = CheckersValidator()
+        engine = MCTSEngine(validator, MCTSConfig(iterations=100, seed=42))
+        state = _make_state()
+        root_only_move = validator.get_legal_moves(state, "player_1")[0]
+
+        result = engine.search(state, "player_1")
+
+        assert result.move["move_id"] != root_only_move["move_id"]
+        assert result.move["move_id"] in {
+            move["move_id"] for move in validator.get_legal_moves(state, "player_1")
+        }
 
     def test_search_for_player_2(self):
         """MCTS should work for player_2 as well."""

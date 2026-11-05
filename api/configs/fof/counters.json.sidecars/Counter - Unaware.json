@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-UNAWARE",
+  "path": "api\\img\\fof\\ocr-test\\Counter - Unaware.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Counter - Unaware.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "bca80a99c5decc4c172033c32aaf6fc57bc160ebd80f4749d3111fe2810b0796",
+    "classified_at": "2026-11-05T05:15:24.144258+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "unaware",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "unaware",
+    "cover_type": "unaware",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": true,
+    "vof_level": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Neae",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:A",
+      "bottom_right_range:LRE"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'Neae', Middle OCR: '', Yellow Dots: 0, VOF (Left): A, Range (Right): LRE"
+  }
+}

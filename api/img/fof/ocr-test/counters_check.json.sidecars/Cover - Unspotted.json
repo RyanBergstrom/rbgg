@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-UNSPOTTED",
+  "path": "api\\img\\fof\\ocr-test\\Cover - Unspotted.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Unspotted.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "735a1d7af87a9c43c790e2ba6313780ba2c7dce6a9156cdbb231c4236a815721",
+    "classified_at": "2026-11-05T05:17:17.527137+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "unspotted",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "unspotted",
+    "cover_type": "unspotted",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:x",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:Y",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'x', Middle OCR: '', Yellow Dots: 2, VOF (Left): Y, Range (Right): "
+  }
+}

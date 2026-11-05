@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Sherman HQ 11.jpg",
+  "path": "documentation\\fof\\images\\Sherman HQ 11.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Sherman HQ 11.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "unknown",
+    "hash_sha256": "3b21122ea1fe9f8130a668e817570544eae0cb333c9094064ba5d7239d53b58a",
+    "classified_at": "2026-11-04T00:49:09.012867+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "hq_plt",
+  "unit_details": {
+    "unit_type": "hq_plt",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

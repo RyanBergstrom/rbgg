@@ -19,7 +19,7 @@ from app.games.lost_cities.validator import (
 )
 from app.core.game_state import GameState, PlayerInfo, TurnInfo, Topology
 from app.core.mcts import MCTSConfig
-from app.core.mcts_v3 import MCTSEngineV3
+from app.core.mcts import MCTSEngine
 
 
 validator = LostCitiesValidator()
@@ -82,7 +82,7 @@ def _log_rollout_weights(state_dict, player_id, n_rollouts=5, depth=40):
 
     for i in range(n_rollouts):
         config = MCTSConfig(iterations=1, max_depth=depth, seed=i * 100)
-        engine = MCTSEngineV3(validator, config)
+        engine = MCTSEngine(validator, config)
 
         # Clone state so we don't mutate original
         sd = deepcopy(state_dict)
@@ -200,7 +200,7 @@ class TestMCTSRolloutDebug:
 
         for i in range(n_rollouts):
             config = MCTSConfig(iterations=1, max_depth=40, seed=i * 77)
-            engine = MCTSEngineV3(validator, config)
+            engine = MCTSEngine(validator, config)
             sd2 = deepcopy(sd)
 
             node = MCTSNode(

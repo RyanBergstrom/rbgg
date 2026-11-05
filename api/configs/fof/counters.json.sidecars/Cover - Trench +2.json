@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-TRENCH",
+  "path": "api\\img\\fof\\ocr-test\\Cover - Trench +2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Trench +2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "e64f1aed5d70b4e3b7aa84d048130bf6f1091d0b27e8800568dbaa83ecc036e5",
+    "classified_at": "2026-11-05T05:15:51.596487+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "cover_type": "trench",
+    "cover_modifier": 2,
+    "secondary_modifier": null,
+    "no_fire": true,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Cover +2"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:TRENCH",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:J",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'TRENCH', Middle OCR: '', Yellow Dots: 1, VOF (Left): J, Range (Right): "
+  }
+}

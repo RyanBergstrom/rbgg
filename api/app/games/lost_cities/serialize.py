@@ -14,6 +14,7 @@ from app.games.lost_cities.validator import (
     is_numbered,
     _calculate_expedition_score,
     _calculate_player_score,
+    _build_score_breakdown,
 )
 
 
@@ -142,6 +143,8 @@ def serialize_game_data(game_data: dict[str, Any], current_player_id: str) -> di
     for pid in ["player_1", "player_2"]:
         current_scores[pid] = _calculate_player_score(expeditions.get(pid, {}))
 
+    score_breakdown = _build_score_breakdown(game_data)
+
     return {
         "player_hands": serialized_hands,
         "expeditions": serialized_expeditions,
@@ -156,6 +159,9 @@ def serialize_game_data(game_data: dict[str, Any], current_player_id: str) -> di
         "round": game_data.get("round", 1),
         "scores": game_data.get("scores", {"player_1": 0, "player_2": 0}),
         "current_scores": current_scores,
+        "score_breakdown": score_breakdown,
+        "round_summaries": list(game_data.get("round_summaries", [])),
+        "last_round_summary": game_data.get("last_round_summary"),
         "game_over": game_data.get("game_over", False),
         "round_over": game_data.get("round_over", False),
         "pending_draw": game_data.get("pending_draw", False),

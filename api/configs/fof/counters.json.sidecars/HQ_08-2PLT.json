@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-HQ_08-2PLT.png",
+  "path": "api\\img\\fof\\counters\\HQ_08-2PLT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ_08-2PLT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "ef2e0f9aab46fd7db34d919c612278550396a3b67f24ea8339f6b9434053c2a1",
+    "classified_at": "2026-11-04T03:06:40.531100+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "08",
+    "platoon": "08",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='rq cS y my'"
+  }
+}

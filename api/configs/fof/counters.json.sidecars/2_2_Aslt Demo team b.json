@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-2_2_Aslt Demo team b.png",
+  "path": "api\\img\\fof\\counters\\2_2_Aslt Demo team b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "2_2_Aslt Demo team b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "d3350d77f18b38100c9b2961a5cadefbf2fc84cd1514b504e9cdcd39c6215af6",
+    "classified_at": "2026-11-04T03:00:21.533606+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "2",
+    "platoon": "2",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Assault Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='22st\\neter\u201d\\nse \u00a2 Pa'"
+  }
+}

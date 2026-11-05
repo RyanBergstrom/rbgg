@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-GE_Rifle Grenade 1 shot.png",
+  "path": "api\\img\\fof\\counters\\GE_Rifle Grenade 1 shot.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_Rifle Grenade 1 shot.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "2dc468a337be442a88ab54bfe221eface63f03d06f9810136840df40ed55dd1d",
+    "classified_at": "2026-11-04T03:05:46.745440+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='-\\nGl! c Fling Grenae | Pd'"
+  }
+}

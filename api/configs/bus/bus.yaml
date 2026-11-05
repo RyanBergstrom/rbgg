@@ -1,0 +1,78 @@
+# Bus configuration. The dedicated board component renders the image map and
+# semantic overlays from the validator's serialized topology.
+game_id: bus
+name: Bus
+type: bus
+cover-image: api/img/bus/bus-boxart.webp
+hover_zoom: false
+min_players: 3
+max_players: 5
+
+panels:
+  game_progress:
+    name: Game Progress
+    required: true
+  main_board:
+    name: Main Board
+    required: true
+    components:
+      bus_board:
+        name: Bus board
+        shape: rectangle
+        color: "#d8e0e5"
+        z_index: 0
+        clickable: true
+
+rounds:
+  - name: Bus Game
+    turns:
+      - name: Validator-controlled turn
+        phases:
+          - name: SETUP_BUILDINGS
+            text: Place your initial buildings
+            order: 1
+            confirm: { required: false }
+          - name: SETUP_FIRST_ROUTE_SEGMENTS
+            text: Place your first route segment
+            order: 2
+            confirm: { required: false }
+          - name: SETUP_SECOND_ROUTE_SEGMENTS
+            text: Extend your initial route
+            order: 3
+            confirm: { required: false }
+          - name: ACTION_SELECTION
+            text: Choose an action marker or pass
+            order: 4
+            confirm: { required: false }
+          - name: RESOLVE_LINE_EXPANSION
+            text: Resolve Line Expansion
+            order: 5
+            confirm: { required: false }
+          - name: RESOLVE_BUSES
+            text: Resolve Buses
+            order: 6
+            confirm: { required: false }
+          - name: RESOLVE_PASSENGERS
+            text: Resolve Passengers
+            order: 7
+            confirm: { required: false }
+          - name: RESOLVE_BUILDINGS
+            text: Resolve Buildings
+            order: 8
+            confirm: { required: false }
+          - name: RESOLVE_CLOCK
+            text: Resolve Clock
+            order: 9
+            confirm: { required: false }
+          - name: RESOLVE_VRROOMM
+            text: Resolve Vrrooomm!
+            order: 10
+            confirm: { required: false }
+          - name: RESOLVE_STARTING_PLAYER
+            text: Resolve Starting Player
+            order: 11
+            confirm: { required: false }
+          - name: GAME_OVER
+            text: Game over
+            order: 12
+            confirm: { required: false }

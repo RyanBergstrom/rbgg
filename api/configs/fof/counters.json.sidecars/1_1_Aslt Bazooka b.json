@@ -1,0 +1,69 @@
+{
+  "id": "US-1-1-LAT",
+  "path": "api\\img\\fof\\ocr-test\\1_1_Aslt Bazooka b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_1_Aslt Bazooka b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "998c2f5b490fcfde2d7d9a90238751924f4f1250ba1b22244ab7e700b7b6bf2b",
+    "classified_at": "2026-11-05T03:14:58.045507+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "lat",
+  "unit_details": {
+    "unit_type": "lat",
+    "division": null,
+    "battalion": null,
+    "platoon": "1",
+    "squad_number": "1",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:T/1/Asit",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'T/1/Asit', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
+  }
+}

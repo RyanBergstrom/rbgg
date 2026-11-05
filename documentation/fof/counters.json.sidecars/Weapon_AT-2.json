@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Weapon_AT-2.png",
+  "path": "documentation\\fof\\images\\Weapon_AT-2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Weapon_AT-2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "8269e17115a5383369bbbd1c0d4825ef406c7e94dce7b6e7f220693d81c4ad92",
+    "classified_at": "2026-11-04T00:52:37.356390+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='a Pd'"
+  }
+}

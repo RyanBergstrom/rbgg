@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-G5Marines 2-2 3step.png",
+  "path": "api\\img\\fof\\counters\\G5Marines 2-2 3step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "G5Marines 2-2 3step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "5ad792232a3dd5af69bbc9b48a90db6fb7b9de617a90d319370f3cb776a7adde",
+    "classified_at": "2026-11-04T03:04:33.205677+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='&. Astene L 2!'"
+  }
+}

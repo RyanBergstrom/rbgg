@@ -1,0 +1,61 @@
+{
+  "id": "US-HQ_06-1SGT_USMCb.png",
+  "path": "api\\img\\fof\\counters\\HQ_06-1SGT_USMCb.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ_06-1SGT_USMCb.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "919d3b7eb2dd11785338bd2b53e18513972fafcea06253b823ae79c6c097279e",
+    "classified_at": "2026-11-04T03:06:38.044254+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "06",
+    "platoon": "06",
+    "squad_number": "1",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='S| GAN.\\n5H oG \u00a3)'"
+  }
+}

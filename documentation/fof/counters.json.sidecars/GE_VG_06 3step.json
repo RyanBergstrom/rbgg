@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-GE_VG_06 3step.png",
+  "path": "documentation\\fof\\images\\GE_VG_06 3step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_VG_06 3step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "f3445818a152e436f3604e424a4754d61a5d51b203dae8b3c14a098a717f9533",
+    "classified_at": "2026-11-04T00:42:39.317051+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2014 61Gp NG, ee Pd\\nNeve'"
+  }
+}

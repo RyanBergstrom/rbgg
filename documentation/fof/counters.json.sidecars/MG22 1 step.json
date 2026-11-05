@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-MG22 1 step.png",
+  "path": "documentation\\fof\\images\\MG22 1 step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "MG22 1 step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "f41664f42ff23d7b1ca096fe230e5992297e36887a3a41f3482f6c0a1dbc987e",
+    "classified_at": "2026-11-04T00:45:24.816369+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "2",
+    "platoon": "2",
+    "squad_number": "2",
+    "experience_level": "A",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ee a'"
+  }
+}

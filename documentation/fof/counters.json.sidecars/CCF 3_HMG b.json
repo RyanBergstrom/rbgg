@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-CCF 3_HMG b.png",
+  "path": "documentation\\fof\\images\\CCF 3_HMG b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "CCF 3_HMG b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "e270ac58416a570d14b17f887dc04226dec8fb71c79729ee820567b970323924",
+    "classified_at": "2026-11-04T00:39:09.377537+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ae ecaal\\nLae |\\n0 G7 a'"
+  }
+}

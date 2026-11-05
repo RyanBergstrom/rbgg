@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Control_FPF-Mortar.png",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Control_FPF-Mortar.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Control_FPF-Mortar.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "51203c50c08eec91f864fc9528733483cb0b95e904f7131fea61714655cfac8b",
+    "classified_at": "2026-11-02T20:56:48.340515+00:00",
+    "classifier": "fof-counter-pipeline v1.0",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Mortar",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

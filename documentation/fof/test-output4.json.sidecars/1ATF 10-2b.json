@@ -1,0 +1,63 @@
+{
+  "id": "Australian-1ATF 10-2b.jpg",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\1ATF 10-2b.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1ATF 10-2b.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "back",
+    "hash_sha256": "92e05bfbdfe274f97ca945b55d64ef33b32d512fbc4568baeebb01a2c0b8f014",
+    "classified_at": "2026-11-02T21:05:16.251220+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Australian",
+  "category": "unit",
+  "subtype": "unknown",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "openai/clip-vit-base-patch32 + tesseract",
+    "labels": [
+      "a Fields of Fire primary direction of fire marker"
+    ],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

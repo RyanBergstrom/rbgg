@@ -28,7 +28,7 @@
     <div class="error-state">
       <h2>Error</h2>
       <p>{error}</p>
-      <button onclick="window.location.reload()">Retry</button>
+      <button onclick={() => window.location.reload()}>Retry</button>
     </div>
   {:else if games.length === 0}
     <div class="empty-state" data-testid="empty-state">
@@ -55,6 +55,9 @@
         </a>
       {/each}
     </div>
+    <footer>
+      <a href="/asset-reviewer" class="footer-link">Asset Reviewer</a>
+    </footer>
   {/if}
 </main>
 
@@ -184,6 +187,24 @@
     font-weight: 600;
     color: #eee;
     text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+
+footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+  }
+
+  .footer-link {
+    font-size: 0.75rem;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer-link:hover {
+    color: #888;
   }
 
   @media (max-width: 480px) {

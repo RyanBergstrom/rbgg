@@ -4,14 +4,93 @@
  */
 const BASE_URL = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api/v1';
 
+export const API_BASE = BASE_URL;
+
+export class ApiError extends Error {
+  status;
+  code;
+
+  constructor(message, status, code = 'API_ERROR') {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+    this.code = code;
+  }
+}
+
+async function request(url, options = {}, timeoutMs = 30000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    let payload = null;
+    try {
+      payload = await response.json();
+    } catch {
+      payload = null;
+    }
+    if (!response.ok) {
+      const error = payload?.error || payload?.detail || {};
+      const message = typeof error === 'string' ? error : error.message || `Request failed (${response.status})`;
+      throw new ApiError(message, response.status, typeof error === 'object' ? error.code : 'API_ERROR');
+    }
+    return payload;
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new ApiError('Request timed out. Please retry.', 408, 'REQUEST_TIMEOUT');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function getGames() {
   const res = await fetch(`${BASE_URL}/games/`);
   if (!res.ok) throw new Error('Failed to fetch games');
   return res.json();
 }
 
-export async function getGame(gameId) {
-  const res = await fetch(`${BASE_URL}/games/${gameId}`);
+export async function getAssetReviewGames() {
+    return request(`${BASE_URL}/asset-review/config-games`);
+  }
+
+export async function getAssetReviewCsv(gameId, csvName) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/${encodeURIComponent(csvName)}`);
+}
+
+export async function validateAssetReviewRow(gameId, csvName, rowIndex, validated = true) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/${encodeURIComponent(csvName)}/rows/${rowIndex}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ validated }),
+  });
+}
+
+export async function updateAssetReviewRow(gameId, csvName, rowIndex, updates) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/${encodeURIComponent(csvName)}/rows/${rowIndex}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ updates }),
+  });
+}
+
+export async function updateAssetReviewFields(gameId, csvName, add = [], remove = []) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/${encodeURIComponent(csvName)}/fields`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ add, remove }),
+  });
+}
+
+export function getAssetReviewImageUrl(gameId, imagePath) {
+  const safePath = imagePath.split(/[\\/]+/).map(encodeURIComponent).join('/');
+  return `${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/images/${safePath}`;
+}
+
+export async function getGame(gameId, sessionId = null) {
+  const query = sessionId ? `?session_id=${sessionId}` : '';
+  const res = await fetch(`${BASE_URL}/games/${gameId}${query}`);
   if (!res.ok) throw new Error(`Failed to fetch game ${gameId}`);
   return res.json();
 }
@@ -30,66 +109,62 @@ export async function deleteSession(sessionId) {
   return res.json();
 }
 
-export async function startSession(gameId, playerName, minPlayers, maxPlayers, difficulty) {
+export async function startSession(gameId, playerName, playerCount, difficulty, scenarioId = null) {
+  const body = { playerName, playerCount, difficulty };
+  if (scenarioId) {
+    body.scenarioId = scenarioId;
+  }
   const res = await fetch(`${BASE_URL}/moves/start-session/${gameId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ playerName, minPlayers, maxPlayers, difficulty }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error('Failed to start session');
   return res.json();
 }
 
-export async function getLegalMoves(gameId) {
-  const res = await fetch(`${BASE_URL}/moves/legal-moves`, {
+export async function getLegalMoves(sessionId) {
+  return request(`${BASE_URL}/moves/legal-moves`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ game_id: gameId }),
+    body: JSON.stringify({ session_id: sessionId }),
   });
-  if (!res.ok) throw new Error(`Failed to fetch legal moves for game ${gameId}`);
-  return res.json();
 }
 
-export async function makeMove(gameId, move) {
-  const res = await fetch(`${BASE_URL}/moves/${gameId}/move`, {
+export async function makeMove(sessionId, move) {
+  return request(`${BASE_URL}/moves/${sessionId}/move`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(move),
   });
-  if (!res.ok) throw new Error('Failed to make move');
-  return res.json();
 }
 
-export async function getAiMove(gameId, sessionId) {
-  const res = await fetch(`${BASE_URL}/moves/ai`, {
+export async function getAiMove(sessionId, provider = 'mcts', aiDifficulty = 'hard') {
+  const body: { sessionId: number; provider: string; aiDifficulty?: string } = { sessionId, provider };
+  if (provider === 'ppo') body.aiDifficulty = aiDifficulty;
+  return request(`${BASE_URL}/moves/ai`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ gameId, sessionId }),
-  });
-  if (!res.ok) throw new Error('Failed to get AI move');
-  return res.json();
+    body: JSON.stringify(body),
+  }, 120000);
 }
 
-export async function confirmTurn(gameId) {
-  const res = await fetch(`${BASE_URL}/moves/confirm/${gameId}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (!res.ok) throw new Error('Failed to confirm turn');
-  return res.json();
-}
-
-export async function undoMove(gameId) {
-  const res = await fetch(`${BASE_URL}/moves/undo/${gameId}`, {
+export async function confirmTurn(sessionId) {
+  return request(`${BASE_URL}/moves/confirm/${sessionId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
   });
-  if (!res.ok) throw new Error('Failed to undo move');
-  return res.json();
 }
 
-export async function debugLoadState(gameId, gameData, currentPlayerIndex, winner) {
-  const res = await fetch(`${BASE_URL}/moves/debug-load/${gameId}`, {
+export async function undoMove(sessionId) {
+  return request(`${BASE_URL}/moves/undo/${sessionId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
+export async function debugLoadState(sessionId, gameData, currentPlayerIndex, winner) {
+  return request(`${BASE_URL}/moves/debug-load/${sessionId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -98,17 +173,6 @@ export async function debugLoadState(gameId, gameData, currentPlayerIndex, winne
       winner,
     }),
   });
-  if (!res.ok) throw new Error(`Failed to load debug state for game ${gameId}`);
-  return res.json();
-}
-
-export async function startNewGame(gameId) {
-  const res = await fetch(`${BASE_URL}/sessions/${gameId}/start`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-  });
-  if (!res.ok) throw new Error('Failed to start new game');
-  return res.json();
 }
 
 export async function loadSession(sessionId) {

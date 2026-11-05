@@ -1,0 +1,61 @@
+{
+  "id": "NVA-NVA MG 1.png",
+  "path": "documentation\\fof\\images\\NVA MG 1.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NVA MG 1.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "c1849aaa991fbea24cf12d977ddda3ece6b400786f080150d6039a88ad513b2b",
+    "classified_at": "2026-11-04T00:48:17.376387+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "NVA",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='UMG/NVA\\neae,\\nAe L aN oy\\nhoe'"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-1_2_Aslt Bazooka b.png",
+  "path": "documentation\\fof\\images\\1_2_Aslt Bazooka b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_2_Aslt Bazooka b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "50cd1e10c19373340f20c51627aa1373cbcbd2af854725f61fb58a389ee372eb",
+    "classified_at": "2026-11-04T00:35:19.405765+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "1",
+    "platoon": "1",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Bazooka",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u20182st\\nFireTeait\u2122\\nsec i Se'"
+  }
+}

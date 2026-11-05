@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Cover - Strong Building +3.png",
+  "path": "documentation\\fof\\images\\Cover - Strong Building +3.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Strong Building +3.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "50c6ecb2d4f9031a1a6f4da35dfbb74097046787f0d90bc6ed05e2540f9c0d77",
+    "classified_at": "2026-11-04T00:40:42.852583+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ey | Ey'"
+  }
+}

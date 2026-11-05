@@ -1,0 +1,69 @@
+{
+  "id": "US-1-1-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\ocr-test\\1_Mtr 60mm b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_Mtr 60mm b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "aac6bdfc453c50fa8dc0eab94a54a895b1c945e928da8d90a1dcdac46f21786a",
+    "classified_at": "2026-11-05T03:14:59.967710+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": "1",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1Mitr",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '1Mitr', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
+  }
+}

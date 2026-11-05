@@ -1,0 +1,61 @@
+{
+  "id": "NVA-NVA AP Fire Team.png",
+  "path": "documentation\\fof\\images\\NVA AP Fire Team.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NVA AP Fire Team.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "6e7a40c97f5a0e06fdf2c54e7938a8f95395ec4e0d1f12824a2e6e66bbc8b644",
+    "classified_at": "2026-11-04T00:48:07.807248+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "NVA",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='wa\\nFire Team\\nAe P er\\nA Pe'"
+  }
+}

@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: rbgg-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn wsgi:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.0
+      - key: RBGG_ASSET_REVIEW_ROOT
+        value: /opt/render/project/src/documentation
+      - key: RBGG_CONFIG_ROOT
+        value: /opt/render/project/src/api/configs
+    rootDir: api
+    healthCheckPath: /api/v1/games/
+
+  - type: web
+    name: rbgg-web
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node build
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.2
+      - key: VITE_API_BASE
+        value: https://rbgg-api.onrender.com/api/v1
+    rootDir: web

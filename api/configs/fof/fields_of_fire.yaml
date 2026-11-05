@@ -1,0 +1,74 @@
+# Fields of Fire (Deluxe) configuration
+game_id: fields_of_fire
+name: Fields of Fire (Deluxe)
+type: fields_of_fire
+min_players: 1
+max_players: 1
+cover-image: null
+
+panels:
+  game_progress:
+    name: Game Progress
+    required: true
+  main_board:
+    name: Main Board
+    required: true
+    components:
+      board:
+        name: Board
+        shape: rectangle
+        color: "#8b7355"
+        z_index: 0
+        clickable: false
+
+rounds:
+  - name: Mission
+    turns:
+      - name: Turn
+        phases:
+          - name: setup
+            text: "Set up the mission"
+            order: 1
+            confirm:
+              required: false
+          - name: friendly_higher_hq_event
+            text: "Friendly Higher HQ Event"
+            order: 2
+            confirm:
+              required: false
+          - name: friendly_command
+            text: "Friendly Command Phase"
+            order: 3
+            confirm:
+              required: false
+          - name: enemy_activity
+            text: "Enemy Activity Phase"
+            order: 4
+            confirm:
+              required: false
+          - name: mutual_capture_retreat
+            text: "Mutual Capture & Retreat"
+            order: 5
+            confirm:
+              required: false
+          - name: at_combat_vehicle_movement
+            text: "AT Combat & Vehicle Movement"
+            order: 6
+            confirm:
+              required: false
+          - name: mutual_combat
+            text: "Mutual Combat"
+            order: 7
+            confirm:
+              required: false
+          - name: clean_up
+            text: "Clean Up"
+            order: 8
+            confirm:
+              required: false
+          - name: game_over
+            text: "Game Over"
+            order: 9
+            confirm:
+              required: false
+

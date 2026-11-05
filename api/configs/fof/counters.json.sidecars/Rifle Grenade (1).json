@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Rifle Grenade (1).jpg",
+  "path": "api\\img\\fof\\counters\\Rifle Grenade (1).jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Rifle Grenade (1).jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "unknown",
+    "hash_sha256": "9f1ef8b473e7a45ea5a42448cf062c00ef038cefd505bc28a3db6f6ebe66df67",
+    "classified_at": "2026-11-04T03:11:46.738654+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='BPatrir,\\n[osteane\\nKe\\n\\nao'"
+  }
+}

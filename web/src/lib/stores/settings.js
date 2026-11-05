@@ -3,6 +3,7 @@ import { browser } from '$app/environment';
 
 const DEFAULT_SETTINGS = {
   hover_zoom_percent: 150,
+  show_ai_controls: true,
 };
 
 function createSettingsStore() {

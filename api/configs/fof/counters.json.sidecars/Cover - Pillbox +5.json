@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-PILLBOX",
+  "path": "api\\img\\fof\\ocr-test\\Cover - Pillbox +5.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Pillbox +5.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "ec3b0a393abea0eb9c1e031abe1e7c6bff10112f080cda3e4bbbe69471a2a96c",
+    "classified_at": "2026-11-05T05:15:41.134663+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "cover_type": "pillbox",
+    "cover_modifier": 5,
+    "secondary_modifier": null,
+    "no_fire": true,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Cover +5"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:PULBOX",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:5",
+      "bottom_right_range:2"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'PULBOX', Middle OCR: '', Yellow Dots: 1, VOF (Left): 5, Range (Right): 2"
+  }
+}

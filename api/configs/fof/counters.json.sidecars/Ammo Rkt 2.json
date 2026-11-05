@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo Rkt 2.png",
+  "path": "api\\img\\fof\\counters\\Ammo Rkt 2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo Rkt 2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "76e505a6cc79a7307174f47d958b659c5301ced32ffc0ddfbe66af83c8a83faa",
+    "classified_at": "2026-11-04T03:02:14.058165+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Aa\\nHie'"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-BURNING_WRECK",
+  "path": "api\\img\\fof\\ocr-test\\Cover - Wreck - Burning.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Wreck - Burning.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "0ca6bf0eb6619218090d4c31f4a991efdcf3e8f1900eb965a930f014db7cb0b8",
+    "classified_at": "2026-11-05T05:17:21.844173+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "cover_type": "burning_wreck",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:B",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): B, Range (Right): "
+  }
+}

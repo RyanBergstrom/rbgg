@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Asset - Flamethrower Fuel-2.png",
+  "path": "api\\img\\fof\\counters\\Asset - Flamethrower Fuel-2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Asset - Flamethrower Fuel-2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "ece481b0c934996e8d9e8f3eddc1c38d110588cf1f584445ac67d84f8880bd1a",
+    "classified_at": "2026-11-04T03:02:25.366521+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\"uel\\n2shots-\\ni)'"
+  }
+}

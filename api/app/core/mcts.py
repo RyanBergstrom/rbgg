@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import concurrent.futures
 import copy
+import json
 import math
 import os
 import random
@@ -28,6 +29,7 @@ from typing import Any
 
 from app.core.legal_move_interface import LegalMoveValidator
 from app.core.log import suppress_tracing, trace
+from app.core.search_policy import SearchPolicy, ValidatorSearchPolicy, policy_for_validator
 
 
 # ── Configuration ───────────────────────────────────────────────────
@@ -42,13 +44,24 @@ class MCTSConfig:
     seed: int | None = None
     workers: int = 1  # number of parallel workers (root parallelism)
     full_game_rollout: bool = False  # if True, rollout runs until game ends (ignores max_depth)
+    strategy: str = "legacy"  # "legacy" or "hybrid"
+    hot_pool_size: int = 3
+    admission_interval: int = 15
+    root_score_margin: float = 0.10
+    root_min_actions: int = 5
+    final_budget_fraction: float = 0.05
+    confidence_constant: float = 0.15
+    discard_ceiling: float = 0.40
+    diagnostic_enabled: bool = False
+    diagnostic_max_records: int = 100
+    diagnostic_extremes_per_root: int = 5
 
 
 @dataclass
 class MCTSResult:
     """Output of an MCTS search."""
 
-    move: dict[str, Any]
+    move: dict[str, Any] | None
     visit_count: int
     win_rate: float
     total_iterations: int
@@ -56,6 +69,10 @@ class MCTSResult:
     top_moves: list[dict[str, Any]] = field(default_factory=list)
     finished_rounds: int = 0
     depth_limited: int = 0
+    max_depth_reached: int = 0
+    average_depth: float = 0.0
+    diagnostics: list[dict[str, Any]] = field(default_factory=list)
+    diagnostic_summaries: list[dict[str, Any]] = field(default_factory=list)
 
 
 # ── Tree Node ───────────────────────────────────────────────────────
@@ -73,6 +90,9 @@ class MCTSNode:
     untried_moves: list[dict[str, Any]] = field(default_factory=list)
     player_just_moved: str | None = None
     priors: dict[str, float] = field(default_factory=dict)  # move_id → prior value
+    hot_pool: list[dict[str, Any]] | None = None
+    cold_pool: list[dict[str, Any]] | None = None
+    action_values: dict[str, float] = field(default_factory=dict)
 
     def is_fully_expanded(self) -> bool:
         return len(self.untried_moves) == 0
@@ -108,7 +128,7 @@ class MCTSNode:
 class MCTSEngine:
     """Generic Monte Carlo Tree Search engine.
 
-    Works with any ``LegalMoveValidator`` — no game-specific MCTS code needed.
+    Works with any ``LegalMoveValidator`` through the policy contract.
 
     When ``config.workers > 1``, uses root parallelism: independent MCTS
     searches run in parallel via ``ProcessPoolExecutor``, and visit counts
@@ -119,10 +139,12 @@ class MCTSEngine:
         self,
         validator: LegalMoveValidator,
         config: MCTSConfig | None = None,
+        policy: SearchPolicy | None = None,
     ) -> None:
         self.validator = validator
         self.config = config or MCTSConfig()
         self.rng = random.Random(self.config.seed)
+        self.policy: SearchPolicy = policy or policy_for_validator(validator)
 
     # ── Public API ───────────────────────────────────────────────────
 
@@ -139,7 +161,9 @@ class MCTSEngine:
         t0 = time.perf_counter()
 
         with suppress_tracing():
-            if self.config.workers > 1:
+            if self.config.strategy == "hybrid":
+                result = HybridMCTSEngine(self.validator, self.config, self.policy)._search(state, player_id)
+            elif self.config.workers > 1:
                 result = self._search_parallel(state, player_id)
             else:
                 result = self._search_sequential(state, player_id)
@@ -147,17 +171,20 @@ class MCTSEngine:
         result.search_time_ms = round((time.perf_counter() - t0) * 1000, 2)
 
         # Log summary (outside suppress_tracing so it actually logs)
-        trace("mcts", "search_result",
-              player_id=player_id,
-              iterations=result.total_iterations,
-              best_move=result.move.get("type", "") + ":" + result.move.get("card", result.move.get("source", "")),
-              visit_count=result.visit_count,
-              win_rate=round(result.win_rate, 3),
-              search_ms=result.search_time_ms,
-              finished_rounds=result.finished_rounds,
-              depth_limited=result.depth_limited,
-              top_moves=result.top_moves,
-              )
+        move = result.move or {}
+        trace(
+            "mcts",
+            "search_result",
+            player_id=player_id,
+            iterations=result.total_iterations,
+            best_move=move.get("type", "") + ":" + move.get("card", move.get("source", "")),
+            visit_count=result.visit_count,
+            win_rate=round(result.win_rate, 3),
+            search_ms=result.search_time_ms,
+            finished_rounds=result.finished_rounds,
+            depth_limited=result.depth_limited,
+            top_moves=result.top_moves,
+        )
 
         return result
 
@@ -170,21 +197,18 @@ class MCTSEngine:
         root_state = self._clone_state(state)
         root_state["current_player_index"] = self._find_player_index(root_state, player_id)
 
-        game_data = root_state.get("game_data", {})
-        turn_number = game_data.get("round", 0)
-
-        legal_moves = self.validator.get_legal_moves(root_state, player_id)
-        # Apply game-specific move filters (turn-1-2 only)
-        legal_moves = self.validator.filter_moves(root_state, player_id, legal_moves, turn_number)
-        # Compute priors for root-level moves
-        root_priors = self.validator.prior_moves(root_state, player_id, legal_moves, turn_number)
+        turn_number = root_state.get("game_data", {}).get("round", 0)
+        legal_moves = self.policy.filter_moves(
+            root_state, player_id, self.policy.legal_moves(root_state, player_id), turn_number
+        )
+        root_priors = self.policy.prior_moves(root_state, player_id, legal_moves, turn_number)
 
         root = MCTSNode(
             state=root_state,
             move=None,
             parent=None,
             untried_moves=list(legal_moves),
-            player_just_moved=self._get_opponent(player_id),
+            player_just_moved=self.policy.opponent_player(root_state, player_id),
             priors=root_priors,
         )
 
@@ -243,7 +267,6 @@ class MCTSEngine:
 
         # Build tasks: each worker gets a unique seed and iteration count
         base_seed = self.config.seed if self.config.seed is not None else random.randint(0, 2**32)
-        engine_class_name = type(self).__name__
         tasks = []
         for i in range(workers):
             worker_iters = iters_per_worker + (1 if i < remainder else 0)
@@ -257,9 +280,9 @@ class MCTSEngine:
                     "max_depth": self.config.max_depth,
                     "seed": worker_seed,
                     "workers": 1,  # each worker runs sequentially
+                    "full_game_rollout": self.config.full_game_rollout,
                 },
                 worker_iters,
-                engine_class_name,
             ))
 
         # Run workers in parallel
@@ -288,7 +311,7 @@ class MCTSEngine:
             # Fallback: no children expanded — pick first legal move
             root_state = self._clone_state(state)
             root_state["current_player_index"] = self._find_player_index(root_state, player_id)
-            legal_moves = self.validator.get_legal_moves(root_state, player_id)
+            legal_moves = self.policy.legal_moves(root_state, player_id)
             best_move = legal_moves[0] if legal_moves else {}
             return MCTSResult(
                 move=best_move,
@@ -305,7 +328,7 @@ class MCTSEngine:
         # Reconstruct the move dict from the original legal moves
         root_state = self._clone_state(state)
         root_state["current_player_index"] = self._find_player_index(root_state, player_id)
-        legal_moves = self.validator.get_legal_moves(root_state, player_id)
+        legal_moves = self.policy.legal_moves(root_state, player_id)
         best_move = next((m for m in legal_moves if m.get("move_id") == best_move_id), {})
 
         # Collect top move stats for logging
@@ -355,10 +378,6 @@ class MCTSEngine:
         # Clamp negatives to 0
         clamped = [max(0.0, w) for w in weights]
 
-        # Debug: show what weights are being applied to each move
-        debug_pairs = list(zip([m.get("action", m.get("card", str(m))) for m in moves], clamped))
-        print(f"  [WEIGHT_DEBUG] {debug_pairs}")
-
         # If all zero after clamp, fall back to uniform
         total = sum(clamped)
         if total <= 0:
@@ -378,7 +397,7 @@ class MCTSEngine:
         """Pop an untried move using expansion weights, apply it, and create a child node."""
         # Use expansion weights from validator to filter/weight moves
         current_player = self._current_player_id(node.state)
-        exp_weights = self.validator.expansion_weights(node.state, current_player, node.untried_moves)
+        exp_weights = self.policy.expansion_weights(node.state, current_player, node.untried_moves)
         
         # Filter out moves with weight 0 and build weight list
         filtered_moves = []
@@ -401,8 +420,8 @@ class MCTSEngine:
 
         current_player = self._current_player_id(new_state)
         turn_number = new_state.get("game_data", {}).get("round", 0)
-        legal_moves = self.validator.get_legal_moves(new_state, current_player)
-        child_priors = self.validator.prior_moves(new_state, current_player, legal_moves, turn_number)
+        legal_moves = self.policy.legal_moves(new_state, current_player)
+        child_priors = self.policy.prior_moves(new_state, current_player, legal_moves, turn_number)
 
         child = MCTSNode(
             state=new_state,
@@ -418,40 +437,56 @@ class MCTSEngine:
     # ── Simulation ───────────────────────────────────────────────────
 
     def _simulate(self, node: MCTSNode, searching_player: str) -> tuple[float, bool]:
-        """Random rollout from node's state. Returns (reward, finished_round)."""
+        """Run a heuristic-weighted rollout and return its score reward.
+
+        This combines the strongest behavior from the former engine versions:
+        V3's heuristic rollout selection takes precedence over V1's uniform
+        random selection, while V2's score-differential evaluation takes
+        precedence over V1's binary winner reward.
+        """
         state = self._clone_state(node.state)
         current_player = self._current_player_id(state)
-        original_player = searching_player
 
-        for depth in range(self.config.max_depth):
-            winner = self.validator.check_win(state)
-            if winner is not None:
-                return (1.0 if winner == original_player else 0.0), True
+        depth_limit = 200 if self.config.full_game_rollout else self.config.max_depth
+        for _ in range(depth_limit):
+            if self.policy.is_terminal(state):
+                return self._score_reward(state, searching_player), True
 
-            if self.validator.stop_rollout(state, current_player):
-                return (1.0 if original_player != current_player else 0.0), True
+            if self.policy.stop_rollout(state, current_player):
+                return self._score_reward(state, searching_player), True
 
-            moves = self.validator.get_legal_moves(state, current_player)
+            moves = self.policy.legal_moves(state, current_player)
             if not moves:
-                return (1.0 if original_player != current_player else 0.0), True
+                return self._score_reward(state, searching_player), True
 
-            move = self.rng.choice(moves)
+            scores = self.policy.score_moves(state, current_player, moves)
+            weights = [scores.get(m.get("move_id", ""), 0.0) for m in moves]
+            move = self._weighted_choice(moves, weights)
             state = self._apply_move_to_state(state, move)
             current_player = self._current_player_id(state)
 
-        return 0.5, False  # depth limit reached
+        return self._score_reward(state, searching_player), False
+
+    def _score_reward(
+        self,
+        state: dict[str, Any],
+        searching_player: str,
+        winner: str | None = None,
+    ) -> float:
+        """Delegate legacy reward evaluation to the selected policy."""
+        return self.policy.score_reward(state, searching_player, winner)
 
     # ── Backpropagation ──────────────────────────────────────────────
 
     def _backpropagate(self, node: MCTSNode, reward: float, searching_player: str) -> None:
-        """Walk back to root, incrementing visits and adding perspective-aware rewards."""
+        """Backpropagate the V2 perspective-aware score reward."""
         current: MCTSNode | None = node
         while current is not None:
             current.visits += 1
             if current.player_just_moved == searching_player:
                 current.wins += reward
             else:
-                current.wins += (1.0 - reward)
+                current.wins -= reward
             current = current.parent
 
     # ── State helpers ────────────────────────────────────────────────
@@ -460,37 +495,13 @@ class MCTSEngine:
         """Deep copy a state dict for safe mutation."""
         return copy.deepcopy(state)
 
-    def _apply_move_to_state(
-        self, state: dict[str, Any], move: dict[str, Any]
-    ) -> dict[str, Any]:
-        """Apply a move to a state dict, syncing current_player_index from game_data."""
-        new_state = self._clone_state(state)
-
-        result = self.validator.apply_move(new_state, move)
-        new_state["game_data"] = result.get("game_data", new_state.get("game_data", {}))
-
-        if "players" not in new_state:
-            new_state["players"] = state.get("players", [])
-        if "current_player_index" not in new_state:
-            new_state["current_player_index"] = state.get("current_player_index", 0)
-
-        # Sync current_player_index from game_data["current_player"]
-        # The validator already handles player switching correctly
-        game_data = new_state.get("game_data", {})
-        current_player_id = game_data.get("current_player")
-        if current_player_id:
-            players = new_state.get("players", [])
-            for i, p in enumerate(players):
-                if p.get("player_id") == current_player_id:
-                    new_state["current_player_index"] = i
-                    break
-
-        return new_state
+    def _apply_move_to_state(self, state: dict[str, Any], move: dict[str, Any]) -> dict[str, Any]:
+        """Apply a simulated move through the selected search policy."""
+        return self.policy.apply_move(state, move)
 
     def _current_player_id(self, state: dict[str, Any]) -> str:
-        """Return the player_id of the current player from game_data."""
-        game_data = state.get("game_data", {})
-        return game_data.get("current_player", "")
+        """Return the current player from game data or the generic state index."""
+        return self.policy.current_player(state)
 
     def _find_player_index(self, state: dict[str, Any], player_id: str) -> int:
         """Find the index of *player_id* in the players list."""
@@ -501,8 +512,435 @@ class MCTSEngine:
         return 0
 
     def _get_opponent(self, player_id: str) -> str:
-        """Return the opponent's player_id (assumes 2-player game)."""
-        return "player_2" if player_id == "player_1" else "player_1"
+        """Preserve the legacy helper API for two-player callers."""
+        opponent = self.policy.opponent_player(
+            {"players": [{"player_id": player_id}, {"player_id": "player_2" if player_id == "player_1" else "player_1"}]},
+            player_id,
+        )
+        return opponent or player_id
+
+def _canonical_move_id(move: dict[str, Any]) -> str:
+    """Return a deterministic identity for a legal move."""
+    move_id = move.get("move_id")
+    if move_id is not None:
+        return str(move_id)
+    return json.dumps(move, sort_keys=True, separators=(",", ":"), default=str)
+
+
+def _validate_hybrid_value(value: Any, label: str) -> float:
+    """Validate the hybrid engine's root-perspective [0, 1] contract."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        raise ValueError(f"{label} must be a numeric value in [0, 1]")
+    value = float(value)
+    if not math.isfinite(value) or not 0.0 <= value <= 1.0:
+        raise ValueError(f"{label} must be a numeric value in [0, 1]")
+    return value
+
+
+class HybridMCTSEngine:
+    """Deterministic, pruned, horizon-bounded search with no rollouts."""
+
+    def __init__(self, validator: LegalMoveValidator, config: MCTSConfig, policy: SearchPolicy | None = None) -> None:
+        self.validator = validator
+        self.config = config
+        self._adapter = MCTSEngine(validator, config, policy)
+        self.policy = policy or self._adapter.policy
+
+        if config.iterations <= 0:
+            raise ValueError("iterations must be greater than zero")
+        if config.diagnostic_max_records < 0:
+            raise ValueError("diagnostic_max_records must not be negative")
+        if config.diagnostic_extremes_per_root < 1:
+            raise ValueError("diagnostic_extremes_per_root must be positive")
+        if config.max_depth < 1 or config.hot_pool_size < 1 or config.admission_interval < 1:
+            raise ValueError("max_depth, hot_pool_size, and admission_interval must be positive")
+        if config.root_score_margin < 0.0:
+            raise ValueError("root_score_margin must not be negative")
+        if config.root_min_actions < 1:
+            raise ValueError("root_min_actions must be positive")
+        if config.exploration_constant <= 0:
+            raise ValueError("exploration_constant must be positive")
+        if config.confidence_constant < 0:
+            raise ValueError("confidence_constant must not be negative")
+        if not 0.0 < config.discard_ceiling <= 1.0:
+            raise ValueError("discard_ceiling must be greater than zero and at most one")
+        if not 0 < config.final_budget_fraction < 1:
+            raise ValueError("final_budget_fraction must be between zero and one")
+
+    def _initialize_pools(
+        self,
+        node: MCTSNode,
+        state: dict[str, Any],
+        root_player_id: str,
+    ) -> None:
+        if node.hot_pool is not None:
+            return
+
+        actor_id = self.policy.current_player(state)
+        legal = list(self.policy.legal_moves(state, actor_id))
+        viable = [
+            move for move in legal
+            if not self.policy.is_dominated_action(state, move, root_player_id)
+        ]
+        if viable:
+            legal = viable
+        ids = [_canonical_move_id(move) for move in legal]
+        if len(ids) != len(set(ids)):
+            raise ValueError("legal moves contain duplicate canonical move IDs")
+
+        scored: list[tuple[float, str, dict[str, Any]]] = []
+        ranking_scores: dict[str, float] = {}
+        for move, move_id in zip(legal, ids):
+            next_state = self.policy.apply_move(state, move)
+            value = _validate_hybrid_value(
+                self.policy.one_ply_value(
+                    state, move, next_state, root_player_id
+                ),
+                "one_ply_value",
+            )
+            node.action_values[move_id] = value
+            scored.append((value, move_id, move))
+        adjusted = self.policy.adjust_action_values(
+            state,
+            legal,
+            {move_id: value for value, move_id, _ in scored},
+            root_player_id,
+        )
+        scored = [
+            (adjusted.get(move_id, value), move_id, move)
+            for value, move_id, move in scored
+        ]
+        for value, move_id, _ in scored:
+            node.action_values[move_id] = value
+
+        # Policy-specific optimistic bounds do not delete a move; they only
+        # decide whether it starts in the hot pool or waits for admission.
+        # This lets clearly hopeless branches consume very few iterations
+        # while preserving hidden-information surprises for later exploration.
+        bound_callback = getattr(self.policy, "optimistic_action_bound", None)
+        if bound_callback is not None:
+            for value, move_id, move in scored:
+                ranking_scores[move_id] = min(
+                    value,
+                    _validate_hybrid_value(
+                        bound_callback(state, move, self.policy.apply_move(state, move), root_player_id),
+                        "optimistic_action_bound",
+                    ),
+                )
+        else:
+            ranking_scores = {move_id: value for value, move_id, _ in scored}
+
+        if node.parent is None and scored:
+            best_score = max(ranking_scores.values())
+            threshold = best_score - self.config.root_score_margin
+            retained = [
+                item for item in scored
+                if ranking_scores[item[1]] >= threshold
+            ]
+            # Keep a small safety set and preserve both strategic action
+            # classes when available, even if their immediate score is lower.
+            ranked = sorted(scored, key=lambda item: (-ranking_scores[item[1]], item[1]))
+            for item in ranked[: self.config.root_min_actions]:
+                if item not in retained:
+                    retained.append(item)
+            for action_type in ("play_expedition", "discard"):
+                candidate = next((item for item in ranked if item[2].get("type") == action_type), None)
+                if candidate is not None and candidate not in retained:
+                    retained.append(candidate)
+            scored = retained
+            legal = [item[2] for item in scored]
+
+        k = min(self.config.hot_pool_size, len(legal))
+        if len(legal) <= self.config.hot_pool_size:
+            node.hot_pool = [item[2] for item in sorted(scored, key=lambda item: (-ranking_scores.get(item[1], item[0]), item[1]))]
+            node.cold_pool = []
+            return
+        scored.sort(key=lambda item: (-ranking_scores.get(item[1], item[0]), item[1]))
+        node.hot_pool = [item[2] for item in scored[:k]]
+        node.cold_pool = [item[2] for item in scored[k:]]
+
+    def _existing_ids(self, node: MCTSNode) -> set[str]:
+        return {_canonical_move_id(child.move or {}) for child in node.children}
+
+    def _next_action(
+        self,
+        node: MCTSNode,
+        state: dict[str, Any],
+        root_player_id: str,
+        force_fallback: bool,
+    ) -> dict[str, Any] | None:
+        self._initialize_pools(node, state, root_player_id)
+        hot = node.hot_pool or []
+        cold = node.cold_pool or []
+        existing = self._existing_ids(node)
+
+        for move in hot:
+            if _canonical_move_id(move) not in existing:
+                return move
+
+        if cold and node.visits > 0 and (
+            node.visits % self.config.admission_interval == 0 or force_fallback
+        ):
+            promoted = cold.pop(0)
+            hot.append(promoted)
+            return promoted
+        return None
+
+    def _has_expandable(
+        self,
+        node: MCTSNode,
+        state: dict[str, Any],
+        root_player_id: str,
+        force_fallback: bool,
+    ) -> bool:
+        self._initialize_pools(node, state, root_player_id)
+        existing = self._existing_ids(node)
+        if any(_canonical_move_id(move) not in existing for move in (node.hot_pool or [])):
+            return True
+        admission_tick = node.visits > 0 and node.visits % self.config.admission_interval == 0
+        return bool(node.cold_pool and (force_fallback or admission_tick))
+
+    def _ucb_child(self, node: MCTSNode) -> MCTSNode:
+        parent_visits = max(1, node.visits)
+
+        def key(child: MCTSNode) -> tuple[float, str]:
+            if child.visits == 0:
+                score = float("inf")
+            else:
+                score = (child.wins / child.visits) + self.config.exploration_constant * math.sqrt(
+                    math.log(parent_visits) / child.visits
+                )
+            return score, _canonical_move_id(child.move or {})
+
+        return max(node.children, key=key)
+
+    def _search(self, state: dict[str, Any], root_player_id: str) -> MCTSResult:
+        root_state = self._adapter._clone_state(state)
+        root_state["current_player_index"] = self._adapter._find_player_index(
+            root_state, root_player_id
+        )
+        root = MCTSNode(state=root_state, move=None, parent=None)
+        start = time.perf_counter()
+        forced_phase = max(0, int(self.config.iterations * (1 - self.config.final_budget_fraction)))
+        depth_total = 0
+        deepest = 0
+        diagnostics: list[dict[str, Any]] = []
+        diagnostic_by_root: dict[str, list[dict[str, Any]]] = {}
+
+        if self.policy.is_terminal(root_state):
+            return MCTSResult(None, 0, self.policy.terminal_reward(root_state, root_player_id), 0, 0.0)
+
+        for iteration in range(self.config.iterations):
+            node = root
+            sim_state = self._adapter._clone_state(root_state)
+            path = [root]
+            depth = 0
+            forced_used = False
+
+            while node.children and depth < self.config.max_depth and not self.policy.is_terminal(sim_state):
+                force = iteration >= forced_phase and not forced_used
+                if self._has_expandable(node, sim_state, root_player_id, force):
+                    break
+                node = self._ucb_child(node)
+                sim_state = self._adapter._clone_state(node.state)
+                path.append(node)
+                depth += 1
+
+            if depth < self.config.max_depth and not self.policy.is_terminal(sim_state):
+                force = iteration >= forced_phase and not forced_used
+                hot_ids_before = {
+                    _canonical_move_id(move) for move in (node.hot_pool or [])
+                }
+                action = self._next_action(node, sim_state, root_player_id, force)
+                if action is not None:
+                    if force and _canonical_move_id(action) not in hot_ids_before:
+                        forced_used = True
+                    next_state = self.policy.apply_move(sim_state, action)
+                    child = MCTSNode(next_state, action, node)
+                    node.children.append(child)
+                    node = child
+                    sim_state = next_state
+                    path.append(node)
+                    depth += 1
+
+            if self.policy.is_terminal(sim_state):
+                value = _validate_hybrid_value(
+                    self.policy.terminal_reward(sim_state, root_player_id),
+                    "terminal_reward",
+                )
+            else:
+                value = _validate_hybrid_value(
+                    self.policy.horizon_value(sim_state, root_player_id),
+                    "horizon_value",
+                )
+            if self.config.diagnostic_enabled:
+                record: dict[str, Any] = {
+                    "depth": depth,
+                    "path": [
+                        {
+                            "move_id": _canonical_move_id(visited.move or {}),
+                            "action": copy.deepcopy(visited.move),
+                        }
+                        for visited in path[1:]
+                    ],
+                    "leaf_type": "terminal" if self.policy.is_terminal(sim_state) else "horizon",
+                    "value": value,
+                }
+                if record["leaf_type"] == "horizon":
+                    explain = getattr(self.policy, "explain_horizon", None)
+                    if explain is not None:
+                        record["horizon"] = explain(sim_state, root_player_id)
+                root_move_id = record["path"][0]["move_id"] if record["path"] else "__root__"
+                bucket = diagnostic_by_root.setdefault(root_move_id, [])
+                bucket.append(record)
+                limit = self.config.diagnostic_extremes_per_root
+                if limit > 0 and len(bucket) > limit * 2:
+                    ordered_bucket = sorted(bucket, key=lambda item: item["value"], reverse=True)
+                    bucket[:] = ordered_bucket[:limit] + ordered_bucket[-limit:]
+            for visited in path:
+                visited.visits += 1
+                visited.wins += value
+            depth_total += depth
+            deepest = max(deepest, depth)
+
+        if not root.children:
+            return MCTSResult(None, 0, 0.5, self.config.iterations, round((time.perf_counter() - start) * 1000, 2))
+
+        if self.config.diagnostic_enabled:
+            diagnostics = []
+            for bucket in diagnostic_by_root.values():
+                ordered_bucket = sorted(bucket, key=lambda item: item["value"], reverse=True)
+                extremes = ordered_bucket[: self.config.diagnostic_extremes_per_root]
+                seen = {id(item) for item in extremes}
+                extremes.extend(
+                    item for item in ordered_bucket[-self.config.diagnostic_extremes_per_root :]
+                    if id(item) not in seen
+                )
+                diagnostics.extend(extremes)
+            if self.config.diagnostic_max_records < len(diagnostics):
+                diagnostics = diagnostics[: self.config.diagnostic_max_records]
+
+        def raw_selection_key(child: MCTSNode) -> tuple[float, float, int, str]:
+            average_value = child.wins / child.visits if child.visits else 0.0
+            if child.move and child.move.get("type") == "discard":
+                # The discard ceiling applies after all deeper horizon values
+                # have been accumulated. A discard may be useful, but it can
+                # never become artificially lucrative through repeated safe
+                # leaf evaluations.
+                average_value = min(average_value, self.config.discard_ceiling)
+            if child.visits:
+                uncertainty = self.config.confidence_constant * math.sqrt(
+                    math.log(max(1, root.visits)) / child.visits
+                )
+            else:
+                uncertainty = float("inf")
+            lower_confidence_value = average_value - uncertainty
+            return (
+                lower_confidence_value,
+                average_value,
+                child.visits,
+                _canonical_move_id(child.move or {}),
+            )
+
+        acceptable_play_scores = [
+            raw_selection_key(child)[0]
+            for child in root.children
+            if child.move and child.move.get("type") == "play_expedition"
+            and root.action_values.get(_canonical_move_id(child.move), 0.0) >= 0.25
+        ]
+        best_acceptable_play_score = max(acceptable_play_scores, default=None)
+
+        def final_selection_key(child: MCTSNode) -> tuple[float, float, int, str]:
+            score, average, visits, move_id = raw_selection_key(child)
+            if (
+                best_acceptable_play_score is not None
+                and child.move
+                and child.move.get("type") == "discard"
+            ):
+                relief_callback = getattr(self.policy, "discard_relief", None)
+                relief = 0.0
+                if relief_callback is not None:
+                    relief = relief_callback(
+                        root_state,
+                        child.move,
+                        self.policy.apply_move(root_state, child.move),
+                        root_player_id,
+                    )
+                if relief < 0.05:
+                    score = min(score, best_acceptable_play_score - 0.01)
+            return score, average, visits, move_id
+
+        best = max(root.children, key=final_selection_key)
+        ordered = sorted(
+            root.children,
+            key=lambda child: (
+                -final_selection_key(child)[0],
+                -final_selection_key(child)[1],
+                -child.visits,
+                _canonical_move_id(child.move or {}),
+            ),
+        )
+        top_moves = [
+            {
+                "move": _canonical_move_id(child.move or {}),
+                "visits": child.visits,
+                "win_rate": round(child.wins / child.visits, 3) if child.visits else 0.0,
+                "one_ply_value": round(
+                    root.action_values.get(_canonical_move_id(child.move or {}), 0.0),
+                    3,
+                ),
+                "selection_score": round(final_selection_key(child)[0], 3),
+            }
+            for child in ordered
+        ]
+        diagnostic_summaries: list[dict[str, Any]] = []
+        by_root: dict[str, list[dict[str, Any]]] = {}
+        for record in diagnostics:
+            path = record.get("path", [])
+            if path:
+                by_root.setdefault(path[0]["move_id"], []).append(record)
+        for child in ordered:
+            move_id = _canonical_move_id(child.move or {})
+            samples = by_root.get(move_id, [])
+            sample_values = [float(sample["value"]) for sample in samples]
+            summary: dict[str, Any] = {
+                "move": move_id,
+                "selected": child is best,
+                "visits": child.visits,
+                "average_value": child.wins / child.visits if child.visits else 0.0,
+                "selection_score": final_selection_key(child)[0],
+                "one_ply_value": root.action_values.get(move_id, 0.0),
+                "diagnostic_samples": len(samples),
+            }
+            ordered_samples = sorted(samples, key=lambda sample: float(sample["value"]), reverse=True)
+            summary["top_paths"] = ordered_samples[:5]
+            summary["bottom_paths"] = list(reversed(ordered_samples[-5:]))
+            if sample_values:
+                summary.update({
+                    "sample_average": sum(sample_values) / len(sample_values),
+                    "sample_min": min(sample_values),
+                    "sample_max": max(sample_values),
+                })
+                horizon_samples = [sample.get("horizon", {}) for sample in samples if sample.get("horizon")]
+                if horizon_samples:
+                    for key in ("relative", "absolute", "latent_equity", "compound_setup", "final"):
+                        values = [float(item[key]) for item in horizon_samples if key in item]
+                        if values:
+                            summary[f"average_{key}"] = sum(values) / len(values)
+            diagnostic_summaries.append(summary)
+        elapsed = round((time.perf_counter() - start) * 1000, 2)
+        return MCTSResult(
+            best.move,
+            best.visits,
+            best.wins / best.visits if best.visits else 0.0,
+            self.config.iterations,
+            elapsed,
+            top_moves,
+            max_depth_reached=deepest,
+            average_depth=depth_total / self.config.iterations,
+            diagnostics=diagnostics,
+            diagnostic_summaries=diagnostic_summaries,
+        )
 
 
 # ── Worker helpers for parallel search ──────────────────────────────
@@ -536,33 +974,26 @@ def _run_mcts_worker(
     Returns:
         (visit_counts, win_sums, iterations) for the root-level children.
     """
-    state, player_id, config_dict, iterations, engine_class_name = task
+    state, player_id, config_dict, iterations = task
     config = MCTSConfig(**config_dict)
-
-    if engine_class_name == "MCTSEngineV2":
-        from app.core.mcts_v2 import MCTSEngineV2
-        engine = MCTSEngineV2(_worker_validator, config)
-    else:
-        engine = MCTSEngine(_worker_validator, config)
+    engine = MCTSEngine(_worker_validator, config)
 
     root_state = engine._clone_state(state)
     root_state["current_player_index"] = engine._find_player_index(root_state, player_id)
 
-    game_data = root_state.get("game_data", {})
-    turn_number = game_data.get("round", 0)
-
-    legal_moves = _worker_validator.get_legal_moves(root_state, player_id)
-    # Apply game-specific move filters (turn-1-2 only)
-    legal_moves = _worker_validator.filter_moves(root_state, player_id, legal_moves, turn_number)
-    # Compute priors for root-level moves
-    root_priors = _worker_validator.prior_moves(root_state, player_id, legal_moves, turn_number)
+    policy = engine.policy
+    turn_number = root_state.get("game_data", {}).get("round", 0)
+    legal_moves = policy.filter_moves(
+        root_state, player_id, policy.legal_moves(root_state, player_id), turn_number
+    )
+    root_priors = policy.prior_moves(root_state, player_id, legal_moves, turn_number)
 
     root = MCTSNode(
         state=root_state,
         move=None,
         parent=None,
         untried_moves=list(legal_moves),
-        player_just_moved=engine._get_opponent(player_id),
+        player_just_moved=policy.opponent_player(root_state, player_id),
         priors=root_priors,
     )
 

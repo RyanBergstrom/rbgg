@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-BUNKER",
+  "path": "api\\img\\fof\\ocr-test\\Cover - Bunker +3.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Bunker +3.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "55351b2c79d09561e21e3085800bf1f4dcb85632bf1a867af32f66936e92c48d",
+    "classified_at": "2026-11-05T05:16:49.853269+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "cover_type": "bunker",
+    "cover_modifier": 3,
+    "secondary_modifier": null,
+    "no_fire": true,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Cover +3"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:4"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): 4"
+  }
+}

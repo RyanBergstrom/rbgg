@@ -1,7 +1,9 @@
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, HTTPException, Path, Query
 
 from app.games.catalog import list_games, get_game
-from app.core.game_store import get_state
+from app.games.fields_of_fire.validator import FieldsOfFireValidator
+from app.core.game_store import get_state, set_state
+from app.core.repository import get_session, load_game_state
 
 router = APIRouter(prefix="/api/v1/games", tags=["games"])
 
@@ -12,14 +14,40 @@ def list_games_endpoint() -> list[dict]:
     return list_games()
 
 
+@router.get("/{game_id}/scenarios", response_model=dict)
+def get_game_scenarios(game_id: str = Path(...)) -> dict:
+    """Return campaign and scenario configuration for a game."""
+    game = get_game(game_id)
+    if game is None:
+        raise HTTPException(status_code=404, detail=f"Game {game_id} not found")
+    if game_id == "fields_of_fire":
+        validator = FieldsOfFireValidator()
+        try:
+            data = validator.load_scenarios_full()
+        except Exception:
+            data = {}
+        return data
+    raise HTTPException(status_code=404, detail=f"Scenarios not available for game {game_id}")
+
+
 @router.get("/{game_id}", response_model=dict)
-def get_game_by_id(game_id: str = Path(...)) -> dict:
+def get_game_by_id(
+    game_id: str = Path(...),
+    session_id: int | None = Query(default=None),
+) -> dict:
     """Return game detail including current state if a game is in progress."""
     game = get_game(game_id)
     if game is None:
         raise HTTPException(status_code=404, detail=f"Game {game_id} not found")
 
-    state = get_state(game_id)
+    state = None
+    if session_id is not None:
+        session = get_session(session_id)
+        if session is None or session["game_id"] != game_id:
+            raise HTTPException(status_code=404, detail=f"Session {session_id} not found for game {game_id}")
+        state = get_state(session_id) or load_game_state(session_id)
+        if state is not None:
+            set_state(session_id, state)
     if state is not None:
         from app.core.game_state import GameState as CoreGameState
         if isinstance(state, CoreGameState):
@@ -48,7 +76,11 @@ def get_game_by_id(game_id: str = Path(...)) -> dict:
                 "state": {
                     "player_turn": state.players[state.current_player_index].player_id if state.players else None,
                     "winner": state.winner,
-                    "game_data": state.game_data,
+                    "game_data": (
+                        screen_state.get("game_data", {})
+                        if game_id == "twilight_struggle"
+                        else state.game_data
+                    ),
                 },
                 "turn": state.turn.__dict__ if state.turn else None,
                 "screen_state": screen_state,

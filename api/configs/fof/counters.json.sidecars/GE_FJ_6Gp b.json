@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-GE_FJ_6Gp b.png",
+  "path": "api\\img\\fof\\counters\\GE_FJ_6Gp b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_FJ_6Gp b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "6e8991c718511dc006385db1f6e426500be2ae3d10847ecf899be7feb2823203",
+    "classified_at": "2026-11-04T03:04:58.024992+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "pin",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "pin",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ea ,\\npine\\nAtel ra'"
+  }
+}

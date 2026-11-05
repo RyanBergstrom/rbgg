@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-M113 35.jpg",
+  "path": "documentation\\fof\\images\\M113 35.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "M113 35.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "unknown",
+    "hash_sha256": "479d1e2f2323a6e7b99ee19ed6ea4c7934dee64d7f6634158aff26748af04ef3",
+    "classified_at": "2026-11-04T00:44:35.094468+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "11",
+    "platoon": "11",
+    "squad_number": "3",
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ere a |'"
+  }
+}

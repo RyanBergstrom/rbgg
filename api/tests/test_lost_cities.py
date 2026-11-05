@@ -129,11 +129,11 @@ def test_expedition_ascending_order():
     assert _can_play_to_expedition(exp, "b_6") is False  # not higher
 
 
-def test_expedition_investment_always_legal():
+def test_expedition_investment_requires_investment_only_expedition():
     exp = ["b_2"]
-    assert _can_play_to_expedition(exp, "b_i") is True
+    assert _can_play_to_expedition(exp, "b_i") is False
     exp = ["b_i", "b_5"]
-    assert _can_play_to_expedition(exp, "b_i") is True
+    assert _can_play_to_expedition(exp, "b_i") is False
 
 
 def test_expedition_multiple_investments():
@@ -411,6 +411,10 @@ def test_apply_draw_ends_round(validator):
     assert new_data["round"] == 2  # Round incremented
     assert new_data["round_over"] is False  # New round started
     assert len(new_data["draw_pile"]) == 44  # New deck created (44 cards after dealing 16)
+    assert new_data["round_summaries"]
+    summary = new_data["round_summaries"][0]
+    assert summary["round"] == 1
+    assert summary["round_scores"] == {"player_1": 0, "player_2": 0}
 
 
 # ── Validator: check_win ──────────────────────────────────────────────────
@@ -438,13 +442,54 @@ def test_check_win_game_over_player2(validator):
     assert validator.check_win(state) == "player_2"
 
 
-def test_check_win_tie_goes_to_player1(validator):
+def test_check_win_tie_is_draw(validator):
     game_data = _initial_game_data()
     game_data["game_over"] = True
     game_data["scores"] = {"player_1": 100, "player_2": 100}
     state = _make_state(game_data=game_data)
     
-    assert validator.check_win(state) == "player_1"
+    assert validator.check_win(state) == "draw"
+
+
+def test_check_win_does_not_treat_intermediate_round_as_terminal(validator):
+    game_data = _initial_game_data()
+    game_data["_round_result"] = {"p1": 20, "p2": 10}
+    state = _make_state(game_data=game_data)
+
+    assert validator.check_win(state) is None
+    assert state["game_data"]["_round_result"] == {"p1": 20, "p2": 10}
+
+
+def test_three_round_lifecycle_preserves_scores_and_finishes_on_final_round(validator):
+    game_data = _initial_game_data()
+    game_data["expeditions"]["player_1"]["blue"] = ["b_8", "b_9", "b_10"]
+
+    for expected_round in (2, 3):
+        game_data["current_phase"] = "draw_a_card"
+        game_data["pending_draw"] = True
+        game_data["draw_pile"] = ["b_5"]
+        result = validator.apply_move(
+            _make_state(game_data=game_data),
+            {"type": "draw", "source": "draw_pile", "player_id": "player_1"},
+        )
+        game_data = result["game_data"]
+        assert game_data["round"] == expected_round
+        assert game_data["game_over"] is False
+        assert validator.check_win(_make_state(game_data=game_data)) is None
+        assert game_data["scores"]["player_1"] == 7
+
+    game_data["current_phase"] = "draw_a_card"
+    game_data["pending_draw"] = True
+    game_data["draw_pile"] = ["b_5"]
+    final = validator.apply_move(
+        _make_state(game_data=game_data),
+        {"type": "draw", "source": "draw_pile", "player_id": "player_1"},
+    )["game_data"]
+
+    assert final["round"] == 4
+    assert final["game_over"] is True
+    assert validator.check_win(_make_state(game_data=final)) == "player_1"
+    assert validator.get_legal_moves(_make_state(game_data=final), "player_2") == []
 
 
 # ── Validator: AI ─────────────────────────────────────────────────────────
@@ -501,6 +546,24 @@ def test_serialize_for_screen(validator):
     assert "current_phase" in serialized
     assert "current_player" in serialized
     assert "scores" in serialized
+    assert "score_breakdown" in serialized
+    assert "round_summaries" in serialized
+
+
+def test_serialize_for_screen_includes_banked_and_round_breakdowns(validator):
+    game_data = _initial_game_data()
+    game_data["scores"] = {"player_1": 12, "player_2": -4}
+    game_data["expeditions"]["player_1"]["yellow"] = ["y_i", "y_3", "y_4"]
+    game_data["expeditions"]["player_2"]["white"] = ["w_2", "w_5", "w_8"]
+
+    serialized = validator.serialize_for_screen(game_data)
+
+    assert serialized["score_breakdown"]["players"]["player_1"]["banked_score"] == 12
+    assert serialized["score_breakdown"]["players"]["player_1"]["current_round_score"] == -26
+    assert serialized["score_breakdown"]["players"]["player_1"]["overall_total"] == -14
+    assert serialized["score_breakdown"]["players"]["player_1"]["expeditions"]["yellow"]["numbered_sum"] == 7
+    assert serialized["score_breakdown"]["players"]["player_1"]["expeditions"]["yellow"]["multiplier"] == 2
+    assert serialized["score_breakdown"]["players"]["player_2"]["current_round_score"] == -5
 
 
 # ── Serialization helpers ─────────────────────────────────────────────────

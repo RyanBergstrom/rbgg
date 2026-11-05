@@ -1,0 +1,63 @@
+{
+  "id": "German-Tiger 111.png",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Tiger 111.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Tiger 111.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "dc0640145d3fd7a3461bb8958e08304240ab91a12991593bbccc087821f03df0",
+    "classified_at": "2026-11-02T21:07:13.374455+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "German",
+  "category": "unit",
+  "subtype": "unknown",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "openai/clip-vit-base-patch32 + tesseract",
+    "labels": [
+      "a Fields of Fire cover marker"
+    ],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

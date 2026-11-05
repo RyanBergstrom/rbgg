@@ -1,0 +1,53 @@
+{
+  "regions": {
+    "Europe": {
+      "presence": 3,
+      "domination": 7,
+      "control": 0,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 1
+    },
+    "Asia": {
+      "presence": 3,
+      "domination": 7,
+      "control": 9,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 1
+    },
+    "Middle East": {
+      "presence": 3,
+      "domination": 5,
+      "control": 7,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 0
+    },
+    "Africa": {
+      "presence": 1,
+      "domination": 4,
+      "control": 6,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 0
+    },
+    "Central America": {
+      "presence": 1,
+      "domination": 3,
+      "control": 5,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 1
+    },
+    "South America": {
+      "presence": 2,
+      "domination": 5,
+      "control": 6,
+      "battleground_presence_bonus": 1,
+      "battleground_domination_bonus": 1,
+      "enemy_superpower_adjacency_bonus": 0
+    }
+  },
+  "notes": "Editable base-game scoring configuration; Europe Control is an automatic victory. Score values and special-space memberships must be audited against the supplied 2nd Edition rules before playable-game sign-off. Southeast Asia is scored by its dedicated card and final Asia score includes its country points per rules."
+}

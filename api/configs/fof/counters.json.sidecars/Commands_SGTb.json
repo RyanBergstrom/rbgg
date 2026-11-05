@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Commands_SGTb.png",
+  "path": "api\\img\\fof\\counters\\Commands_SGTb.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Commands_SGTb.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "a5375ea706eba1ab22fa77bd324b7543a33b7c99d669d65cc0eaca0eeb59bdcb",
+    "classified_at": "2026-11-04T03:03:27.394716+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='SGT\\nActivation\\nCompleted Pesey 1 S6T\\n\u2018Activation\\n_Compisted'"
+  }
+}

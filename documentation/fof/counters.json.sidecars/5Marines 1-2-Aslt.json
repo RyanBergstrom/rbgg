@@ -1,0 +1,61 @@
+{
+  "id": "US-5Marines 1-2-Aslt.png",
+  "path": "documentation\\fof\\images\\5Marines 1-2-Aslt.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "5Marines 1-2-Aslt.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "7d61934ee92fae38947490ef2ba3a0c28cd4b79b9b67478e1aae2b1cfd0d15dc",
+    "classified_at": "2026-11-04T00:36:58.953485+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "unknown",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Assault Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

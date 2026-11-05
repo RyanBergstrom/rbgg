@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-3_2_Asslt Flame b.png",
+  "path": "api\\img\\fof\\counters\\3_2_Asslt Flame b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "3_2_Asslt Flame b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "667d886784544a33b383668bc5202eb69e5d5f6b8076b9379094e56daec51cd3",
+    "classified_at": "2026-11-04T03:00:53.704455+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "3",
+    "platoon": "3",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2018ast\\neter\u201d\\nse \u00a2'"
+  }
+}

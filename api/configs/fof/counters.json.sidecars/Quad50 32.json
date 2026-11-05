@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Quad50 32.png",
+  "path": "api\\img\\fof\\counters\\Quad50 32.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Quad50 32.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "e164b913066b1c8a8d701b9e94682bd9f62ba5d763229d6bf31a151739581939",
+    "classified_at": "2026-11-04T03:11:46.090757+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "unknown",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "5",
+    "platoon": "5",
+    "squad_number": "0",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

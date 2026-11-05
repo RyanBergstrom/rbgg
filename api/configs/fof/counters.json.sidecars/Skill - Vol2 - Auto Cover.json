@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Skill - Vol2 - Auto Cover.png",
+  "path": "api\\img\\fof\\counters\\Skill - Vol2 - Auto Cover.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Skill - Vol2 - Auto Cover.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "034ff8ba81f73e4790f25cc2ee46b561322b8a589598428062b032ef963f6f92",
+    "classified_at": "2026-11-04T03:12:03.454717+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='AUTO.\\nCOVER\\nSk | AUTON\\nCOMER:\\nBuse,'"
+  }
+}

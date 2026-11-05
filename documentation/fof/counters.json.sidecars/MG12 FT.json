@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-MG12 FT.png",
+  "path": "documentation\\fof\\images\\MG12 FT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "MG12 FT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "2e6481a36a45cb151d9af21d3860f16d142e8edbebf8cecd69e2082307dcc0f6",
+    "classified_at": "2026-11-04T00:45:21.503630+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "1",
+    "platoon": "1",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='all a.'"
+  }
+}

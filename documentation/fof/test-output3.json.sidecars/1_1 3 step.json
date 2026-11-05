@@ -1,0 +1,56 @@
+{
+  "id": "Unknown-1_1 3 step.png",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\1_1 3 step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_1 3 step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "0e526c586334eb8e07095d49a8085b07fe02019d1a63cc9f62fb8b54f766dbd7",
+    "classified_at": "2026-11-02T21:03:01.530049+00:00",
+    "classifier": "fof-counter-pipeline v2.0",
+    "confidence": 0.55
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "potential_contact",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "potential_contact",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "hybrid",
+    "model": "openai/clip-vit-base-patch32 + tesseract",
+    "labels": [
+      "a Fields of Fire potential contact marker"
+    ],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

@@ -34,6 +34,18 @@ def test_get_game_by_id_returns_game():
     assert data["name"] == "Test Game"
 
 
+def test_bus_catalog_uses_and_serves_its_cover_art():
+    client = TestClient(app)
+
+    game_response = client.get("/api/v1/games/bus")
+    assert game_response.status_code == 200
+    assert game_response.json()["cover_image"] == "bus/bus-boxart.webp"
+
+    image_response = client.get("/api/v1/img/bus/bus-boxart.webp")
+    assert image_response.status_code == 200
+    assert image_response.headers["content-type"] == "image/webp"
+
+
 def test_get_game_by_id_404_for_unknown():
     """Verify that GET /api/v1/games/{game_id} returns 404 for unknown games."""
     client = TestClient(app)

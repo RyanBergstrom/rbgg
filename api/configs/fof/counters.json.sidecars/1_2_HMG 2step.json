@@ -1,0 +1,69 @@
+{
+  "id": "US-2-1-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\ocr-test\\1_2_HMG 2step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_2_HMG 2step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "d610bfef9d6666b1600dc34a2e57816da9fb2a37815f6b9fea30b33fa5a31dd4",
+    "classified_at": "2026-11-05T03:14:59.070302+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": "2",
+    "squad_number": "1",
+    "experience_level": "Veteran",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": "V",
+    "weapon_type": "Machine Gun",
+    "mount_type": "Tripod",
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "A",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:12Me",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '12Me', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): V"
+  }
+}

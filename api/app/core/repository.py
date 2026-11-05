@@ -7,7 +7,7 @@ from pathlib import Path
 
 from app.core.db import get_connection, init_db
 
-DB_PATH = Path("rbgg.db")
+DB_PATH = Path(__file__).resolve().parents[2] / "runtime" / "rbgg.db"
 
 
 def create_session(profile_id: str, game_id: str = "santorini", state_id: str | None = None, game_state_json: str | None = None) -> dict:
@@ -28,6 +28,9 @@ def create_session(profile_id: str, game_id: str = "santorini", state_id: str | 
         "game_id": game_id,
         "started_at": now,
         "finished_at": None,
+        "winner": None,
+        "final_scores_json": None,
+        "result_summary_json": None,
         "state_id": state_id,
     }
     conn.close()
@@ -40,7 +43,7 @@ def get_session(session_id: int) -> dict | None:
     init_db(conn)
     cur = conn.cursor()
     cur.execute(
-        "SELECT id, profile_id, game_id, started_at, finished_at, state_id, game_state_json, expected_version FROM game_sessions WHERE id = ?",
+        "SELECT id, profile_id, game_id, started_at, finished_at, winner, final_scores_json, result_summary_json, state_id, game_state_json, expected_version FROM game_sessions WHERE id = ?",
         (session_id,),
     )
     row = cur.fetchone()
@@ -53,9 +56,12 @@ def get_session(session_id: int) -> dict | None:
         "game_id": row[2],
         "started_at": row[3],
         "finished_at": row[4],
-        "state_id": row[5],
-        "game_state_json": row[6],
-        "expected_version": row[7],
+        "winner": row[5],
+        "final_scores_json": row[6],
+        "result_summary_json": row[7],
+        "state_id": row[8],
+        "game_state_json": row[9],
+        "expected_version": row[10],
     }
 
 
@@ -129,7 +135,7 @@ def list_sessions(profile_id: str | None = None, game_id: str | None = None) -> 
     init_db(conn)
     cur = conn.cursor()
 
-    query = "SELECT id, profile_id, game_id, started_at, finished_at, state_id FROM game_sessions WHERE 1=1"
+    query = "SELECT id, profile_id, game_id, started_at, finished_at, winner, final_scores_json, result_summary_json, state_id FROM game_sessions WHERE 1=1"
     params: list = []
 
     if profile_id is not None:
@@ -152,7 +158,10 @@ def list_sessions(profile_id: str | None = None, game_id: str | None = None) -> 
             "game_id": row[2],
             "started_at": row[3],
             "finished_at": row[4],
-            "state_id": row[5],
+            "winner": row[5],
+            "final_scores_json": row[6],
+            "result_summary_json": row[7],
+            "state_id": row[8],
         }
         for row in rows
     ]
@@ -206,3 +215,49 @@ def record_stats(profile_id: str, total_moves: int = 0, total_turns: int = 0) ->
     }
     conn.close()
     return record
+
+
+def complete_session(
+    session_id: int,
+    total_moves: int = 0,
+    total_turns: int = 0,
+    winner: str | None = None,
+    final_scores: dict | None = None,
+    result_summary: dict | None = None,
+) -> bool:
+    """Complete a session once and record its aggregate statistics.
+
+    Returns ``True`` only for the request that transitions an active session
+    to completed. Retries are idempotent and do not insert duplicate stats.
+    """
+    conn = get_connection(str(DB_PATH))
+    init_db(conn)
+    cur = conn.cursor()
+    now = datetime.now(timezone.utc).isoformat()
+    final_scores_json = json.dumps(final_scores) if final_scores is not None else None
+    result_summary_json = json.dumps(result_summary) if result_summary is not None else None
+    cur.execute(
+        "SELECT profile_id FROM game_sessions WHERE id = ? AND finished_at IS NULL",
+        (session_id,),
+    )
+    row = cur.fetchone()
+    if row is None:
+        conn.close()
+        return False
+
+    cur.execute(
+        "UPDATE game_sessions SET finished_at = ?, winner = ?, final_scores_json = ?, result_summary_json = ? WHERE id = ? AND finished_at IS NULL",
+        (now, winner, final_scores_json, result_summary_json, session_id),
+    )
+    if cur.rowcount != 1:
+        conn.rollback()
+        conn.close()
+        return False
+
+    cur.execute(
+        "INSERT INTO game_stats (profile_id, total_moves, total_turns, updated_at) VALUES (?, ?, ?, ?)",
+        (row[0], total_moves, total_turns, now),
+    )
+    conn.commit()
+    conn.close()
+    return True

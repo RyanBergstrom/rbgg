@@ -1,0 +1,42 @@
+{
+  "source": "documentation/twilight-struggle/twilight-struggle-requirements.md §2 and VASSAL buildFile.xml setup stacks",
+  "status": "provisional_starting_influence_config",
+  "note": "The user requested continued implementation and will review errors. All initial placement values are configuration, not hard-coded rule logic. Review the 7 US Western Europe and 6 USSR Eastern Europe allocations against the 2nd Edition setup before claiming rules-complete play.",
+  "starting_influence": {
+    "us": {
+      "Canada": 2,
+      "U.K.": 5,
+      "Iran": 1,
+      "Israel": 1,
+      "Japan": 1,
+      "Australia": 4,
+      "Philippines": 1,
+      "S. Korea": 1,
+      "Panama": 1,
+      "South Africa": 1,
+      "W. Germany": 4,
+      "Italy": 2,
+      "France": 1
+    },
+    "ussr": {
+      "Syria": 1,
+      "Iraq": 1,
+      "N. Korea": 3,
+      "E. Germany": 3,
+      "Finland": 1,
+      "Poland": 4,
+      "Romania": 1,
+      "Yugoslavia": 1
+    }
+  },
+  "starting_influence_totals": { "us": 25, "ussr": 15 },
+  "initial_track_state": {
+    "turn": 1,
+    "defcon": 5,
+    "victory_points": 0,
+    "military_operations": { "us": 0, "ussr": 0 },
+    "space_race": { "us": 0, "ussr": 0 },
+    "china_card_owner": "ussr",
+    "china_card_face_up": true
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Commands MG Pl complete.png",
+  "path": "documentation\\fof\\images\\Commands MG Pl complete.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Commands MG Pl complete.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "e726473bc4d82e8cef9a8a0a310c96a29c286b60508b1f19ab8e43941ce7a741",
+    "classified_at": "2026-11-04T00:39:30.397239+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='MG PLT\\n\u2018Activation\\nCompleted al\\npssaee| | we Pur\\nkeen\\naus'"
+  }
+}

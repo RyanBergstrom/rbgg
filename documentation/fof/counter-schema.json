@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://rbgg.dev/schemas/fof-counter.v1.json",
+  "title": "Fields of Fire Square Counter Token",
+  "description": "Schema for 75x75 px square counter tokens from Fields of Fire (GMT Games). One object per counter image.",
+  "type": "object",
+  "required": ["id", "path", "image", "country", "category", "subtype", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique counter identifier (e.g. US-1-1-SQD-3STEP or MARKER-VOF-S)"
+    },
+    "path": {
+      "type": "string",
+      "description": "Filesystem path to the source image"
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin of the counter scan/set (e.g. 'fof-images-folder', '1ATF-Vietnam')"
+    },
+    "image": {
+      "type": "object",
+      "required": ["filename", "width", "height", "format", "side"],
+      "additionalProperties": false,
+      "properties": {
+        "filename": { "type": "string" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "format": { "type": "string", "enum": ["png", "jpg", "jpeg"] },
+        "side": {
+          "type": "string",
+          "enum": ["front", "back", "broken", "reduced", "alternate", "unknown"],
+          "description": "Counter face. 'b' suffix in filename typically = back/broken/reduced side."
+        },
+        "hash_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "classified_at": { "type": "string", "format": "date-time" },
+        "classifier": { "type": "string", "description": "Pipeline name/version that produced this record" },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Overall classification confidence"
+        }
+      }
+    },
+    "country": {
+      "type": "string",
+      "enum": ["US", "German", "NKPA", "Australian", "Commonwealth", "VietCong", "NVA", "ARVN", "Chinese", "Japanese", "Other", "Unknown"],
+      "description": "Nationality of the unit/marker"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["unit", "marker", "asset", "terrain_aid"],
+      "description": "Top-level counter class per FoF 1.2.3 (units) / 1.2.4 (markers)"
+    },
+    "subtype": {
+      "type": "string",
+      "description": "Specific counter type: squad, hq_bn, hq_co, hq_plt, fo_spotter, weapons_team, vehicle, aircraft, lat, casualty, runner, co_staff, higher_command, vof, pdf, concentrated_fire, crossfire, exposed, pin, tactical_control, cover, ammo, potential_contact, current_activity, visibility, etc."
+    },
+    "unit_details": {
+      "type": ["object", "null"],
+      "description": "Populated when category == 'unit'",
+      "additionalProperties": false,
+      "properties": {
+        "unit_type": {
+          "type": "string",
+          "enum": ["squad", "hq_bn", "hq_co", "hq_plt", "fo_spotter", "weapons_team", "vehicle", "aircraft", "lat", "casualty", "runner", "co_staff", "co_xo", "co_1sgt", "higher_command"]
+        },
+        "division": { "type": ["string", "null"] },
+        "battalion": { "type": ["string", "null"] },
+        "platoon": { "type": ["string", "null"] },
+        "squad_number": { "type": ["string", "null"] },
+        "experience_level": {
+          "type": ["string", "null"],
+          "enum": ["Green", "Line", "Veteran", "Elite", "S_rated", "A_rated", "Unknown", "A", "S", null]
+        },
+        "steps_total": { "type": ["integer", "null"], "minimum": 1, "maximum": 3 },
+        "steps_remaining": { "type": ["integer", "null"], "minimum": 0, "maximum": 3 },
+        "vof_rating": { "type": ["string", "null"] },
+        "range_band": { "type": ["string", "null"], "enum": ["P", "C", "L", "V", null] },
+        "weapon_type": { "type": ["string", "null"] },
+        "mount_type": { "type": ["string", "null"] },
+        "lat_subtype": { "type": ["string", "null"], "enum": ["Fire Team", "Litter Team", "Paralyzed Team", null] },
+        "ammo_type": { "type": ["string", "null"] },
+        "ammo_amount": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "marker_details": {
+      "type": ["object", "null"],
+      "description": "Populated when category == 'marker'",
+      "additionalProperties": false,
+      "properties": {
+        "marker_type": {
+          "type": "string",
+          "enum": ["vof", "pdf", "concentrated_fire", "crossfire", "exposed", "pin", "tactical_control", "cover", "ammo", "potential_contact", "current_activity", "visibility", "unaware", "unspotted", "fire_mission"]
+        },
+        "ammo_type": { "type": ["string", "null"], "description": "Specific ammo caliber or mission type: .50 Cal AMMO, HMG AMMO, ARTY FM, HV MTR FM" },
+        "ammo_index": { "type": ["integer", "null"], "description": "Top tracking number on counter (1 through 8)" },
+        "is_fire_mission": { "type": ["boolean", "null"], "default": false },
+        "cover_type": { "type": ["string", "null"], "description": "Specific structure: foxholes, trench, bunker, deep_bunker, pillbox, cellar, church_tower, light_building, strong_building, upper_story, rooftop, cave, wreck, burning_wreck, standard" },
+        "cover_modifier": { "type": ["integer", "null"], "description": "Primary numerical cover value (+1, +2, +3, +4, +5)" },
+        "secondary_modifier": { "type": ["integer", "null"], "description": "Bracketed value on bunkers/pillboxes/church towers [e.g. 4 in +3 [4]]" },
+        "no_fire": { "type": ["boolean", "null"], "default": false },
+        "no_pdf": { "type": ["boolean", "null"], "default": false },
+        "vof_level": { "type": ["string", "null"] },
+        "effects": { "type": ["string", "null"] }
+      }
+    },
+    "status": {
+      "type": "object",
+      "description": "Transient battlefield status markers that may be printed on the counter",
+      "additionalProperties": false,
+      "properties": {
+        "exposed": { "type": ["boolean", "null"] },
+        "pinned": { "type": ["boolean", "null"] },
+        "cover": { "type": ["string", "null"] },
+        "ammo_state": { "type": ["string", "null"], "enum": ["InAmmo", "OutOfAmmo", "LowAmmo", null] }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "description": "Assets carried by the counter (per FoF 1.2.4F)",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": ["string", "null"] },
+        "amount": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "combat": {
+      "type": "object",
+      "description": "Combat-related values printed on the counter",
+      "additionalProperties": false,
+      "properties": {
+        "vof": { "type": ["string", "null"] },
+        "pdf": { "type": ["boolean", "null"] },
+        "concentrated_fire": { "type": ["boolean", "null"] },
+        "crossfire": { "type": ["boolean", "null"] }
+      }
+    },
+    "potential_contact": {
+      "type": ["object", "null"],
+      "description": "Potential Contact marker fields (per FoF 8.2)",
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": ["string", "null"] },
+        "weather": { "type": ["string", "null"] },
+        "type": { "type": ["string", "null"] },
+        "amount": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "description": "ML classification metadata for audit and review",
+      "additionalProperties": false,
+      "properties": {
+        "method": { "type": "string", "enum": ["ocr", "clip_zeroshot", "template_match", "hybrid", "manual"] },
+        "model": { "type": ["string", "null"] },
+        "labels": { "type": "array", "items": { "type": "string" } },
+        "reviewed": { "type": "boolean", "default": false },
+        "reviewer": { "type": ["string", "null"] },
+        "reviewed_at": { "type": ["string", "null"] },
+        "notes": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

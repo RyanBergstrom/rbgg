@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional
 
 
-DB_PATH = Path("rbgg.db")
+DB_PATH = Path(__file__).resolve().parents[2] / "runtime" / "rbgg.db"
 
 
 def get_connection(path: Optional[str] = None) -> sqlite3.Connection:
@@ -29,12 +29,24 @@ def init_db(conn: sqlite3.Connection) -> None:
             game_id TEXT NOT NULL DEFAULT 'santorini',
             started_at TEXT NOT NULL DEFAULT (datetime('now')),
             finished_at TEXT,
+            winner TEXT,
+            final_scores_json TEXT,
+            result_summary_json TEXT,
             state_id TEXT,
             game_state_json TEXT,
             expected_version INTEGER NOT NULL DEFAULT 1
         )
         """
     )
+
+    cur.execute("PRAGMA table_info(game_sessions)")
+    existing_columns = {row[1] for row in cur.fetchall()}
+    if "winner" not in existing_columns:
+        cur.execute("ALTER TABLE game_sessions ADD COLUMN winner TEXT")
+    if "final_scores_json" not in existing_columns:
+        cur.execute("ALTER TABLE game_sessions ADD COLUMN final_scores_json TEXT")
+    if "result_summary_json" not in existing_columns:
+        cur.execute("ALTER TABLE game_sessions ADD COLUMN result_summary_json TEXT")
 
     cur.execute(
         """

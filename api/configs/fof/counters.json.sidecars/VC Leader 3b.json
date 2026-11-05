@@ -1,0 +1,61 @@
+{
+  "id": "VietCong-VC Leader 3b.png",
+  "path": "api\\img\\fof\\counters\\VC Leader 3b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "VC Leader 3b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "0a613aea0b895f801567f2d6d5ddb0a62698b386b915bc62d71649e1d783f150",
+    "classified_at": "2026-11-04T03:12:53.811294+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "VietCong",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='LEADER\\n==\\nFire Team,\\n\\nBake aie sadef C] Leaoee\\n\u2014\\nFire Tear\\n\\neee'"
+  }
+}

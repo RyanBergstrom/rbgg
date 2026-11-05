@@ -1,5 +1,7 @@
 """Debug score_moves: pass in a board state and see heuristic scores for all moves."""
 
+from copy import deepcopy
+
 import pytest
 
 from app.games.lost_cities.validator import (
@@ -214,7 +216,7 @@ class TestComputePlayScoreV2:
             "r_9", "b_2", "r_i", "r_3", "w_6", "y_i", "y_10", "g_5"
         ]
 
-        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-2, empty board, no other blue in hand ===")
         print(f"  Score: {score:.2f}")
@@ -237,7 +239,7 @@ class TestComputePlayScoreV2:
             "b_i", "b_2", "r_3", "w_6", "y_i", "y_10", "g_5", "r_9"
         ]
 
-        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-2 with blue-i in hand ===")
         print(f"  Score: {score:.2f}")
@@ -261,7 +263,7 @@ class TestComputePlayScoreV2:
             "b_10", "r_3", "w_6", "y_i", "y_10", "g_5", "r_9", "r_i"
         ]
 
-        score = compute_play_score_v2("b_10", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_10", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-10, empty board, no other blue in hand ===")
         print(f"  Score: {score:.2f}")
@@ -282,7 +284,7 @@ class TestComputePlayScoreV2:
             "b_2", "b_3", "b_4", "b_5", "r_9", "w_6", "y_i", "g_5"
         ]
 
-        score = compute_play_score_v2("b_5", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_5", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-5, with blue-2,3,4,5 in hand ===")
         print(f"  Score: {score:.2f}")
@@ -307,7 +309,7 @@ class TestComputePlayScoreV2:
         ]
         gd["expeditions"]["player_2"]["blue"] = ["b_3"]
 
-        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-2, opponent has blue-3 ===")
         print(f"  Score: {score:.2f}")
@@ -321,6 +323,48 @@ class TestComputePlayScoreV2:
         # Total = -18 + 24.5 + 0 = 6.5
         assert score == 6.5
 
+    def test_player_two_score_uses_player_two_expedition(self):
+        """Player-two scoring mirrors player-one scoring on mirrored state."""
+        from app.games.lost_cities.validator import compute_play_score_v2
+
+        player_one_state = _initial_game_data()
+        player_one_state["player_hands"]["player_1"] = [
+            "b_i", "b_2", "r_3", "w_6", "y_i", "y_10", "g_5", "r_9"
+        ]
+        player_one_state["expeditions"]["player_1"]["blue"] = ["b_i"]
+        player_one_score = compute_play_score_v2(
+            "b_i", player_one_state["player_hands"]["player_1"], player_one_state, "player_1"
+        )
+
+        player_two_state = deepcopy(player_one_state)
+        player_two_state["player_hands"]["player_1"], player_two_state["player_hands"]["player_2"] = (
+            player_two_state["player_hands"]["player_2"],
+            player_two_state["player_hands"]["player_1"],
+        )
+        player_two_state["expeditions"]["player_1"], player_two_state["expeditions"]["player_2"] = (
+            player_two_state["expeditions"]["player_2"],
+            player_two_state["expeditions"]["player_1"],
+        )
+        player_two_score = compute_play_score_v2(
+            "b_i", player_two_state["player_hands"]["player_2"], player_two_state, "player_2"
+        )
+
+        assert player_two_score == player_one_score
+
+    def test_player_two_score_changes_with_own_expedition(self):
+        """Changing player two's expedition affects player-two scoring."""
+        from app.games.lost_cities.validator import compute_play_score_v2
+
+        game_data = _initial_game_data()
+        game_data["player_hands"]["player_2"] = ["b_i"]
+        game_data["expeditions"]["player_1"]["blue"] = ["b_i"]
+        opponent_only = compute_play_score_v2("b_i", ["b_i"], game_data, "player_2")
+
+        game_data["expeditions"]["player_2"]["blue"] = ["b_i"]
+        own_expedition = compute_play_score_v2("b_i", ["b_i"], game_data, "player_2")
+
+        assert own_expedition != opponent_only
+
     def test_six_cards_bonus(self):
         """6 guaranteed cards -> no bonus (need 8+)."""
         from app.games.lost_cities.validator import compute_play_score_v2
@@ -330,7 +374,7 @@ class TestComputePlayScoreV2:
             "b_2", "b_3", "b_4", "b_5", "b_6", "b_7", "r_9", "w_6"
         ]
 
-        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd)
+        score = compute_play_score_v2("b_2", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== blue-2, 6 blue cards in hand ===")
         print(f"  Score: {score:.2f}")
@@ -352,8 +396,8 @@ class TestComputePlayScoreV2:
             "y_i", "b_7", "w_3", "y_6", "y_i", "y_8", "w_4", "y_i"
         ]
 
-        score_8 = compute_play_score_v2("y_8", gd["player_hands"]["player_1"], gd)
-        score_i = compute_play_score_v2("y_i", gd["player_hands"]["player_1"], gd)
+        score_8 = compute_play_score_v2("y_8", gd["player_hands"]["player_1"], gd, "player_1")
+        score_i = compute_play_score_v2("y_i", gd["player_hands"]["player_1"], gd, "player_1")
         print()
         print("=== yellow-8 vs yellow-i (3 investments + yellow-6 in hand) ===")
         print(f"  yellow-8: {score_8:.2f}")

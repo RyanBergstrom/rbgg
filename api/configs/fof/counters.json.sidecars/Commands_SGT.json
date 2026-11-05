@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Commands_SGT.png",
+  "path": "api\\img\\fof\\counters\\Commands_SGT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Commands_SGT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "2eeedfce9e268b49653d5de02e96f6506c287932712f2b2a268fd44e8bfa05c0",
+    "classified_at": "2026-11-04T03:03:26.568764+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='1 SET\\nCommands\\n\u2018Available 1 SGT)\\nCammints,\\navailable\u2019 ='"
+  }
+}

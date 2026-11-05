@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo 50cal 7.png",
+  "path": "api\\img\\fof\\counters\\Ammo 50cal 7.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo 50cal 7.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "ed71e33422359fcc54d777eb589fde459a0349713d3211bed7389af25181ed9b",
+    "classified_at": "2026-11-04T03:01:43.352541+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

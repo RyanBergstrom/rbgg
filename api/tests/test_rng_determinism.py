@@ -1,6 +1,7 @@
 """Tests for RNG persistence and deterministic replay coverage."""
 
 from app.core.engine import MovePipeline
+from app.games.lost_cities.validator import LostCitiesValidator, _initial_game_data
 
 
 def test_same_seed_same_move_sequence_same_outcome():
@@ -67,3 +68,43 @@ def test_different_seeds_produce_different_states():
     r2 = pipeline.submit_move(state2, move)
 
     assert r1["new_state"]["rng_state_json"] != r2["new_state"]["rng_state_json"]
+
+
+def test_lost_cities_initial_deal_is_seed_deterministic():
+    first = _initial_game_data(123)
+    replay = _initial_game_data(123)
+    different = _initial_game_data(124)
+
+    assert first["player_hands"] == replay["player_hands"]
+    assert first["draw_pile"] == replay["draw_pile"]
+    assert first["_rng_state_json"] == replay["_rng_state_json"]
+    assert first["player_hands"] != different["player_hands"]
+
+
+def test_lost_cities_subsequent_round_deal_is_seed_deterministic():
+    validator = LostCitiesValidator()
+    first = _initial_game_data(987)
+    second = _initial_game_data(987)
+
+    for game_data in (first, second):
+        game_data["current_phase"] = "draw_a_card"
+        game_data["pending_draw"] = True
+        game_data["draw_pile"] = ["b_5"]
+
+    move = {"type": "draw", "source": "draw_pile", "player_id": "player_1"}
+    state_one = {
+        "game_data": first,
+        "rng_seed": 987,
+        "rng_state_json": first.pop("_rng_state_json"),
+    }
+    state_two = {
+        "game_data": second,
+        "rng_seed": 987,
+        "rng_state_json": second.pop("_rng_state_json"),
+    }
+
+    result_one = validator.apply_move(state_one, move)
+    result_two = validator.apply_move(state_two, move)
+
+    assert result_one["game_data"]["player_hands"] == result_two["game_data"]["player_hands"]
+    assert result_one["rng_state_json"] == result_two["rng_state_json"]

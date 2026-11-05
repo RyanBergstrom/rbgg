@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-HQ 4 PLT.png",
+  "path": "api\\img\\fof\\counters\\HQ 4 PLT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ 4 PLT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "774e7bbb42bff96ed87b24ccf4496b9cb8013749518aaec5d48e41afe76053e3",
+    "classified_at": "2026-11-04T03:06:20.945010+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "hq_plt",
+  "unit_details": {
+    "unit_type": "hq_plt",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

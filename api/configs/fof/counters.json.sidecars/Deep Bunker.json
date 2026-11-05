@@ -1,0 +1,62 @@
+{
+  "id": "MARKER-DEEP_BUNKER",
+  "path": "api\\img\\fof\\ocr-test\\Deep Bunker.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Deep Bunker.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "2b63941f391e2e781813d39ed75e237c8ee207799e353a55f4f29f2e02c07567",
+    "classified_at": "2026-11-05T05:16:03.852246+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "cover_type": "deep_bunker",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": true,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:Q",
+      "bottom_right_range:3"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): Q, Range (Right): 3"
+  }
+}

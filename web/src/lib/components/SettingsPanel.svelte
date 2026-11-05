@@ -19,7 +19,7 @@
 
   function handleReset() {
     settings.reset();
-    localSettings = { hover_zoom_percent: 150 };
+    localSettings = { hover_zoom_percent: 150, show_ai_controls: true };
   }
 
   function handleClose() {
@@ -73,6 +73,16 @@
               </div>
             </td>
             <td class="setting-desc">Card enlargement on hover (100% = no zoom, 300% = 3x size)</td>
+          </tr>
+          <tr>
+            <td class="setting-name">Show AI Controls</td>
+            <td class="setting-control">
+              <label class="toggle-control">
+                <input type="checkbox" bind:checked={localSettings.show_ai_controls} />
+                <span>{localSettings.show_ai_controls ? 'Visible' : 'Hidden'}</span>
+              </label>
+            </td>
+            <td class="setting-desc">Show or hide the top-right AI model and difficulty selectors during play.</td>
           </tr>
         </tbody>
       </table>
@@ -197,6 +207,18 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .toggle-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #eee;
+  }
+
+  .toggle-control input {
+    width: 1rem;
+    height: 1rem;
   }
 
   .range-wrapper input[type="range"] {

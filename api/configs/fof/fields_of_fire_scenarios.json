@@ -1,0 +1,1431 @@
+{
+  "schema": {
+    "scenario_id": "string (unique identifier)",
+    "name": "string (display name)",
+    "mission_type": "string (campaign mission reference)",
+    "map_layout": {
+      "rows": "int",
+      "cols": "int",
+      "terrain_decks": "list of deck names",
+      "card_layout": "list of card IDs or None for empty"
+    },
+    "deployment_zones": "list of card positions",
+    "starting_units": "list of unit configurations",
+    "enemy_packages": "list of enemy package configurations",
+    "victory_conditions": {
+      "type": "string (objective type)",
+      "target": "int or string",
+      "description": "string"
+    },
+    "special_rules": "list of special rule identifiers",
+    "experience_reward": "int"
+  },
+  "campaigns": {
+    "training": {
+      "name": "Training Missions",
+      "description": "Basic Training exercises from the Field Manual",
+      "scenarios": {
+        "training_1": {
+          "scenario_id": "training_1",
+          "name": "Basic Training - Movement",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 4,
+            "cols": 3,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "DZ_NORMANDY",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "DZ_NORMANDY",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "DZ_NORMANDY",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N41"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N10"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N10"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 3,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 3,
+                "col": 1,
+                "id": "N17"
+              },
+              {
+                "row": 3,
+                "col": 2,
+                "id": "N17"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null
+            },
+            {
+              "id": "mortar_fo",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null
+            }
+          ],
+          "enemy_packages": [],
+          "victory_conditions": {
+            "type": "reach_position",
+            "target": 11,
+            "description": "Move all 7 units to Row 3 (cards 8-11). The PLT HQ must reach Row 3."
+          },
+          "special_rules": [
+            "no_enemies",
+            "single_platoon",
+            "general_initiative_halved"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "pac_run1": {
+          "scenario_id": "pac_run1",
+          "name": "Platoon Assault Course - Run 1: Activation & Movement",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT Bazooka"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "Mtr FO"
+            }
+          ],
+          "enemy_packages": [],
+          "victory_conditions": {
+            "type": "reach_position",
+            "target": 8,
+            "description": "Move all 7 units to Row 3. PLT HQ must reach Row 3 with some Commands saved."
+          },
+          "special_rules": [
+            "no_enemies",
+            "single_platoon",
+            "general_initiative_halved",
+            "exposed_markers_removed_in_cleanup"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "pac_run2": {
+          "scenario_id": "pac_run2",
+          "name": "Platoon Assault Course - Run 2: Attacking an Enemy Position",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT Bazooka"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "Mtr FO"
+            }
+          ],
+          "enemy_packages": [
+            {
+              "id": "enemy_lmg",
+              "type": "lmg_team",
+              "position": 10,
+              "spotted": true,
+              "tactics": "deliberate_defense",
+              "foxholes": true
+            }
+          ],
+          "victory_conditions": {
+            "type": "eliminate_enemies",
+            "target": null,
+            "description": "Clear the enemy LMG from the Woods Hill on Row 3, Column 2."
+          },
+          "special_rules": [
+            "known_enemy_position",
+            "deliberate_defense",
+            "no_ammo_tracking",
+            "mortar_fo_2_missions",
+            "incoming_vof_minus_3"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "pac_run3": {
+          "scenario_id": "pac_run3",
+          "name": "Platoon Assault Course - Run 3: Potential Contact",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT Bazooka"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "Mtr FO"
+            }
+          ],
+          "enemy_packages": [
+            {
+              "package_id": 1,
+              "name": "Incoming Mortar",
+              "vof": -3,
+              "spotted": false,
+              "placement": "triggering_card"
+            },
+            {
+              "package_id": 2,
+              "name": "LMG in Foxholes",
+              "spotted": false,
+              "placement": "random_row_2"
+            },
+            {
+              "package_id": 3,
+              "name": "LMG no cover",
+              "spotted": true,
+              "placement": "triggering_card"
+            },
+            {
+              "package_id": 4,
+              "name": "Squad in Foxholes",
+              "spotted": false,
+              "placement": "random_row_3"
+            },
+            {
+              "package_id": 5,
+              "name": "LMG in Bunker",
+              "spotted": true,
+              "placement": "random_row_3"
+            }
+          ],
+          "pc_markers": [
+            {
+              "type": "A",
+              "positions": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "type": "B",
+              "positions": [
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "victory_conditions": {
+            "type": "secure_position",
+            "target": 10,
+            "description": "Secure the Woods on the Hill (Row 3, Column 2). US units present, no enemy units."
+          },
+          "special_rules": [
+            "potential_contact_system",
+            "enemy_packages",
+            "pc_markers_a_b",
+            "no_contact_marker"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "cac_run1": {
+          "scenario_id": "cac_run1",
+          "name": "Company Assault Course - Run 1: Assaulting a Known Position",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "co_hq",
+              "type": "hq",
+              "level": "co",
+              "position": null,
+              "name": "CO HQ"
+            },
+            {
+              "id": "co_staff",
+              "type": "staff",
+              "position": null,
+              "name": "CO Staff"
+            },
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "plt_hq_2",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "2nd PLT HQ"
+            },
+            {
+              "id": "plt_hq_3",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "3rd PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_1_2",
+              "type": "squad",
+              "position": null,
+              "name": "1/2 Squad"
+            },
+            {
+              "id": "squad_1_3",
+              "type": "squad",
+              "position": null,
+              "name": "1/3 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_2_2",
+              "type": "squad",
+              "position": null,
+              "name": "2/2 Squad"
+            },
+            {
+              "id": "squad_2_3",
+              "type": "squad",
+              "position": null,
+              "name": "2/3 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "squad_3_2",
+              "type": "squad",
+              "position": null,
+              "name": "3/2 Squad"
+            },
+            {
+              "id": "squad_3_3",
+              "type": "squad",
+              "position": null,
+              "name": "3/3 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "lmg_2",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "2/LMG"
+            },
+            {
+              "id": "lmg_3",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "3/LMG"
+            },
+            {
+              "id": "mortar_1",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "1/Mortar"
+            },
+            {
+              "id": "mortar_2",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "2/Mortar"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT"
+            },
+            {
+              "id": "at_team_2",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "2/AT"
+            }
+          ],
+          "enemy_packages": [
+            {
+              "id": "enemy_lmg_1",
+              "type": "lmg_team",
+              "position": 10,
+              "spotted": true,
+              "tactics": "deliberate_defense",
+              "foxholes": true
+            },
+            {
+              "id": "enemy_squad_1",
+              "type": "squad",
+              "position": 9,
+              "spotted": true,
+              "foxholes": true
+            }
+          ],
+          "victory_conditions": {
+            "type": "eliminate_enemies",
+            "target": null,
+            "description": "Clear the known enemy position on Row 3."
+          },
+          "special_rules": [
+            "known_enemy_position",
+            "company_level",
+            "deliberate_defense"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "cac_run2": {
+          "scenario_id": "cac_run2",
+          "name": "Company Assault Course - Run 2: Potential Contact System",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "co_hq",
+              "type": "hq",
+              "level": "co",
+              "position": null,
+              "name": "CO HQ"
+            },
+            {
+              "id": "co_staff",
+              "type": "staff",
+              "position": null,
+              "name": "CO Staff"
+            },
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "plt_hq_2",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "2nd PLT HQ"
+            },
+            {
+              "id": "plt_hq_3",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "3rd PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_1_2",
+              "type": "squad",
+              "position": null,
+              "name": "1/2 Squad"
+            },
+            {
+              "id": "squad_1_3",
+              "type": "squad",
+              "position": null,
+              "name": "1/3 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_2_2",
+              "type": "squad",
+              "position": null,
+              "name": "2/2 Squad"
+            },
+            {
+              "id": "squad_2_3",
+              "type": "squad",
+              "position": null,
+              "name": "2/3 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "squad_3_2",
+              "type": "squad",
+              "position": null,
+              "name": "3/2 Squad"
+            },
+            {
+              "id": "squad_3_3",
+              "type": "squad",
+              "position": null,
+              "name": "3/3 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "lmg_2",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "2/LMG"
+            },
+            {
+              "id": "lmg_3",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "3/LMG"
+            },
+            {
+              "id": "mortar_1",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "1/Mortar"
+            },
+            {
+              "id": "mortar_2",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "2/Mortar"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT"
+            },
+            {
+              "id": "at_team_2",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "2/AT"
+            }
+          ],
+          "enemy_packages": [
+            {
+              "package_id": 1,
+              "name": "LMG in Foxholes",
+              "spotted": false,
+              "placement": "random_row_2"
+            },
+            {
+              "package_id": 2,
+              "name": "Squad in Foxholes",
+              "spotted": false,
+              "placement": "random_row_3"
+            },
+            {
+              "package_id": 3,
+              "name": "LMG in Bunker",
+              "spotted": true,
+              "placement": "random_row_3"
+            }
+          ],
+          "pc_markers": [
+            {
+              "type": "A",
+              "positions": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "type": "B",
+              "positions": [
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "victory_conditions": {
+            "type": "eliminate_enemies",
+            "target": null,
+            "description": "Clear all enemy positions using the Potential Contact system."
+          },
+          "special_rules": [
+            "potential_contact_system",
+            "company_level",
+            "enemy_packages"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        },
+        "cac_run3": {
+          "scenario_id": "cac_run3",
+          "name": "Company Assault Course - Run 3: Adding Communications",
+          "mission_type": "training",
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Starter 1 Terrain"
+            ],
+            "card_layout": [
+              {
+                "row": 0,
+                "col": 0,
+                "id": "N41",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 1,
+                "id": "N42",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 2,
+                "id": "N43",
+                "deployment_zone": true
+              },
+              {
+                "row": 0,
+                "col": 3,
+                "id": "N44",
+                "deployment_zone": true
+              },
+              {
+                "row": 1,
+                "col": 0,
+                "id": "N09"
+              },
+              {
+                "row": 1,
+                "col": 1,
+                "id": "N41"
+              },
+              {
+                "row": 1,
+                "col": 2,
+                "id": "N10"
+              },
+              {
+                "row": 1,
+                "col": 3,
+                "id": "N42"
+              },
+              {
+                "row": 2,
+                "col": 0,
+                "id": "N17"
+              },
+              {
+                "row": 2,
+                "col": 1,
+                "id": "N01"
+              },
+              {
+                "row": 2,
+                "col": 2,
+                "id": "N18"
+              },
+              {
+                "row": 2,
+                "col": 3,
+                "id": "N19"
+              }
+            ]
+          },
+          "starting_units": [
+            {
+              "id": "co_hq",
+              "type": "hq",
+              "level": "co",
+              "position": null,
+              "name": "CO HQ"
+            },
+            {
+              "id": "co_staff",
+              "type": "staff",
+              "position": null,
+              "name": "CO Staff"
+            },
+            {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "1st PLT HQ"
+            },
+            {
+              "id": "plt_hq_2",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "2nd PLT HQ"
+            },
+            {
+              "id": "plt_hq_3",
+              "type": "hq",
+              "level": "plt",
+              "position": null,
+              "name": "3rd PLT HQ"
+            },
+            {
+              "id": "squad_1_1",
+              "type": "squad",
+              "position": null,
+              "name": "1/1 Squad"
+            },
+            {
+              "id": "squad_1_2",
+              "type": "squad",
+              "position": null,
+              "name": "1/2 Squad"
+            },
+            {
+              "id": "squad_1_3",
+              "type": "squad",
+              "position": null,
+              "name": "1/3 Squad"
+            },
+            {
+              "id": "squad_2_1",
+              "type": "squad",
+              "position": null,
+              "name": "2/1 Squad"
+            },
+            {
+              "id": "squad_2_2",
+              "type": "squad",
+              "position": null,
+              "name": "2/2 Squad"
+            },
+            {
+              "id": "squad_2_3",
+              "type": "squad",
+              "position": null,
+              "name": "2/3 Squad"
+            },
+            {
+              "id": "squad_3_1",
+              "type": "squad",
+              "position": null,
+              "name": "3/1 Squad"
+            },
+            {
+              "id": "squad_3_2",
+              "type": "squad",
+              "position": null,
+              "name": "3/2 Squad"
+            },
+            {
+              "id": "squad_3_3",
+              "type": "squad",
+              "position": null,
+              "name": "3/3 Squad"
+            },
+            {
+              "id": "lmg_1",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "1/LMG"
+            },
+            {
+              "id": "lmg_2",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "2/LMG"
+            },
+            {
+              "id": "lmg_3",
+              "type": "weapon_team",
+              "weapon": "mg",
+              "position": null,
+              "name": "3/LMG"
+            },
+            {
+              "id": "mortar_1",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "1/Mortar"
+            },
+            {
+              "id": "mortar_2",
+              "type": "mortar_team",
+              "weapon": "mortar",
+              "position": null,
+              "name": "2/Mortar"
+            },
+            {
+              "id": "at_team_1",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "1/AT"
+            },
+            {
+              "id": "at_team_2",
+              "type": "at_team",
+              "weapon": "rcl",
+              "position": null,
+              "name": "2/AT"
+            }
+          ],
+          "enemy_packages": [
+            {
+              "package_id": 1,
+              "name": "LMG in Foxholes",
+              "spotted": false,
+              "placement": "random_row_2"
+            },
+            {
+              "package_id": 2,
+              "name": "Squad in Foxholes",
+              "spotted": false,
+              "placement": "random_row_3"
+            },
+            {
+              "package_id": 3,
+              "name": "LMG in Bunker",
+              "spotted": true,
+              "placement": "random_row_3"
+            }
+          ],
+          "pc_markers": [
+            {
+              "type": "A",
+              "positions": [
+                0,
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "type": "B",
+              "positions": [
+                4,
+                5,
+                6,
+                7
+              ]
+            }
+          ],
+          "victory_conditions": {
+            "type": "eliminate_enemies",
+            "target": null,
+            "description": "Clear all enemy positions using radios and communications."
+          },
+          "special_rules": [
+            "potential_contact_system",
+            "company_level",
+            "enemy_packages",
+            "radios_enabled",
+            "field_phones"
+          ],
+          "experience_reward": 0,
+          "campaign": "training"
+        }
+      }
+    }
+  }
+}

@@ -6,6 +6,7 @@ from unittest.mock import MagicMock
 from app.core.engine import GameEngine
 from app.core.legal_move_interface import LegalMoveValidator
 from app.core.game_state import GameState, PlayerInfo, TurnInfo, Topology
+from app.games.lost_cities.validator import LostCitiesValidator, _initial_game_data
 
 
 class _StubValidator(LegalMoveValidator):
@@ -223,3 +224,42 @@ def test_submit_move_returns_phase_info():
     result = engine.submit_move(state, move)
     assert "phase_info" in result
     assert "phase_name" in result["phase_info"]
+
+
+def test_validator_owned_transition_is_not_advanced_twice():
+    """Lost Cities game-data transitions remain authoritative after a draw."""
+    engine = GameEngine("lost_cities", LostCitiesValidator())
+    game_data = _initial_game_data()
+    state = _make_state(game_type="lost_cities", game_data=game_data)
+
+    play_move = engine.get_legal_moves(state, "player_1")[0]
+    engine.submit_move(state, play_move)
+    assert state.game_data["current_phase"] == "draw_a_card"
+    assert state.current_player_index == 0
+    assert state.current_phase_index == 1
+
+    draw_move = engine.get_legal_moves(state, "player_1")[0]
+    engine.submit_move(state, draw_move)
+
+    assert state.game_data["current_player"] == "player_2"
+    assert state.game_data["current_phase"] == "play_a_card"
+    assert state.current_player_index == 1
+    assert state.turn.player_id == "player_2"
+    assert state.current_phase_index == 0
+
+
+def test_engine_commits_validator_rng_state():
+    """The engine retains RNG state consumed by a validator transition."""
+    engine = GameEngine("lost_cities", LostCitiesValidator())
+    game_data = _initial_game_data(123)
+    initial_rng_state = game_data.pop("_rng_state_json")
+    state = _make_state(
+        game_type="lost_cities",
+        rng_seed=123,
+        rng_state_json=initial_rng_state,
+        game_data=game_data,
+    )
+    move = engine.get_legal_moves(state, "player_1")[0]
+    engine.submit_move(state, move)
+
+    assert state.rng_state_json != initial_rng_state

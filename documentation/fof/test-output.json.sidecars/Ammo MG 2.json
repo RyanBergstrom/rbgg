@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo MG 2.png",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Ammo MG 2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo MG 2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "a497b88d93c170f6e87ba54d4b4a82dcb00fe175a0f46e82732c8643cf5b82c0",
+    "classified_at": "2026-11-02T20:56:48.249207+00:00",
+    "classifier": "fof-counter-pipeline v1.0",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

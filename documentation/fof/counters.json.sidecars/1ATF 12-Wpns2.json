@@ -1,0 +1,61 @@
+{
+  "id": "Australian-1ATF 12-Wpns2.jpg",
+  "path": "documentation\\fof\\images\\1ATF 12-Wpns2.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1ATF 12-Wpns2.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "unknown",
+    "hash_sha256": "782521b52261a84e4efa6f851465837f6dc8c6ec551d0139e0e0d596fd40d933",
+    "classified_at": "2026-11-04T00:35:53.389135+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Australian",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Weapons Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='or'"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo RCL 5.png",
+  "path": "api\\img\\fof\\counters\\Ammo RCL 5.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo RCL 5.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "54e55607c43c3c3b9215da19dfc40b4181d9a6905bb8b72dc39b2329542988db",
+    "classified_at": "2026-11-04T03:02:10.580344+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='5\\n\u2014 Frat 8\\ncs'"
+  }
+}

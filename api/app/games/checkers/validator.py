@@ -441,6 +441,10 @@ class CheckersValidator(LegalMoveValidator):
             max_depth=64,
         )
 
+    def create_search_policy(self, _validator=None):
+        from app.games.checkers.search_policy import CheckersSearchPolicy
+        return CheckersSearchPolicy(self)
+
     def initial_game_data(self) -> dict[str, Any]:
         """Return the initial checkers board state."""
         return {"board": initial_board()}

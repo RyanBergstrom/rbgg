@@ -1,0 +1,61 @@
+{
+  "id": "Commonwealth-2PARA LAT Cas 2.png",
+  "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\2PARA LAT Cas 2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "2PARA LAT Cas 2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "71c8568eb74c68352ae2746b59e9d2402bc0fd91bd852724e9d644e6fe1954b2",
+    "classified_at": "2026-11-02T21:05:16.284773+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Commonwealth",
+  "category": "unit",
+  "subtype": "lat",
+  "unit_details": {
+    "unit_type": "lat",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "openai/clip-vit-base-patch32 + tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": null
+  }
+}

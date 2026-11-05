@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-GE_75mmIG 1 b.png",
+  "path": "api\\img\\fof\\counters\\GE_75mmIG 1 b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_75mmIG 1 b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "0b16652fb9145831e9401f55689104657aec2ec0947c0696182f37e1bdece013",
+    "classified_at": "2026-11-04T03:04:44.070673+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "7",
+    "platoon": "7",
+    "squad_number": "5",
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='a a'"
+  }
+}

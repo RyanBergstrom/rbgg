@@ -1,8 +1,6 @@
+//#region src/routes/games/[gameId]/setup/+page.js
 function load({ params }) {
-  return {
-    gameId: params.gameId
-  };
+	return { gameId: params.gameId };
 }
-export {
-  load
-};
+//#endregion
+export { load };

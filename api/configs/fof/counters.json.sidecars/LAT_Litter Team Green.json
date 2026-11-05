@@ -1,0 +1,69 @@
+{
+  "id": "US-1-1-LAT",
+  "path": "api\\img\\fof\\ocr-test\\LAT_Litter Team Green.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "LAT_Litter Team Green.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "front",
+    "hash_sha256": "48b20cf49dfe69499de4d0783c8408076ed0302ffee619b7b12496fbcc66b583",
+    "classified_at": "2026-11-05T03:15:07.877044+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "lat",
+  "unit_details": {
+    "unit_type": "lat",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Litter Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:Y"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): Y"
+  }
+}

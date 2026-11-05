@@ -1,0 +1,21 @@
+game:
+  id: twilight_struggle
+  name: Twilight Struggle
+  description: Standard base-game Twilight Struggle for two players.
+  players: 2
+  status: development
+  rules_source: supplied 2nd Edition rulebook
+  requirements: documentation/twilight-struggle/twilight-struggle-requirements.md
+
+# Registered for the in-progress frontend integration. Catalog registration is
+# not a complete-game/rules sign-off; the game remains under development.
+
+# The generic GameEngine requires these panel IDs even though the dedicated
+# Twilight board component renders the game state itself.
+panels:
+  game_progress:
+    name: Game Progress
+    required: true
+  main_board:
+    name: Main Board
+    required: true

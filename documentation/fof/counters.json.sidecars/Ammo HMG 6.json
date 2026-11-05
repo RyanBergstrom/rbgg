@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo HMG 6.png",
+  "path": "documentation\\fof\\images\\Ammo HMG 6.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo HMG 6.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "09377bf0023575e90f91d935266f7c600b94e6a87e3ff2a140095dc21c0971d2",
+    "classified_at": "2026-11-04T00:38:09.356635+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='He -4-'"
+  }
+}

@@ -13,15 +13,19 @@ export const nodes = [
 	() => import('./nodes/1'),
 	() => import('./nodes/2'),
 	() => import('./nodes/3'),
-	() => import('./nodes/4')
+	() => import('./nodes/4'),
+	() => import('./nodes/5'),
+	() => import('./nodes/6')
 ];
 
 export const server_loads = [];
 
 export const dictionary = {
 		"/": [2],
-		"/games/[gameId]/play": [3],
-		"/games/[gameId]/setup": [4]
+		"/asset-reviewer": [3],
+		"/games/[gameId]/play": [4],
+		"/games/[gameId]/setup": [5],
+		"/horizon-tree": [6]
 	};
 
 export const hooks = {
@@ -38,6 +42,6 @@ export const hash = false;
 
 export const decode = (type, value) => decoders[type](value);
 
-export { default as root } from '../root.svelte';
+export { default as root } from '../root.js';
 
 export const get_error_template = () => import('../shared/error-template.js').then(m => m.default);

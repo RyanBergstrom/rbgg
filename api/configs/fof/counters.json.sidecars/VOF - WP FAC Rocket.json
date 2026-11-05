@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-VOF - WP FAC Rocket.png",
+  "path": "api\\img\\fof\\counters\\VOF - WP FAC Rocket.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "VOF - WP FAC Rocket.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "d3165cda80ed1d571d3602030b24d68c5504d9b6f8783f8c39f562c50a205004",
+    "classified_at": "2026-11-04T03:14:16.914623+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "vof",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "vof",
+    "vof_level": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": "red VOF marker"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2014wPrat\\nawe\\nwe [eae\\nilk,\\nWP imei WP Rt\\n7\\nwe'"
+  }
+}

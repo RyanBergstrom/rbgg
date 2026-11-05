@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Green casualty - 2 step British.png",
+  "path": "documentation\\fof\\images\\Green casualty - 2 step British.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Green casualty - 2 step British.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "69427c8fb0ee83d31bfb48f7c5f0c3c633adc30e6b3391c6ff0ede3034b63eba",
+    "classified_at": "2026-11-04T00:42:54.783089+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "casualty",
+  "unit_details": {
+    "unit_type": "casualty",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text=')'"
+  }
+}

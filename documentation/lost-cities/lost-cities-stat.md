@@ -1,5 +1,10 @@
 # Lost Cities Implementation Status
 
+> **Historical snapshot only (2026-09-11).** The COMPLETE status, file line
+> counts, and test totals below describe the initial implementation and are not
+> current project status. For current RL/model state, see
+> [the RL experiment record](../lost-cities-rl-adapter-plan.md).
+
 **Game:** Lost Cities  
 **Date:** 2026-09-11  
 **Status:** COMPLETE ✅  

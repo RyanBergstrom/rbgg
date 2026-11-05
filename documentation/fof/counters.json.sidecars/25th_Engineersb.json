@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-25th_Engineersb.png",
+  "path": "documentation\\fof\\images\\25th_Engineersb.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "25th_Engineersb.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "bcfef2f77d1abb85c07a12d315f3ff7bb9737300f3d6d0d20c7cd8f9dea2ec24",
+    "classified_at": "2026-11-04T00:36:05.028486+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "2",
+    "platoon": "2",
+    "squad_number": "5",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='| ENGINEERS\\nAG oe L'"
+  }
+}

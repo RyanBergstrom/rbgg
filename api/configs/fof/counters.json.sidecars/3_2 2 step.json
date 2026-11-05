@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-3_2 2 step.png",
+  "path": "api\\img\\fof\\counters\\3_2 2 step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "3_2 2 step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "186cc83837eeae96fb8d787cf2e53d159f6ce57a2376f345f270af08546e5402",
+    "classified_at": "2026-11-04T03:00:51.758737+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "3",
+    "platoon": "3",
+    "squad_number": "2",
+    "experience_level": "A",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='{xe 472 PLT a\\nSate eh ti @!'"
+  }
+}

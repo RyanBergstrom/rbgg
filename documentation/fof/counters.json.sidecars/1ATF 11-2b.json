@@ -1,0 +1,61 @@
+{
+  "id": "Australian-1ATF 11-2b.jpg",
+  "path": "documentation\\fof\\images\\1ATF 11-2b.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1ATF 11-2b.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "back",
+    "hash_sha256": "a2cbf6511a38f0de1bdb171c01b155a0fbb1def2986f1786874e98f79ec5c1a8",
+    "classified_at": "2026-11-04T00:35:43.249555+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Australian",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "S",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "S",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u201811 Ph 2 Sect\\nSee TUT Set\\ns eek'"
+  }
+}

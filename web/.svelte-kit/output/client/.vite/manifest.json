@@ -1,13 +1,14 @@
 {
   ".svelte-kit/generated/client-optimized/app.js": {
-    "file": "_app/immutable/entry/app.Bu6waC0S.js",
+    "file": "_app/immutable/entry/app.DuKWbGUf.js",
     "name": "entry/app",
     "src": ".svelte-kit/generated/client-optimized/app.js",
     "isEntry": true,
     "imports": [
-      "_C1FmrZbK.js",
-      "_D84Y2HP9.js",
-      "_DZt3FjrX.js"
+      "_5JXyHpLP.js",
+      "_BJiQFusM.js",
+      "_uBIymjUX.js",
+      "_xihTtKlq.js"
     ],
     "dynamicImports": [
       ".svelte-kit/generated/client-optimized/nodes/0.js",
@@ -15,180 +16,266 @@
       ".svelte-kit/generated/client-optimized/nodes/2.js",
       ".svelte-kit/generated/client-optimized/nodes/3.js",
       ".svelte-kit/generated/client-optimized/nodes/4.js",
+      ".svelte-kit/generated/client-optimized/nodes/5.js",
+      ".svelte-kit/generated/client-optimized/nodes/6.js",
       ".svelte-kit/generated/shared/error-template.js"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/0.js": {
-    "file": "_app/immutable/nodes/0.dweZZ8vU.js",
+    "file": "_app/immutable/nodes/0.Bwhjiu09.js",
     "name": "nodes/0",
     "src": ".svelte-kit/generated/client-optimized/nodes/0.js",
     "isEntry": true,
-    "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_DZt3FjrX.js"
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js"
     ],
     "css": [
-      "_app/immutable/assets/0.DtdvzrPm.css"
+      "_app/immutable/assets/0.52v5p-hL.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/1.js": {
-    "file": "_app/immutable/nodes/1.BgJ_C4w-.js",
+    "file": "_app/immutable/nodes/1.CGsYgQvx.js",
     "name": "nodes/1",
     "src": ".svelte-kit/generated/client-optimized/nodes/1.js",
     "isEntry": true,
-    "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_DZt3FjrX.js",
-      "_AcgoXiYk.js"
+      "_5JXyHpLP.js",
+      "_2JmmnmuR.js",
+      "_xihTtKlq.js"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/2.js": {
-    "file": "_app/immutable/nodes/2.CBpXQUpD.js",
+    "file": "_app/immutable/nodes/2.Cy972gxO.js",
     "name": "nodes/2",
     "src": ".svelte-kit/generated/client-optimized/nodes/2.js",
     "isEntry": true,
-    "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_D6YF6ztN.js",
-      "_DZt3FjrX.js",
-      "_B8oN67lD.js"
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_CoCz9SgO.js"
     ],
     "css": [
-      "_app/immutable/assets/2.CSHPq4Lj.css"
+      "_app/immutable/assets/2.KV5Xzteb.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/3.js": {
-    "file": "_app/immutable/nodes/3.DcLiC6QI.js",
+    "file": "_app/immutable/nodes/3.DngLWauY.js",
     "name": "nodes/3",
     "src": ".svelte-kit/generated/client-optimized/nodes/3.js",
     "isEntry": true,
     "imports": [
-      "_BA1STT3q.js"
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_CoCz9SgO.js"
+    ],
+    "css": [
+      "_app/immutable/assets/3.DKKLYs4s.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/4.js": {
-    "file": "_app/immutable/nodes/4.CraVZ-ky.js",
+    "file": "_app/immutable/nodes/4.D63JjDZV.js",
     "name": "nodes/4",
     "src": ".svelte-kit/generated/client-optimized/nodes/4.js",
     "isEntry": true,
-    "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_D6YF6ztN.js",
-      "_DZt3FjrX.js",
-      "_B8oN67lD.js"
+      "_5JXyHpLP.js",
+      "_uBIymjUX.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_CoCz9SgO.js",
+      "_BkbXeqTE.js",
+      "_D6tC14LY.js"
+    ],
+    "dynamicImports": [
+      "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
+      "src/lib/components/games/bus/BusBoard.svelte",
+      "src/lib/components/games/checkers/CheckersBoard.svelte",
+      "src/lib/components/games/lost_cities/LostCitiesBoard.svelte",
+      "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte"
     ],
     "css": [
-      "_app/immutable/assets/4.DOwVh56U.css"
+      "_app/immutable/assets/4.B5OJmVdg.css"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/5.js": {
+    "file": "_app/immutable/nodes/5.B2DBAyhT.js",
+    "name": "nodes/5",
+    "src": ".svelte-kit/generated/client-optimized/nodes/5.js",
+    "isEntry": true,
+    "imports": [
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_CoCz9SgO.js"
+    ],
+    "css": [
+      "_app/immutable/assets/5.BpqsFR-R.css"
+    ]
+  },
+  ".svelte-kit/generated/client-optimized/nodes/6.js": {
+    "file": "_app/immutable/nodes/6.DpY0rUeC.js",
+    "name": "nodes/6",
+    "src": ".svelte-kit/generated/client-optimized/nodes/6.js",
+    "isEntry": true,
+    "imports": [
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js"
+    ],
+    "css": [
+      "_app/immutable/assets/6.DOi6UaZz.css"
     ]
   },
   ".svelte-kit/generated/shared/error-template.js": {
-    "file": "_app/immutable/chunks/wbPk3Yxo.js",
+    "file": "_app/immutable/chunks/Bjy-W4x2.js",
     "name": "error-template",
     "src": ".svelte-kit/generated/shared/error-template.js",
     "isDynamicEntry": true
   },
-  "_!~{00h}~.js": {
-    "file": "_app/immutable/assets/3.CkhBbzR_.css",
-    "src": "_!~{00h}~.js"
-  },
-  "_AcgoXiYk.js": {
-    "file": "_app/immutable/chunks/AcgoXiYk.js",
-    "name": "entry",
+  "_2JmmnmuR.js": {
+    "file": "_app/immutable/chunks/2JmmnmuR.js",
+    "name": "client",
     "imports": [
-      "_D84Y2HP9.js",
-      "_BAsstkaf.js"
+      "_5JXyHpLP.js",
+      "_Cak6kzeI.js",
+      "_BJiQFusM.js"
     ]
   },
-  "_B8oN67lD.js": {
-    "file": "_app/immutable/chunks/B8oN67lD.js",
+  "_5JXyHpLP.js": {
+    "file": "_app/immutable/chunks/5JXyHpLP.js",
+    "name": "index-client"
+  },
+  "_BJiQFusM.js": {
+    "file": "_app/immutable/chunks/BJiQFusM.js",
+    "name": "env",
+    "imports": [
+      "_5JXyHpLP.js"
+    ]
+  },
+  "_BkbXeqTE.js": {
+    "file": "_app/immutable/chunks/BkbXeqTE.js",
+    "name": "dev"
+  },
+  "_Cak6kzeI.js": {
+    "file": "_app/immutable/chunks/Cak6kzeI.js",
+    "name": "index-client",
+    "imports": [
+      "_5JXyHpLP.js"
+    ]
+  },
+  "_CoCz9SgO.js": {
+    "file": "_app/immutable/chunks/CoCz9SgO.js",
     "name": "api"
   },
-  "_BA1STT3q.js": {
-    "file": "_app/immutable/chunks/BA1STT3q.js",
-    "name": "3",
-    "isDynamicEntry": true,
+  "_D6tC14LY.js": {
+    "file": "_app/immutable/chunks/D6tC14LY.js",
+    "name": "settings",
     "imports": [
-      "_C1FmrZbK.js",
-      "_D84Y2HP9.js",
-      "_DZt3FjrX.js",
-      "_B8oN67lD.js",
-      "_BAsstkaf.js"
-    ],
-    "dynamicImports": [
-      "src/lib/components/games/checkers/CheckersBoard.svelte",
-      "src/lib/components/games/lost_cities/LostCitiesBoard.svelte"
-    ],
-    "css": [
-      "_app/immutable/assets/3.CkhBbzR_.css"
+      "_5JXyHpLP.js",
+      "_Cak6kzeI.js",
+      "_BJiQFusM.js"
     ]
   },
-  "_BAsstkaf.js": {
-    "file": "_app/immutable/chunks/BAsstkaf.js",
-    "name": "index",
+  "_DVM-L3dX.js": {
+    "file": "_app/immutable/chunks/DVM-L3dX.js",
+    "name": "legacy",
     "imports": [
-      "_D84Y2HP9.js"
+      "_5JXyHpLP.js"
     ]
   },
-  "_C1FmrZbK.js": {
-    "file": "_app/immutable/chunks/C1FmrZbK.js",
+  "_uBIymjUX.js": {
+    "file": "_app/immutable/chunks/uBIymjUX.js",
     "name": "preload-helper"
   },
-  "_D6YF6ztN.js": {
-    "file": "_app/immutable/chunks/D6YF6ztN.js",
-    "name": "each"
-  },
-  "_D84Y2HP9.js": {
-    "file": "_app/immutable/chunks/D84Y2HP9.js",
-    "name": "scheduler"
-  },
-  "_DZt3FjrX.js": {
-    "file": "_app/immutable/chunks/DZt3FjrX.js",
-    "name": "index",
-    "imports": [
-      "_D84Y2HP9.js"
-    ]
+  "_xihTtKlq.js": {
+    "file": "_app/immutable/chunks/xihTtKlq.js",
+    "name": "disclose-version"
   },
   "node_modules/@sveltejs/kit/src/runtime/client/entry.js": {
-    "file": "_app/immutable/entry/start.BRXxXsjH.js",
+    "file": "_app/immutable/entry/start.Chx_5Deo.js",
     "name": "entry/start",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/entry.js",
     "isEntry": true,
     "imports": [
-      "_AcgoXiYk.js"
+      "_2JmmnmuR.js"
+    ]
+  },
+  "src/lib/components/games/bus/BusBoard.svelte": {
+    "file": "_app/immutable/chunks/BogZnpnI.js",
+    "name": "BusBoard",
+    "src": "src/lib/components/games/bus/BusBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js"
+    ],
+    "css": [
+      "_app/immutable/assets/BusBoard.DOlsHwg0.css"
     ]
   },
   "src/lib/components/games/checkers/CheckersBoard.svelte": {
-    "file": "_app/immutable/chunks/BH34wCU5.js",
+    "file": "_app/immutable/chunks/tHIJMRKn.js",
     "name": "CheckersBoard",
     "src": "src/lib/components/games/checkers/CheckersBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_D6YF6ztN.js",
-      "_DZt3FjrX.js",
-      "_BA1STT3q.js"
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_BkbXeqTE.js"
     ],
     "css": [
-      "_app/immutable/assets/CheckersBoard.DdfwhoIb.css"
+      "_app/immutable/assets/CheckersBoard.BstDjYec.css"
+    ]
+  },
+  "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte": {
+    "file": "_app/immutable/chunks/DgKJSWe6.js",
+    "name": "FieldsOfFireBoard",
+    "src": "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_CoCz9SgO.js"
+    ],
+    "css": [
+      "_app/immutable/assets/FieldsOfFireBoard.CDzXKk2c.css"
     ]
   },
   "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {
-    "file": "_app/immutable/chunks/BEgY2Abq.js",
+    "file": "_app/immutable/chunks/DrP7-UHK.js",
     "name": "LostCitiesBoard",
     "src": "src/lib/components/games/lost_cities/LostCitiesBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_D84Y2HP9.js",
-      "_DZt3FjrX.js",
-      "_D6YF6ztN.js",
-      "_BA1STT3q.js"
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js",
+      "_BkbXeqTE.js",
+      "_D6tC14LY.js"
     ],
     "css": [
-      "_app/immutable/assets/LostCitiesBoard.DPciq0sd.css"
+      "_app/immutable/assets/LostCitiesBoard.CylaMi8S.css"
+    ]
+  },
+  "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte": {
+    "file": "_app/immutable/chunks/CiKe8T0o.js",
+    "name": "TwilightStruggleBoard",
+    "src": "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_5JXyHpLP.js",
+      "_xihTtKlq.js",
+      "_DVM-L3dX.js"
+    ],
+    "css": [
+      "_app/immutable/assets/TwilightStruggleBoard.VODqShwk.css"
     ]
   }
 }

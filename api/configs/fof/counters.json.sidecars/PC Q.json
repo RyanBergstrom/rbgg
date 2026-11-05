@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-PC Q.png",
+  "path": "api\\img\\fof\\counters\\PC Q.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "PC Q.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "10af9f7ce7c771545133d2f3e350e8b35c8e04bec7c5d401437471117b931d85",
+    "classified_at": "2026-11-04T03:11:43.794625+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "potential_contact",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "potential_contact",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='POTENTIAL\\nCONTACT\\n? POTEATIAL\\nes PBTENTIAL\\nCMITAST\\n?'"
+  }
+}

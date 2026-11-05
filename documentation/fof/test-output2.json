@@ -1,0 +1,618 @@
+[
+  {
+    "id": "Unknown-1_1 3 step.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\1_1 3 step.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "1_1 3 step.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "0e526c586334eb8e07095d49a8085b07fe02019d1a63cc9f62fb8b54f766dbd7",
+      "classified_at": "2026-11-02T21:01:47.932814+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.55
+    },
+    "country": "Unknown",
+    "category": "marker",
+    "subtype": "potential_contact",
+    "unit_details": null,
+    "marker_details": {
+      "marker_type": "potential_contact",
+      "vof_level": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null,
+      "effects": null
+    },
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "hybrid",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire potential contact marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Australian-1ATF 10-2b.jpg",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\1ATF 10-2b.jpg",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "1ATF 10-2b.jpg",
+      "width": 75,
+      "height": 75,
+      "format": "jpg",
+      "side": "back",
+      "hash_sha256": "92e05bfbdfe274f97ca945b55d64ef33b32d512fbc4568baeebb01a2c0b8f014",
+      "classified_at": "2026-11-02T21:01:48.287817+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Australian",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire primary direction of fire marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Commands GySGT complete.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Commands GySGT complete.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Commands GySGT complete.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "94ccb02657bee81bce7fd9ec26ae996706aef59f0bfea09bb48cb08bd518b363",
+      "classified_at": "2026-11-02T21:01:48.704296+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire forward observer counter"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Commands Tank PLT complete.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Commands Tank PLT complete.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Commands Tank PLT complete.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "f1b6c37cf24dac39e73ad627b08d1e566ab251cdafdb6016c119a608fa0bc16a",
+      "classified_at": "2026-11-02T21:01:49.057188+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire current activity marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Control_Route Point 2.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Control_Route Point 2.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Control_Route Point 2.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "7f2dacc100f3e587f059cd2a74463098b728980060285a4cb6ce3b753fb1b9b6",
+      "classified_at": "2026-11-02T21:01:49.433523+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire potential contact marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Control_Target AB1003.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Control_Target AB1003.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Control_Target AB1003.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "a3ba8e98a28842b900df3d002bcf803ec5ca05724aa4916e8be9d2354d061371",
+      "classified_at": "2026-11-02T21:01:49.792004+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.547
+    },
+    "country": "Unknown",
+    "category": "marker",
+    "subtype": "current_activity",
+    "unit_details": null,
+    "marker_details": {
+      "marker_type": "current_activity",
+      "vof_level": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null,
+      "effects": null
+    },
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "hybrid",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire current activity marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Fire Mission -7 Iincoming.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Fire Mission -7 Iincoming.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Fire Mission -7 Iincoming.png",
+      "width": 76,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "1ef37b03a46bac3a5d5065de2ab46a4ce3971444fd4a76a0ad2061c98447f816",
+      "classified_at": "2026-11-02T21:01:50.143042+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.518
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "hybrid",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire runner counter"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Marker - WP.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Marker - WP.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Marker - WP.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "e713bf8c1772636a6b7a706ba05bc7538f5b9bb116d7bc7eb956d5c9bb86bf6c",
+      "classified_at": "2026-11-02T21:01:50.491724+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire weapons team counter"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Tiger 111.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Tiger 111.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Tiger 111.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "unknown",
+      "hash_sha256": "dc0640145d3fd7a3461bb8958e08304240ab91a12991593bbccc087821f03df0",
+      "classified_at": "2026-11-02T21:01:50.908808+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire cover marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  },
+  {
+    "id": "Unknown-Vol3 - Assets - Smoke - Screening b.png",
+    "path": "C:\\Dev\\rbgg\\documentation\\fof\\test-images\\Vol3 - Assets - Smoke - Screening b.png",
+    "source": "fof-images-folder",
+    "image": {
+      "filename": "Vol3 - Assets - Smoke - Screening b.png",
+      "width": 75,
+      "height": 75,
+      "format": "png",
+      "side": "back",
+      "hash_sha256": "cee58f579dc74529c806c831e833423c6dd0a75fd1fa6e9d1aedd3414432333f",
+      "classified_at": "2026-11-02T21:01:51.305473+00:00",
+      "classifier": "fof-counter-pipeline v2.0",
+      "confidence": 0.5
+    },
+    "country": "Unknown",
+    "category": "unit",
+    "subtype": "unknown",
+    "unit_details": {
+      "unit_type": "squad",
+      "division": null,
+      "battalion": null,
+      "platoon": null,
+      "squad_number": null,
+      "experience_level": null,
+      "steps_total": null,
+      "steps_remaining": null,
+      "vof_rating": null,
+      "range_band": null,
+      "weapon_type": null,
+      "ammo_type": null,
+      "ammo_amount": null
+    },
+    "marker_details": null,
+    "status": {
+      "exposed": null,
+      "pinned": null,
+      "cover": null,
+      "ammo_state": null
+    },
+    "assets": {
+      "type": null,
+      "amount": null
+    },
+    "combat": {
+      "vof": null,
+      "pdf": null,
+      "concentrated_fire": null,
+      "crossfire": null
+    },
+    "potential_contact": null,
+    "classification": {
+      "method": "ocr",
+      "model": "openai/clip-vit-base-patch32 + tesseract",
+      "labels": [
+        "a Fields of Fire current activity marker"
+      ],
+      "reviewed": true,
+      "reviewer": null,
+      "reviewed_at": null,
+      "notes": null
+    }
+  }
+]

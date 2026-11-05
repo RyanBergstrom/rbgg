@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Hue Truck 11.png",
+  "path": "api\\img\\fof\\counters\\Hue Truck 11.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Hue Truck 11.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "21fb44b26e45709e63175b9b5ad229842ca3ae3e19ab82d85955d457319b16a3",
+    "classified_at": "2026-11-04T03:06:44.321170+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "S",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "S",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='s'"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-GE_81mm Mtr 1 b.png",
+  "path": "api\\img\\fof\\counters\\GE_81mm Mtr 1 b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_81mm Mtr 1 b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "05257268cb923d2af25ba2c392a2c6c90a31fb49e2ab438bc90dc7dd337691ec",
+    "classified_at": "2026-11-04T03:04:47.061076+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "8",
+    "platoon": "8",
+    "squad_number": "1",
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='a'"
+  }
+}

@@ -1,0 +1,19 @@
+﻿replay: 865 moves in 2.26s = 2.61 ms per validated+applied move
+         9324327 function calls (8209807 primitive calls) in 8.401 seconds
+
+   Ordered by: internal time
+   List reduced from 253 to 10 due to restriction <10>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+1161791/113481    2.115    0.000    4.439    0.000 C:\Program Files\pyenv-win\versions\3.13\Lib\copy.py:119(deepcopy)
+    11166    1.107    0.000    5.728    0.001 C:\Users\p211587\personal\dev\rbgg\api\app\games\twilight_struggle\state_clone.py:28(clone_state)
+  2655416    0.823    0.000    0.823    0.000 {method 'get' of 'dict' objects}
+188924/122761    0.754    0.000    3.692    0.000 C:\Program Files\pyenv-win\versions\3.13\Lib\copy.py:218(_deepcopy_dict)
+  1391638    0.368    0.000    0.368    0.000 {built-in method builtins.isinstance}
+  1697989    0.355    0.000    0.355    0.000 {built-in method builtins.id}
+   210926    0.288    0.000    0.386    0.000 C:\Program Files\pyenv-win\versions\3.13\Lib\copy.py:232(_keep_alive)
+       24    0.203    0.008    0.203    0.008 {method '_parse_whole' of 'xml.etree.ElementTree.XMLParser' objects}
+     1430    0.166    0.000    0.166    0.000 C:\Program Files\pyenv-win\versions\3.13\Lib\json\encoder.py:205(iterencode)
+   950865    0.142    0.000    0.142    0.000 C:\Program Files\pyenv-win\versions\3.13\Lib\copy.py:173(_deepcopy_atomic)
+
+

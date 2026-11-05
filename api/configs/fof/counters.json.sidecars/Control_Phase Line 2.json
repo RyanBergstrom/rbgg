@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Control_Phase Line 2.png",
+  "path": "api\\img\\fof\\counters\\Control_Phase Line 2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Control_Phase Line 2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "cd8e9972a0cc1ddef8c8cced64acac378c7f8054431b831a62b02360abc2ea9a",
+    "classified_at": "2026-11-04T03:03:46.253103+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2014_\\n\u2014\\nase ine\\n\\nare eal a\\n\u2014=\\nane it\\npo a'"
+  }
+}

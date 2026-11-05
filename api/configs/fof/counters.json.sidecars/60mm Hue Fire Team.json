@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-60mm Hue Fire Team.png",
+  "path": "api\\img\\fof\\counters\\60mm Hue Fire Team.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "60mm Hue Fire Team.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "c5796fdd8c36ec0f71cdf54672e9ff17851e8bb827e836638e37de7c8065ea2d",
+    "classified_at": "2026-11-04T03:01:25.593663+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "6",
+    "platoon": "6",
+    "squad_number": "0",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Mtr See\\nfire Team\\nNS* C \u201cin'"
+  }
+}

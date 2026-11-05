@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-106mm b.png",
+  "path": "documentation\\fof\\images\\106mm b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "106mm b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "caf16330ec9e24be82ce609306f8c9a63afbebdb6e054069838e1c9f06a4c485",
+    "classified_at": "2026-11-04T00:35:11.094949+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "10",
+    "platoon": "10",
+    "squad_number": "6",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "106mm Recoilless Rifle",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u201cgmm RCL\\nfire Team\\nNS* C x\\nfie Yea\\nMee Co'"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "terrain_types": {
+    "open_field": {"name": "Open Field", "cover_high": 0, "cover_low": 0, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "good", "cover_potential": 1, "borders": ["white","white","white","white"], "source": "Base (3rd Ed)", "id_prefix": "OF", "image": null},
+    "woods": {"name": "Woods", "cover_high": 2, "cover_low": 2, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "poor", "cover_potential": 2, "borders": ["dark","dark","dark","dark"], "source": "Base (3rd Ed)", "id_prefix": "WD", "image": null},
+    "orchard_grove": {"name": "Orchard/Grove", "cover_high": 1, "cover_low": 1, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "fair", "cover_potential": 1, "borders": ["dark","white","dark","white"], "source": "Base (3rd Ed)", "id_prefix": "OG", "image": null},
+    "hill": {"name": "Hill", "cover_high": 0, "cover_low": 0, "burst": 0, "elevation": 1, "landing_zone": false, "trafficability": "fair", "cover_potential": 1, "borders": ["white","white","white","white"], "source": "Base (3rd Ed)", "id_prefix": "HL", "image": null},
+    "marsh": {"name": "Marsh", "cover_high": 0, "cover_low": 0, "burst": -1, "elevation": -1, "landing_zone": false, "trafficability": "poor", "cover_potential": 0, "borders": ["dark","dark","dark","dark"], "source": "Base (3rd Ed)", "id_prefix": "MS", "image": null},
+    "gully_draw": {"name": "Gully/Draw", "cover_high": 2, "cover_low": 1, "burst": 0, "elevation": -1, "landing_zone": false, "trafficability": "poor", "cover_potential": 2, "borders": ["dark","dark","white","white"], "source": "Base (3rd Ed)", "id_prefix": "GD", "image": null},
+    "farm": {"name": "Farm", "cover_high": 1, "cover_low": 1, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "fair", "cover_potential": 1, "borders": ["dark","white","dark","white"], "source": "Base (3rd Ed)", "id_prefix": "FM", "image": null},
+    "enclosed_field": {"name": "Enclosed Field", "cover_high": 1, "cover_low": 0, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "fair", "cover_potential": 1, "borders": ["dark","dark","white","white"], "source": "Base (3rd Ed)", "id_prefix": "EF", "image": null},
+    "hedgerow_bocage": {"name": "Hedgerow Bocage", "cover_high": 2, "cover_low": 1, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "poor", "cover_potential": 2, "borders": ["dark","dark","dark","dark"], "source": "Base (3rd Ed)", "id_prefix": "HB", "image": null},
+    "village": {"name": "Village", "cover_high": 2, "cover_low": 1, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "fair", "cover_potential": 2, "borders": ["dark","dark","dark","dark"], "source": "Base (3rd Ed)", "id_prefix": "VL", "image": null},
+    "church": {"name": "Church", "cover_high": 2, "cover_low": 2, "burst": 0, "elevation": 0, "landing_zone": false, "trafficability": "fair", "cover_potential": 2, "borders": ["dark","dark","dark","dark"], "source": "Base (3rd Ed)", "id_prefix": "CH", "image": null}
+  }
+}

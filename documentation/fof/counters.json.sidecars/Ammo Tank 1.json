@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo Tank 1.png",
+  "path": "documentation\\fof\\images\\Ammo Tank 1.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo Tank 1.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "be7d1c3deb09442c67f51c74e1e0299cb80e78db7c86a21864018cc67797dcb3",
+    "classified_at": "2026-11-04T00:38:35.168419+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='oe.\\na ey'"
+  }
+}

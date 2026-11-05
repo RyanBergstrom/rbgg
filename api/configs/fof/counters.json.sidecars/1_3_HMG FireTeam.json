@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-1_3_HMG FireTeam.png",
+  "path": "api\\img\\fof\\counters\\1_3_HMG FireTeam.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_3_HMG FireTeam.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "a44c7d962f8ce00a41cc662e0e31518af58339ba25cd51b2ceb73ed6702bbb05",
+    "classified_at": "2026-11-04T02:59:33.113155+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "1",
+    "platoon": "1",
+    "squad_number": "3",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Machine Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='43IMG\\nFire Team\\nasec'"
+  }
+}

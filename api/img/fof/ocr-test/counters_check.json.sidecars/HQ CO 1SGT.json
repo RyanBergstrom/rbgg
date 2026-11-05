@@ -1,0 +1,69 @@
+{
+  "id": "US-CO-1SGT",
+  "path": "api\\img\\fof\\ocr-test\\HQ CO 1SGT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ CO 1SGT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "50c8f256ce99f4d07f5f4e64ca48f4334662631f6377773c05a3a94ca2597427",
+    "classified_at": "2026-11-05T05:17:29.378847+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "co_1sgt",
+  "unit_details": {
+    "unit_type": "co_1sgt",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:C01S6T",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'C01S6T', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
+  }
+}

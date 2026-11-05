@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo MG 4.png",
+  "path": "api\\img\\fof\\counters\\Ammo MG 4.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo MG 4.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "5b09980a7e9b903dc3f5bf38aa797c48c2066f29085bef06b012ca9219b8a92b",
+    "classified_at": "2026-11-04T03:01:59.758040+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Ew? -\u00a2'"
+  }
+}

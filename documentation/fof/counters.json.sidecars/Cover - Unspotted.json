@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Cover - Unspotted.png",
+  "path": "documentation\\fof\\images\\Cover - Unspotted.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Cover - Unspotted.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "735a1d7af87a9c43c790e2ba6313780ba2c7dce6a9156cdbb231c4236a815721",
+    "classified_at": "2026-11-04T00:40:44.238850+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='BS\\nyA'"
+  }
+}

@@ -62,6 +62,12 @@ class MovePipeline:
         # 4. Apply move
         new_state = self.validator.apply_move(state, move)
 
+        # Preserve the committed RNG context when validators return only
+        # game_data. A validator may also replace rng_state_json after using
+        # the engine-owned RNG for a round transition.
+        new_state.setdefault("rng_seed", state.get("rng_seed", 42))
+        new_state.setdefault("rng_state_json", state.get("rng_state_json", "{}"))
+
         # Carry forward players so check_win can evaluate the result
         if "players" not in new_state:
             new_state["players"] = state.get("players", [])
@@ -305,7 +311,46 @@ class GameEngine:
             "current_player_index": state.current_player_index,
             "game_data": state.game_data,
             "version": state.version,
+            "rng_seed": state.rng_seed,
+            "rng_state_json": state.rng_state_json,
         }
+
+    def _sync_validator_transition(self, state) -> bool:
+        """Normalize a validator-owned transition into the public state.
+
+        Games that expose ``current_player`` and ``current_phase`` in their
+        game data own those transitions. The engine mirrors them into the
+        generic state fields and must not advance them a second time.
+        Returns whether the validator supplied the transition fields.
+        """
+        game_data = state.game_data
+        current_player_id = game_data.get("current_player")
+        current_phase_name = game_data.get("current_phase")
+        manages_transition = bool(current_player_id or current_phase_name)
+
+        if current_player_id and state.players:
+            for i, player in enumerate(state.players):
+                if player.player_id == current_player_id:
+                    state.current_player_index = i
+                    from app.core.game_state import TurnInfo, Topology
+                    state.turn = TurnInfo(
+                        turn_id=state.turn.turn_id if state.turn else f"t{state.version + 1}",
+                        player_id=current_player_id,
+                        topology=state.turn.topology if state.turn else Topology.grid,
+                    )
+                    break
+
+        if current_phase_name:
+            for round_index, round_config in enumerate(self.config.rounds):
+                for turn_index, turn_config in enumerate(round_config.turns):
+                    for phase_index, phase_config in enumerate(turn_config.phases):
+                        if phase_config.name == current_phase_name:
+                            state.current_round_index = round_index
+                            state.current_turn_index = turn_index
+                            state.current_phase_index = phase_index
+                            return manages_transition
+
+        return manages_transition
 
     def submit_move(self, state, move: dict[str, Any], expected_version: int | None = None) -> dict[str, Any]:
         """Submit a move through the pipeline with phase tracking.
@@ -324,14 +369,12 @@ class GameEngine:
 
         # Apply results back to GameState
         state.game_data = result["new_state"].get("game_data", state.game_data)
+        state.rng_seed = result["new_state"].get("rng_seed", state.rng_seed)
+        state.rng_state_json = result["new_state"].get(
+            "rng_state_json", state.rng_state_json
+        )
 
-        # Sync engine's current_player_index with game_data.current_player
-        game_data_player = state.game_data.get("current_player")
-        if game_data_player and state.players:
-            for i, p in enumerate(state.players):
-                if p.player_id == game_data_player:
-                    state.current_player_index = i
-                    break
+        validator_manages_transition = self._sync_validator_transition(state)
 
         state.version += 1
         winner = result.get("winner")
@@ -343,6 +386,15 @@ class GameEngine:
                 "status": "accepted",
                 "new_state": result["new_state"],
                 "winner": winner,
+                "phase_info": self.get_phase_info(state),
+            }
+
+        if validator_manages_transition:
+            return {
+                "move_id": result["move_id"],
+                "status": "accepted",
+                "new_state": result["new_state"],
+                "winner": None,
                 "phase_info": self.get_phase_info(state),
             }
 
@@ -419,8 +471,8 @@ class GameEngine:
         raw_game_data = getattr(state, "game_data", {})
         try:
             serialized = self.validator.serialize_for_screen(raw_game_data)
-        except Exception:
-            serialized = raw_game_data
+        except Exception as exc:
+            raise RuntimeError("screen state serialization failed") from exc
 
         # Determine current_player: prefer game_data's own tracking over engine index
         current_player = None

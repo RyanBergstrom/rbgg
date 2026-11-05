@@ -1,0 +1,61 @@
+{
+  "id": "NVA-NVA 50 cal b.png",
+  "path": "documentation\\fof\\images\\NVA 50 cal b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NVA 50 cal b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "16b76ec206a69f7628e53e8974358201e263ddddf4f81afc5909ff0f2dc753c7",
+    "classified_at": "2026-11-04T00:47:51.825327+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "NVA",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='50 cal HIG\\n=\\nFire Team\\nHe C (Crte |\\npectin!\\nFrectera\\nois \u201ca\\nfee ce'"
+  }
+}

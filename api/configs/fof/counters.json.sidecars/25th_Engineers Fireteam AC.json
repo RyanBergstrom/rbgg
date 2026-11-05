@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-25th_Engineers Fireteam AC.png",
+  "path": "api\\img\\fof\\counters\\25th_Engineers Fireteam AC.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "25th_Engineers Fireteam AC.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "fcc8dc9ab566def867ca32eb8973e61daa2a238a8c3ca104c51b8d37667651aa",
+    "classified_at": "2026-11-04T03:00:08.626576+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "2",
+    "platoon": "2",
+    "squad_number": "5",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='| ENGINEERS\\nFireifoam\\nAe ct rexcmczes\\near\\nbarusToamm\\n[org'"
+  }
+}

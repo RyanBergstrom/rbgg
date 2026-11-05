@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-Weapon_RCL57-3b.png",
+  "path": "documentation\\fof\\images\\Weapon_RCL57-3b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Weapon_RCL57-3b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "e7824ff64fe0f334ae7751ee467b8dc5209ed97e8ec0e02477ca4b4610d6778e",
+    "classified_at": "2026-11-04T00:52:58.352990+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Simm RCL\\n\\nae\\nFie Team\\n\\nwore FA'"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "id": "US-Air_UH-1-34.png",
+  "path": "documentation\\fof\\images\\Air_UH-1-34.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Air_UH-1-34.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "a28e9272b4dcccd481ba4ff8112d8a4d9f34b4758ca013a5a9774e0b91b0a975",
+    "classified_at": "2026-11-04T00:37:50.789152+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "S",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "S",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Se\\n(3\\ns c a'"
+  }
+}

@@ -8,11 +8,14 @@ node_modules/
 **/.svelte-kit/
 **/dist/
 **/build/
-**/runtime/
-**/*.db
-**/*.db-*
 **/.coverage
 **/coverage/
 **/*.egg-info/
 **/*.log
+
+# Ignore runtime subfolders (test models, checkpoints, etc.)
+/api/runtime/*/
+# Allow production models and db in runtime root
+!/api/runtime/*.zip
+!/api/runtime/rbgg.db
 /api/.gitignore

@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-HQ CO XO b.png",
+  "path": "documentation\\fof\\images\\HQ CO XO b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ CO XO b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "6ea16028bac118e8b37e38efa60609133865b59e2c7916d670e33de7e5b49a44",
+    "classified_at": "2026-11-04T00:43:10.419616+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "hq_plt",
+  "unit_details": {
+    "unit_type": "hq_plt",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='cA [yecoxony\\nFineteam\u2019\\neC) oN'"
+  }
+}

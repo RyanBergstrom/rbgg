@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-PC B.png",
+  "path": "documentation\\fof\\images\\PC B.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "PC B.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "587b18b9fd54629aea414480c5cc9092e7f852514ffec30e84bfedebb9506886",
+    "classified_at": "2026-11-04T00:48:56.163082+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "potential_contact",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "potential_contact",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='POTENTIAL\\nCONTACT\\nB POTENTIAL\\nCONTACT)\\ni BS POTENTIAL\\nCONTACT\\nBE'"
+  }
+}

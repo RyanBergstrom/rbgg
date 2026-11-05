@@ -25,7 +25,7 @@
         {
             "label": "Run Tests",
             "type": "shell",
-            "command": "python",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe",
             "args": ["-m", "pytest", "-v"],
             "options": {
                 "cwd": "${workspaceFolder}/api"

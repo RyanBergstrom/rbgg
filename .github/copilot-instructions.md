@@ -1,61 +1,24 @@
 # GitHub Copilot Instructions for rbgg
 
----
+## 🛑 MANDATORY: Request-Saving Execution Constraints
 
-## MANDATORY: Session Startup Sequence
+You operate under a strict daily API request budget. Your primary directive is to compress workflows into the absolute minimum number of round-trip requests.
 
-**Do this immediately on your very first response in every session. Do NOT wait for the user to ask. Do NOT skip steps.**
+1. **Parallel Tooling & Pipelining:** NEVER execute tool calls sequentially if they can be grouped. When given a complex feature, bundle your file reads, edits, and validation commands into a single concurrent payload response.
+2. **Single-Shot Edits:** Once you apply a code modification to a file, STOP execution immediately. Do not automatically compile, lint, or rerun tests unless explicitly instructed in the prompt.
+3. **The Discovery Gate:** If you do not know the exact file path for a fix, limit yourself to a maximum of TWO (2) text search or grep queries. List the 3-5 candidate files you found, halt your execution, and ask the user: "Which of these files should we open?"
+4. **Fast-Fail on Errors:** If a local build script, unit test target, or validation check returns a non-zero exit code (fails), STOP immediately. Do not attempt an autonomous auto-fix iteration loop.
 
-### Step 1: Read these files (all are required, do them in order)
+## Session Startup Protocol
 
-1. **`AGENTS.md`** (already auto-attached — review it)
-2. **`sessionhandoff.md`** — This is the previous session's handoff. It contains exactly what was done, what's left, and what to do next.
-3. **`work-items.md`** — Check what work items exist and their status.
+On your very first response of a session, do not waste requests running global tests or parsing logs.
 
-### Step 2: Acknowledge the handoff
+1. Read `AGENTS.md` and `sessionhandoff.md` to capture project state.
+2. Output a 3-bullet point summary identifying: (a) what was accomplished last turn, (b) the immediate file targets, and (c) a request for user confirmation to begin.
 
-After reading the files above, confirm to the user:
-- What the previous session accomplished
-- What the next steps are
-- That you're ready to continue
+## Project Context Quick-Reference
 
-### Step 3: Verify environment
-
-- Run `python -m pytest -v` in `/api` to confirm all tests pass (expected: 71/72 with 1 pre-existing failure)
-- Check if the API server is running if relevant to the task
-
-**If the user just says "hello" or something similar, still perform Steps 1-3 above before responding.**
-
----
-
-## Project Reference
-
-Read and follow closely the directions in `AGENTS.md` for project structure, architecture, and coding conventions.
-
----
-
-## Logoff / Session End
-
-When the user says **"logoff"**, **"wrap up"**, **"end session"**, **"bye"**, or similar phrases, perform these steps **in order**:
-
-1. Read **`logoff.md`** for the full handoff process
-2. Archive current session documentation to **`documentation/sessions/`**
-3. Update **`AGENTS.md`** with any changes from this session
-4. Update **`work-items.md`** with any new or completed work items
-5. Create a new **`sessionhandoff.md`** documenting:
-   - What was accomplished this session
-   - Key changes made (files modified, functions changed)
-   - Test results (how many pass/fail, what's new)
-   - Next steps for the following session
-   - A "Prompt for Next Session" block the user can paste into a new session
-6. Inform the user they're safe to log off
-
----
-
-## General Rules
-
-- Always run tests before and after making changes
-- Keep `AGENTS.md` updated with any new patterns, files, or conventions discovered
-- Use the existing MCTS and game architecture — don't reinvent what's already built
-- Lost Cities is the primary game; Checkers is secondary/stubbed
-- Backend tests: `pytest` in `/api`. Frontend tests: `vitest` in `/web`
+- **Backend (`/api/`)**: Python 3.13, FastAPI, Uvicorn. Aligned with pytest targets.
+- **Frontend (`/web/`)**: SvelteKit 2.70.3, Svelte 5, TypeScript. Aligned with Vitest targets.
+- **Rule Engine Multipliers**: Lost Cities and Bus leverage pre-trained PPO model inferences. Twilight Struggle handles card actions via stage-isolated interactive choice matrices. Never mutate card dictionaries in-place.
+- **Isolated Verification Targets Only**: Never run root `pytest` or complete repository test paths. Target individual verification via `pytest tests/test_filename.py` or isolated bash test hooks.

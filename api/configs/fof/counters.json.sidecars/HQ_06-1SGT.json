@@ -1,0 +1,69 @@
+{
+  "id": "US-06-1-CO_STAFF",
+  "path": "api\\img\\fof\\ocr-test\\HQ_06-1SGT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ_06-1SGT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "573ff81a1abf1ae14cab023b9d1f4a2512ad52f2f889aafee987ccfa13bdb2f2",
+    "classified_at": "2026-11-05T03:39:27.357937+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "co_staff",
+  "unit_details": {
+    "unit_type": "co_staff",
+    "division": null,
+    "battalion": null,
+    "platoon": "1",
+    "squad_number": "06",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:C81SGT",
+      "middle_ocr:A Noa",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'C81SGT', Middle OCR: 'A Noa', Yellow Dots: 1, VOF (Left): , Range (Right): "
+  }
+}

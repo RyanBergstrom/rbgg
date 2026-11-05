@@ -6,26 +6,49 @@
     "isEntry": true,
     "imports": [
       "_internal.js",
-      "_server.js"
+      "_internal2.js"
     ]
+  },
+  "_api.js": {
+    "file": "chunks/api.js",
+    "name": "api"
+  },
+  "_dev.js": {
+    "file": "chunks/dev.js",
+    "name": "dev"
+  },
+  "_env.js": {
+    "file": "chunks/env.js",
+    "name": "env"
   },
   "_exports.js": {
     "file": "chunks/exports.js",
     "name": "exports"
   },
-  "_index.js": {
-    "file": "chunks/index.js",
-    "name": "index",
+  "_index-server.js": {
+    "file": "chunks/index-server.js",
+    "name": "index-server",
     "imports": [
-      "_ssr.js"
+      "_server.js"
+    ]
+  },
+  "_index-server2.js": {
+    "file": "chunks/index-server2.js",
+    "name": "index-server",
+    "imports": [
+      "_server.js"
     ]
   },
   "_internal.js": {
     "file": "chunks/internal.js",
+    "name": "internal"
+  },
+  "_internal2.js": {
+    "file": "chunks/internal2.js",
     "name": "internal",
     "imports": [
-      "_ssr.js",
-      "_ssr2.js",
+      "_index-server.js",
+      "_internal.js",
       "_server.js"
     ]
   },
@@ -33,24 +56,23 @@
     "file": "chunks/server.js",
     "name": "server"
   },
-  "_ssr.js": {
-    "file": "chunks/ssr.js",
-    "name": "ssr"
+  "_settings.js": {
+    "file": "chunks/settings.js",
+    "name": "settings",
+    "imports": [
+      "_index-server2.js"
+    ]
   },
-  "_ssr2.js": {
-    "file": "chunks/ssr2.js",
-    "name": "ssr"
+  "_shared.js": {
+    "file": "chunks/shared.js",
+    "name": "shared"
   },
   "_utils.js": {
     "file": "chunks/utils.js",
     "name": "utils",
     "imports": [
-      "_utils2.js"
+      "_shared.js"
     ]
-  },
-  "_utils2.js": {
-    "file": "chunks/utils2.js",
-    "name": "utils"
   },
   "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js": {
     "file": "remote-entry.js",
@@ -58,20 +80,24 @@
     "src": "node_modules/@sveltejs/kit/src/runtime/app/server/remote/index.js",
     "isEntry": true,
     "imports": [
-      "_utils.js",
-      "_server.js"
+      "_shared.js",
+      "_internal.js",
+      "_utils.js"
     ]
   },
-  "node_modules/@sveltejs/kit/src/runtime/components/svelte-4/error.svelte": {
+  "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
     "file": "entries/fallbacks/error.svelte.js",
     "name": "entries/fallbacks/error.svelte",
-    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-4/error.svelte",
+    "src": "node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js",
+      "_index-server.js",
+      "_shared.js",
+      "_internal.js",
+      "_internal2.js",
       "_exports.js",
-      "_utils2.js",
-      "_ssr2.js"
+      "_server.js",
+      "_index-server2.js"
     ]
   },
   "node_modules/@sveltejs/kit/src/runtime/server/index.js": {
@@ -80,12 +106,82 @@
     "src": "node_modules/@sveltejs/kit/src/runtime/server/index.js",
     "isEntry": true,
     "imports": [
+      "_shared.js",
+      "_internal.js",
       "_utils.js",
-      "_server.js",
+      "_internal2.js",
       "_exports.js",
-      "_utils2.js",
-      "_index.js",
-      "_internal.js"
+      "_index-server2.js",
+      "_env.js"
+    ]
+  },
+  "src/lib/components/games/bus/BusBoard.svelte": {
+    "file": "chunks/BusBoard.js",
+    "name": "BusBoard",
+    "src": "src/lib/components/games/bus/BusBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js"
+    ],
+    "css": [
+      "_app/immutable/assets/BusBoard.DOlsHwg0.css"
+    ]
+  },
+  "src/lib/components/games/checkers/CheckersBoard.svelte": {
+    "file": "chunks/CheckersBoard.js",
+    "name": "CheckersBoard",
+    "src": "src/lib/components/games/checkers/CheckersBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_dev.js"
+    ],
+    "css": [
+      "_app/immutable/assets/CheckersBoard.BstDjYec.css"
+    ]
+  },
+  "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte": {
+    "file": "chunks/FieldsOfFireBoard.js",
+    "name": "FieldsOfFireBoard",
+    "src": "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ],
+    "css": [
+      "_app/immutable/assets/FieldsOfFireBoard.CDzXKk2c.css"
+    ]
+  },
+  "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {
+    "file": "chunks/LostCitiesBoard.js",
+    "name": "LostCitiesBoard",
+    "src": "src/lib/components/games/lost_cities/LostCitiesBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_dev.js",
+      "_settings.js"
+    ],
+    "css": [
+      "_app/immutable/assets/LostCitiesBoard.CylaMi8S.css"
+    ]
+  },
+  "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte": {
+    "file": "chunks/TwilightStruggleBoard.js",
+    "name": "TwilightStruggleBoard",
+    "src": "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js"
+    ],
+    "css": [
+      "_app/immutable/assets/TwilightStruggleBoard.VODqShwk.css"
     ]
   },
   "src/routes/+layout.svelte": {
@@ -94,10 +190,10 @@
     "src": "src/routes/+layout.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js"
+      "_server.js"
     ],
     "css": [
-      "_app/immutable/assets/_layout.DtdvzrPm.css"
+      "_app/immutable/assets/_layout.52v5p-hL.css"
     ]
   },
   "src/routes/+page.svelte": {
@@ -106,10 +202,26 @@
     "src": "src/routes/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js"
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.CSHPq4Lj.css"
+      "_app/immutable/assets/_page.KV5Xzteb.css"
+    ]
+  },
+  "src/routes/asset-reviewer/+page.svelte": {
+    "file": "entries/pages/asset-reviewer/_page.svelte.js",
+    "name": "entries/pages/asset-reviewer/_page.svelte",
+    "src": "src/routes/asset-reviewer/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.LFpv0oir.css"
     ]
   },
   "src/routes/games/[gameId]/play/+page.js": {
@@ -124,11 +236,21 @@
     "src": "src/routes/games/[gameId]/play/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js",
-      "_index.js"
+      "_index-server.js",
+      "_server.js",
+      "_api.js",
+      "_dev.js",
+      "_settings.js"
+    ],
+    "dynamicImports": [
+      "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
+      "src/lib/components/games/bus/BusBoard.svelte",
+      "src/lib/components/games/checkers/CheckersBoard.svelte",
+      "src/lib/components/games/lost_cities/LostCitiesBoard.svelte",
+      "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte"
     ],
     "css": [
-      "_app/immutable/assets/_page.C-uRfVkx.css"
+      "_app/immutable/assets/_page.C69RP0gW.css"
     ]
   },
   "src/routes/games/[gameId]/setup/+page.js": {
@@ -143,16 +265,33 @@
     "src": "src/routes/games/[gameId]/setup/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_ssr.js"
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.d6YVUPnL.css"
+      "_app/immutable/assets/_page.BpqsFR-R.css"
+    ]
+  },
+  "src/routes/horizon-tree/+page.svelte": {
+    "file": "entries/pages/horizon-tree/_page.svelte.js",
+    "name": "entries/pages/horizon-tree/_page.svelte",
+    "src": "src/routes/horizon-tree/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_server.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.DOi6UaZz.css"
     ]
   },
   "virtual:__sveltekit/env": {
     "file": "env.js",
     "name": "env",
     "src": "virtual:__sveltekit/env",
-    "isEntry": true
+    "isEntry": true,
+    "imports": [
+      "_env.js"
+    ]
   }
 }

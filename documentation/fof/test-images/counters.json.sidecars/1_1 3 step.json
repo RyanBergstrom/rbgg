@@ -1,0 +1,61 @@
+{
+  "id": "US-1_1 3 step.png",
+  "path": "documentation\\fof\\test-images\\1_1 3 step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_1 3 step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "0e526c586334eb8e07095d49a8085b07fe02019d1a63cc9f62fb8b54f766dbd7",
+    "classified_at": "2026-11-02T20:49:29.362064+00:00",
+    "classifier": "fof-counter-pipeline v1.0",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "unknown",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "1",
+    "platoon": "1",
+    "squad_number": "1",
+    "experience_level": "A",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='since a'"
+  }
+}

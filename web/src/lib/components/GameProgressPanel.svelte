@@ -6,6 +6,8 @@
   export let screenState = null;
   export let pendingMove = null;
   export let canUndo = false;
+  export let setupComplete = false;
+  export let gameId = null;
 
   const dispatch = createEventDispatcher();
 
@@ -14,6 +16,7 @@
   $: winner = screenState?.winner || game?.state?.winner || null;
   $: confirmRequired = phase?.confirm_required || false;
   $: showConfirm = (pendingMove !== null) || confirmRequired;
+  $: isSetupPhase = phase?.phase_name === 'setup' || game?.state?.game_data?.phase === 'setup';
 
   $: if (phase) {
     tracePhase('GameProgressPanel', 'phase updated', {
@@ -26,13 +29,19 @@
   function getPlayerName(playerId) {
     if (!playerId) return 'Unknown';
     if (playerId === 'player_1') return 'Red';
-    if (playerId === 'player_2') return 'Black';
+    if (playerId === 'player_2') return 'Green';
+    if (playerId === 'player_3') return 'Blue';
+    if (playerId === 'player_4') return 'Yellow';
+    if (playerId === 'player_5') return 'Black';
     return playerId;
   }
 
   function getPlayerColor(playerId) {
     if (playerId === 'player_1') return '#cc0000';
-    if (playerId === 'player_2') return '#222222';
+    if (playerId === 'player_2') return '#3b8d3b';
+    if (playerId === 'player_3') return '#1d70b8';
+    if (playerId === 'player_4') return '#e0a800';
+    if (playerId === 'player_5') return '#333333';
     return '#666';
   }
 
@@ -55,9 +64,13 @@
     tracePhase('GameProgressPanel', 'settings clicked');
     dispatch('settings');
   }
+
+  function handleStartMission() {
+    dispatch('start-mission');
+  }
 </script>
 
-<div class="game-progress-panel">
+<div class="game-progress-panel">>
   {#if IS_DEV}<div class="panel-name-debug">GameProgressPanel</div>{/if}
 
   <div class="panel-row">
@@ -87,9 +100,14 @@
     </div>
 
     <div class="panel-right">
+      {#if gameId === 'fields_of_fire' && isSetupPhase && !winner}
+        <button class="start-mission-btn-panel" on:click={handleStartMission} disabled={!setupComplete}>
+          Start Mission
+        </button>
+      {/if}
       {#if confirmRequired || pendingMove}
         <button class="confirm-button" on:click={handleConfirm} disabled={!pendingMove && !confirmRequired}>
-          {pendingMove ? 'Submit Move' : (phase?.confirm_name || 'Confirm')}
+          {pendingMove ? 'Confirm Move' : (phase?.confirm_name || 'Confirm')}
         </button>
       {/if}
       {#if canUndo || pendingMove}
@@ -191,6 +209,22 @@
   .phase-name {
     font-weight: 600;
     color: #333;
+  }
+
+  .start-mission-btn-panel {
+    padding: 0.35rem 0.9rem;
+    background: #2d5a27;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .start-mission-btn-panel:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   .phase-text {

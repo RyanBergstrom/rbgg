@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-GE_88mm_2 Fireteam.png",
+  "path": "api\\img\\fof\\counters\\GE_88mm_2 Fireteam.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_88mm_2 Fireteam.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "62817dc2a5957e9a8a615dc79b283414608d88c699fc51bb95f01ed78ded9526",
+    "classified_at": "2026-11-04T03:04:50.525919+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "8",
+    "platoon": "8",
+    "squad_number": "8",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='rae'"
+  }
+}

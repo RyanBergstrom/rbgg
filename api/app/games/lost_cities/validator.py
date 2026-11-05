@@ -11,11 +11,11 @@ Lost Cities is a 2-player card game by Reiner Knizia.
 from __future__ import annotations
 
 import random
-from copy import deepcopy
 from typing import Any
 
 from app.core.legal_move_interface import LegalMoveValidator
 from app.core.mcts import MCTSConfig
+from app.core.rng import create_rng, serialize_rng
 
 # Color constants
 COLORS = ["blue", "yellow", "red", "white", "green"]
@@ -26,11 +26,21 @@ SHORT_TO_COLOR = {v: k for k, v in COLOR_SHORT.items()}
 INVESTMENT = "i"
 NUMBERS = list(range(2, 11))  # 2-10
 
+# Card strings are immutable and drawn from a fixed 60-card vocabulary. Cache
+# their decoded metadata so the training hot loop does not repeatedly split
+# strings and translate color codes.
+CARD_METADATA = {
+    f"{short}_{value}": (color, str(value))
+    for color in COLORS
+    for short in [COLOR_SHORT[color]]
+    for value in [INVESTMENT, *NUMBERS]
+}
+
 # Total cards per color: 3 investment + 9 numbered = 12
 # 5 colors × 12 = 60 cards
 
 
-def create_deck() -> list[str]:
+def create_deck(rng: random.Random | None = None) -> list[str]:
     """Create a shuffled deck of 60 cards."""
     deck = []
     for color in COLORS:
@@ -39,7 +49,7 @@ def create_deck() -> list[str]:
             deck.append(f"{short}_{INVESTMENT}")
         for num in NUMBERS:
             deck.append(f"{short}_{num}")
-    random.shuffle(deck)
+    (rng or random.Random()).shuffle(deck)
     return deck
 
 
@@ -51,14 +61,12 @@ def parse_card(card: str) -> tuple[str, str]:
 
 def card_color(card: str) -> str:
     """Get full color name from card."""
-    short, _ = parse_card(card)
-    return SHORT_TO_COLOR[short]
+    return CARD_METADATA[card][0]
 
 
 def card_value(card: str) -> str:
     """Get value from card (i or 2-10)."""
-    _, val = parse_card(card)
-    return val
+    return CARD_METADATA[card][1]
 
 
 def is_investment(card: str) -> bool:
@@ -84,9 +92,13 @@ def _opponent(player_id: str) -> str:
     return "player_2" if player_id == "player_1" else "player_1"
 
 
-def _initial_game_data() -> dict[str, Any]:
+def _initial_game_data(
+    rng_seed: int = 42,
+    rng_state_json: str | None = None,
+) -> dict[str, Any]:
     """Create initial game state for a new round."""
-    deck = create_deck()
+    rng = create_rng(rng_seed, rng_state_json)
+    deck = create_deck(rng)
     return {
         "player_hands": {
             "player_1": deck[:8],
@@ -103,9 +115,12 @@ def _initial_game_data() -> dict[str, Any]:
         "last_discarded": None,  # {"player_id": "", "card": "", "color": ""}
         "round": 1,
         "scores": {"player_1": 0, "player_2": 0},
+        "round_summaries": [],
+        "last_round_summary": None,
         "game_over": False,
         "round_over": False,
         "pending_draw": False,  # True after playing a card, before drawing
+        "_rng_state_json": serialize_rng(rng),
     }
 
 
@@ -161,6 +176,87 @@ def _calculate_expedition_score(cards: list[str]) -> int:
 def _calculate_player_score(expeditions: dict[str, list[str]]) -> int:
     """Calculate total score for a player."""
     return sum(_calculate_expedition_score(expeditions[color]) for color in COLORS)
+
+
+def _build_expedition_score_breakdown(cards: list[str]) -> dict[str, Any]:
+    """Return a structured score breakdown for one expedition."""
+    investment_count = sum(1 for card in cards if is_investment(card))
+    numbered_sum = sum(card_number(card) or 0 for card in cards if is_numbered(card))
+    started = bool(cards)
+    base_score = (numbered_sum - 20) if started else 0
+    multiplier = (1 + investment_count) if started else 1
+    bonus = 20 if len(cards) >= 8 else 0
+    return {
+        "cards": list(cards),
+        "started": started,
+        "investment_count": investment_count,
+        "numbered_sum": numbered_sum,
+        "base_score": base_score,
+        "multiplier": multiplier,
+        "bonus": bonus,
+        "score": _calculate_expedition_score(cards),
+    }
+
+
+def _build_score_breakdown(game_data: dict[str, Any]) -> dict[str, Any]:
+    """Return banked and current-round score details for both players."""
+    expeditions = game_data.get("expeditions", {})
+    banked_scores = game_data.get("scores", {})
+    players: dict[str, Any] = {}
+
+    for player_id in ("player_1", "player_2"):
+        expedition_breakdown = {
+            color: _build_expedition_score_breakdown(expeditions.get(player_id, {}).get(color, []))
+            for color in COLORS
+        }
+        current_round_score = sum(details["score"] for details in expedition_breakdown.values())
+        banked_score = int(banked_scores.get(player_id, 0))
+        players[player_id] = {
+            "banked_score": banked_score,
+            "current_round_score": current_round_score,
+            "overall_total": banked_score + current_round_score,
+            "expeditions": expedition_breakdown,
+        }
+
+    return {
+        "players": players,
+        "round": game_data.get("round", 1),
+        "game_over": game_data.get("game_over", False),
+        "round_over": game_data.get("round_over", False),
+    }
+
+
+def _build_round_summary(game_data: dict[str, Any], round_number: int) -> dict[str, Any]:
+    """Capture the just-finished round before expeditions are reset."""
+    score_breakdown = _build_score_breakdown(game_data)
+    starting_scores = {
+        player_id: score_breakdown["players"][player_id]["banked_score"]
+        for player_id in ("player_1", "player_2")
+    }
+    round_scores = {
+        player_id: score_breakdown["players"][player_id]["current_round_score"]
+        for player_id in ("player_1", "player_2")
+    }
+    ending_scores = {
+        player_id: starting_scores[player_id] + round_scores[player_id]
+        for player_id in ("player_1", "player_2")
+    }
+    players = {
+        player_id: {
+            "banked_score_before_round": starting_scores[player_id],
+            "current_round_score": round_scores[player_id],
+            "ending_total": ending_scores[player_id],
+            "expeditions": score_breakdown["players"][player_id]["expeditions"],
+        }
+        for player_id in ("player_1", "player_2")
+    }
+    return {
+        "round": round_number,
+        "starting_scores": starting_scores,
+        "round_scores": round_scores,
+        "ending_scores": ending_scores,
+        "players": players,
+    }
 
 
 def _game_turn_number(game_data: dict[str, Any]) -> int:
@@ -246,6 +342,50 @@ def _get_legal_draws(state: dict[str, Any], player_id: str) -> list[dict[str, An
     return moves
 
 
+def _copy_game_data_for_transition(game_data: dict[str, Any]) -> dict[str, Any]:
+    """Copy only mutable Lost Cities containers touched by a move.
+
+    This preserves the validator's copy-on-transition contract without paying
+    for a recursive deepcopy of every scalar and card string on each training
+    step. Unknown extension fields are retained by reference and must therefore
+    be immutable or copied by the extension before mutation.
+    """
+    copied = dict(game_data)
+    for key in ("player_hands", "expeditions", "discard_piles", "scores"):
+        value = game_data.get(key)
+        if isinstance(value, dict):
+            copied[key] = dict(value)
+
+    hands = copied.get("player_hands")
+    if isinstance(hands, dict):
+        copied["player_hands"] = {
+            player_id: list(cards) if isinstance(cards, list) else cards
+            for player_id, cards in hands.items()
+        }
+
+    for key in ("expeditions", "discard_piles"):
+        containers = copied.get(key)
+        if not isinstance(containers, dict):
+            continue
+        copied[key] = {
+            owner_or_color: (
+                {
+                    color: list(cards) if isinstance(cards, list) else cards
+                    for color, cards in values.items()
+                }
+                if key == "expeditions" and isinstance(values, dict)
+                else list(values) if isinstance(values, list) else values
+            )
+            for owner_or_color, values in containers.items()
+        }
+
+    if isinstance(copied.get("scores"), dict):
+        copied["scores"] = dict(copied["scores"])
+    if isinstance(copied.get("last_discarded"), dict):
+        copied["last_discarded"] = dict(copied["last_discarded"])
+    return copied
+
+
 def _count_unseen_cards(game_data: dict[str, Any], color: str, exclude_hand: list[str] | None = None) -> int:
     """Count cards of a color not in any expedition, the given hand, or discard piles."""
     expeditions = game_data.get("expeditions", {})
@@ -328,13 +468,19 @@ def _compute_play_score(
     return guaranteed + upside - risk
 
 
-def compute_play_score_v2(card: str, hand: list[str], game_data: dict) -> float:
+def compute_play_score_v2(
+    card: str,
+    hand: list[str],
+    game_data: dict,
+    player_id: str,
+) -> float:
     """Score a play_expedition move: guaranteed score + expected value from draws.
 
     Args:
         card: The card being scored (e.g., "r_5").
         hand: Current player's full hand.
         game_data: Full game state with expeditions, discard_piles, etc.
+        player_id: The player whose perspective is being scored.
 
     Returns:
         float: Expected score for playing this card.
@@ -344,8 +490,9 @@ def compute_play_score_v2(card: str, hand: list[str], game_data: dict) -> float:
     expeditions = game_data.get("expeditions", {})
     discard_piles = game_data.get("discard_piles", {})
 
-    my_expedition = expeditions.get("player_1", {}).get(color, [])
-    opponent_expedition = expeditions.get("player_2", {}).get(color, [])
+    opponent_id = _opponent(player_id)
+    my_expedition = expeditions.get(player_id, {}).get(color, [])
+    opponent_expedition = expeditions.get(opponent_id, {}).get(color, [])
     my_discard = discard_piles.get(color, [])
 
     # All 12 cards of this color in order: 3 investments, then 2-10
@@ -499,6 +646,9 @@ class LostCitiesValidator(LegalMoveValidator):
         current_player = game_data.get("current_player")
         current_phase = game_data.get("current_phase")
 
+        if game_data.get("game_over"):
+            return []
+
         if current_player != player_id:
             return []
 
@@ -511,9 +661,10 @@ class LostCitiesValidator(LegalMoveValidator):
 
 
     def apply_move(self, state: dict[str, Any], move: dict[str, Any]) -> dict[str, Any]:
-        game_data = deepcopy(state.get("game_data", {}))
+        game_data = _copy_game_data_for_transition(state.get("game_data", {}))
         player_id = move.get("player_id")
         move_type = move.get("type")
+        transition_rng_state = None
 
         if move_type == "play_expedition":
             card = move["card"]
@@ -595,10 +746,17 @@ class LostCitiesValidator(LegalMoveValidator):
 
             # Check for game end (after 3 rounds)
             if game_data.get("round_over"):
+                round_number = int(game_data.get("round", 1))
+                round_summary = _build_round_summary(game_data, round_number)
                 # Score the round
                 for pid in ["player_1", "player_2"]:
-                    score = _calculate_player_score(game_data["expeditions"][pid])
+                    score = round_summary["round_scores"][pid]
                     game_data["scores"][pid] += score
+
+                summaries = list(game_data.get("round_summaries", []))
+                summaries.append(round_summary)
+                game_data["round_summaries"] = summaries
+                game_data["last_round_summary"] = round_summary
 
                 game_data["round"] += 1
 
@@ -606,19 +764,23 @@ class LostCitiesValidator(LegalMoveValidator):
                     game_data["game_over"] = True
                 else:
                     # Start new round
-                    self._start_new_round(game_data)
+                    rng = create_rng(
+                        state.get("rng_seed", 42),
+                        state.get("rng_state_json", "{}"),
+                    )
+                    self._start_new_round(game_data, rng)
+                    transition_rng_state = serialize_rng(rng)
 
-                # Store round result for MCTS evaluation (persists after _start_new_round)
-                game_data["_round_result"] = {
-                    "p1": game_data["scores"]["player_1"],
-                    "p2": game_data["scores"]["player_2"],
-                }
+        result = {"game_data": game_data}
+        if transition_rng_state is not None:
+            result["rng_state_json"] = transition_rng_state
+        return result
 
-        return {"game_data": game_data}
-
-    def _start_new_round(self, game_data: dict[str, Any]) -> None:
+    def _start_new_round(
+        self, game_data: dict[str, Any], rng: random.Random | None = None
+    ) -> None:
         """Reset for a new round, keeping cumulative scores."""
-        deck = create_deck()
+        deck = create_deck(rng)
         game_data["player_hands"] = {
             "player_1": deck[:8],
             "player_2": deck[8:16],
@@ -641,6 +803,12 @@ class LostCitiesValidator(LegalMoveValidator):
 
 
     def check_win(self, state: dict[str, Any]) -> str | None:
+        """Return the final outcome without mutating the supplied state.
+
+        Completing a round is not a game win. Round scoring and setup for the
+        next round happen in ``apply_move``; only ``game_over`` is terminal.
+        Tied cumulative scores return the explicit ``draw`` outcome.
+        """
         game_data = state.get("game_data", {})
 
         if game_data.get("game_over"):
@@ -650,36 +818,7 @@ class LostCitiesValidator(LegalMoveValidator):
                 return "player_1"
             elif p2_score > p1_score:
                 return "player_2"
-            return "player_1"  # Tie goes to player_1
-
-        # Round just ended — evaluate cumulative scores for MCTS
-        round_result = game_data.get("_round_result")
-        if round_result:
-            game_data.pop("_round_result", None)  # clear so we don't trigger again
-            p1 = round_result["p1"]
-            p2 = round_result["p2"]
-            if p1 > p2:
-                return "player_1"
-            elif p2 > p1:
-                return "player_2"
-            return "player_1"  # Tie
-
-        # Detect round end when draw pile is empty (for rollouts)
-        # Check round_over flag — set when last card is drawn, before
-        # _start_new_round refills the pile
-        if game_data.get("round_over"):
-            # Score the round now
-            for pid in ["player_1", "player_2"]:
-                score = _calculate_player_score(game_data["expeditions"][pid])
-                game_data["scores"][pid] += score
-
-            p1 = game_data["scores"]["player_1"]
-            p2 = game_data["scores"]["player_2"]
-            if p1 > p2:
-                return "player_1"
-            elif p2 > p1:
-                return "player_2"
-            return "player_1"  # Tie
+            return "draw"
 
         return None
 
@@ -732,6 +871,10 @@ class LostCitiesValidator(LegalMoveValidator):
             max_depth=500,
             workers=6,
         )
+
+    def create_search_policy(self, _validator=None):
+        from app.games.lost_cities.search_policy import LostCitiesSearchPolicy
+        return LostCitiesSearchPolicy(self)
 
     def stop_rollout(self, state: dict[str, Any], player_id: str) -> bool:
         """Stop the rollout when the draw pile is empty (single round)."""
@@ -791,12 +934,16 @@ class LostCitiesValidator(LegalMoveValidator):
                 # Turns 1-2: Never discard if >3 of same color in hand
                 if turn_number <= 2 and move_type == "discard":
                     same_color_count = sum(1 for c in hand if card_color(c) == color)
-                    if same_color_count > 3:
+                    expedition = expeditions.get(color, [])
+                    has_numbered_card = any(is_numbered(c) for c in expedition)
+                    if same_color_count > 3 and not (
+                        is_investment(card) and has_numbered_card
+                    ):
                         continue
 
                     # Never discard investment if >1 of same color in hand
                     if is_investment(card):
-                        if same_color_count > 1:
+                        if same_color_count > 1 and not has_numbered_card:
                             continue
 
             elif move_type == "draw":
@@ -906,7 +1053,7 @@ class LostCitiesValidator(LegalMoveValidator):
         for m in moves:
             if m.get("type") == "play_expedition":
                 card = m.get("card", "")
-                play_scores[m["move_id"]] = compute_play_score_v2(card, hand, game_data)
+                play_scores[m["move_id"]] = compute_play_score_v2(card, hand, game_data, player_id)
 
         # If no play moves, return all 1.0
         if not play_scores:
@@ -959,7 +1106,7 @@ class LostCitiesValidator(LegalMoveValidator):
             color = m.get("color", "")
 
             if move_type == "play_expedition":
-                scores[m["move_id"]] = compute_play_score_v2(card, hand, game_data)
+                scores[m["move_id"]] = compute_play_score_v2(card, hand, game_data, player_id)
 
             elif move_type == "discard":
                 can_play = False
@@ -970,7 +1117,7 @@ class LostCitiesValidator(LegalMoveValidator):
                 if not can_play:
                     scores[m["move_id"]] = 10.0
                 else:
-                    play_val = compute_play_score_v2(card, hand, game_data)
+                    play_val = compute_play_score_v2(card, hand, game_data, player_id)
                     scores[m["move_id"]] = 0.5 if play_val > 0 else 0.0
 
             elif move_type == "draw":
@@ -1005,56 +1152,14 @@ class LostCitiesValidator(LegalMoveValidator):
 
         return scores
 
-    def initial_game_data(self) -> dict[str, Any]:
+    def initial_game_data(
+        self, rng_seed: int = 42, rng_state_json: str | None = None
+    ) -> dict[str, Any]:
         """Return initial game state."""
-        return _initial_game_data()
+        return _initial_game_data(rng_seed, rng_state_json)
 
     def serialize_for_screen(self, game_data: dict[str, Any]) -> dict[str, Any]:
         """Convert game_data to screen-ready format."""
-        from app.games.lost_cities.serialize import (
-            serialize_hand,
-            serialize_expedition,
-            serialize_discard_pile,
-            card_image_path,
-            card_back_path,
-        )
-
-        player_hands = game_data.get("player_hands", {})
-        expeditions = game_data.get("expeditions", {})
-        discard_piles = game_data.get("discard_piles", {})
-        draw_pile = game_data.get("draw_pile", [])
         current_player = game_data.get("current_player", "player_1")
-
-        serialized_hands = {}
-        for pid, hand in player_hands.items():
-            is_current = (pid == current_player)
-            is_ai = (pid == "player_2")
-            serialized_hands[pid] = serialize_hand(hand, is_current, is_ai)
-
-        serialized_expeditions = {}
-        for pid, exps in expeditions.items():
-            serialized_expeditions[pid] = {}
-            for color in COLORS:
-                serialized_expeditions[pid][color] = serialize_expedition(exps.get(color, []))
-
-        serialized_discards = {}
-        for color in COLORS:
-            serialized_discards[color] = serialize_discard_pile(discard_piles.get(color, []))
-
-        return {
-            "player_hands": serialized_hands,
-            "expeditions": serialized_expeditions,
-            "discard_piles": serialized_discards,
-            "draw_pile": {
-                "count": len(draw_pile),
-                "image": card_back_path(),
-            },
-            "current_phase": game_data.get("current_phase"),
-            "current_player": current_player,
-            "last_discarded": game_data.get("last_discarded"),
-            "round": game_data.get("round", 1),
-            "scores": game_data.get("scores", {"player_1": 0, "player_2": 0}),
-            "game_over": game_data.get("game_over", False),
-            "round_over": game_data.get("round_over", False),
-            "pending_draw": game_data.get("pending_draw", False),
-        }
+        from app.games.lost_cities.serialize import serialize_game_data
+        return serialize_game_data(game_data, current_player)

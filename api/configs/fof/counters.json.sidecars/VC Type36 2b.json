@@ -1,0 +1,61 @@
+{
+  "id": "VietCong-VC Type36 2b.png",
+  "path": "api\\img\\fof\\counters\\VC Type36 2b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "VC Type36 2b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "2922dddb80f1ae451fbfe6ca7de70dc78c19945597d01e0beb147ba68d595cf6",
+    "classified_at": "2026-11-04T03:13:13.831790+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "VietCong",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='_2nype a6 RL\\nsaa\\n\\nFire T\u00e9a,\\n\\nAse C 2th mee\\nFire Tea\\nwee 6'"
+  }
+}

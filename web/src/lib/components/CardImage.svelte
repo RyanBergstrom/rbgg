@@ -1,4 +1,5 @@
 <script>
+  import { onDestroy } from 'svelte';
   import { settings } from '$lib/stores/settings';
   import { tick } from 'svelte';
 
@@ -38,6 +39,16 @@
       previewEl.parentNode.removeChild(previewEl);
     }
   }
+
+  $: if ((!hoverZoom || !src) && showPreview) {
+    showPreview = false;
+    removePreview();
+  }
+
+  onDestroy(() => {
+    showPreview = false;
+    removePreview();
+  });
 </script>
 
 <div 

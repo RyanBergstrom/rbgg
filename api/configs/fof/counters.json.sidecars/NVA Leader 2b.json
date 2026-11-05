@@ -1,0 +1,61 @@
+{
+  "id": "NVA-NVA Leader 2b.png",
+  "path": "api\\img\\fof\\counters\\NVA Leader 2b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NVA Leader 2b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "48411addfc5f2a043a334dd646bc5cef08bca5f651f96e3a385a6c1688ccf7ef",
+    "classified_at": "2026-11-04T03:11:03.953979+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.85
+  },
+  "country": "NVA",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='LEADER\\na7\\nFire Team\\n\\nse C wee\\n\\n\u2014\\n\\nHee team\\nSe Cc'"
+  }
+}

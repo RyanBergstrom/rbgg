@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Critical - Concentrate.png",
+  "path": "documentation\\fof\\images\\Critical - Concentrate.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Critical - Concentrate.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "a294ff17652810895bad670322aa11cdec6d08cc650f66d1fdbbdea54962e2a1",
+    "classified_at": "2026-11-04T00:40:47.166412+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
+    "vof_level": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": "red VOF marker"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='0\\nIgnore cover'"
+  }
+}

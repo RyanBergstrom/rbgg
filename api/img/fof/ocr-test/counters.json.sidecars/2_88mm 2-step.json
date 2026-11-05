@@ -1,0 +1,66 @@
+{
+  "id": "US-2-88-SQUAD",
+  "path": "api\\img\\fof\\ocr-test\\2_88mm 2-step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "2_88mm 2-step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "a31f6d1675b3ace4d949ef0ade7995779dee2c0aba4f1f319ca6038ef4523394",
+    "classified_at": "2026-11-05T00:44:15.569167+00:00",
+    "classifier": "fof-counter-pipeline v3.7-compound-ratings",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": "88",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": "Anti-Tank Gun",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:o-",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'o-', Yellow Dots: 2, VOF (Left): , Range (Right): "
+  }
+}

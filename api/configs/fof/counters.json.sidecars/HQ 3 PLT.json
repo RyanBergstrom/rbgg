@@ -1,0 +1,69 @@
+{
+  "id": "US-1-1-HQ_PLT",
+  "path": "api\\img\\fof\\ocr-test\\HQ 3 PLT.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ 3 PLT.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "36a3c2b39fff97adbe7d5dbfa2593f8fc0d878ae1da0851ebb7a35a395a83364",
+    "classified_at": "2026-11-05T03:15:05.427526+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "hq_plt",
+  "unit_details": {
+    "unit_type": "hq_plt",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3PLTHO",
+      "middle_ocr:eF w gpd",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '3PLTHO', Middle OCR: 'eF w gpd', Yellow Dots: 1, VOF (Left): , Range (Right): "
+  }
+}

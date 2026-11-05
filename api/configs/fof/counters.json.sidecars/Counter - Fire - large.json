@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Counter - Fire - large.png",
+  "path": "api\\img\\fof\\counters\\Counter - Fire - large.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Counter - Fire - large.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "9e2475fee79dda2169346e196836009e954e95e30bbe882c5711dd2eda042326",
+    "classified_at": "2026-11-04T03:03:52.843398+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "potential_contact",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "potential_contact",
+    "vof_level": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": "red VOF marker"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='pce\\nAN YY\\nFIRE'"
+  }
+}

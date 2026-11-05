@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-Ammo Mtr 1.png",
+  "path": "api\\img\\fof\\counters\\Ammo Mtr 1.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Ammo Mtr 1.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "fd6df650f9111c9d32a40cfb0b8dfe7c42292bb411f5c6c10eb1ba130ec24a4a",
+    "classified_at": "2026-11-04T03:02:02.030636+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "ammo",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "ammo",
+    "vof_level": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": null
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='1\\ntea\\n=e\\nais... 1\\nmans\\nown\\n\\nAd'"
+  }
+}

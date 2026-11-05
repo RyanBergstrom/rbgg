@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-1_Engineers b.png",
+  "path": "documentation\\fof\\images\\1_Engineers b.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_Engineers b.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "20b7722e26ca2eee9aa5f6b6e48654d34b024a4f552bd14cbd55d536b913a141",
+    "classified_at": "2026-11-04T00:35:31.257853+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "S",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "S",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2018VENGINEERS\\nS eel a\\nSeek'"
+  }
+}

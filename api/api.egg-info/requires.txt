@@ -1,7 +1,14 @@
 fastapi>=0.110.0
+PyYAML>=6.0
+uvicorn>=0.23.0
 
 [dev]
 pytest>=7.0
 pytest-asyncio>=0.21
-uvicorn>=0.23.0
-pyyaml>=6.0
+pytest-cov>=4.1.0
+httpx>=0.28.0
+
+[rl]
+gymnasium<2.0,>=1.0
+stable-baselines3<3.0,>=2.4
+sb3-contrib<3.0,>=2.4

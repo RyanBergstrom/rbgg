@@ -1,0 +1,61 @@
+{
+  "id": "US-G5Marines 1-2 3step.png",
+  "path": "api\\img\\fof\\counters\\G5Marines 1-2 3step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "G5Marines 1-2 3step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "08d6655abe4f6235e9325ae8b096e544ea53d7820eb6e1897e1ccba6b758da3d",
+    "classified_at": "2026-11-04T03:04:27.649790+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='&. fi Rasy .\\nAstene L 2!'"
+  }
+}

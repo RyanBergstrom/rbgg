@@ -1,0 +1,54 @@
+{
+  "id": "Unknown-VOF - -3WP incoming.png",
+  "path": "documentation\\fof\\images\\VOF - -3WP incoming.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "VOF - -3WP incoming.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "e583bb1df85ae9af718a552598913a9c46f45c6d939d051f53d04809614e0c4c",
+    "classified_at": "2026-11-04T00:51:32.274969+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.8
+  },
+  "country": "Unknown",
+  "category": "marker",
+  "subtype": "vof",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "vof",
+    "vof_level": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null,
+    "effects": "red VOF marker"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='\u2018Ss Fira Massloa) 4 aa\\nFeu Mission'"
+  }
+}

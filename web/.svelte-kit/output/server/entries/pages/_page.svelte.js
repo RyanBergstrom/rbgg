@@ -1,15 +1,31 @@
-import { c as create_ssr_component, b as each, d as add_attribute, e as escape } from "../../chunks/ssr.js";
-const css = {
-  code: ".error-state.svelte-wsyuhg.svelte-wsyuhg{padding:2rem;border:1px solid #e74c3c;border-radius:4px;background:#fdf2f2;margin:1rem 0}.empty-state.svelte-wsyuhg.svelte-wsyuhg{padding:2rem;text-align:center;color:#666;margin:1rem 0}.game-list.svelte-wsyuhg.svelte-wsyuhg{list-style:none;padding:0}.game-list.svelte-wsyuhg li.svelte-wsyuhg{margin:0.5rem 0}.game-list.svelte-wsyuhg a.svelte-wsyuhg{text-decoration:none;color:#2c3e50}.game-list.svelte-wsyuhg h3.svelte-wsyuhg{margin:0;font-size:1.1rem}.game-list.svelte-wsyuhg p.svelte-wsyuhg{margin:0.2rem 0 0;font-size:0.9rem;color:#7f8c8d}",
-  map: `{"version":3,"file":"+page.svelte","sources":["+page.svelte"],"sourcesContent":["<script>\\n  import { onMount } from 'svelte';\\n  import { getGames } from '../lib/api';\\n\\n  let games = [];\\n  let loading = true;\\n  let error = null;\\n\\n  onMount(async () => {\\n    try {\\n      games = await getGames();\\n    } catch (e) {\\n      error = e.message;\\n    }\\n    loading = false;\\n  });\\n<\/script>\\n\\n<main>\\n  {#if error}\\n    <div class=\\"error-state\\">\\n      <h2>Error</h2>\\n      <p>{error}</p>\\n      <button onclick=\\"window.location.reload()\\">Retry</button>\\n    </div>\\n  {:else if games.length === 0}\\n    <div class=\\"empty-state\\">\\n      <h2>No games found</h2>\\n      <p>There are no games available at this time.</p>\\n    </div>\\n  {:else}\\n    <ul class=\\"game-list\\">\\n      {#each games as game}\\n        <li>\\n          <a href={\`/games/\${game.id}/setup\`}>\\n            <h3>{game.name}</h3>\\n            <p>{game.id}</p>\\n          </a>\\n        </li>\\n      {/each}\\n    </ul>\\n  {/if}\\n</main>\\n\\n<style>\\n  .error-state {\\n    padding: 2rem;\\n    border: 1px solid #e74c3c;\\n    border-radius: 4px;\\n    background: #fdf2f2;\\n    margin: 1rem 0;\\n  }\\n  \\n  .empty-state {\\n    padding: 2rem;\\n    text-align: center;\\n    color: #666;\\n    margin: 1rem 0;\\n  }\\n  \\n  .game-list {\\n    list-style: none;\\n    padding: 0;\\n  }\\n  \\n  .game-list li {\\n    margin: 0.5rem 0;\\n  }\\n  \\n  .game-list a {\\n    text-decoration: none;\\n    color: #2c3e50;\\n  }\\n  \\n  .game-list h3 {\\n    margin: 0;\\n    font-size: 1.1rem;\\n  }\\n  \\n  .game-list p {\\n    margin: 0.2rem 0 0;\\n    font-size: 0.9rem;\\n    color: #7f8c8d;\\n  }\\n</style>"],"names":[],"mappings":"AA6CE,wCAAa,CACX,OAAO,CAAE,IAAI,CACb,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,OAAO,CACzB,aAAa,CAAE,GAAG,CAClB,UAAU,CAAE,OAAO,CACnB,MAAM,CAAE,IAAI,CAAC,CACf,CAEA,wCAAa,CACX,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,MAAM,CAClB,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CAAC,CACf,CAEA,sCAAW,CACT,UAAU,CAAE,IAAI,CAChB,OAAO,CAAE,CACX,CAEA,wBAAU,CAAC,gBAAG,CACZ,MAAM,CAAE,MAAM,CAAC,CACjB,CAEA,wBAAU,CAAC,eAAE,CACX,eAAe,CAAE,IAAI,CACrB,KAAK,CAAE,OACT,CAEA,wBAAU,CAAC,gBAAG,CACZ,MAAM,CAAE,CAAC,CACT,SAAS,CAAE,MACb,CAEA,wBAAU,CAAC,eAAE,CACX,MAAM,CAAE,MAAM,CAAC,CAAC,CAAC,CAAC,CAClB,SAAS,CAAE,MAAM,CACjB,KAAK,CAAE,OACT"}`
-};
-const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let games = [];
-  $$result.css.add(css);
-  return `<main>${`${games.length === 0 ? `<div class="empty-state svelte-wsyuhg" data-svelte-h="svelte-15om3jr"><h2>No games found</h2> <p>There are no games available at this time.</p></div>` : `<ul class="game-list svelte-wsyuhg">${each(games, (game) => {
-    return `<li class="svelte-wsyuhg"><a${add_attribute("href", `/games/${game.id}/setup`, 0)} class="svelte-wsyuhg"><h3 class="svelte-wsyuhg">${escape(game.name)}</h3> <p class="svelte-wsyuhg">${escape(game.id)}</p></a> </li>`;
-  })}</ul>`}`} </main>`;
-});
-export {
-  Page as default
-};
+import "../../chunks/index-server.js";
+import { T as escape_html, a as ensure_array_like, u as stringify, w as attr } from "../../chunks/server.js";
+import "../../chunks/api.js";
+//#region src/routes/+page.svelte
+function _page($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
+		const API_BASE = "http://127.0.0.1:8000/api/v1";
+		let games = [];
+		function getCoverUrl(game) {
+			if (!game.cover_image) return null;
+			return `${API_BASE}/img/${game.cover_image}`;
+		}
+		$$renderer.push(`<main class="svelte-1uha8ag">`);
+		if (games.length === 0) $$renderer.push(`<!--[1--><div class="empty-state svelte-1uha8ag" data-testid="empty-state"><h2 class="svelte-1uha8ag">No games found</h2> <p class="svelte-1uha8ag">There are no games available at this time.</p></div>`);
+		else {
+			$$renderer.push(`<!--[-1--><div class="page-header svelte-1uha8ag"><h1 class="svelte-1uha8ag">Start</h1></div> <div class="tile-grid svelte-1uha8ag"><!--[-->`);
+			const each_array = ensure_array_like(games);
+			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+				let game = each_array[$$index];
+				$$renderer.push(`<a${attr("href", `/games/${game.id}/setup`)} class="tile svelte-1uha8ag">`);
+				if (getCoverUrl(game)) $$renderer.push(`<!--[0--><img${attr("src", getCoverUrl(game))}${attr("alt", `${stringify(game.name)} cover`)} class="tile-image svelte-1uha8ag"/>`);
+				else $$renderer.push(`<!--[-1--><div class="tile-placeholder svelte-1uha8ag"><span class="placeholder-icon svelte-1uha8ag">♟</span></div>`);
+				$$renderer.push(`<!--]--> <div class="tile-label svelte-1uha8ag"><span class="tile-name svelte-1uha8ag">${escape_html(game.name)}</span></div></a>`);
+			}
+			$$renderer.push(`<!--]--></div> <footer class="svelte-1uha8ag"><a href="/asset-reviewer" class="footer-link svelte-1uha8ag">Asset Reviewer</a></footer>`);
+		}
+		$$renderer.push(`<!--]--></main>`);
+	});
+}
+//#endregion
+export { _page as default };

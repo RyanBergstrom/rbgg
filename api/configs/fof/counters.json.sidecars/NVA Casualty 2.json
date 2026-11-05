@@ -1,0 +1,61 @@
+{
+  "id": "NVA-NVA Casualty 2.png",
+  "path": "api\\img\\fof\\counters\\NVA Casualty 2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NVA Casualty 2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "a2b5f2a80f8c4ea2ff88c74715ff0f3f8ebb4e9a1143f6b4f37c4842d1cf624b",
+    "classified_at": "2026-11-04T03:10:57.872830+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "NVA",
+  "category": "unit",
+  "subtype": "casualty",
+  "unit_details": {
+    "unit_type": "casualty",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='(js) (s)'"
+  }
+}

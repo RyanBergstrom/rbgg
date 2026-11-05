@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-CCF Assault Squad (Rifle).png",
+  "path": "api\\img\\fof\\counters\\CCF Assault Squad (Rifle).png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "CCF Assault Squad (Rifle).png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "176313a08b7d55e49f6d268ad4e8994991b8d13cfd8526c0d1c20b94bf6f0c5a",
+    "classified_at": "2026-11-04T03:02:58.190230+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Fadl tee |\\nSivee, Ln'"
+  }
+}

@@ -1,21 +1,244 @@
-import { c as create_ssr_component, d as add_attribute, e as escape, b as each } from "../../../../../chunks/ssr.js";
-const css = {
-  code: ".setup-page.svelte-1ydenst.svelte-1ydenst{min-height:100vh;background:#1a1a2e;color:#eee;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif}.error-state.svelte-1ydenst.svelte-1ydenst{max-width:500px;margin:4rem auto;padding:2rem;background:#2a1a1a;border:1px solid #c0392b;border-radius:8px;text-align:center}.error-state.svelte-1ydenst h2.svelte-1ydenst{color:#e74c3c;margin-top:0}.retry-btn.svelte-1ydenst.svelte-1ydenst{padding:0.5rem 1.5rem;background:#4a90e2;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.9rem;margin-top:0.5rem}.retry-btn.svelte-1ydenst.svelte-1ydenst:hover{background:#357abd}.cover-hero.svelte-1ydenst.svelte-1ydenst{position:relative;width:100%;height:280px;overflow:hidden}.cover-image.svelte-1ydenst.svelte-1ydenst{width:100%;height:100%;object-fit:cover;display:block}.cover-overlay.svelte-1ydenst.svelte-1ydenst{position:absolute;inset:0;background:linear-gradient(to top, rgba(26,26,46,0.95) 0%, rgba(26,26,46,0.4) 50%, transparent 100%);display:flex;align-items:flex-end;padding:2rem 2.5rem}.cover-title.svelte-1ydenst.svelte-1ydenst{margin:0;font-size:2.2rem;font-weight:700;text-shadow:0 2px 8px rgba(0,0,0,0.5)}.text-hero.svelte-1ydenst.svelte-1ydenst{padding:2.5rem;text-align:center;background:linear-gradient(135deg, #16213e 0%, #0f3460 100%);border-bottom:2px solid rgba(255,255,255,0.1)}.text-hero.svelte-1ydenst h1.svelte-1ydenst{margin:0;font-size:2.2rem;font-weight:700}.content-area.svelte-1ydenst.svelte-1ydenst{max-width:900px;margin:0 auto;padding:1.5rem 2rem 3rem}.top-bar.svelte-1ydenst.svelte-1ydenst{display:flex;justify-content:flex-end;margin-bottom:1.5rem}.exit-button.svelte-1ydenst.svelte-1ydenst{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:transparent;color:#ccc;border:1px solid #555;border-radius:6px;cursor:pointer;font-size:0.85rem;font-weight:500;transition:all 0.15s ease}.exit-button.svelte-1ydenst.svelte-1ydenst:hover{background:rgba(220, 53, 69, 0.15);border-color:#dc3545;color:#dc3545}.exit-icon.svelte-1ydenst.svelte-1ydenst{font-size:1rem}.cards-row.svelte-1ydenst.svelte-1ydenst{display:flex;flex-direction:column;gap:1.5rem}.card.svelte-1ydenst.svelte-1ydenst{background:#16213e;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1.5rem}.card-title.svelte-1ydenst.svelte-1ydenst{margin:0 0 1rem;font-size:1.1rem;font-weight:600;color:#ddd;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.08)}.continue-table.svelte-1ydenst.svelte-1ydenst{width:100%;border-collapse:collapse}.continue-table.svelte-1ydenst th.svelte-1ydenst{text-align:left;font-size:0.75rem;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.05em;padding:0.5rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.08)}.continue-table.svelte-1ydenst td.svelte-1ydenst{padding:0.75rem;font-size:0.9rem;border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}.continue-table.svelte-1ydenst tbody tr.svelte-1ydenst:hover{background:rgba(255,255,255,0.03)}.session-id.svelte-1ydenst.svelte-1ydenst{font-family:'SF Mono', 'Fira Code', monospace;font-size:0.85rem;color:#4a90e2}.actions-cell.svelte-1ydenst.svelte-1ydenst{display:flex;gap:0.5rem;align-items:center}.delete-btn.svelte-1ydenst.svelte-1ydenst{padding:0.3rem 0.7rem;background:transparent;color:#e74c3c;border:1px solid #e74c3c;border-radius:4px;cursor:pointer;font-size:0.8rem;font-weight:500;transition:all 0.15s ease}.delete-btn.svelte-1ydenst.svelte-1ydenst:hover{background:rgba(231, 76, 60, 0.15)}.load-link.svelte-1ydenst.svelte-1ydenst{display:inline-block;padding:0.3rem 0.7rem;background:#4a90e2;color:white;border:none;border-radius:4px;font-size:0.8rem;font-weight:500;text-decoration:none;transition:background 0.15s ease}.load-link.svelte-1ydenst.svelte-1ydenst:hover{background:#357abd}.form-group.svelte-1ydenst.svelte-1ydenst{margin-bottom:1rem}.form-group.svelte-1ydenst label.svelte-1ydenst{display:block;font-size:0.8rem;font-weight:600;color:#aaa;margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.03em}.form-group.svelte-1ydenst input.svelte-1ydenst{width:100%;padding:0.6rem 0.75rem;background:#0f3460;border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#eee;font-size:0.9rem;box-sizing:border-box;transition:border-color 0.15s ease}.form-group.svelte-1ydenst input.svelte-1ydenst:focus{outline:none;border-color:#4a90e2;box-shadow:0 0 0 2px rgba(74, 144, 226, 0.2)}.form-group.svelte-1ydenst input.svelte-1ydenst::placeholder{color:#555}.form-group.svelte-1ydenst select.svelte-1ydenst{width:100%;padding:0.6rem 0.75rem;background:#0f3460;border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#eee;font-size:0.9rem;box-sizing:border-box;transition:border-color 0.15s ease;cursor:pointer}.form-group.svelte-1ydenst select.svelte-1ydenst:focus{outline:none;border-color:#4a90e2;box-shadow:0 0 0 2px rgba(74, 144, 226, 0.2)}.form-group.svelte-1ydenst select option.svelte-1ydenst{background:#0f3460;color:#eee}.start-button.svelte-1ydenst.svelte-1ydenst{width:100%;padding:0.75rem;background:#27ae60;color:white;border:none;border-radius:6px;cursor:pointer;font-size:1rem;font-weight:600;margin-top:0.5rem;transition:background 0.15s ease}.start-button.svelte-1ydenst.svelte-1ydenst:hover:not(:disabled){background:#219a52}.start-button.svelte-1ydenst.svelte-1ydenst:disabled{opacity:0.4;cursor:not-allowed}",
-  map: `{"version":3,"file":"+page.svelte","sources":["+page.svelte"],"sourcesContent":["<script>\\n  import { onMount } from 'svelte';\\n  import { getGame, getSessions, startSession, deleteSession } from '$lib/api';\\n\\n  const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api/v1';\\n\\n  export let data;\\n  let gameId = data?.gameId || '{gameId}';\\n  let game = null;\\n  let sessions = [];\\n  let loading = true;\\n  let error = null;\\n  let newPlayerName = 'Ryan';\\n  let newMinPlayers = 2;\\n  let newMaxPlayers = 4;\\n  let selectedDifficulty = '';\\n\\n  let activeSessions = [];\\n\\n  $: coverImageUrl = game?.cover_image ? \`\${API_BASE}/img/\${game.cover_image}\` : null;\\n\\n  onMount(async () => {\\n    try {\\n      game = await getGame(gameId);\\n      sessions = await getSessions(gameId);\\n      activeSessions = sessions.filter(s => !s.finished_at);\\n      if (game?.min_players) newMinPlayers = game.min_players;\\n      if (game?.max_players) newMaxPlayers = game.max_players;\\n      if (game?.difficulty) {\\n        selectedDifficulty = game.difficulty.default\\n          || Object.keys(game.difficulty).find(k => k !== 'default')\\n          || '';\\n      }\\n    } catch (e) {\\n      error = e.message;\\n    }\\n    loading = false;\\n  });\\n\\n  function handleStartNewGame() {\\n    localStorage.removeItem(\`rbgg:debug:\${gameId}\`);\\n    startSession(gameId, newPlayerName, parseInt(newMinPlayers), parseInt(newMaxPlayers), selectedDifficulty)\\n      .then(() => {\\n        window.location.href = \`/games/\${gameId}/play\`;\\n      })\\n      .catch(e => {\\n        error = e.message;\\n      });\\n  }\\n\\n  async function handleDeleteSession(sessionId) {\\n    if (!confirm('Are you sure you want to delete this session?')) return;\\n    try {\\n      await deleteSession(sessionId);\\n      activeSessions = activeSessions.filter(s => s.id !== sessionId);\\n    } catch (e) {\\n      error = e.message;\\n    }\\n  }\\n\\n  function handleExit() {\\n    window.location.href = '/';\\n  }\\n<\/script>\\n\\n<div class=\\"setup-page\\">\\n  {#if error}\\n    <div class=\\"error-state\\">\\n      <h2>Error</h2>\\n      <p>{error}</p>\\n      <button class=\\"retry-btn\\" on:click={() => window.location.reload()}>Retry</button>\\n    </div>\\n  {:else}\\n    <div class=\\"setup-container\\">\\n      {#if coverImageUrl}\\n        <div class=\\"cover-hero\\">\\n          <img src={coverImageUrl} alt=\\"{game?.name || gameId} cover\\" class=\\"cover-image\\" />\\n          <div class=\\"cover-overlay\\">\\n            <h1 class=\\"cover-title\\">{game?.name || gameId}</h1>\\n          </div>\\n        </div>\\n      {:else}\\n        <div class=\\"text-hero\\">\\n          <h1>{game?.name || gameId}</h1>\\n        </div>\\n      {/if}\\n\\n      <div class=\\"content-area\\">\\n        <div class=\\"top-bar\\">\\n          <button class=\\"exit-button\\" on:click={handleExit}>\\n            <span class=\\"exit-icon\\">&larr;</span> Exit\\n          </button>\\n        </div>\\n\\n        <div class=\\"cards-row\\">\\n          {#if activeSessions.length > 0}\\n            <div class=\\"card continue-card\\">\\n              <h2 class=\\"card-title\\">Continue Game</h2>\\n              <table class=\\"continue-table\\" data-testid=\\"continue-list\\">\\n                <thead>\\n                  <tr>\\n                    <th>Game ID</th>\\n                    <th>Started</th>\\n                    <th>Actions</th>\\n                  </tr>\\n                </thead>\\n                <tbody>\\n                  {#each activeSessions as session}\\n                    <tr>\\n                      <td class=\\"session-id\\">{session.game_id}</td>\\n                      <td>{new Date(session.started_at).toLocaleDateString()}</td>\\n                      <td class=\\"actions-cell\\">\\n                        <button class=\\"delete-btn\\" on:click={() => handleDeleteSession(session.id)}>\\n                          Delete\\n                        </button>\\n                        <a href={\`/games/\${gameId}/play?sessionId=\${session.id}\`} class=\\"load-link\\">Load</a>\\n                      </td>\\n                    </tr>\\n                  {/each}\\n                </tbody>\\n              </table>\\n            </div>\\n          {/if}\\n\\n          <div class=\\"card new-game-card\\">\\n            <h2 class=\\"card-title\\">New Game</h2>\\n\\n            <div class=\\"form-group\\">\\n              <label for=\\"player-name\\">Player Name</label>\\n              <input\\n                id=\\"player-name\\"\\n                type=\\"text\\"\\n                bind:value={newPlayerName}\\n                placeholder=\\"Enter your name\\"\\n                minlength=\\"1\\"\\n                maxlength=\\"20\\"\\n              />\\n            </div>\\n\\n            {#if game?.min_players}\\n              <div class=\\"form-group\\">\\n                <label for=\\"min-players\\">Min Players</label>\\n                <input\\n                  id=\\"min-players\\"\\n                  type=\\"number\\"\\n                  bind:value={newMinPlayers}\\n                  min={game.min_players}\\n                  max=\\"8\\"\\n                  placeholder={String(game.min_players)}\\n                />\\n              </div>\\n            {/if}\\n\\n            {#if game?.max_players}\\n              <div class=\\"form-group\\">\\n                <label for=\\"max-players\\">Max Players</label>\\n                <input\\n                  id=\\"max-players\\"\\n                  type=\\"number\\"\\n                  bind:value={newMaxPlayers}\\n                  min={game.min_players || 2}\\n                  max=\\"8\\"\\n                  placeholder={String(game.max_players)}\\n                />\\n              </div>\\n            {/if}\\n\\n            {#if game?.difficulty}\\n              <div class=\\"form-group\\">\\n                <label for=\\"difficulty\\">Difficulty</label>\\n                <select id=\\"difficulty\\" bind:value={selectedDifficulty}>\\n                  {#each Object.entries(game.difficulty).filter(([key]) => key !== 'default') as [key, value]}\\n                    <option value={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</option>\\n                  {/each}\\n                </select>\\n              </div>\\n            {/if}\\n\\n            <button class=\\"start-button\\"\\n                    on:click={handleStartNewGame}\\n                    disabled={!newPlayerName.trim()}>\\n              Start Game\\n            </button>\\n          </div>\\n        </div>\\n      </div>\\n    </div>\\n  {/if}\\n</div>\\n\\n<style>\\n  .setup-page {\\n    min-height: 100vh;\\n    background: #1a1a2e;\\n    color: #eee;\\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\\n  }\\n\\n  .error-state {\\n    max-width: 500px;\\n    margin: 4rem auto;\\n    padding: 2rem;\\n    background: #2a1a1a;\\n    border: 1px solid #c0392b;\\n    border-radius: 8px;\\n    text-align: center;\\n  }\\n\\n  .error-state h2 {\\n    color: #e74c3c;\\n    margin-top: 0;\\n  }\\n\\n  .retry-btn {\\n    padding: 0.5rem 1.5rem;\\n    background: #4a90e2;\\n    color: white;\\n    border: none;\\n    border-radius: 4px;\\n    cursor: pointer;\\n    font-size: 0.9rem;\\n    margin-top: 0.5rem;\\n  }\\n\\n  .retry-btn:hover {\\n    background: #357abd;\\n  }\\n\\n  .cover-hero {\\n    position: relative;\\n    width: 100%;\\n    height: 280px;\\n    overflow: hidden;\\n  }\\n\\n  .cover-image {\\n    width: 100%;\\n    height: 100%;\\n    object-fit: cover;\\n    display: block;\\n  }\\n\\n  .cover-overlay {\\n    position: absolute;\\n    inset: 0;\\n    background: linear-gradient(to top, rgba(26,26,46,0.95) 0%, rgba(26,26,46,0.4) 50%, transparent 100%);\\n    display: flex;\\n    align-items: flex-end;\\n    padding: 2rem 2.5rem;\\n  }\\n\\n  .cover-title {\\n    margin: 0;\\n    font-size: 2.2rem;\\n    font-weight: 700;\\n    text-shadow: 0 2px 8px rgba(0,0,0,0.5);\\n  }\\n\\n  .text-hero {\\n    padding: 2.5rem;\\n    text-align: center;\\n    background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);\\n    border-bottom: 2px solid rgba(255,255,255,0.1);\\n  }\\n\\n  .text-hero h1 {\\n    margin: 0;\\n    font-size: 2.2rem;\\n    font-weight: 700;\\n  }\\n\\n  .content-area {\\n    max-width: 900px;\\n    margin: 0 auto;\\n    padding: 1.5rem 2rem 3rem;\\n  }\\n\\n  .top-bar {\\n    display: flex;\\n    justify-content: flex-end;\\n    margin-bottom: 1.5rem;\\n  }\\n\\n  .exit-button {\\n    display: inline-flex;\\n    align-items: center;\\n    gap: 0.4rem;\\n    padding: 0.5rem 1rem;\\n    background: transparent;\\n    color: #ccc;\\n    border: 1px solid #555;\\n    border-radius: 6px;\\n    cursor: pointer;\\n    font-size: 0.85rem;\\n    font-weight: 500;\\n    transition: all 0.15s ease;\\n  }\\n\\n  .exit-button:hover {\\n    background: rgba(220, 53, 69, 0.15);\\n    border-color: #dc3545;\\n    color: #dc3545;\\n  }\\n\\n  .exit-icon {\\n    font-size: 1rem;\\n  }\\n\\n  .cards-row {\\n    display: flex;\\n    flex-direction: column;\\n    gap: 1.5rem;\\n  }\\n\\n  .card {\\n    background: #16213e;\\n    border: 1px solid rgba(255,255,255,0.08);\\n    border-radius: 10px;\\n    padding: 1.5rem;\\n  }\\n\\n  .card-title {\\n    margin: 0 0 1rem;\\n    font-size: 1.1rem;\\n    font-weight: 600;\\n    color: #ddd;\\n    padding-bottom: 0.75rem;\\n    border-bottom: 1px solid rgba(255,255,255,0.08);\\n  }\\n\\n  .continue-table {\\n    width: 100%;\\n    border-collapse: collapse;\\n  }\\n\\n  .continue-table th {\\n    text-align: left;\\n    font-size: 0.75rem;\\n    font-weight: 600;\\n    color: #888;\\n    text-transform: uppercase;\\n    letter-spacing: 0.05em;\\n    padding: 0.5rem 0.75rem;\\n    border-bottom: 1px solid rgba(255,255,255,0.08);\\n  }\\n\\n  .continue-table td {\\n    padding: 0.75rem;\\n    font-size: 0.9rem;\\n    border-bottom: 1px solid rgba(255,255,255,0.05);\\n    vertical-align: middle;\\n  }\\n\\n  .continue-table tbody tr:hover {\\n    background: rgba(255,255,255,0.03);\\n  }\\n\\n  .session-id {\\n    font-family: 'SF Mono', 'Fira Code', monospace;\\n    font-size: 0.85rem;\\n    color: #4a90e2;\\n  }\\n\\n  .actions-cell {\\n    display: flex;\\n    gap: 0.5rem;\\n    align-items: center;\\n  }\\n\\n  .delete-btn {\\n    padding: 0.3rem 0.7rem;\\n    background: transparent;\\n    color: #e74c3c;\\n    border: 1px solid #e74c3c;\\n    border-radius: 4px;\\n    cursor: pointer;\\n    font-size: 0.8rem;\\n    font-weight: 500;\\n    transition: all 0.15s ease;\\n  }\\n\\n  .delete-btn:hover {\\n    background: rgba(231, 76, 60, 0.15);\\n  }\\n\\n  .load-link {\\n    display: inline-block;\\n    padding: 0.3rem 0.7rem;\\n    background: #4a90e2;\\n    color: white;\\n    border: none;\\n    border-radius: 4px;\\n    font-size: 0.8rem;\\n    font-weight: 500;\\n    text-decoration: none;\\n    transition: background 0.15s ease;\\n  }\\n\\n  .load-link:hover {\\n    background: #357abd;\\n  }\\n\\n  .form-group {\\n    margin-bottom: 1rem;\\n  }\\n\\n  .form-group label {\\n    display: block;\\n    font-size: 0.8rem;\\n    font-weight: 600;\\n    color: #aaa;\\n    margin-bottom: 0.4rem;\\n    text-transform: uppercase;\\n    letter-spacing: 0.03em;\\n  }\\n\\n  .form-group input {\\n    width: 100%;\\n    padding: 0.6rem 0.75rem;\\n    background: #0f3460;\\n    border: 1px solid rgba(255,255,255,0.12);\\n    border-radius: 6px;\\n    color: #eee;\\n    font-size: 0.9rem;\\n    box-sizing: border-box;\\n    transition: border-color 0.15s ease;\\n  }\\n\\n  .form-group input:focus {\\n    outline: none;\\n    border-color: #4a90e2;\\n    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);\\n  }\\n\\n  .form-group input::placeholder {\\n    color: #555;\\n  }\\n\\n  .form-group select {\\n    width: 100%;\\n    padding: 0.6rem 0.75rem;\\n    background: #0f3460;\\n    border: 1px solid rgba(255,255,255,0.12);\\n    border-radius: 6px;\\n    color: #eee;\\n    font-size: 0.9rem;\\n    box-sizing: border-box;\\n    transition: border-color 0.15s ease;\\n    cursor: pointer;\\n  }\\n\\n  .form-group select:focus {\\n    outline: none;\\n    border-color: #4a90e2;\\n    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);\\n  }\\n\\n  .form-group select option {\\n    background: #0f3460;\\n    color: #eee;\\n  }\\n\\n  .start-button {\\n    width: 100%;\\n    padding: 0.75rem;\\n    background: #27ae60;\\n    color: white;\\n    border: none;\\n    border-radius: 6px;\\n    cursor: pointer;\\n    font-size: 1rem;\\n    font-weight: 600;\\n    margin-top: 0.5rem;\\n    transition: background 0.15s ease;\\n  }\\n\\n  .start-button:hover:not(:disabled) {\\n    background: #219a52;\\n  }\\n\\n  .start-button:disabled {\\n    opacity: 0.4;\\n    cursor: not-allowed;\\n  }\\n</style>\\n"],"names":[],"mappings":"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"}`
-};
-const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let coverImageUrl;
-  let { data } = $$props;
-  let gameId = data?.gameId || "{gameId}";
-  let newPlayerName = "Ryan";
-  let activeSessions = [];
-  if ($$props.data === void 0 && $$bindings.data && data !== void 0) $$bindings.data(data);
-  $$result.css.add(css);
-  coverImageUrl = null;
-  return `<div class="setup-page svelte-1ydenst">${`<div class="setup-container">${coverImageUrl ? `<div class="cover-hero svelte-1ydenst"><img${add_attribute("src", coverImageUrl, 0)} alt="${escape(gameId, true) + " cover"}" class="cover-image svelte-1ydenst"> <div class="cover-overlay svelte-1ydenst"><h1 class="cover-title svelte-1ydenst">${escape(gameId)}</h1></div></div>` : `<div class="text-hero svelte-1ydenst"><h1 class="svelte-1ydenst">${escape(gameId)}</h1></div>`} <div class="content-area svelte-1ydenst"><div class="top-bar svelte-1ydenst"><button class="exit-button svelte-1ydenst" data-svelte-h="svelte-1w6tt5c"><span class="exit-icon svelte-1ydenst">←</span> Exit</button></div> <div class="cards-row svelte-1ydenst">${activeSessions.length > 0 ? `<div class="card continue-card svelte-1ydenst"><h2 class="card-title svelte-1ydenst" data-svelte-h="svelte-1sudnlv">Continue Game</h2> <table class="continue-table svelte-1ydenst" data-testid="continue-list"><thead data-svelte-h="svelte-1p6orrh"><tr class="svelte-1ydenst"><th class="svelte-1ydenst">Game ID</th> <th class="svelte-1ydenst">Started</th> <th class="svelte-1ydenst">Actions</th></tr></thead> <tbody>${each(activeSessions, (session) => {
-    return `<tr class="svelte-1ydenst"><td class="session-id svelte-1ydenst">${escape(session.game_id)}</td> <td class="svelte-1ydenst">${escape(new Date(session.started_at).toLocaleDateString())}</td> <td class="actions-cell svelte-1ydenst"><button class="delete-btn svelte-1ydenst" data-svelte-h="svelte-1vkfdtp">Delete</button> <a${add_attribute("href", `/games/${gameId}/play?sessionId=${session.id}`, 0)} class="load-link svelte-1ydenst">Load</a></td> </tr>`;
-  })}</tbody></table></div>` : ``} <div class="card new-game-card svelte-1ydenst"><h2 class="card-title svelte-1ydenst" data-svelte-h="svelte-avyrzi">New Game</h2> <div class="form-group svelte-1ydenst"><label for="player-name" class="svelte-1ydenst" data-svelte-h="svelte-1lp8fxb">Player Name</label> <input id="player-name" type="text" placeholder="Enter your name" minlength="1" maxlength="20" class="svelte-1ydenst"${add_attribute("value", newPlayerName, 0)}></div> ${``} ${``} ${``} <button class="start-button svelte-1ydenst" ${!newPlayerName.trim() ? "disabled" : ""}>Start Game</button></div></div></div></div>`} </div>`;
-});
-export {
-  Page as default
-};
+import "../../../../../chunks/index-server.js";
+import { T as escape_html, a as ensure_array_like, r as bind_props, t as attr_class, u as stringify, w as attr } from "../../../../../chunks/server.js";
+import "../../../../../chunks/api.js";
+//#region src/lib/game-history.ts
+var BOT_DISPLAY_NAMES = [
+	"Stacy",
+	"Trey",
+	"Bella",
+	"Stitch"
+];
+function parseObject(value) {
+	if (!value) return {};
+	if (typeof value === "object") return value;
+	try {
+		const parsed = JSON.parse(value);
+		return parsed && typeof parsed === "object" ? parsed : {};
+	} catch {
+		return {};
+	}
+}
+function buildGameHistory(sessions, gameId) {
+	const completed = sessions.filter((session) => Boolean(session.finished_at) && (!gameId || !session.game_id || session.game_id === gameId));
+	const opponentRecords = /* @__PURE__ */ new Map();
+	const history = [];
+	let wins = 0;
+	let losses = 0;
+	let draws = 0;
+	for (const session of completed) {
+		const summary = parseObject(session.result_summary_json);
+		const players = Array.isArray(summary.players) ? summary.players : [];
+		const humanId = players[0]?.player_id || "player_1";
+		const winner = session.winner || summary.winner || null;
+		const result = winner === humanId ? "Win" : winner ? "Loss" : "Draw";
+		if (result === "Win") wins += 1;
+		else if (result === "Loss") losses += 1;
+		else draws += 1;
+		const opponents = players.filter((player) => player.player_id !== humanId).map((player, index) => BOT_DISPLAY_NAMES[index] || player.name || `Bot ${index + 1}`);
+		for (const name of opponents) {
+			const record = opponentRecords.get(name) || {
+				name,
+				games: 0,
+				wins: 0,
+				losses: 0,
+				draws: 0
+			};
+			record.games += 1;
+			if (result === "Win") record.wins += 1;
+			else if (result === "Loss") record.losses += 1;
+			else record.draws += 1;
+			opponentRecords.set(name, record);
+		}
+		const scores = parseObject(session.final_scores_json);
+		const summaryScores = summary.scores && typeof summary.scores === "object" ? summary.scores : {};
+		const humanScore = scores[humanId] ?? summaryScores[humanId];
+		history.push({
+			id: session.id,
+			date: session.finished_at || session.started_at || null,
+			result,
+			opponents,
+			score: typeof humanScore === "number" ? humanScore : null
+		});
+	}
+	const gamesPlayed = completed.length;
+	return {
+		gamesPlayed,
+		wins,
+		losses,
+		draws,
+		winRate: gamesPlayed ? Math.round(wins / gamesPlayed * 100) : 0,
+		opponents: [...opponentRecords.values()].sort((a, b) => BOT_DISPLAY_NAMES.indexOf(a.name) - BOT_DISPLAY_NAMES.indexOf(b.name)),
+		history
+	};
+}
+//#endregion
+//#region src/routes/games/[gameId]/setup/+page.svelte
+function _page($$renderer, $$props) {
+	$$renderer.component(($$renderer) => {
+		let coverImageUrl;
+		let data = $$props["data"];
+		let gameId = data?.gameId || "{gameId}";
+		let newPlayerName = "Ryan";
+		let playerCount = gameId === "bus" ? 3 : 2;
+		let selectedCampaign = "";
+		let selectedScenario = "";
+		let activeSessions = [];
+		let gameHistory = buildGameHistory([], gameId);
+		$: coverImageUrl = null;
+		$$renderer.push(`<div class="setup-page svelte-1rlekqw">`);
+		$$renderer.push(`<!--[-1--><div class="setup-container">`);
+		if (coverImageUrl) $$renderer.push(`<!--[0--><div class="cover-hero svelte-1rlekqw"><img${attr("src", coverImageUrl)}${attr("alt", `${stringify(gameId)} cover`)} class="cover-image svelte-1rlekqw"/> <div class="cover-overlay svelte-1rlekqw"><h1 class="cover-title svelte-1rlekqw">${escape_html(gameId)}</h1></div></div>`);
+		else $$renderer.push(`<!--[-1--><div class="text-hero svelte-1rlekqw"><h1 class="svelte-1rlekqw">${escape_html(gameId)}</h1></div>`);
+		$$renderer.push(`<!--]--> <div class="content-area svelte-1rlekqw"><div class="top-bar svelte-1rlekqw"><button class="exit-button svelte-1rlekqw"><span class="exit-icon svelte-1rlekqw">←</span> Exit</button></div> <div class="cards-row svelte-1rlekqw">`);
+		if (activeSessions.length > 0) {
+			$$renderer.push(`<!--[0--><div class="card continue-card svelte-1rlekqw"><h2 class="card-title svelte-1rlekqw">Continue Game</h2> <table class="continue-table svelte-1rlekqw" data-testid="continue-list"><thead><tr><th class="svelte-1rlekqw">Game ID</th><th class="svelte-1rlekqw">Started</th><th class="svelte-1rlekqw">Actions</th></tr></thead><tbody class="svelte-1rlekqw"><!--[-->`);
+			const each_array = ensure_array_like(activeSessions);
+			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+				let session = each_array[$$index];
+				$$renderer.push(`<tr class="svelte-1rlekqw"><td class="session-id svelte-1rlekqw">${escape_html(session.game_id)}</td><td class="svelte-1rlekqw">${escape_html(new Date(session.started_at).toLocaleDateString())}</td><td class="actions-cell svelte-1rlekqw"><button class="delete-btn svelte-1rlekqw">Delete</button> <a${attr("href", `/games/${gameId}/play?sessionId=${session.id}`)} class="load-link svelte-1rlekqw">Load</a></td></tr>`);
+			}
+			$$renderer.push(`<!--]--></tbody></table></div>`);
+		} else $$renderer.push("<!--[-1-->");
+		$$renderer.push(`<!--]--> <div class="card new-game-card svelte-1rlekqw"><h2 class="card-title svelte-1rlekqw">New Game</h2> `);
+		if (gameId === "fields_of_fire") {
+			$$renderer.push(`<!--[0--><div class="form-group svelte-1rlekqw"><label for="campaign" class="svelte-1rlekqw">Campaign</label> `);
+			$$renderer.select({
+				id: "campaign",
+				value: selectedCampaign,
+				class: ""
+			}, ($$renderer) => {
+				$$renderer.push("<!--[-1-->");
+				$$renderer.option({
+					value: "training",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Training Missions`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "normandy",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Normandy`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "naktong",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Naktong River`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "heartbreak",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Heartbreak Ridge`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "vietnam",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Vietnam`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(`<!--]-->`);
+			}, "svelte-1rlekqw");
+			$$renderer.push(`</div> <div class="form-group svelte-1rlekqw"><label for="scenario" class="svelte-1rlekqw">Scenario/Mission</label> `);
+			$$renderer.select({
+				id: "scenario",
+				value: selectedScenario,
+				class: ""
+			}, ($$renderer) => {
+				$$renderer.push("<!--[-1-->");
+				$$renderer.option({
+					value: "",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Select a scenario...`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "training_1",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`Basic Training - Movement`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "pac_run1",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`PAC Run 1: Activation &amp; Movement`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "pac_run2",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`PAC Run 2: Attacking an Enemy Position`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "pac_run3",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`PAC Run 3: Potential Contact`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "cac_run1",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`CAC Run 1: Assaulting a Known Position`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "cac_run2",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`CAC Run 2: Potential Contact System`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(` `);
+				$$renderer.option({
+					value: "cac_run3",
+					class: ""
+				}, ($$renderer) => {
+					$$renderer.push(`CAC Run 3: Adding Communications`);
+				}, "svelte-1rlekqw");
+				$$renderer.push(`<!--]-->`);
+			}, "svelte-1rlekqw");
+			$$renderer.push(`</div>`);
+		} else $$renderer.push("<!--[-1-->");
+		$$renderer.push(`<!--]--> <div class="form-group svelte-1rlekqw"><label for="player-name" class="svelte-1rlekqw">Player Name</label> <input id="player-name" type="text"${attr("value", newPlayerName)} placeholder="Enter your name" minlength="1" maxlength="20" class="svelte-1rlekqw"/></div> `);
+		if (gameId === "bus") $$renderer.push(`<!--[0--><div class="form-group svelte-1rlekqw"><label for="player-count" class="svelte-1rlekqw">Number of Players</label> <input id="player-count" type="number"${attr("value", playerCount)}${attr("min", 3)}${attr("max", gameId === "bus" ? 5 : 2)} step="1" aria-describedby="player-count-help" class="svelte-1rlekqw"/> <small id="player-count-help">Choose from ${escape_html(3)} to ${escape_html(gameId === "bus" ? 5 : 2)} players.</small></div>`);
+		else $$renderer.push("<!--[-1-->");
+		$$renderer.push(`<!--]--> `);
+		$$renderer.push("<!--[-1-->");
+		$$renderer.push(`<!--]--> <button class="start-button svelte-1rlekqw"${attr("disabled", !newPlayerName.trim(), true)}>Start Game</button></div></div> <section class="card history-card svelte-1rlekqw" data-testid="game-history"><h2 class="card-title svelte-1rlekqw">${escape_html(gameId)} History</h2> <div class="history-stats svelte-1rlekqw" aria-label="All-time completed game statistics"><div class="stat-tile svelte-1rlekqw"><span class="svelte-1rlekqw">Completed</span><strong class="svelte-1rlekqw">${escape_html(gameHistory.gamesPlayed)}</strong></div> <div class="stat-tile svelte-1rlekqw"><span class="svelte-1rlekqw">Wins</span><strong class="svelte-1rlekqw">${escape_html(gameHistory.wins)}</strong></div> <div class="stat-tile svelte-1rlekqw"><span class="svelte-1rlekqw">Losses</span><strong class="svelte-1rlekqw">${escape_html(gameHistory.losses)}</strong></div> <div class="stat-tile svelte-1rlekqw"><span class="svelte-1rlekqw">Win rate</span><strong class="svelte-1rlekqw">${escape_html(gameHistory.gamesPlayed ? `${gameHistory.winRate}%` : "—")}</strong></div></div> `);
+		if (gameHistory.gamesPlayed === 0) $$renderer.push(`<!--[0--><p class="history-empty svelte-1rlekqw">Completed games will appear here. Games still in progress are not included.</p>`);
+		else {
+			$$renderer.push(`<!--[-1--><h3 class="history-subtitle svelte-1rlekqw">Record against each bot</h3> <div class="history-table-wrap svelte-1rlekqw"><table class="history-table svelte-1rlekqw" data-testid="opponent-records"><thead><tr><th class="svelte-1rlekqw">Opponent</th><th class="svelte-1rlekqw">Games</th><th class="svelte-1rlekqw">W–L–D</th><th class="svelte-1rlekqw">Win rate</th></tr></thead><tbody><!--[-->`);
+			const each_array_4 = ensure_array_like(gameHistory.opponents);
+			for (let $$index_4 = 0, $$length = each_array_4.length; $$index_4 < $$length; $$index_4++) {
+				let opponent = each_array_4[$$index_4];
+				$$renderer.push(`<tr><td class="svelte-1rlekqw">${escape_html(opponent.name)}</td><td class="svelte-1rlekqw">${escape_html(opponent.games)}</td><td class="svelte-1rlekqw">${escape_html(opponent.wins)}–${escape_html(opponent.losses)}–${escape_html(opponent.draws)}</td><td class="svelte-1rlekqw">${escape_html(Math.round(opponent.wins / opponent.games * 100))}%</td></tr>`);
+			}
+			$$renderer.push(`<!--]--></tbody></table></div> <h3 class="history-subtitle svelte-1rlekqw">Completed games</h3> <div class="history-table-wrap svelte-1rlekqw"><table class="history-table svelte-1rlekqw" data-testid="completed-games"><thead><tr><th class="svelte-1rlekqw">Finished</th><th class="svelte-1rlekqw">Result</th><th class="svelte-1rlekqw">Opponents</th><th class="svelte-1rlekqw">Your score</th></tr></thead><tbody><!--[-->`);
+			const each_array_5 = ensure_array_like(gameHistory.history);
+			for (let $$index_5 = 0, $$length = each_array_5.length; $$index_5 < $$length; $$index_5++) {
+				let entry = each_array_5[$$index_5];
+				$$renderer.push(`<tr><td class="svelte-1rlekqw">${escape_html(entry.date ? new Date(entry.date).toLocaleDateString() : "—")}</td><td class="svelte-1rlekqw"><span${attr_class("result-pill svelte-1rlekqw", void 0, {
+					"result-win": entry.result === "Win",
+					"result-loss": entry.result === "Loss"
+				})}>${escape_html(entry.result)}</span></td><td class="svelte-1rlekqw">${escape_html(entry.opponents.join(", ") || "—")}</td><td class="svelte-1rlekqw">${escape_html(entry.score ?? "—")}</td></tr>`);
+			}
+			$$renderer.push(`<!--]--></tbody></table></div>`);
+		}
+		$$renderer.push(`<!--]--></section></div></div>`);
+		$$renderer.push(`<!--]--></div>`);
+		bind_props($$props, { data });
+	});
+}
+//#endregion
+export { _page as default };

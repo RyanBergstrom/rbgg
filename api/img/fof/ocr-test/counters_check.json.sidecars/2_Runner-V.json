@@ -1,0 +1,69 @@
+{
+  "id": "US-2-RUNNER",
+  "path": "api\\img\\fof\\ocr-test\\2_Runner-V.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "2_Runner-V.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "e1b9479c2f50a57937a0e1c1dda60fb0bd7ec086d1de538160df3732ea265a45",
+    "classified_at": "2026-11-05T05:16:35.536274+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "runner",
+  "unit_details": {
+    "unit_type": "runner",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2munner",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:R"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '2munner', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): R"
+  }
+}

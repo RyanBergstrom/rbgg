@@ -1,0 +1,61 @@
+{
+  "id": "US-GE_Panzerfaust2.png",
+  "path": "api\\img\\fof\\counters\\GE_Panzerfaust2.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "GE_Panzerfaust2.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "dce38481be6c7a88f93cbb63e91b0d81d3ad9c741f9977883741955e0b1139bf",
+    "classified_at": "2026-11-04T03:05:25.399910+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "A",
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": "A",
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='PANZERFAUST|\\na zene 88 |\\n\\ncc\\n\\nS|\\nD'"
+  }
+}

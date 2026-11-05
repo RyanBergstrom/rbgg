@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { getGame, getSessions, startSession, deleteSession } from '$lib/api';
+  import { buildGameHistory } from '$lib/game-history';
 
   const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api/v1';
 
@@ -11,11 +12,15 @@
   let loading = true;
   let error = null;
   let newPlayerName = 'Ryan';
-  let newMinPlayers = 2;
-  let newMaxPlayers = 4;
+  let playerCount = gameId === 'bus' ? 3 : 2;
   let selectedDifficulty = '';
+  let selectedCampaign = '';
+  let selectedScenario = '';
 
   let activeSessions = [];
+  let gameHistory = buildGameHistory([], gameId);
+  let campaignData = null;
+
 
   $: coverImageUrl = game?.cover_image ? `${API_BASE}/img/${game.cover_image}` : null;
 
@@ -23,13 +28,33 @@
     try {
       game = await getGame(gameId);
       sessions = await getSessions(gameId);
-      activeSessions = sessions.filter(s => !s.finished_at);
-      if (game?.min_players) newMinPlayers = game.min_players;
-      if (game?.max_players) newMaxPlayers = game.max_players;
+      activeSessions = sessions.filter(s => !s.finished_at && !s.winner && !s.result_summary_json);
+      gameHistory = buildGameHistory(sessions, gameId);
+      if (game?.min_players) playerCount = game.min_players;
       if (game?.difficulty) {
         selectedDifficulty = game.difficulty.default
           || Object.keys(game.difficulty).find(k => k !== 'default')
           || '';
+      }
+      if (gameId === 'fields_of_fire') {
+        try {
+          const res = await fetch(`${API_BASE}/games/fields_of_fire/scenarios`);
+          if (res.ok) {
+            campaignData = await res.json();
+            const camps = campaignData?.campaigns || {};
+            const campKeys = Object.keys(camps);
+            if (campKeys.length > 0 && !selectedCampaign) {
+              selectedCampaign = campKeys[0];
+            }
+            const firstCamp = camps[selectedCampaign];
+            const scenariosInCamp = firstCamp?.scenarios ? Object.keys(firstCamp.scenarios) : [];
+            if (scenariosInCamp.length > 0 && !selectedScenario) {
+              selectedScenario = scenariosInCamp[0];
+            }
+          }
+        } catch (e) {
+          // ignore
+        }
       }
     } catch (e) {
       error = e.message;
@@ -37,16 +62,27 @@
     loading = false;
   });
 
+  $: if (gameId === 'fields_of_fire' && campaignData?.campaigns && selectedCampaign) {
+    const camp = campaignData.campaigns[selectedCampaign];
+    const scenariosInCamp = camp?.scenarios ? Object.keys(camp.scenarios) : [];
+    if (scenariosInCamp.length > 0 && !scenariosInCamp.includes(selectedScenario)) {
+      selectedScenario = scenariosInCamp[0];
+    } else if (scenariosInCamp.length === 0) {
+      selectedScenario = '';
+    }
+  }
+
   function handleStartNewGame() {
     localStorage.removeItem(`rbgg:debug:${gameId}`);
-    startSession(gameId, newPlayerName, parseInt(newMinPlayers), parseInt(newMaxPlayers), selectedDifficulty)
-      .then(() => {
-        window.location.href = `/games/${gameId}/play`;
+    startSession(gameId, newPlayerName, parseInt(playerCount), selectedDifficulty, selectedScenario || null)
+      .then((session) => {
+        window.location.href = `/games/${gameId}/play?sessionId=${session.session_id}`;
       })
       .catch(e => {
         error = e.message;
       });
   }
+
 
   async function handleDeleteSession(sessionId) {
     if (!confirm('Are you sure you want to delete this session?')) return;
@@ -125,6 +161,45 @@
           <div class="card new-game-card">
             <h2 class="card-title">New Game</h2>
 
+            {#if gameId === 'fields_of_fire'}
+              <div class="form-group">
+                <label for="campaign">Campaign</label>
+                <select id="campaign" bind:value={selectedCampaign}>
+                  {#if campaignData?.campaigns}
+                    {#each Object.entries(campaignData.campaigns) as [campId, camp]}
+                      <option value={campId}>{camp.name || campId}</option>
+                    {/each}
+                  {:else}
+                    <option value="training">Training Missions</option>
+                    <option value="normandy">Normandy</option>
+                    <option value="naktong">Naktong River</option>
+                    <option value="heartbreak">Heartbreak Ridge</option>
+                    <option value="vietnam">Vietnam</option>
+                  {/if}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="scenario">Scenario/Mission</label>
+                <select id="scenario" bind:value={selectedScenario}>
+                  {#if campaignData?.campaigns && selectedCampaign && campaignData.campaigns[selectedCampaign]?.scenarios}
+                    {#each Object.entries(campaignData.campaigns[selectedCampaign].scenarios) as [scenId, scen]}
+                      <option value={scenId}>{scen.name || scenId}</option>
+                    {/each}
+                  {:else}
+                    <option value="">Select a scenario...</option>
+                    <option value="training_1">Basic Training - Movement</option>
+                    <option value="pac_run1">PAC Run 1: Activation & Movement</option>
+                    <option value="pac_run2">PAC Run 2: Attacking an Enemy Position</option>
+                    <option value="pac_run3">PAC Run 3: Potential Contact</option>
+                    <option value="cac_run1">CAC Run 1: Assaulting a Known Position</option>
+                    <option value="cac_run2">CAC Run 2: Potential Contact System</option>
+                    <option value="cac_run3">CAC Run 3: Adding Communications</option>
+                  {/if}
+                </select>
+              </div>
+            {/if}
+
             <div class="form-group">
               <label for="player-name">Player Name</label>
               <input
@@ -137,31 +212,20 @@
               />
             </div>
 
-            {#if game?.min_players}
-              <div class="form-group">
-                <label for="min-players">Min Players</label>
-                <input
-                  id="min-players"
-                  type="number"
-                  bind:value={newMinPlayers}
-                  min={game.min_players}
-                  max="8"
-                  placeholder={String(game.min_players)}
-                />
-              </div>
-            {/if}
 
-            {#if game?.max_players}
+            {#if game?.min_players || gameId === 'bus'}
               <div class="form-group">
-                <label for="max-players">Max Players</label>
+                <label for="player-count">Number of Players</label>
                 <input
-                  id="max-players"
+                  id="player-count"
                   type="number"
-                  bind:value={newMaxPlayers}
-                  min={game.min_players || 2}
-                  max="8"
-                  placeholder={String(game.max_players)}
+                  bind:value={playerCount}
+                  min={game?.min_players || 3}
+                  max={game?.max_players || (gameId === 'bus' ? 5 : 2)}
+                  step="1"
+                  aria-describedby="player-count-help"
                 />
+                <small id="player-count-help">Choose from {game?.min_players || 3} to {game?.max_players || (gameId === 'bus' ? 5 : 2)} players.</small>
               </div>
             {/if}
 
@@ -183,6 +247,58 @@
             </button>
           </div>
         </div>
+
+        <section class="card history-card" data-testid="game-history">
+          <h2 class="card-title">{game?.name || gameId} History</h2>
+          <div class="history-stats" aria-label="All-time completed game statistics">
+            <div class="stat-tile"><span>Completed</span><strong>{gameHistory.gamesPlayed}</strong></div>
+            <div class="stat-tile"><span>Wins</span><strong>{gameHistory.wins}</strong></div>
+            <div class="stat-tile"><span>Losses</span><strong>{gameHistory.losses}</strong></div>
+            <div class="stat-tile"><span>Win rate</span><strong>{gameHistory.gamesPlayed ? `${gameHistory.winRate}%` : '—'}</strong></div>
+          </div>
+
+          {#if gameHistory.gamesPlayed === 0}
+            <p class="history-empty">Completed games will appear here. Games still in progress are not included.</p>
+          {:else}
+            <h3 class="history-subtitle">Record against each bot</h3>
+            <div class="history-table-wrap">
+              <table class="history-table" data-testid="opponent-records">
+                <thead>
+                  <tr><th>Opponent</th><th>Games</th><th>W–L–D</th><th>Win rate</th></tr>
+                </thead>
+                <tbody>
+                  {#each gameHistory.opponents as opponent (opponent.name)}
+                    <tr>
+                      <td>{opponent.name}</td>
+                      <td>{opponent.games}</td>
+                      <td>{opponent.wins}–{opponent.losses}–{opponent.draws}</td>
+                      <td>{Math.round((opponent.wins / opponent.games) * 100)}%</td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="history-subtitle">Completed games</h3>
+            <div class="history-table-wrap">
+              <table class="history-table" data-testid="completed-games">
+                <thead>
+                  <tr><th>Finished</th><th>Result</th><th>Opponents</th><th>Your score</th></tr>
+                </thead>
+                <tbody>
+                  {#each gameHistory.history as entry (entry.id)}
+                    <tr>
+                      <td>{entry.date ? new Date(entry.date).toLocaleDateString() : '—'}</td>
+                      <td><span class="result-pill" class:result-win={entry.result === 'Win'} class:result-loss={entry.result === 'Loss'}>{entry.result}</span></td>
+                      <td>{entry.opponents.join(', ') || '—'}</td>
+                      <td>{entry.score ?? '—'}</td>
+                    </tr>
+                  {/each}
+                </tbody>
+              </table>
+            </div>
+          {/if}
+        </section>
       </div>
     </div>
   {/if}
@@ -327,6 +443,22 @@
     padding-bottom: 0.75rem;
     border-bottom: 1px solid rgba(255,255,255,0.08);
   }
+
+  .history-card { margin-top: 1.5rem; }
+  .history-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; }
+  .stat-tile { display: flex; flex-direction: column; gap: .35rem; padding: 1rem; border-radius: 8px; background: #0f3460; }
+  .stat-tile span { color: #9ab0c7; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .stat-tile strong { color: #f4f7fb; font-size: 1.5rem; }
+  .history-empty { margin: 1rem 0 0; color: #aab7c5; }
+  .history-subtitle { margin: 1.5rem 0 .5rem; color: #d7e2ef; font-size: .95rem; }
+  .history-table-wrap { overflow-x: auto; }
+  .history-table { width: 100%; border-collapse: collapse; }
+  .history-table th, .history-table td { padding: .7rem .75rem; border-bottom: 1px solid rgba(255,255,255,.07); text-align: left; white-space: nowrap; }
+  .history-table th { color: #8fa0b5; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
+  .history-table td { color: #e1e7ef; font-size: .88rem; }
+  .result-pill { display: inline-block; padding: .18rem .5rem; border-radius: 999px; background: #485569; font-size: .75rem; font-weight: 700; }
+  .result-win { background: rgba(39,174,96,.2); color: #7ce0a5; }
+  .result-loss { background: rgba(231,76,60,.16); color: #ff9a91; }
 
   .continue-table {
     width: 100%;
@@ -481,5 +613,10 @@
   .start-button:disabled {
     opacity: 0.4;
     cursor: not-allowed;
+  }
+
+  @media (max-width: 600px) {
+    .history-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .history-card { padding: 1rem; }
   }
 </style>

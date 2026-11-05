@@ -1,0 +1,61 @@
+{
+  "id": "Unknown-HQ_07-1PLTb.png",
+  "path": "api\\img\\fof\\counters\\HQ_07-1PLTb.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "HQ_07-1PLTb.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "back",
+    "hash_sha256": "5d8d633b2375015699117d07f20e7be148161290a3a9c5f24f7f2aed750006b0",
+    "classified_at": "2026-11-04T03:06:39.911644+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "Unknown",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "07",
+    "platoon": "07",
+    "squad_number": "1",
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='4 Bot rey'"
+  }
+}

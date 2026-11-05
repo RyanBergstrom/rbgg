@@ -1,0 +1,48 @@
+ID
+path
+image
+country
+unit
+type
+squad
+HQ
+FO
+WeaponTeam
+Vehicle
+Aircraft
+LAT
+Casualities
+SAFF
+Runner  
+ Name
+division
+squad
+platton
+weapon
+VOF
+Steps
+Range
+assets
+type
+combat
+type
+VOF
+PDF
+concentradedFire
+Cosssfire
+amount
+exposed
+amount
+pin
+amount
+control
+cover
+ammo
+type
+amount
+
+    potentialcontact
+        id
+    weather
+        type
+        amount

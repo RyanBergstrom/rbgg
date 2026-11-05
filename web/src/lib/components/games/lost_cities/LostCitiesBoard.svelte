@@ -26,6 +26,10 @@
     white: '#ecf0f1',
     green: '#2ecc71',
   };
+  const PLAYER_LABELS = {
+    player_1: 'You',
+    player_2: 'AI',
+  };
 
   let gameData = null;
   let currentPlayerId = 'player_1';
@@ -239,6 +243,22 @@
     const COLOR_SHORT = { blue: 'b', yellow: 'y', red: 'r', white: 'w', green: 'g' };
     return `/api/v1/img/lost_cities/cards/${COLOR_SHORT[color] || color}_base.jpg`;
   }
+
+  function formatBreakdownLine(details) {
+    if (!details?.started) return 'No expedition';
+    const multiplierText = details.multiplier > 1 ? ` x ${details.multiplier}` : '';
+    const bonusText = details.bonus ? ` + ${details.bonus}` : '';
+    return `(${details.numbered_sum} - 20)${multiplierText}${bonusText} = ${details.score}`;
+  }
+
+  function playerBreakdown(playerId) {
+    return gameData?.score_breakdown?.players?.[playerId] || null;
+  }
+
+  function roundSummaryLabel(summary) {
+    if (!summary) return '';
+    return `Round ${summary.round}: You ${summary.players?.player_1?.current_round_score ?? 0} | AI ${summary.players?.player_2?.current_round_score ?? 0}`;
+  }
 </script>
 
 <div class="lost-cities-board">
@@ -430,6 +450,59 @@
       <span class="current-score">This round: You {gameData.current_scores.player_1} | AI {gameData.current_scores.player_2}</span>
     {/if}
   </div>
+
+  {#if gameData?.score_breakdown}
+    <details class="score-breakdown-panel" open={!!winner}>
+      <summary>Score breakdown</summary>
+      <div class="score-breakdown-grid">
+        {#each ['player_1', 'player_2'] as playerId}
+          <section class="score-breakdown-card">
+            <h3>{PLAYER_LABELS[playerId]}</h3>
+            <p>Banked: {playerBreakdown(playerId)?.banked_score ?? 0}</p>
+            <p>This round: {playerBreakdown(playerId)?.current_round_score ?? 0}</p>
+            <p>Total if banked now: {playerBreakdown(playerId)?.overall_total ?? 0}</p>
+            <div class="score-breakdown-lines">
+              {#each COLORS as color}
+                <div class="score-breakdown-line">
+                  <strong>{color}</strong>
+                  <span>{formatBreakdownLine(playerBreakdown(playerId)?.expeditions?.[color])}</span>
+                </div>
+              {/each}
+            </div>
+          </section>
+        {/each}
+      </div>
+
+      {#if gameData?.round_summaries?.length}
+        <div class="round-history">
+          <h3>Round history</h3>
+          {#each [...gameData.round_summaries].reverse() as summary}
+            <details class="round-summary">
+              <summary>{roundSummaryLabel(summary)}</summary>
+              <div class="score-breakdown-grid">
+                {#each ['player_1', 'player_2'] as playerId}
+                  <section class="score-breakdown-card compact">
+                    <h4>{PLAYER_LABELS[playerId]}</h4>
+                    <p>Started round at {summary.players?.[playerId]?.banked_score_before_round ?? 0}</p>
+                    <p>Round score: {summary.players?.[playerId]?.current_round_score ?? 0}</p>
+                    <p>Ended round at {summary.players?.[playerId]?.ending_total ?? 0}</p>
+                    <div class="score-breakdown-lines">
+                      {#each COLORS as color}
+                        <div class="score-breakdown-line">
+                          <strong>{color}</strong>
+                          <span>{formatBreakdownLine(summary.players?.[playerId]?.expeditions?.[color])}</span>
+                        </div>
+                      {/each}
+                    </div>
+                  </section>
+                {/each}
+              </div>
+            </details>
+          {/each}
+        </div>
+      {/if}
+    </details>
+  {/if}
 </div>
 
 <style>
@@ -749,6 +822,88 @@
   .current-score {
     color: #888;
     font-size: 0.8rem;
+  }
+
+  .score-breakdown-panel {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .score-breakdown-panel summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+
+  .score-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.9rem;
+    margin-top: 0.85rem;
+  }
+
+  .score-breakdown-card {
+    padding: 0.85rem;
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  .score-breakdown-card h3,
+  .score-breakdown-card h4,
+  .round-history h3 {
+    margin: 0 0 0.5rem;
+  }
+
+  .score-breakdown-card p {
+    margin: 0.2rem 0;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+  }
+
+  .score-breakdown-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.65rem;
+  }
+
+  .score-breakdown-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+  }
+
+  .score-breakdown-line strong {
+    text-transform: capitalize;
+    color: #f8fafc;
+  }
+
+  .round-history {
+    margin-top: 1rem;
+  }
+
+  .round-summary {
+    margin-top: 0.5rem;
+  }
+
+  .round-summary summary {
+    cursor: pointer;
+    color: #e2e8f0;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-breakdown-card.compact {
+    background: rgba(30, 41, 59, 0.4);
   }
 
   @media (max-width: 900px) {

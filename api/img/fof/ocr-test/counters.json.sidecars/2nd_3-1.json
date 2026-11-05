@@ -1,0 +1,66 @@
+{
+  "id": "US-3-4-SQUAD",
+  "path": "api\\img\\fof\\ocr-test\\2nd_3-1.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "2nd_3-1.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "02ad1d7ca1e38ac290dd27a1e23c1e24c98421d99724dc35b04542f6bb8717dd",
+    "classified_at": "2026-11-05T00:44:16.444244+00:00",
+    "classifier": "fof-counter-pipeline v3.7-compound-ratings",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": "4",
+    "squad_number": "3",
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "S",
+    "range_band": "L",
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "S",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:eVveaulwy 3/4PLT",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'eVveaulwy 3/4PLT', Yellow Dots: 3, VOF (Left): S, Range (Right): L"
+  }
+}

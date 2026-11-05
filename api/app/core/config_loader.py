@@ -180,7 +180,16 @@ def load_game_config(game_id: str) -> GameConfig:
     if game_id in _config_cache:
         return _config_cache[game_id]
 
-    filepath = _CONFIGS_DIR / f"{game_id}.yaml"
+    if game_id == "fields_of_fire":
+        filepath = _CONFIGS_DIR / "fof" / "fields_of_fire.yaml"
+    elif game_id == "twilight_struggle":
+        filepath = _CONFIGS_DIR / "twilight_struggle" / "twilight_struggle.yaml"
+        if not filepath.exists():
+            filepath = _CONFIGS_DIR / f"{game_id}.yaml"
+    else:
+        filepath = _CONFIGS_DIR / game_id / f"{game_id}.yaml"
+        if not filepath.exists():
+            filepath = _CONFIGS_DIR / f"{game_id}.yaml"
     raw = load_config(filepath)
 
     # Parse panels

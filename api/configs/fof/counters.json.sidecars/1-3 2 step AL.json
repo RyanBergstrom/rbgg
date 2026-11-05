@@ -1,0 +1,61 @@
+{
+  "id": "US-1-3 2 step AL.png",
+  "path": "api\\img\\fof\\counters\\1-3 2 step AL.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1-3 2 step AL.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "alternate",
+    "hash_sha256": "58710c362d6e64bab7cf763bc5202e4beba959eb903c9449e865b245f978d9c6",
+    "classified_at": "2026-11-04T02:59:13.032801+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.5
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": "1",
+    "platoon": "1",
+    "squad_number": "3",
+    "experience_level": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": true,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='Roi relies'"
+  }
+}

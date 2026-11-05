@@ -1,0 +1,66 @@
+{
+  "id": "US-1-2-SQUAD",
+  "path": "api\\img\\fof\\ocr-test\\1_2_HMG 2step.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1_2_HMG 2step.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "d610bfef9d6666b1600dc34a2e57816da9fb2a37815f6b9fea30b33fa5a31dd4",
+    "classified_at": "2026-11-05T00:44:13.726535+00:00",
+    "classifier": "fof-counter-pipeline v3.7-compound-ratings",
+    "confidence": 0.85
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": "2",
+    "squad_number": "1",
+    "experience_level": "Veteran",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": "V",
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "A",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:eVveaulwy 1/2/HM6",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'eVveaulwy 1/2/HM6', Yellow Dots: 2, VOF (Left): A, Range (Right): V"
+  }
+}

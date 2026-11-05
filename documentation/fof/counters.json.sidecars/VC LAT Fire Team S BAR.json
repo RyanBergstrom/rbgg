@@ -1,0 +1,61 @@
+{
+  "id": "VietCong-VC LAT Fire Team S BAR.png",
+  "path": "documentation\\fof\\images\\VC LAT Fire Team S BAR.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "VC LAT Fire Team S BAR.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "unknown",
+    "hash_sha256": "f5804ec54ad05fcf50fff1f68e9408cc3b15459860ea2e7b5ee3f04e5d372d9d",
+    "classified_at": "2026-11-04T00:50:14.029513+00:00",
+    "classifier": "fof-counter-pipeline v2.1",
+    "confidence": 0.75
+  },
+  "country": "VietCong",
+  "category": "unit",
+  "subtype": "lat",
+  "unit_details": {
+    "unit_type": "lat",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": null,
+    "steps_remaining": null,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract",
+    "labels": [],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "ocr_text='ve\\ni~\\n\\nee\\nFire Team\\nBe \u00a2 ~.\\nFirs Team\\nge'"
+  }
+}
