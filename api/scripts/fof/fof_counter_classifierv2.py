@@ -930,7 +930,7 @@ def build_record(
             marker_details = {
                 "marker_type": subtype,
                 "cover_type": None,
-                "cover_modifier": cover_primary_mod,
+                "cover_modifier": cover_primary_mod if cover_primary_mod is not None else (-2 if subtype == "exposed" else None),
                 "secondary_modifier": None,
                 "no_fire": False,
                 "no_pdf": False,
