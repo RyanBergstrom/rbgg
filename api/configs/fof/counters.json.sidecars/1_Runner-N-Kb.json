@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_Runner-N-Kb.png",
+  "id": "US-1-RUNNER",
   "path": "api\\img\\fof\\counters\\1_Runner-N-Kb.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "back",
+    "side": "front",
     "hash_sha256": "9a0041804d4c2071ba63835f10e52c293c76c09712810b92825b6d3de5e9dae3",
-    "classified_at": "2026-11-04T02:59:39.519390+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:58:02.730301+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.8
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "runner",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "runner",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/munner",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ae Ze'"
+    "notes": "Header OCR: '1/munner', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

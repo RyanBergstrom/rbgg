@@ -1,0 +1,69 @@
+{
+  "id": "Japanese-JAPANESE-PELELIU-COUNTER",
+  "path": "api\\img\\fof\\counters\\Japanese Peleliu counter.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Japanese Peleliu counter.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "7ddf9d6a136dca094cdaf710bdaaf61f9775212c0ff424bc8fe1b6567084a1a4",
+    "classified_at": "2026-11-06T06:18:48.461476+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.6
+  },
+  "country": "Japanese",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
+  }
+}

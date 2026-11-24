@@ -78,6 +78,12 @@ KAL_INFLUENCE = FINISH_TURN + 1
 KAL_REALIGN = KAL_INFLUENCE + 1
 ACTION_COUNT = KAL_REALIGN + 1
 
+# V2 action space expansion (append-only)
+SPACE_BASE = ACTION_COUNT
+CRISIS_CANCEL_BASE = SPACE_BASE + CARD_COUNT
+CRISIS_CANCEL_COUNTRIES: tuple[str, ...] = ("Cuba", "W. Germany", "Turkey")
+ACTION_COUNT_V2 = CRISIS_CANCEL_BASE + len(CRISIS_CANCEL_COUNTRIES)
+
 STAGE_ROOT = 0
 STAGE_EVENT_CHOICE = 1
 STAGE_RESTRICT_DISCARD = 2
@@ -113,6 +119,9 @@ OBSERVATION_SIZE = (
     + len(PERSISTENT_FLAGS) + 1                               # flags + count of unknown flags
 )
 
+_V2_EXTRA_FEATURES = 12
+OBSERVATION_SIZE_V2 = OBSERVATION_SIZE + _V2_EXTRA_FEATURES
+
 VP_REWARD_SCALE = 1.0 / 20.0
 DEFAULT_PLAYERS = ("player_1", "player_2")  # US, USSR (validator convention)
 
@@ -127,6 +136,7 @@ def describe_action(action_id: int) -> str:
         ("event", EVENT_BASE, CARD_COUNT), ("influence", INFLUENCE_BASE, CARD_COUNT),
         ("coup", COUP_BASE, CARD_COUNT), ("realignment", REALIGN_BASE, CARD_COUNT),
         ("headline", HEADLINE_BASE, CARD_COUNT), ("discard", DISCARD_BASE, CARD_COUNT),
+        ("space", SPACE_BASE, CARD_COUNT),
     ):
         if base <= action_id < base + size:
             return f"{name}:card{action_id - base + 1}"
@@ -134,6 +144,8 @@ def describe_action(action_id: int) -> str:
         return f"country:{COUNTRY_NAMES[action_id - COUNTRY_BASE]}"
     if CHOICE_BASE <= action_id < CHOICE_BASE + CHOICE_SLOTS:
         return f"choice:{action_id - CHOICE_BASE}"
+    if CRISIS_CANCEL_BASE <= action_id < CRISIS_CANCEL_BASE + len(CRISIS_CANCEL_COUNTRIES):
+        return f"cancel_crisis:{CRISIS_CANCEL_COUNTRIES[action_id - CRISIS_CANCEL_BASE]}"
     return {DONE: "done", REVEAL: "reveal", FINISH_TURN: "finish_turn",
             KAL_INFLUENCE: "kal_influence", KAL_REALIGN: "kal_realignment"}.get(action_id, f"unknown:{action_id}")
 
@@ -177,6 +189,7 @@ class TwilightStruggleReferenceEnv(RLAdapter):
     validator: TwilightStruggleValidator | None = None
     state: dict[str, Any] | None = None
     pending: _Pending | None = None
+    schema_version: int = 1
 
     def __post_init__(self) -> None:
         self.validator = self.validator or TwilightStruggleValidator()
@@ -187,10 +200,11 @@ class TwilightStruggleReferenceEnv(RLAdapter):
     # ----- protocol surface -------------------------------------------------------------------
     @property
     def action_count(self) -> int:
-        return ACTION_COUNT
+        return ACTION_COUNT_V2 if self.schema_version >= 2 else ACTION_COUNT
 
     @property
     def observation_size(self) -> int:
+        return OBSERVATION_SIZE_V2 if self.schema_version >= 2 else OBSERVATION_SIZE
         return OBSERVATION_SIZE
 
     @property
@@ -231,7 +245,7 @@ class TwilightStruggleReferenceEnv(RLAdapter):
 
     def action_mask(self, player_id: str | None = None) -> list[int]:
         actor = player_id or self.current_player
-        mask = [0] * ACTION_COUNT
+        mask = [0] * self.action_count
         if actor == self.current_player and not self.is_terminal():
             for action_id in self._options():
                 mask[action_id] = 1
@@ -448,6 +462,26 @@ class TwilightStruggleReferenceEnv(RLAdapter):
                     options[COUP_BASE + card_index(card["id"])] = ("play", card["id"], "coup")
                 if self._realign_targets(post, faction):
                     options[REALIGN_BASE + card_index(card["id"])] = ("play", card["id"], "realignment")
+
+        if self.schema_version >= 2 and phase == "action_round":
+            from app.games.twilight_struggle.space_race import (
+                FINAL_BOX, SPACE_RACE_BOXES, _positions, attempts_this_turn, space_attempts_allowed,
+            )
+            positions = _positions(gd)
+            pos = positions.get(faction, 0)
+            if pos < FINAL_BOX and attempts_this_turn(gd, faction) < space_attempts_allowed(gd, faction):
+                target_box = pos + 1
+                needed_ops = SPACE_RACE_BOXES[target_box][1]
+                for card in self._hand(faction):
+                    if not card.get("scoring") and effective_operations_value(gd, faction, card) >= needed_ops:
+                        options[SPACE_BASE + card_index(card["id"])] = ("space", card["id"])
+
+            from app.games.twilight_struggle.crisis import crisis_cancellation_targets
+            for country in crisis_cancellation_targets(gd, faction):
+                if country in CRISIS_CANCEL_COUNTRIES:
+                    idx = CRISIS_CANCEL_COUNTRIES.index(country)
+                    options[CRISIS_CANCEL_BASE + idx] = ("cancel_crisis", country)
+
         return options
 
     def _remaining(self, pending: _Pending) -> int:
@@ -493,8 +527,8 @@ class TwilightStruggleReferenceEnv(RLAdapter):
     def step(self, action_id: int) -> tuple[dict[str, Any], float, bool, dict[str, Any]]:
         if self.state is None:
             raise RuntimeError("environment must be reset before use")
-        if not isinstance(action_id, int) or not 0 <= action_id < ACTION_COUNT:
-            raise ValueError(f"action must be an integer in [0, {ACTION_COUNT})")
+        if not isinstance(action_id, int) or not 0 <= action_id < self.action_count:
+            raise ValueError(f"action must be an integer in [0, {self.action_count})")
         actor = self.current_player
         option = self._options().get(action_id)
         if option is None:
@@ -510,6 +544,20 @@ class TwilightStruggleReferenceEnv(RLAdapter):
             completed = self._begin_play(actor, faction, option[1], option[2])
         elif kind == "kal":
             completed = self._begin_kal(faction, option[1])
+        elif kind == "space":
+            completed = {
+                "type": "play_card",
+                "player_id": actor,
+                "card_id": option[1],
+                "mode": "operations",
+                "operations_action": {"type": "space_race"},
+            }
+        elif kind == "cancel_crisis":
+            completed = {
+                "type": "cancel_cuban_missile_crisis",
+                "player_id": actor,
+                "country": option[1],
+            }
         else:
             completed = self._advance(actor, faction, option)
 
@@ -681,7 +729,7 @@ class TwilightStruggleReferenceEnv(RLAdapter):
             ]
             action = {"type": "influence", "placements": valid_placements}
         elif pending.how == "coup":
-            board = self.game_data.get("countries", {})
+            board = (pending.base if pending.base is not None else self.game_data).get("countries", {})
             opponent = "ussr" if faction == "us" else "us"
             valid = [t for t in pending.targets if board.get(t, {}).get(opponent, 0) > 0]
             if not valid:
@@ -778,9 +826,54 @@ class TwilightStruggleReferenceEnv(RLAdapter):
         persistent = gd.get("persistent_events") or {}
         values += [1.0 if flag in persistent else 0.0 for flag in PERSISTENT_FLAGS]
         values.append(min(1.0, len([k for k in persistent if k not in PERSISTENT_FLAGS]) / 4.0))
-        assert len(values) == OBSERVATION_SIZE, (len(values), OBSERVATION_SIZE)
+
+        if self.schema_version >= 2:
+            from app.games.twilight_struggle.space_race import (
+                _positions, attempts_this_turn, space_attempts_allowed,
+            )
+            from app.games.twilight_struggle.turns import faction_action_limit
+
+            f_limit = faction_action_limit(gd, faction)
+            o_limit = faction_action_limit(gd, opponent)
+            pos = _positions(gd)
+            rem_ops = (pending.ops - pending.spent) if (pending and pending.stage in (STAGE_INFLUENCE, STAGE_KAL_INFLUENCE)) else 0
+            spent_ops = pending.spent if pending else 0
+            defcon = tracks.get("defcon", 5)
+            f_mil = tracks.get("military_operations", {}).get(faction, 0)
+            o_mil = tracks.get("military_operations", {}).get(opponent, 0)
+            f_shortfall = max(0, defcon - f_mil)
+            o_shortfall = max(0, defcon - o_mil)
+            f_space_rem = max(0, space_attempts_allowed(gd, faction) - attempts_this_turn(gd, faction))
+            f_space_target = min(8, pos.get(faction, 0) + 1)
+            cmc = persistent.get("cuban_missile_crisis")
+            f_cmc = 1.0 if (isinstance(cmc, dict) and cmc.get("faction") == faction and cmc.get("expires_turn") == turn) else 0.0
+            o_cmc = 1.0 if (isinstance(cmc, dict) and cmc.get("faction") == opponent and cmc.get("expires_turn") == turn) else 0.0
+            n_subs = 1.0 if (faction == "us" and isinstance(persistent.get("nuclear_subs"), dict) and persistent["nuclear_subs"].get("expires_turn") == turn) else 0.0
+            scoring_in_hand = len([c for c in gd.get("hands", {}).get(faction, []) if c.get("scoring")])
+
+            v2_values = [
+                min(1.0, rem_ops / 4.0),
+                min(1.0, spent_ops / 4.0),
+                max(0.0, (f_limit - actions.get(faction, 0)) / 8.0),
+                max(0.0, (o_limit - actions.get(opponent, 0)) / 8.0),
+                f_shortfall / 5.0,
+                o_shortfall / 5.0,
+                f_space_rem / 2.0,
+                f_space_target / 8.0,
+                f_cmc,
+                o_cmc,
+                n_subs,
+                min(1.0, scoring_in_hand / 3.0),
+            ]
+            values += v2_values
+            assert len(values) == OBSERVATION_SIZE_V2, (len(values), OBSERVATION_SIZE_V2)
+            schema_ver = 2
+        else:
+            assert len(values) == OBSERVATION_SIZE, (len(values), OBSERVATION_SIZE)
+            schema_ver = OBSERVATION_SCHEMA_VERSION
+
         return {
-            "schema_version": OBSERVATION_SCHEMA_VERSION,
+            "schema_version": schema_ver,
             "observation": values,
             "action_mask": self.action_mask(player_id),
         }

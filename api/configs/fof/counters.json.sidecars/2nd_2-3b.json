@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-2nd_2-3b.png",
+  "id": "US-2-3-SQUAD",
   "path": "api\\img\\fof\\counters\\2nd_2-3b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "71e33f0638b26f0ea1959805dd6a1c2028ebbcf82c550267c09b19c171f1fd91",
-    "classified_at": "2026-11-04T03:00:40.421992+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:02:05.778208+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
+    "platoon": "3",
+    "squad_number": "2",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3/2PLT",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ce iad\\nBou a'"
+    "notes": "Header OCR: '3/2PLT', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): L"
   }
 }

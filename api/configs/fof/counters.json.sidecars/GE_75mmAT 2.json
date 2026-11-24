@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_75mmAT 2.png",
+  "id": "German-GE-75MMAT-2",
   "path": "api\\img\\fof\\counters\\GE_75mmAT 2.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "481d0f866273d95e8a1299cc79865995bc370b02c2550d53f9b9ff8b6e64cc34",
-    "classified_at": "2026-11-04T03:04:43.465185+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:10:08.087094+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "7",
-    "platoon": "7",
-    "squad_number": "5",
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 2ffsmm AT",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'f 2ffsmm AT', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-RPG_B40 1 shot.png",
+  "id": "VietCong-RPG-B40-1-SHOT",
   "path": "api\\img\\fof\\counters\\RPG_B40 1 shot.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "33bea3b03ebaff29d9aa45f4cd96e306862e2485a9bc2e86409c36d692305ef3",
-    "classified_at": "2026-11-04T03:11:47.357111+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:29:50.504403+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "VietCong",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "G",
+    "range_band": "C",
+    "weapon_type": "Bazooka",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:4",
+      "bottom_left_vof:G",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='RPG iBa0\\n4 Shot\\nG! c we\\n1 Shot\\neo c'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 4, VOF (Left): G, Range (Right): C"
   }
 }

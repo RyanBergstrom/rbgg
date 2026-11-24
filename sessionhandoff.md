@@ -1,57 +1,57 @@
-# Render Deployment Prep Summary
+# Session Handoff: Fields of Fire (2026-11-21 15:29)
 
-## Files Created
-1. `render.yaml` - Render service configuration (API + Web)
-2. `api/requirements.txt` - Python dependencies for API
+Archived transcript: [documentation/sessions/session-2026-11-21_1529.jsonl](documentation/sessions/session-2026-11-21_1529.jsonl)
+Previous handoff: [documentation/sessions/sessionhandoff_2026-11-21_1529.md](documentation/sessions/sessionhandoff_2026-11-21_1529.md)
 
-## Files Modified
-1. `api/app/__init__.py` - Added Render CORS origin, updated FOF mount point
-2. `api/app/routes/asset_review.py` - Fixed hardcoded paths to use relative paths
+## Current State
 
-## Important Notes for Render Deployment
+- The FoF play page had a 500 error from syntax errors in the footer. Both are fixed: `svelte-check` shows no errors in `CommandPanel.svelte` or `GameProgressPanel.svelte`.
+- NOT YET VERIFIED in the browser after the fix. First step next session: reload `http://localhost:5173/games/fields_of_fire/play?sessionId=209` and confirm the footer shows only the brown command box, Exit is inside it, labels are abbreviated, and the footer fits the window.
+- Backend tests last run: 90 passed (`pytest tests/test_fields_of_fire.py tests/test_fields_of_fire_extended.py tests/test_fof_turn_sequence.py -q`).
 
-### 1. Runtime Models (UPDATED)
-The `.gitignore` has been updated to include production models and database:
-- `api/runtime/bus-v2-2.5m.zip` (10.7 MB) - Bus game model
-- `api/runtime/lc-v2-low-lr-2m.zip` (3.3 MB) - Lost Cities game model
-- `api/runtime/rbgg.db` (389 KB) - SQLite database
+## Files Worked On
 
-Test models in `api/runtime/<game>/` subfolders are still gitignored (4.2 GB total).
+Backend (`api/`):
+- `app/games/fields_of_fire/validator.py`: Exposed, infiltration, fire per origin with per-unit draws, status modifier, cover high/low, start-mission routing by turn number, `serialize_for_screen` includes `last_fire_result`.
+- `app/games/fields_of_fire/los.py`: `los_path`, `has_los`, `board_los`, `entry_edges`, `entry_is_dark`.
+- Tests: `tests/test_fof_los.py`, `test_fof_fire.py`, `test_fields_of_fire.py`, plus other `test_fof_*`.
+- Data: `configs/fof/counters-final.json`, `configs/fof/fields_of_fire_scenarios.json` (scenario ids mapped to config).
 
-These files need to be committed to git for Render deployment.
+Frontend (`web/`):
+- `src/lib/components/games/fields_of_fire/CommandPanel.svelte`: rewritten in full (the earlier edit had corrupted it). Shows the HQ order, Draw and Spend buttons, VOF, Infiltrate, and Fire rows. Labels are abbreviated.
+- `src/lib/components/GameProgressPanel.svelte`: footer. Stray `</button>` removed, CSS corrupted declarations fixed, Exit shown only outside FoF mode.
+- `src/lib/components/games/fields_of_fire/TurnSequenceTracker.svelte`: collapsible left column with horizontal phase rows (verified in browser).
+- `src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte`: publishes command state to `fofCommand`.
+- `src/lib/stores/fofCommand.js`: new writable store (null outside FoF command mode).
+- `src/routes/counter-validator/+page.svelte`: inspector crash fixed, read-only step-down box.
 
-### 2. Database
-The SQLite database (`rbgg.db`) is gitignored. On Render, you'll need to:
-- Either commit a seed database, OR
-- Initialize the database on first run
+Docs:
+- `AGENTS.md`: added FoF architecture and UI notes.
 
-### 3. Image Assets
-The following directories need to be committed (not gitignored):
-- `api/img/` - Game cover images and assets
-- `documentation/` - Game documentation and images
+## Decisions Made (this session)
 
-### 4. Environment Variables
-Set these in Render dashboard:
-- `VITE_API_BASE` = `https://rbgg-api.onrender.com/api/v1` (for web service)
-- `RBGG_ASSET_REVIEW_ROOT` = `/opt/render/project/src/documentation` (for API)
-- `RBGG_CONFIG_ROOT` = `/opt/render/project/src/api/configs` (for API)
+- Setup phase: counters may only be placed in the Staging area.
+- Higher HQ Event starts on Turn 2 (rulebook §3.1). Turn 1 is skipped.
+- Cover: high if any fire crosses a dark border; low if all white or Incoming (§5.2.3).
+- 101st Airborne A-rating corrected to "A ---- L" (was "S----L").
+- 2nd Inf Div 2/1 chain mapped to `2nd_1-2b`. Unused `2nd_2-1b.png` link still needs removing.
+- Fire and Assault are both offered on fire step-downs (strategic choice).
+- Convert Fire Team and Assault Team per §6.5.
+- Command-panel HQ pool number is shown beside the HQ button once activated. The Draw button draws an Action card for that HQ's Commands, once per activation.
 
-### 5. Build Commands
-- API: `pip install -r requirements.txt`
-- Web: `npm install && npm run build`
+## Suggested Next Steps
 
-### 6. Start Commands
-- API: `uvicorn wsgi:app --host 0.0.0.0 --port $PORT`
-- Web: `node build`
+1. Verify the footer in the browser (see Current State).
+2. Remove the unused `2nd_2-1b.png` link from `counters-final.json`.
+3. Map `m10_tank_destroyer_platoon` in the Normandy scenario. No M10 counter exists in `counters-final.json`. Agreed to pick the best option and show the user for review.
+4. Compare the chains in `documentation/fof/vassal-compare.md` against VASSAL. The 2/1 and 1/3 items are already confirmed by the user.
 
-### 7. Free Tier Limitations
-- Render free tier services spin down after 15 minutes of inactivity
-- First request after spin-down may take 30-60 seconds
-- Consider upgrading to paid tier for production use
+## Open Questions
 
-### 8. Image Serving
-The API serves images from:
-- `api/img/` (general mount at `/api/v1/img/`)
-- `api/games/bus/` (mounted at `/api/v1/img/bus`)
-- `documentation/twilight-struggle/images/` (mounted at `/api/v1/img/twilight-struggle`)
-- `api/img/fof/` (mounted at `/api/v1/img/fof`)
+- Should the Normandy roster get 2nd Inf Div squad templates? Awaiting user decision (affects the 1/2 chain 2-step).
+- Enemy Higher HQ on Turn 1: rulebook §3.2.1/§3.4.1 start on Turn 2. Not decided. Ask the user.
+- Spend button is present but orders are not implemented (`spend_command` has no order yet).
+
+## Prompt for Next Session
+
+Read `AGENTS.md` and `sessionhandoff.md`. Then reload `http://localhost:5173/games/fields_of_fire/play?sessionId=209` and confirm the footer command box renders with no errors. The footer was just repaired after syntax errors in `CommandPanel.svelte` and `GameProgressPanel.svelte`. Then work through "Suggested Next Steps" in order. Ask before deciding the open questions. Run only targeted tests (`pytest tests/test_fields_of_fire.py ...`), never the full suite.

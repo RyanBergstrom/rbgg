@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-3_Mtr 60mm b.png",
+  "id": "US-3-MTR-60MM-FT",
   "path": "api\\img\\fof\\counters\\3_Mtr 60mm b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "6338278c40d518f6b24b40bbe544574e3bed33c0d7fc633ffd6ab6d2e20b23ed",
-    "classified_at": "2026-11-04T03:00:57.763599+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.85
+    "classified_at": "2026-11-06T06:02:55.676833+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "3",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3/Mtr",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='te\\nfire Team~\\nsec rad'"
+    "notes": "Header OCR: '3/Mtr', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

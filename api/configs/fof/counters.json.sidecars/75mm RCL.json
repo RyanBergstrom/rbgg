@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-75mm RCL.png",
+  "id": "US-75MM-RCL",
   "path": "api\\img\\fof\\counters\\75mm RCL.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "1b0245dbed7c829689d197c448f1d20f86fec738d9f9d2fb26cc18572159adf0",
-    "classified_at": "2026-11-04T03:01:27.580579+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:17.359491+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "7",
-    "platoon": "7",
-    "squad_number": "5",
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "H",
+    "range_band": "V",
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:75mmACL -",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:H",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u201875mm ACL\\neoseien\\nHev'"
+    "notes": "Header OCR: '75mmACL -', Middle OCR: '', Yellow Dots: 1, VOF (Left): H, Range (Right): V"
   }
 }

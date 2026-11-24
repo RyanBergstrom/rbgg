@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_1_Aslt Bazooka.png",
+  "id": "US-1-1-FT",
   "path": "api\\img\\fof\\counters\\1_1_Aslt Bazooka.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ddc58d2515d1a18360bb9a1f18537c3e642d0d3befa205fc51e35d47889e178a",
-    "classified_at": "2026-11-04T02:59:18.903415+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:56:54.751212+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
-    "battalion": "1",
+    "battalion": null,
     "platoon": "1",
     "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "G",
-    "range_band": null,
-    "weapon_type": "Bazooka",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S!",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S!",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:TT/Asit",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S!",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018Mist\\nG\\nsie \u00a2'"
+    "notes": "Header OCR: 'TT/Asit', Middle OCR: '', Yellow Dots: 1, VOF (Left): S!, Range (Right): C"
   }
 }

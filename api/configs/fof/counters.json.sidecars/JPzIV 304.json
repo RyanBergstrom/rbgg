@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-JPzIV 304.png",
+  "id": "German-JPZIV-304",
   "path": "api\\img\\fof\\counters\\JPzIV 304.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "7575c1372891ccacf95ac0886468bf131df61bda07a33e88562b340fecb09c30",
-    "classified_at": "2026-11-04T03:07:18.600877+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:19:01.841499+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": "V",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Pz",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ev API\\nbaa a'"
+    "notes": "Header OCR: 'Pz', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): V"
   }
 }

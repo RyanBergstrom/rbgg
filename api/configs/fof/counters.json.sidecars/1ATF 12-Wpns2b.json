@@ -1,0 +1,69 @@
+{
+  "id": "Australian-1ATF-12-WPNS2B-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\counters\\1ATF 12-Wpns2b.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "1ATF 12-Wpns2b.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "back",
+    "hash_sha256": "5148512382eeaa4c9c849662d667528b77648b3f6e19313f513499367decb1ce",
+    "classified_at": "2026-11-06T05:59:35.630162+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
+  },
+  "country": "Australian",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": "12",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": "Weapon",
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "A",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:12PiWpne2",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '12PiWpne2', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
+  }
+}

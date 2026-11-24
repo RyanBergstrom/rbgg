@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-LAT_Casualties.png",
+  "id": "US-LAT-CASUALTIES",
   "path": "api\\img\\fof\\counters\\LAT_Casualties.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "82c2d8087cf74de176fd29a9938d3e2d7449a14f9d32cdb1a5105c088a1518c2",
-    "classified_at": "2026-11-04T03:07:32.230330+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:19:45.945616+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:yw",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='() Oo'"
+    "notes": "Header OCR: 'yw', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

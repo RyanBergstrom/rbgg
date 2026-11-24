@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-HQ_PLT",
-  "path": "api\\img\\fof\\ocr-test\\HQ 3 PLT.png",
+  "id": "US-HQ-3-PLT",
+  "path": "api\\img\\fof\\counters\\HQ 3 PLT.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ 3 PLT.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "36a3c2b39fff97adbe7d5dbfa2593f8fc0d878ae1da0851ebb7a35a395a83364",
-    "classified_at": "2026-11-05T03:15:05.427526+00:00",
+    "classified_at": "2026-11-06T06:15:20.627053+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.65
   },
   "country": "US",
   "category": "unit",
@@ -55,8 +55,8 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:3PLTHO",
-      "middle_ocr:eF w gpd",
+      "header_ocr:3PLTHG",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
       "bottom_right_range:"
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '3PLTHO', Middle OCR: 'eF w gpd', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: '3PLTHG', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

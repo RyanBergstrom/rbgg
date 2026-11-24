@@ -1,6 +1,6 @@
 {
-  "id": "Australian-1-1-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\1ATF 11-Wpns2.jpg",
+  "id": "Australian-1ATF-11-WPNS2-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\counters\\1ATF 11-Wpns2.jpg",
   "source": "fof-images-folder",
   "image": {
     "filename": "1ATF 11-Wpns2.jpg",
@@ -9,7 +9,7 @@
     "format": "jpg",
     "side": "front",
     "hash_sha256": "0b615cde5fd136ddf7bc2029ab7ae677ff03525cbdb0294390ebabee35553b5b",
-    "classified_at": "2026-11-05T03:15:00.676548+00:00",
+    "classified_at": "2026-11-06T05:59:07.891532+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -21,11 +21,11 @@
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": "Line",
+    "squad_number": "11",
+    "experience_level": null,
     "steps_total": 1,
     "steps_remaining": 1,
-    "vof_rating": "A",
+    "vof_rating": null,
     "range_band": "L",
     "weapon_type": "Weapon",
     "mount_type": null,
@@ -45,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": "A",
+    "vof": null,
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -56,14 +56,14 @@
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
       "header_ocr:",
-      "middle_ocr:and",
+      "middle_ocr:",
       "yellow_dots:1",
-      "bottom_left_vof:A",
+      "bottom_left_vof:",
       "bottom_right_range:L"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '', Middle OCR: 'and', Yellow Dots: 1, VOF (Left): A, Range (Right): L"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): L"
   }
 }

@@ -1,6 +1,6 @@
 {
   "id": "MARKER-UNSPOTTED",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Unspotted.png",
+  "path": "api\\img\\fof\\counters\\Cover - Unspotted.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Unspotted.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "735a1d7af87a9c43c790e2ba6313780ba2c7dce6a9156cdbb231c4236a815721",
-    "classified_at": "2026-11-05T05:15:53.184606+00:00",
+    "classified_at": "2026-11-06T06:08:42.211898+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "unspotted",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "unspotted",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:x",
+      "header_ocr:",
       "middle_ocr:",
-      "yellow_dots:2",
-      "bottom_left_vof:Y",
+      "yellow_dots:0",
+      "bottom_left_vof:",
       "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'x', Middle OCR: '', Yellow Dots: 2, VOF (Left): Y, Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

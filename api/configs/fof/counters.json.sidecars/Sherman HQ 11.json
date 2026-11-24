@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Sherman HQ 11.jpg",
+  "id": "Japanese-VEHICLE-11",
   "path": "api\\img\\fof\\counters\\Sherman HQ 11.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "3b21122ea1fe9f8130a668e817570544eae0cb333c9094064ba5d7239d53b58a",
-    "classified_at": "2026-11-04T03:11:54.505714+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T15:31:33.856098+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.8
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
-  "subtype": "hq_plt",
+  "subtype": "vehicle",
   "unit_details": {
-    "unit_type": "hq_plt",
+    "unit_type": "vehicle",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:a",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'a', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

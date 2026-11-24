@@ -1,6 +1,6 @@
 {
   "id": "MARKER-ROOFTOP",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Rooftop +0.png",
+  "path": "api\\img\\fof\\counters\\Cover - Rooftop +0.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Rooftop +0.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "5442d65c35123366d615001485a0c5c49a6133fb8c636a79779bb822db5726c6",
-    "classified_at": "2026-11-05T05:15:42.498505+00:00",
+    "classified_at": "2026-11-06T06:08:42.132661+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "rooftop",
     "cover_modifier": 0,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:Ypeerrer",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
-      "bottom_left_vof:-",
+      "bottom_left_vof:",
       "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'Ypeerrer', Middle OCR: '', Yellow Dots: 0, VOF (Left): -, Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

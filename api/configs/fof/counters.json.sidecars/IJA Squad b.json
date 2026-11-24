@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-IJA Squad b.png",
+  "id": "Japanese-IJA-SQUAD-B",
   "path": "api\\img\\fof\\counters\\IJA Squad b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,11 +9,11 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "9e26ccf5b7e1161ce3214447e7c352da5e5731578211f6ed4b02aefb1f5eb210",
-    "classified_at": "2026-11-04T03:07:14.283439+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:18:42.305532+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='~~'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): L"
   }
 }

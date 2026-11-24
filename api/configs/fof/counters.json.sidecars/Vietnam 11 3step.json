@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Vietnam 11 3step.png",
+  "id": "US-1-1-CASUALTY",
   "path": "api\\img\\fof\\counters\\Vietnam 11 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "5c06b7c2bee5556a497c65b46ab572c8ef50b6fd4f62779f03e5920372ad82dd",
-    "classified_at": "2026-11-04T03:13:45.880355+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:47:09.943944+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "1",
+    "squad_number": "1",
     "experience_level": null,
     "steps_total": 3,
     "steps_remaining": 3,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/1PL",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u00ae\\nAlS*eeeL'"
+    "notes": "Header OCR: '1/1PL', Middle OCR: '', Yellow Dots: 3, VOF (Left): S, Range (Right): L"
   }
 }

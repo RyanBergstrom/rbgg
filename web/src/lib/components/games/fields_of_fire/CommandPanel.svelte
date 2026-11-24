@@ -1,0 +1,311 @@
+<script>
+  // Command controls for the Friendly Command phase. Every button is driven by
+  // the server's legal moves, so the UI cannot offer a move the rules reject.
+  import { createEventDispatcher } from 'svelte';
+  export let legalMoves = [];
+  export let activated = [];
+  export let hqLabels = {};
+  export let phaseName = null;
+  export let hqOrder = [];
+  export let pools = {};
+  export let lastFire = null;
+  export let canUndo = false;
+  export let dispatchMove = (move) => {};
+
+  const dispatch = createEventDispatcher();
+
+  let selectedCommander = null;
+  function toggleCommander(id) {
+    selectedCommander = selectedCommander === id ? null : id;
+  }
+
+  // Short labels so the command box fits the footer.
+  function abbr(label) {
+    return String(label)
+      .replace('Battalion HQ', 'BN HQ')
+      .replace('Company HQ', 'CO HQ')
+      .replace('Company Executive Officer', 'CO XO')
+      .replace('Company First Sergeant', 'CO 1SG')
+      .replace('Platoon HQ', 'PLT HQ');
+  }
+
+  $: activateMoves = legalMoves.filter(m => m.type === 'activate_hq');
+  $: readyIds = new Set(activateMoves.map(m => m.hq_id));
+  $: hqRows = hqOrder.map(id => ({
+    id,
+    label: abbr(hqLabels[id] || id),
+    state: activated.includes(id) ? 'done' : readyIds.has(id) ? 'ready' : 'waiting',
+    move: activateMoves.find(m => m.hq_id === id),
+    pool: pools[id] ?? 0,
+    draw: legalMoves.find(m => m.type === 'draw_commands' && m.hq_id === id),
+    spend: legalMoves.find(m => m.type === 'spend_command' && m.hq_id === id),
+  }));
+  $: advanceMove = legalMoves.find(m => m.type === 'advance_phase');
+  $: if (legalMoves) selectedCommander = null;
+  $: visible = phaseName === 'friendly_command' || phaseName === 'mutual_combat';
+  // 6.4: fire is offered per VOF-marked card in Mutual Combat.
+  $: fireMoves = legalMoves.filter(m => m.type === 'fire');
+
+  // VOF placement (6.2.1): the server only offers placements in line of sight.
+  $: vofMoves = legalMoves.filter(m => m.type === 'place_vof');
+  $: vofOrigins = [...new Set(vofMoves.map(m => m.from_position))].sort((a, b) => a - b);
+  let vofOrigin = null;
+  let vofTarget = null;
+  let vofRating = null;
+  $: if (!vofOrigins.includes(vofOrigin)) vofOrigin = vofOrigins[0] ?? null;
+  $: vofTargets = [...new Set(vofMoves.filter(m => m.from_position === vofOrigin).map(m => m.position))].sort((a, b) => a - b);
+  $: if (!vofTargets.includes(vofTarget)) vofTarget = vofTargets[0] ?? null;
+  $: vofRatings = vofMoves
+    .filter(m => m.from_position === vofOrigin && m.position === vofTarget)
+    .map(m => m.rating);
+  $: if (!vofRatings.includes(vofRating)) vofRating = vofRatings[0] ?? null;
+  $: selectedVof = vofMoves.find(m => m.from_position === vofOrigin && m.position === vofTarget && m.rating === vofRating);
+
+  // 5.1.4: Infiltrate moves come only from the server, so the UI cannot offer an illegal attempt.
+  $: infiltrateMoves = legalMoves.filter(m => m.type === 'infiltrate');
+  $: infilUnits = [...new Set(infiltrateMoves.map(m => m.unit_id))];
+  let infilUnit = null;
+  let infilDest = null;
+  $: if (!infilUnits.includes(infilUnit)) infilUnit = infilUnits[0] ?? null;
+  $: infilDests = infiltrateMoves.filter(m => m.unit_id === infilUnit).map(m => m.to_position);
+  $: if (!infilDests.includes(infilDest)) infilDest = infilDests[0] ?? null;
+  $: selectedInfil = infiltrateMoves.find(m => m.unit_id === infilUnit && m.to_position === infilDest);
+</script>
+
+{#if phaseName === 'friendly_higher_hq_event' && advanceMove}
+  <section class="command-panel" aria-label="Higher HQ Event controls">
+    <div class="cp-row">
+      <span class="cp-label">HQ Event (T2+)</span>
+      <button type="button" class="cp-btn cp-next" on:click={() => dispatchMove(advanceMove)}>Continue</button>
+      <button type="button" class="cp-btn cp-exit" on:click={() => dispatch('exit')}>Exit</button>
+    </div>
+  </section>
+{/if}
+
+{#if visible}
+  <section class="command-panel" aria-label="Command controls">
+    <div class="cp-row cp-order">
+      <span class="cp-label">Order:</span>
+      {#each hqRows as row (row.id)}
+        <div class="cp-hq-group">
+          <button
+            type="button"
+            class="cp-btn cp-hq cp-{row.state}"
+            class:cp-expanded={selectedCommander === row.id}
+            disabled={row.state === 'waiting'}
+            title={row.state === 'waiting' ? 'Waiting: an earlier HQ must activate first' : row.state === 'done' ? (row.pool > 0 ? 'Click to use a command' : (row.draw ? 'Click to draw commands' : 'Already activated this turn')) : (row.id === hqOrder[0] || activated.length === 0) ? 'Click to activate (free)' : 'Click a commander to activate'}
+            on:click={() => {
+              // The first HQ in the activation chain activates for free directly:
+              // BN HQ when it is on the map, otherwise the CO HQ. All later
+              // activations go through a commander's action strip.
+              const isFirstActivation = row.id === hqOrder[0] || activated.length === 0;
+              if (row.state === 'ready' && row.move && isFirstActivation) { dispatchMove(row.move); selectedCommander = null; }
+              else if (row.state === 'done' && row.pool > 0) { toggleCommander(row.id); }
+              else if (row.state === 'done' && row.pool === 0 && row.draw) { dispatchMove(row.draw); selectedCommander = null; }
+            }}
+          >
+            {row.label}
+            <small>{row.state === 'done' ? (row.pool > 0 ? `${row.pool} Available` : (row.draw ? 'Draw' : 'finished')) : row.state === 'ready' ? 'Ready' : 'finished'}</small>
+          </button>
+        </div>
+      {/each}
+      <div class="cp-exit-group">
+        <button type="button" class="cp-btn cp-exit" on:click={() => dispatch('exit')}>Exit</button>
+        {#if advanceMove}
+          <button type="button" class="cp-btn cp-next" on:click={() => dispatchMove(advanceMove)}>End Cmd</button>
+        {/if}
+        <button type="button" class="cp-btn cp-undo" disabled={!canUndo} on:click={() => dispatch('undo')}>Undo</button>
+        </div>
+      </div>
+    {#if selectedCommander !== null}
+      <div class="cp-command-strip">
+        <div class="cp-command-list">
+          {#each legalMoves.filter(m => m.type === 'activate_hq' && !activated.includes(m.hq_id)) as m (m.move_id)}
+            <button type="button" class="cp-btn cp-cmd" on:click={() => { dispatchMove(m); selectedCommander = null; }}>Act {abbr(hqLabels[m.hq_id] || m.hq_id)}</button>
+          {/each}
+          {#if legalMoves.some(m => m.type === 'exhort')}
+            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'exhort'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Exhort</button>
+          {/if}
+          {#if legalMoves.some(m => m.type === 'reconstitute')}
+            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'reconstitute'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Reconstitute</button>
+          {/if}
+          {#if legalMoves.some(m => m.type === 'create_runner')}
+            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'create_runner'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Create Runner</button>
+          {/if}
+        </div>
+      </div>
+    {/if}
+    {#if infiltrateMoves.length > 0}
+      <div class="cp-row cp-infil">
+        <span class="cp-label">Infiltrate to</span>
+        <select bind:value={infilUnit} aria-label="Infiltrate unit">
+          {#each infilUnits as uid (uid)}
+            <option value={uid}>{uid}</option>
+          {/each}
+        </select>
+        <select bind:value={infilDest} aria-label="Infiltrate destination">
+          {#each infilDests as dest (dest)}
+            <option value={dest}>Card {dest}</option>
+          {/each}
+        </select>
+        <button type="button" class="cp-btn" disabled={!selectedInfil} on:click={() => selectedInfil && dispatchMove(selectedInfil)}>Infiltrate</button>
+      </div>
+    {/if}
+    {#if phaseName === 'mutual_combat'}
+      <div class="cp-row cp-fire">
+        <span class="cp-label">Fire:</span>
+        {#each fireMoves as fire (fire.position)}
+          <button type="button" class="cp-btn" on:click={() => dispatchMove(fire)}>Card {fire.position}</button>
+        {/each}
+        {#if fireMoves.length === 0}
+          <span class="cp-label">no VOF target</span>
+        {/if}
+      </div>
+      {#if lastFire}
+        <div class="cp-row cp-lastdraw">
+          <span class="cp-label">Last fire:</span>
+          <strong>card {lastFire.position}</strong>
+          <span>net {lastFire.net_modifier}, result <strong class="cp-pool">{lastFire.result}</strong></span>
+        </div>
+      {/if}
+    {/if}
+  </section>
+{/if}
+
+<style>
+  .command-panel {
+    background: #222217;
+    border: 1px solid #62624d;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem;
+    margin: 0 auto 0.75rem;
+    max-width: 900px;
+    color: #eee;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+  }
+
+  .cp-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cp-pool {
+    color: #ffd700;
+  }
+
+  .cp-label {
+    color: #b7b79f;
+  }
+
+  .cp-btn {
+    padding: 0.2rem 0.45rem;
+    border: 1px solid #887a2d;
+    border-radius: 4px;
+    background: #51471d;
+    color: #ffe66c;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .cp-exit {
+    background: #7a1f1f;
+    border-color: #c04a4a;
+    color: #fff;
+    margin-left: auto;
+  }
+
+  .cp-btn:hover {
+    background: #6b5f25;
+  }
+
+  .cp-next {
+    background: #296341;
+    border-color: #55a675;
+    color: #fff;
+  }
+
+  .cp-hq {
+    background: #3a3a2a;
+    border-color: #888;
+    color: #eee;
+  }
+
+  .cp-hq small {
+    display: block;
+    font-size: 0.6rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .cp-ready {
+    background: #ffd700;
+    border-color: #fff0a3;
+    color: #1a1a0a;
+  }
+
+  .cp-done {
+    background: #2d4a2d;
+    border-color: #3d6b3d;
+    color: #8fbf8f;
+  }
+
+  .cp-exit-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    align-items: stretch;
+    margin-left: auto;
+  }
+  .cp-undo {
+    background: #6c757d;
+    border-color: #8a8a8a;
+    color: #fff;
+  }
+
+  .cp-undo:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .cp-command-strip {
+    width: 100%;
+    margin-top: 0.35rem;
+    box-sizing: border-box;
+  }
+
+  .cp-command-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0.4rem;
+    margin-top: 0;
+    background: #5a4a2a;
+    border: 1px solid #887a2d;
+    border-radius: 4px;
+  }
+
+  .cp-cmd {
+    background: #7a6a3a;
+    border-color: #b8a050;
+    color: #fff;
+  }
+
+  .cp-cmd:hover {
+    background: #8a7a4a;
+  }
+
+  .cp-expanded {
+    box-shadow: 0 0 0 2px #ffd700;
+  }
+  .cp-waiting {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

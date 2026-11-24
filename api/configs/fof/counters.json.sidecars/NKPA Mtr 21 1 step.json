@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA Mtr 21 1 step.png",
+  "id": "NKPA-NKPA-MTR-21-1-STEP",
   "path": "api\\img\\fof\\counters\\NKPA Mtr 21 1 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,17 +7,17 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "eb6bd53b346d345c15325afa044edfc0e8cb3f84e574baf9444fdeaeeefec1db",
-    "classified_at": "2026-11-04T03:10:04.984144+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:12:55.660770+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -27,7 +27,9 @@
     "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2nMitr",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:G!",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='an iate\\nae'"
+    "notes": "Header OCR: '2nMitr', Middle OCR: '', Yellow Dots: 1, VOF (Left): G!, Range (Right): "
   }
 }

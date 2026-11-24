@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_1 4 step.png",
+  "id": "US-1-1-SQUAD",
   "path": "api\\img\\fof\\counters\\1_1 4 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "624435c5d58e3430c0a357b8737b6eba4accc54b035233426220d6d987423488",
-    "classified_at": "2026-11-04T02:59:17.463226+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:56:50.772820+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "1",
+    "battalion": null,
     "platoon": "1",
     "squad_number": "1",
-    "experience_level": null,
+    "experience_level": "Line",
     "steps_total": 3,
     "steps_remaining": 3,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "S",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/1PLT",
+      "middle_ocr:",
+      "yellow_dots:4",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='[Ss oes tt | 2'"
+    "notes": "Header OCR: '1/1PLT', Middle OCR: '', Yellow Dots: 4, VOF (Left): S, Range (Right): L"
   }
 }

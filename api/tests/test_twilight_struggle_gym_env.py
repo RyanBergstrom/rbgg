@@ -75,3 +75,30 @@ def test_env_rejects_bad_config():
         TwilightStruggleGymEnv(opponents={"nope": 1.0})
     with pytest.raises(ValueError):
         TwilightStruggleGymEnv(learner_faction="x")
+
+
+def test_env_safety_mask_filters_suicide_coups():
+    from app.games.twilight_struggle import rl_adapter as ra
+    env = TwilightStruggleGymEnv(seed=10, safety_mask=True)
+    env.reset(seed=10)
+    gd = env.adapter.game_data
+    gd["tracks"]["defcon"] = 2
+    gd["persistent_events"] = {}
+
+    data = env.adapter._data["countries"]
+    bg_country = next(name for name, info in data.items() if info.get("battleground") and name in ra.COUNTRY_INDEX)
+    non_bg_country = next(name for name, info in data.items() if not info.get("battleground") and name in ra.COUNTRY_INDEX)
+
+    bg_action = ra.COUNTRY_BASE + ra.COUNTRY_INDEX[bg_country]
+    non_bg_action = ra.COUNTRY_BASE + ra.COUNTRY_INDEX[non_bg_country]
+
+    # Set up COUP stage with both actions enabled in adapter
+    env.adapter.pending = ra._Pending(stage=ra.STAGE_COUP)
+    mask = [0] * env.action_space.n
+    mask[bg_action] = 1
+    mask[non_bg_action] = 1
+    env._observation = {"observation": [0.0] * env.observation_space.shape[0], "action_mask": mask}
+
+    filtered_masks = env.action_masks()
+    assert filtered_masks[bg_action] is False or filtered_masks[bg_action] == 0
+    assert filtered_masks[non_bg_action] is True or filtered_masks[non_bg_action] == 1

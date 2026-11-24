@@ -1,5 +1,5 @@
 {
-  "id": "US-G5Marines 1-2 3step.png",
+  "id": "US-1-2-SQUAD",
   "path": "api\\img\\fof\\counters\\G5Marines 1-2 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "08d6655abe4f6235e9325ae8b096e544ea53d7820eb6e1897e1ccba6b758da3d",
-    "classified_at": "2026-11-04T03:04:27.649790+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:09:21.207466+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
+    "platoon": "2",
+    "squad_number": "1",
+    "experience_level": "Line",
     "steps_total": 3,
     "steps_remaining": 3,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/2PLT",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='&. fi Rasy .\\nAstene L 2!'"
+    "notes": "Header OCR: '1/2PLT', Middle OCR: '', Yellow Dots: 3, VOF (Left): , Range (Right): L"
   }
 }

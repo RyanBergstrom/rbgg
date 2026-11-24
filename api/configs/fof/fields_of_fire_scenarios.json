@@ -1426,6 +1426,1456 @@
           "campaign": "training"
         }
       }
+    },
+    "normandy": {
+      "name": "9th Infantry Regiment ‘Manchus’ — Normandy Campaign",
+      "description": "The 9th Infantry Regiment campaign in Normandy, 8 June–16 August 1944. Mission objectives, map sizes, enemy posture, and attachments are transcribed from the Normandy mission book; terrain cards are drawn from the Normandy deck.",
+      "campaign_order": [
+        "normandy_mission_1",
+        "normandy_mission_2",
+        "normandy_mission_3",
+        "normandy_mission_4",
+        "normandy_mission_5",
+        "normandy_mission_6",
+        "normandy_mission_7"
+      ],
+      "company_roster": {
+        "source": "Normandy Campaign Unit Guide and Company TO&E in documentation/fof/README.md",
+        "headquarters": [
+          {
+            "id": "co_hq",
+            "type": "hq",
+            "level": "co",
+            "experience": "green",
+            "equipment": [
+              "SCR300 Bn TAC",
+              "SCR536 CO TAC"
+            ],
+            "steps": 1
+          },
+          {
+            "id": "co_xo",
+            "type": "staff",
+            "role": "executive_officer",
+            "experience": "green",
+            "equipment": [
+              "SCR536 CO TAC"
+            ],
+            "steps": 1
+          },
+          {
+            "id": "co_1sg",
+            "type": "staff",
+            "role": "first_sergeant",
+            "experience": "veteran",
+            "steps": 1
+          }
+        ],
+        "platoons": [
+          {
+            "platoon": 1,
+            "headquarters": {
+              "id": "plt_hq_1",
+              "type": "hq",
+              "level": "plt",
+              "experience": "green",
+              "steps": 1
+            },
+            "squads": [
+              {
+                "id": "squad_1_1",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_1_2",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_1_3",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              }
+            ]
+          },
+          {
+            "platoon": 2,
+            "headquarters": {
+              "id": "plt_hq_2",
+              "type": "hq",
+              "level": "plt",
+              "experience": "green",
+              "steps": 1
+            },
+            "squads": [
+              {
+                "id": "squad_2_1",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_2_2",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_2_3",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              }
+            ]
+          },
+          {
+            "platoon": 3,
+            "headquarters": {
+              "id": "plt_hq_3",
+              "type": "hq",
+              "level": "plt",
+              "experience": "green",
+              "steps": 1
+            },
+            "squads": [
+              {
+                "id": "squad_3_1",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_3_2",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              },
+              {
+                "id": "squad_3_3",
+                "type": "squad",
+                "experience": "line",
+                "steps": 3
+              }
+            ]
+          }
+        ],
+        "weapons_platoon": [
+          {
+            "id": "mortar_section",
+            "type": "mortar_section",
+            "weapon": "60mm_mortar",
+            "experience": "line",
+            "steps": 3,
+            "ammo": 4,
+            "alternatives": [
+              "mortar_team_1",
+              "mortar_team_2",
+              "mortar_team_3"
+            ],
+            "selection_rule": "Choose the section or the three individual teams per campaign special rule 2.",
+            "counter_id": "US-1-MTR-60MM-WEAPONS_TEAM",
+            "counter_file": "1_Mtr 60mm.png"
+          },
+          {
+            "id": "hmg_50cal",
+            "type": "weapon_team",
+            "weapon": ".50_cal_hmg",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 4,
+            "counter_id": "US-50-1-FT",
+            "counter_file": "Weapon_HMG50-1b.png"
+          },
+          {
+            "id": "lmg_1",
+            "type": "weapon_team",
+            "weapon": "m1919a4_lmg",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 4,
+            "counter_id": "US-1-1-WEAPONS_TEAM",
+            "counter_file": "1_1_MG 1 step.png"
+          },
+          {
+            "id": "lmg_2",
+            "type": "weapon_team",
+            "weapon": "m1919a4_lmg",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 4,
+            "counter_id": "US-1-2-WEAPONS_TEAM",
+            "counter_file": "1_2_MG 1 step.png"
+          },
+          {
+            "id": "at_team_1",
+            "type": "at_team",
+            "weapon": "bazooka",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 3,
+            "counter_id": "US-1-1-FT",
+            "counter_file": "1_1_Aslt Bazooka.png"
+          },
+          {
+            "id": "at_team_2",
+            "type": "at_team",
+            "weapon": "bazooka",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 3,
+            "counter_id": "US-1-2-FT",
+            "counter_file": "1_2_Aslt Bazooka.png"
+          },
+          {
+            "id": "at_team_3",
+            "type": "at_team",
+            "weapon": "bazooka",
+            "experience": "line",
+            "steps": 1,
+            "ammo": 3,
+            "counter_id": "US-1-2-FT",
+            "counter_file": "1_2_Aslt Bazooka.png"
+          }
+        ],
+        "vehicles": [
+          {
+            "id": "jeep_1",
+            "type": "vehicle",
+            "vehicle": "jeep",
+            "count": 1,
+            "crew": false,
+            "replacement_between_missions_if_lost": true
+          }
+        ]
+      },
+      "campaign_rules": {
+        "prisoners": "Both sides take prisoners.",
+        "runners": "No runners are available at mission start; create them from existing units if needed.",
+        "replacements": "After each mission, receive up to 6 Green replacement steps, plus any returning veteran steps.",
+        "casualty_evacuation": "Place a CCP Tactical Control anywhere on the map before each mission, or establish one during play.",
+        "grenade_vof": -4,
+        "communications": "SCR536 CO TAC radios may be replaced by EE8 field phones in offensive missions; four phone-line assets are available when selected. Phones are not available for combat patrols.",
+        "mortar_selection": "For each mission choose either the 3-step 60mm Mortar Section or the three separate 1-step Mortar Teams.",
+        "german_squads": "Use the mission-designated Grenadier or Fallschirmjäger groups; track MG42 ammunition where applicable.",
+        "fortifications": [
+          "outflanked_pillboxes",
+          "deep_bunkers"
+        ],
+        "squad_infiltration": "Resolve German Squad Infiltration Attempts using two Action cards, adjusted for experience.",
+        "german_at_units": "Use campaign-specific German AT activation rules; Panzerfausts target vehicles only.",
+        "terrain_cover": "For Village, Farm, Cemetery, and Church cover, determine the cover type from the campaign table.",
+        "mortar_restriction": "Mortar Teams and Sections may not fire from Woods terrain.",
+        "engineers": "Where assigned, engineers may use the campaign mine-detection and path-clearing procedures."
+      },
+      "scenarios": {
+        "normandy_mission_1": {
+          "scenario_id": "normandy_mission_1",
+          "name": "Mission 1 — Trévières Offensive",
+          "campaign": "normandy",
+          "mission_type": "offensive",
+          "date_range": "June 8–10, 1944",
+          "duration_turns": 10,
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
+          "attempts": {
+            "reattempts": 1
+          },
+          "map_layout": {
+            "rows": 3,
+            "cols": 4,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "Sniper!",
+            "Mines and HMG Nest",
+            "MG Nest",
+            "Strong Point",
+            "Defensive Position",
+            "Pillbox",
+            "Mortar Team",
+            "FLAK 36 AA Gun",
+            "Patrol",
+            "Base of Fire"
+          ],
+          "enemy_tactics": "deliberate_defense",
+          "enemy_experience": "line",
+          "historical_enemy": "352nd Division, 90th Brigade",
+          "potential_contact": {
+            "row_1": [
+              "C"
+            ],
+            "row_2": [
+              "A"
+            ],
+            "row_3": [
+              "B"
+            ]
+          },
+          "mission_controls": {
+            "line_of_departure": "between staging area and row 1",
+            "limit_of_advance": "top of row 3",
+            "primary_objective_row": 3,
+            "secondary_objective_row": 3,
+            "attack_position_row": 2,
+            "attack_position_adjacent_to": "either objective",
+            "clear_rows": [
+              1,
+              2
+            ]
+          },
+          "victory_conditions": {
+            "type": "mission_objectives",
+            "target": null,
+            "secure": [
+              "primary_objective",
+              "secondary_objective"
+            ],
+            "clear_rows": [
+              1,
+              2
+            ],
+            "description": "Secure the Primary and Secondary Objectives and clear Rows 1 and 2."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "counter_attack"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award task and general experience using the campaign experience table.",
+          "source_note": "Terrain map layout and objective card locations are selected during setup; the mission-book map image is not represented as a fixed card arrangement."
+        },
+        "normandy_mission_2": {
+          "scenario_id": "normandy_mission_2",
+          "name": "Mission 2 — Cerisy Offensive",
+          "campaign": "normandy",
+          "mission_type": "offensive",
+          "date_range": "June 11–19, 1944",
+          "duration_turns": 10,
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
+          "attempts": {
+            "reattempts": 1
+          },
+          "map_layout": {
+            "rows": 5,
+            "cols": 4,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Incoming!",
+            "Sniper!",
+            "MG Nest",
+            "Defensive Position",
+            "Strong Point",
+            "Defensive Position+",
+            "Command Post",
+            "Mortar Position",
+            "Maneuver",
+            "Pillbox",
+            "Base of Fire"
+          ],
+          "enemy_tactics": "hasty_defense",
+          "enemy_experience": "line",
+          "historical_enemy": "9th Fallschirmjäger Regiment, 3rd Fallschirmjäger Division",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [
+              "C"
+            ],
+            "row_2": [
+              "C"
+            ],
+            "row_3": [
+              "B"
+            ],
+            "row_4": [
+              "B"
+            ],
+            "row_5": [
+              "A"
+            ]
+          },
+          "mission_controls": {
+            "line_of_departure": "between staging area and row 1",
+            "limit_of_advance": "top of row 5",
+            "primary_objective_row": 5,
+            "secondary_objective_row": 5,
+            "attack_position_row": 4,
+            "attack_position_adjacent_to": "either objective",
+            "clear_rows": [
+              1,
+              2,
+              3,
+              4
+            ]
+          },
+          "victory_conditions": {
+            "type": "mission_objectives",
+            "target": null,
+            "secure": [
+              "primary_objective",
+              "secondary_objective"
+            ],
+            "clear_rows": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "description": "Secure the Primary and Secondary Objectives and clear Rows 1 through 4."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "counter_attack",
+            "fallschirmjager_enemy_packages"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award task and general experience using the campaign experience table."
+        },
+        "normandy_mission_3": {
+          "scenario_id": "normandy_mission_3",
+          "name": "Mission 3 — St. Georges d’Elle–Le Parc Defensive Patrols",
+          "campaign": "normandy",
+          "mission_type": "combat_patrol",
+          "date_range": "June 20–July 10, 1944",
+          "duration_turns": 10,
+          "duration_unit": "per_patrol",
+          "visibility": {
+            "condition": "moon",
+            "limited_visibility_modifier_random_range": [
+              2,
+              5
+            ]
+          },
+          "attempts": {
+            "patrols": 3,
+            "one_per_platoon": true
+          },
+          "map_layout": {
+            "rows": 4,
+            "cols": 5,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            },
+            {
+              "id": "hmg_1",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-1-WEAPONS_TEAM",
+              "counter_file": "1_1_HMG 1step.png"
+            },
+            {
+              "id": "hmg_2",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-2-WEAPONS_TEAM",
+              "counter_file": "1_2_HMG 1step.png"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "LMG Nest",
+            "HMG Nest",
+            "Patrol",
+            "Illumination and LMG",
+            "Illumination and Patrol",
+            "Defensive Position",
+            "Strong Point",
+            "Pillbox",
+            "Maneuver",
+            "Mortar Position"
+          ],
+          "enemy_tactics": "deliberate_defense",
+          "enemy_experience": "veteran",
+          "historical_enemy": "9th Fallschirmjäger Regiment, 3rd Fallschirmjäger Division",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [],
+            "row_2": [
+              "B",
+              "C"
+            ],
+            "row_3": [
+              "B",
+              "C"
+            ],
+            "row_4": [
+              "A"
+            ]
+          },
+          "mission_controls": {
+            "staging_area": false,
+            "main_line_of_resistance": "between rows 1 and 2",
+            "foxholes_per_row_1_card": 2,
+            "combat_outpost": "one row 2 card, up to 2 Foxholes",
+            "primary_objective_row": 4,
+            "route_points": 4,
+            "route_point_rows": [
+              2,
+              3,
+              4
+            ],
+            "patrol_goal": "start row 1, visit objective and route points in order, then return across MLR to row 1",
+            "combat_outpost_excluded_from_pc": true
+          },
+          "victory_conditions": {
+            "type": "combat_patrol_route",
+            "target": 4,
+            "objective_row": 4,
+            "return_to_row": 1,
+            "description": "The selected platoon must visit the Primary Objective and four route points in order, then return across the MLR to Row 1; cards need not be cleared."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "combat_patrols",
+            "route_points",
+            "scouting_terrain",
+            "no_staging_area",
+            "halve_general_initiative_draws"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award patrol and general experience using the campaign experience table."
+        },
+        "normandy_mission_4": {
+          "scenario_id": "normandy_mission_4",
+          "name": "Mission 4 — Hill 192 Offensive",
+          "campaign": "normandy",
+          "mission_type": "offensive",
+          "date_range": "July 11–12, 1944",
+          "duration_turns": 10,
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
+          "attempts": {
+            "reattempts": 1
+          },
+          "map_layout": {
+            "rows": 4,
+            "cols": 5,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            },
+            {
+              "id": "hmg_1",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-1-WEAPONS_TEAM",
+              "counter_file": "1_1_HMG 1step.png"
+            },
+            {
+              "id": "hmg_2",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-2-WEAPONS_TEAM",
+              "counter_file": "1_2_HMG 1step.png"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "Sniper!",
+            "MG Nest",
+            "Maneuver",
+            "AT Weapons",
+            "Defensive Position",
+            "Strong Point",
+            "Command Post",
+            "Heavy Weapons",
+            "Mortar Position",
+            "Base of Fire"
+          ],
+          "enemy_tactics": "deliberate_defense",
+          "enemy_experience": "veteran",
+          "historical_enemy": "9th Fallschirmjäger Regiment, 3rd Fallschirmjäger Division",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [
+              "C"
+            ],
+            "row_2": [
+              "B"
+            ],
+            "row_3": [
+              "A"
+            ],
+            "row_4": [
+              "A"
+            ],
+            "allow_on_us_occupied_cards": true
+          },
+          "mission_controls": {
+            "staging_area": false,
+            "map_source": "reuse mission 3 map in campaign play",
+            "foxholes_per_row_1_card": 2,
+            "optional_row_2_combat_outpost": "one card may receive 2 Foxholes and units from one platoon",
+            "primary_objective_row": 4,
+            "secondary_objective_row": 4,
+            "attack_position_row": 3,
+            "attack_position_adjacent_to": "either objective",
+            "artillery_concentration": true,
+            "limit_of_advance": "top of row 4",
+            "clear_rows": [
+              2,
+              3
+            ]
+          },
+          "victory_conditions": {
+            "type": "mission_objectives",
+            "target": null,
+            "secure": [
+              "primary_objective",
+              "secondary_objective"
+            ],
+            "clear_rows": [
+              2,
+              3
+            ],
+            "description": "Secure the Primary and Secondary Objectives and clear Rows 2 and 3."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "reuse_mission_3_map",
+            "scouted_terrain",
+            "engineers_if_mines_found",
+            "counter_attack",
+            "no_staging_area"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award task and general experience using the campaign experience table."
+        },
+        "normandy_mission_5": {
+          "scenario_id": "normandy_mission_5",
+          "name": "Mission 5 — St. Germain d’Elle–La Croix Rouge–Le Soulaire Defensive Patrols",
+          "campaign": "normandy",
+          "mission_type": "combat_patrol",
+          "date_range": "July 13–25, 1944",
+          "duration_turns": 10,
+          "duration_unit": "per_patrol",
+          "visibility": {
+            "condition": "moon",
+            "limited_visibility_modifier_random_range": [
+              2,
+              5
+            ]
+          },
+          "attempts": {
+            "patrols": 3,
+            "one_per_platoon": true
+          },
+          "map_layout": {
+            "rows": 4,
+            "cols": 6,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            },
+            {
+              "id": "hmg_1",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-1-WEAPONS_TEAM",
+              "counter_file": "1_1_HMG 1step.png"
+            },
+            {
+              "id": "hmg_2",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-2-WEAPONS_TEAM",
+              "counter_file": "1_2_HMG 1step.png"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "LMG Nest",
+            "HMG Nest",
+            "Patrol",
+            "Illumination and LMG",
+            "Illumination and Patrol",
+            "Defensive Position",
+            "Strong Point",
+            "Command Post",
+            "Maneuver",
+            "Mortar Position"
+          ],
+          "enemy_tactics": "deliberate_defense",
+          "enemy_experience": "veteran",
+          "historical_enemy": "9th Fallschirmjäger Regiment, 3rd Fallschirmjäger Division",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [],
+            "row_2": [
+              "B",
+              "C"
+            ],
+            "row_3": [
+              "B",
+              "C"
+            ],
+            "row_4": [
+              "A"
+            ]
+          },
+          "mission_controls": {
+            "main_line_of_resistance": "between rows 1 and 2",
+            "foxholes_per_row_1_card": 2,
+            "combat_outpost": "one row 2 card, up to 2 Foxholes",
+            "primary_objective_row": 4,
+            "route_points": 4,
+            "route_point_rows": [
+              2,
+              3,
+              4
+            ],
+            "patrol_goal": "start row 1, visit objective and route points in order, then return across MLR to row 1",
+            "combat_outpost_excluded_from_pc": true
+          },
+          "victory_conditions": {
+            "type": "combat_patrol_route",
+            "target": 4,
+            "objective_row": 4,
+            "return_to_row": 1,
+            "description": "The selected platoon must visit the Primary Objective and four route points in order, then return across the MLR to Row 1; cards need not be cleared."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "combat_patrols",
+            "route_points",
+            "scouting_terrain",
+            "retain_mission_3_map_state",
+            "halve_general_initiative_draws"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award patrol and general experience using the campaign experience table."
+        },
+        "normandy_mission_6": {
+          "scenario_id": "normandy_mission_6",
+          "name": "Mission 6 — Vire Offensive",
+          "campaign": "normandy",
+          "mission_type": "offensive",
+          "date_range": "July 26–August 7, 1944",
+          "duration_turns": 10,
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
+          "attempts": {
+            "reattempts": 1
+          },
+          "map_layout": {
+            "rows": 5,
+            "cols": 4,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            },
+            {
+              "id": "hmg_1",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-1-WEAPONS_TEAM",
+              "counter_file": "1_1_HMG 1step.png"
+            },
+            {
+              "id": "hmg_2",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-2-WEAPONS_TEAM",
+              "counter_file": "1_2_HMG 1step.png"
+            },
+            {
+              "id": "m4_tank_platoon",
+              "type": "vehicle_platoon",
+              "vehicle": "m4_sherman",
+              "count": 5,
+              "includes_hq": true,
+              "ammo_per_vehicle": 5,
+              "parent": "741st Tank Battalion",
+              "position": null,
+              "counter_id": "US-VEHICLE-4",
+              "counter_file": "Veh_M4 Sherman-12.png"
+            },
+            {
+              "id": "engineer_squad",
+              "type": "engineer_squad",
+              "experience": "line",
+              "steps": 3,
+              "parent": "2nd Engineer Combat Battalion",
+              "position": null,
+              "counter_id": "US-25TH-ENGINEERS",
+              "counter_file": "25th_Engineers.png"
+            }
+          ],
+          "event_units": [
+            {
+              "id": "m5_tank_platoon",
+              "type": "vehicle_platoon",
+              "vehicle": "m5_stuart",
+              "count": 5,
+              "includes_hq": true,
+              "ammo_per_vehicle": 5,
+              "parent": "2nd Infantry Division Recon Battalion",
+              "trigger": "Higher Headquarters Event"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "Sniper!",
+            "LMG Nest",
+            "HMG Nest",
+            "Patrol",
+            "Mortar Team",
+            "AT Weapons",
+            "Defensive Position",
+            "Maneuver",
+            "Heavy Weapons",
+            "Base of Fire"
+          ],
+          "enemy_tactics": "delay_defense",
+          "enemy_experience": "line",
+          "historical_enemy": "9th Fallschirmjäger Regiment, 3rd Fallschirmjäger Division",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [
+              "C"
+            ],
+            "row_2": [
+              "C"
+            ],
+            "row_3": [
+              "B"
+            ],
+            "row_4": [
+              "A",
+              "B"
+            ],
+            "row_5": [
+              "A",
+              "B"
+            ]
+          },
+          "mission_controls": {
+            "line_of_departure": "between staging area and row 1",
+            "limit_of_advance": "top of row 5",
+            "primary_objective_row": 5,
+            "secondary_objective_row": 5,
+            "attack_position_row": 4,
+            "attack_position_adjacent_to": "either objective",
+            "clear_enemy_rows": [
+              1,
+              2,
+              3
+            ]
+          },
+          "victory_conditions": {
+            "type": "mission_objectives",
+            "target": null,
+            "secure": [
+              "primary_objective",
+              "secondary_objective"
+            ],
+            "clear_rows": [
+              1,
+              2,
+              3
+            ],
+            "description": "Secure the Primary and Secondary Objectives and clear Rows 1 through 3 of enemy forces."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "counter_attack",
+            "vehicle_at_unit_activation",
+            "engineers",
+            "tank_anti_tank_ambush"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award task and general experience using the campaign experience table."
+        },
+        "normandy_mission_7": {
+          "scenario_id": "normandy_mission_7",
+          "name": "Mission 7 — Tinchebray Offensive",
+          "campaign": "normandy",
+          "mission_type": "offensive",
+          "date_range": "August 8–16, 1944",
+          "duration_turns": 10,
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
+          "attempts": {
+            "reattempts": 2
+          },
+          "map_layout": {
+            "rows": 6,
+            "cols": 4,
+            "terrain_decks": [
+              "Normandy Terrain"
+            ],
+            "card_layout": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          "deployment_zones": [],
+          "starting_unit_source": "campaign.company_roster",
+          "starting_units": [
+            {
+              "id": "arty_fo",
+              "type": "forward_observer",
+              "role": "artillery",
+              "experience": "line",
+              "steps": 1,
+              "parent": "15th Field Artillery Battalion",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Arty FO.png"
+            },
+            {
+              "id": "mortar_fo",
+              "type": "forward_observer",
+              "role": "mortar",
+              "experience": "line",
+              "steps": 1,
+              "parent": "Battalion 81mm Mortar Platoon",
+              "position": null,
+              "counter_id": "US-FO-SPOTTER",
+              "counter_file": "Observer_Mortar FO.png"
+            },
+            {
+              "id": "hmg_1",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-1-WEAPONS_TEAM",
+              "counter_file": "1_1_HMG 1step.png"
+            },
+            {
+              "id": "hmg_2",
+              "type": "weapon_team",
+              "weapon": ".30_cal_hmg",
+              "experience": "line",
+              "steps": 1,
+              "ammo": 6,
+              "parent": "Battalion HMG Platoon",
+              "position": null,
+              "counter_id": "US-1-2-WEAPONS_TEAM",
+              "counter_file": "1_2_HMG 1step.png"
+            },
+            {
+              "id": "m10_tank_destroyer_platoon",
+              "type": "vehicle_platoon",
+              "vehicle": "m10_tank_destroyer",
+              "count": 4,
+              "includes_hq": true,
+              "ammo_per_vehicle": 5,
+              "parent": "612th Tank Destroyer Battalion",
+              "position": null
+            },
+            {
+              "id": "engineer_squad",
+              "type": "engineer_squad",
+              "experience": "line",
+              "steps": 3,
+              "parent": "2nd Engineer Combat Battalion",
+              "position": null,
+              "counter_id": "US-25TH-ENGINEERS",
+              "counter_file": "25th_Engineers.png"
+            }
+          ],
+          "event_units": [
+            {
+              "id": "m5_tank_platoon",
+              "type": "vehicle_platoon",
+              "vehicle": "m5_stuart",
+              "count": 5,
+              "includes_hq": true,
+              "ammo_per_vehicle": 5,
+              "parent": "2nd Infantry Division Recon Battalion",
+              "trigger": "Higher Headquarters Event"
+            }
+          ],
+          "enemy_packages": [],
+          "enemy_package_catalog": [
+            "Mines!",
+            "Incoming!",
+            "Sniper!",
+            "LMG Nest",
+            "HMG Nest",
+            "Patrol",
+            "Mortar Team",
+            "AT Weapons",
+            "Defensive Position",
+            "Maneuver",
+            "Heavy Weapons",
+            "Base of Fire"
+          ],
+          "enemy_tactics": "delay_defense",
+          "enemy_experience": "green",
+          "historical_enemy": "3rd and 5th Fallschirmjäger Divisions",
+          "enemy_squad_groups": [
+            "FJ Group 1",
+            "FJ Group 2",
+            "FJ Group 3",
+            "FJ Group 4",
+            "FJ Group 5",
+            "FJ Group 6"
+          ],
+          "potential_contact": {
+            "row_1": [
+              "C"
+            ],
+            "row_2": [
+              "C"
+            ],
+            "row_3": [
+              "B"
+            ],
+            "row_4": [
+              "B"
+            ],
+            "row_5": [
+              "A"
+            ],
+            "row_6": [
+              "A"
+            ]
+          },
+          "mission_controls": {
+            "line_of_departure": "between staging area and row 1",
+            "limit_of_advance": "top of row 6",
+            "primary_objective_row": 6,
+            "secondary_objective_row": 5,
+            "attack_position_row": 4,
+            "attack_position_adjacent_to": "secondary objective",
+            "clear_rows": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "victory_conditions": {
+            "type": "mission_objectives",
+            "target": null,
+            "secure": [
+              "primary_objective",
+              "secondary_objective"
+            ],
+            "clear_rows": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "description": "Secure the Primary and Secondary Objectives and clear Rows 1 through 5."
+          },
+          "special_rules": [
+            "normandy_campaign_rules",
+            "vehicle_at_unit_activation",
+            "engineers",
+            "tank_anti_tank_ambush"
+          ],
+          "experience_reward": 0,
+          "experience_scoring": "Award task and general experience using the campaign experience table."
+        }
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-CCF 1_LMG b.png",
+  "id": "Chinese-1-LMG-FT",
   "path": "api\\img\\fof\\counters\\CCF 1_LMG b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "079ba95ee25d647f2df32f832865a82097bf542839eb586b95697d455483bef5",
-    "classified_at": "2026-11-04T03:02:48.248362+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:05:56.661271+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "Chinese",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='fiat Pal [am'"
+    "notes": "Header OCR: '', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

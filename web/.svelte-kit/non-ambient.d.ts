@@ -29,7 +29,7 @@ declare module "$app/types" {
 	type MatcherParam<M> = M extends (param : string) => param is (infer U extends string) ? U : string;
 
 	export interface AppTypes {
-		RouteId(): "/" | "/asset-reviewer" | "/games" | "/games/[gameId]" | "/games/[gameId]/play" | "/games/[gameId]/setup" | "/horizon-tree";
+		RouteId(): "/" | "/asset-reviewer" | "/card-validator" | "/counter-validator" | "/games" | "/games/[gameId]" | "/games/[gameId]/play" | "/games/[gameId]/setup" | "/horizon-tree";
 		RouteParams(): {
 			"/games/[gameId]": { gameId: string };
 			"/games/[gameId]/play": { gameId: string };
@@ -38,13 +38,15 @@ declare module "$app/types" {
 		LayoutParams(): {
 			"/": { gameId?: string | undefined };
 			"/asset-reviewer": Record<string, never>;
+			"/card-validator": Record<string, never>;
+			"/counter-validator": Record<string, never>;
 			"/games": { gameId?: string | undefined };
 			"/games/[gameId]": { gameId: string };
 			"/games/[gameId]/play": { gameId: string };
 			"/games/[gameId]/setup": { gameId: string };
 			"/horizon-tree": Record<string, never>
 		};
-		Pathname(): "/" | "/asset-reviewer" | `/games/${string}/play` & {} | `/games/${string}/setup` & {} | "/horizon-tree";
+		Pathname(): "/" | "/asset-reviewer" | "/card-validator" | "/counter-validator" | `/games/${string}/play` & {} | `/games/${string}/setup` & {} | "/horizon-tree";
 		ResolvedPathname(): `${"" | `/${string}`}${ReturnType<AppTypes['Pathname']>}`;
 		Asset(): "/bus-game-board.png" | string & {};
 	}

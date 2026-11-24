@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Vol3 - Marker - Potential Contact Unknown.png",
+  "id": "US-VOL3-MARKER-POTENTIAL-CONTACT-UNKNOWN",
   "path": "api\\img\\fof\\counters\\Vol3 - Marker - Potential Contact Unknown.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,24 +7,33 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "556e0d76d5872fd1fbc9ade11ff185ea221c977f317977eb6fc3a7d3633876ef",
-    "classified_at": "2026-11-04T03:14:28.232500+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:48:54.406176+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
-  "category": "marker",
-  "subtype": "potential_contact",
-  "unit_details": null,
-  "marker_details": {
-    "marker_type": "potential_contact",
-    "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
   },
+  "marker_details": null,
   "status": {
     "exposed": null,
     "pinned": null,
@@ -44,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:POTRATIAL",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='POTEATIAL\\nee! |. POTENTIAL\\nCOOTACT, Pore.\\na'"
+    "notes": "Header OCR: 'POTRATIAL', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): "
   }
 }

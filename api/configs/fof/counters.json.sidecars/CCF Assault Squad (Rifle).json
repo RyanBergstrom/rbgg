@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-CCF Assault Squad (Rifle).png",
+  "id": "Chinese-CCF-ASSAULT-SQUAD-RIFLE",
   "path": "api\\img\\fof\\counters\\CCF Assault Squad (Rifle).png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "176313a08b7d55e49f6d268ad4e8994991b8d13cfd8526c0d1c20b94bf6f0c5a",
-    "classified_at": "2026-11-04T03:02:58.190230+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T06:06:25.117497+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "Chinese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "S",
+    "range_band": "P",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:-",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:P"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Fadl tee |\\nSivee, Ln'"
+    "notes": "Header OCR: '-', Middle OCR: '', Yellow Dots: 3, VOF (Left): S, Range (Right): P"
   }
 }

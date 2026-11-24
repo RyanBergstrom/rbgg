@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-106mm.png",
+  "id": "Japanese-106MM",
   "path": "api\\img\\fof\\counters\\106mm.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "f9b52155eefb9f158e4ffaf221c6f9e0e1bfa83f77976ccb9dac72f04efd3488",
-    "classified_at": "2026-11-04T02:59:15.559802+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:56:44.906166+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "10",
-    "platoon": "10",
-    "squad_number": "6",
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
-    "weapon_type": "106mm Recoilless Rifle",
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "H",
+    "range_band": "V",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:106mmReL",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:H",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='a pees we \u00a5'"
+    "notes": "Header OCR: '106mmReL', Middle OCR: '', Yellow Dots: 1, VOF (Left): H, Range (Right): V"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-25th_Engineers Vietnam Assault Team A P.png",
+  "id": "Japanese-25TH-ENGINEERS-VIETNAM-ASSAULT-TEAM-A-P",
   "path": "api\\img\\fof\\counters\\25th_Engineers Vietnam Assault Team A P.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "e2c51401b363535d61924e9ee0a5202493014af589e84677e8e525d730d3b11e",
-    "classified_at": "2026-11-04T03:00:09.225321+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:00:28.965303+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
-    "battalion": "2",
-    "platoon": "2",
-    "squad_number": "5",
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": "A",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:ENGINEERS",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='a ~'"
+    "notes": "Header OCR: 'ENGINEERS', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

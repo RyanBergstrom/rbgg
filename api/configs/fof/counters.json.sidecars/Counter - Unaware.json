@@ -1,6 +1,6 @@
 {
   "id": "MARKER-UNAWARE",
-  "path": "api\\img\\fof\\ocr-test\\Counter - Unaware.png",
+  "path": "api\\img\\fof\\counters\\Counter - Unaware.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Counter - Unaware.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "bca80a99c5decc4c172033c32aaf6fc57bc160ebd80f4749d3111fe2810b0796",
-    "classified_at": "2026-11-05T05:15:24.144258+00:00",
+    "classified_at": "2026-11-06T06:08:20.870532+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "unaware",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "unaware",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:Neae",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
-      "bottom_left_vof:A",
-      "bottom_right_range:LRE"
+      "bottom_left_vof:",
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'Neae', Middle OCR: '', Yellow Dots: 0, VOF (Left): A, Range (Right): LRE"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

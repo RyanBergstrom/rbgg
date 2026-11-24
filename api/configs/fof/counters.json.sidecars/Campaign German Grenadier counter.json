@@ -1,0 +1,69 @@
+{
+  "id": "German-CAMPAIGN-GERMAN-GRENADIER-COUNTER",
+  "path": "api\\img\\fof\\counters\\Campaign German Grenadier counter.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Campaign German Grenadier counter.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "front",
+    "hash_sha256": "abd3ff4bd3e7f98dff3a27711a6f709ec81906d2e60b5c58c3e002ac5ef93187",
+    "classified_at": "2026-11-06T06:05:21.245213+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
+  },
+  "country": "German",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "G",
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "G",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Grenadiers",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:G",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'Grenadiers', Middle OCR: '', Yellow Dots: 0, VOF (Left): G, Range (Right): "
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "id": "US-06-1-CO_STAFF",
-  "path": "api\\img\\fof\\ocr-test\\HQ_06-1SGT.png",
+  "id": "US-CO-1SGT",
+  "path": "api\\img\\fof\\counters\\HQ_06-1SGT.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ_06-1SGT.png",
@@ -9,15 +9,15 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "573ff81a1abf1ae14cab023b9d1f4a2512ad52f2f889aafee987ccfa13bdb2f2",
-    "classified_at": "2026-11-05T03:39:27.357937+00:00",
+    "classified_at": "2026-11-06T06:16:22.309783+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.8
   },
   "country": "US",
   "category": "unit",
-  "subtype": "co_staff",
+  "subtype": "co_1sgt",
   "unit_details": {
-    "unit_type": "co_staff",
+    "unit_type": "co_1sgt",
     "division": null,
     "battalion": null,
     "platoon": "1",
@@ -55,8 +55,8 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:C81SGT",
-      "middle_ocr:A Noa",
+      "header_ocr:CO81SGT",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
       "bottom_right_range:"
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'C81SGT', Middle OCR: 'A Noa', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: 'CO81SGT', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

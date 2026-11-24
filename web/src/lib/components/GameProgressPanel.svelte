@@ -1,6 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { IS_DEV, tracePhase } from '$lib/dev';
+  import { fofCommand } from '$lib/stores/fofCommand';
+  import CommandPanel from '$lib/components/games/fields_of_fire/CommandPanel.svelte';
 
   export let game = null;
   export let screenState = null;
@@ -17,6 +19,8 @@
   $: confirmRequired = phase?.confirm_required || false;
   $: showConfirm = (pendingMove !== null) || confirmRequired;
   $: isSetupPhase = phase?.phase_name === 'setup' || game?.state?.game_data?.phase === 'setup';
+  // Fields of Fire command mode: show only the command box, with Exit inside it.
+  $: fofMode = !!$fofCommand && ['friendly_higher_hq_event', 'friendly_command', 'mutual_combat'].includes($fofCommand.phaseName) && !winner;
 
   $: if (phase) {
     tracePhase('GameProgressPanel', 'phase updated', {
@@ -70,10 +74,11 @@
   }
 </script>
 
-<div class="game-progress-panel">>
+<div class="game-progress-panel" class:fof-mode={fofMode}>
   {#if IS_DEV}<div class="panel-name-debug">GameProgressPanel</div>{/if}
 
   <div class="panel-row">
+    {#if !fofMode}
     <div class="panel-left">
       <button class="settings-button" on:click={handleSettings} title="Settings">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -98,8 +103,26 @@
         </span>
       {/if}
     </div>
+    {/if}
 
     <div class="panel-right">
+      {#if $fofCommand}
+        <div class="footer-commands">
+          <CommandPanel
+            legalMoves={$fofCommand.legalMoves}
+            pools={$fofCommand.pools}
+            lastFire={$fofCommand.lastFire}
+            activated={$fofCommand.activated}
+            hqLabels={$fofCommand.hqLabels}
+            hqOrder={$fofCommand.hqOrder}
+            phaseName={$fofCommand.phaseName}
+            canUndo={canUndo}
+            on:exit={handleExit}
+            on:undo={handleUndo}
+            dispatchMove={$fofCommand.dispatchMove}
+          />
+        </div>
+      {/if}
       {#if gameId === 'fields_of_fire' && isSetupPhase && !winner}
         <button class="start-mission-btn-panel" on:click={handleStartMission} disabled={!setupComplete}>
           Start Mission
@@ -110,14 +133,16 @@
           {pendingMove ? 'Confirm Move' : (phase?.confirm_name || 'Confirm')}
         </button>
       {/if}
-      {#if canUndo || pendingMove}
+      {#if (canUndo || pendingMove) && !fofMode}
         <button class="undo-button" on:click={handleUndo} disabled={!pendingMove && !canUndo}>
           Undo
         </button>
       {/if}
-      <button class="exit-button" on:click={handleExit}>
-        Exit
-      </button>
+      {#if !fofMode}
+        <button class="exit-button" on:click={handleExit}>
+          Exit
+        </button>
+      {/if}
     </div>
   </div>
 </div>
@@ -133,6 +158,43 @@
     box-sizing: border-box;
   }
 
+  .footer-commands {
+    width: 100%;
+    min-width: 0;
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .game-progress-panel.fof-mode {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .game-progress-panel.fof-mode .footer-commands {
+    max-height: 40vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .footer-commands :global(.command-panel) {
+    margin: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footer-commands :global(.cp-row) {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .footer-commands :global(.cp-btn) {
+    white-space: normal;
+    line-height: 1.2;
+    text-align: center;
+    min-width: 6.5rem;
+    max-width: 100%;
+  }
+
   .panel-name-debug {
     font-size: 0.7rem;
     color: #999;
@@ -144,10 +206,11 @@
 
   .panel-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     height: 100%;
     gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .panel-left {
@@ -185,8 +248,12 @@
   .panel-right {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 0.5rem;
-    flex-shrink: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .player-dot {

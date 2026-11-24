@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-VOF - Minefield.png",
+  "id": "MARKER-VOF",
   "path": "api\\img\\fof\\counters\\VOF - Minefield.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,23 +7,28 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "4a870e9867557254f48f6a5c005d3e86829fc335411734eafbda60e5360bd49b",
-    "classified_at": "2026-11-04T03:14:11.993862+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:48:11.801704+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "vof",
   "unit_details": null,
   "marker_details": {
     "marker_type": "vof",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": "standard",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": "S",
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": "red VOF marker"
+    "effects": null
   },
   "status": {
     "exposed": null,
@@ -44,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Mines!\\nDraw 3 eel\\naway a'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

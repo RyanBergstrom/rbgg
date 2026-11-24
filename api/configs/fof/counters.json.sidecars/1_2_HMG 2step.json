@@ -1,6 +1,6 @@
 {
-  "id": "US-2-1-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\1_2_HMG 2step.png",
+  "id": "US-1-2-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\counters\\1_2_HMG 2step.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "1_2_HMG 2step.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "d610bfef9d6666b1600dc34a2e57816da9fb2a37815f6b9fea30b33fa5a31dd4",
-    "classified_at": "2026-11-05T03:14:59.070302+00:00",
+    "classified_at": "2026-11-06T05:57:20.491004+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
@@ -22,7 +22,7 @@
     "battalion": null,
     "platoon": "2",
     "squad_number": "1",
-    "experience_level": "Veteran",
+    "experience_level": null,
     "steps_total": 2,
     "steps_remaining": 2,
     "vof_rating": "A",

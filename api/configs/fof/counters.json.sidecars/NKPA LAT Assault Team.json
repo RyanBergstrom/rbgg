@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA LAT Assault Team.png",
+  "id": "NKPA-NKPA-LAT-ASSAULT-TEAM",
   "path": "api\\img\\fof\\counters\\NKPA LAT Assault Team.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "1cc583f249987ea9efda3b7a5044649810093133f362c900b2a7c629cd62b7b0",
-    "classified_at": "2026-11-04T03:09:39.382012+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T15:08:45.287121+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
   "country": "NKPA",
   "category": "unit",
@@ -23,11 +23,13 @@
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

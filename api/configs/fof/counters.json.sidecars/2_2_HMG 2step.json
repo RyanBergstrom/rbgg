@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-2_2_HMG 2step.png",
+  "id": "US-2-2-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\2_2_HMG 2step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "04ea7a3d664220f7bbafe12443dd691d4313f059658a891d3032b92d35e62479",
-    "classified_at": "2026-11-04T03:00:23.208321+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:01:11.329547+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "2",
+    "battalion": null,
     "platoon": "2",
     "squad_number": "2",
     "experience_level": null,
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "A",
+    "range_band": "V",
     "weapon_type": "Machine Gun",
+    "mount_type": "Tripod",
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2Me",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Hi\\nAen'"
+    "notes": "Header OCR: '2Me', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): V"
   }
 }

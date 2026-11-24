@@ -1,6 +1,6 @@
 {
-  "id": "Chinese-1-1-CASUALTY",
-  "path": "api\\img\\fof\\ocr-test\\CCF Casualty 3.png",
+  "id": "Chinese-CCF-CASUALTY-3",
+  "path": "api\\img\\fof\\counters\\CCF Casualty 3.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "CCF Casualty 3.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "c21b1de79533f3b9d74efa68f59451211374d21351a6acfad2dc4281dffed30c",
-    "classified_at": "2026-11-05T05:15:20.238974+00:00",
+    "classified_at": "2026-11-06T06:06:43.141323+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.9
   },
   "country": "Chinese",
   "category": "unit",

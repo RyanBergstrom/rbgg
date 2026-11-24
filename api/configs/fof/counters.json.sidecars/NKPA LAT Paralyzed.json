@@ -1,0 +1,69 @@
+{
+  "id": "NKPA-NKPA-LAT-PARALYZED",
+  "path": "api\\img\\fof\\counters\\NKPA LAT Paralyzed.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "NKPA LAT Paralyzed.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "ab7c56f43fafd19f1740c75ff11e19376c8c71d41e08439d96635a878391c660",
+    "classified_at": "2026-11-06T15:09:35.836425+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.6
+  },
+  "country": "NKPA",
+  "category": "unit",
+  "subtype": "lat",
+  "unit_details": {
+    "unit_type": "lat",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Paralyzed Team",
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA Leader 1b.png",
+  "id": "NVA-NVA-LEADER-1B",
   "path": "api\\img\\fof\\counters\\NVA Leader 1b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "39a0c8362c15030aaaec303e97fb50a913345fde48797a65dfcd52c6e720af3f",
-    "classified_at": "2026-11-04T03:11:02.775940+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.85
+    "classified_at": "2026-11-06T15:24:15.780770+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:ka FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='LEADER\\nwee\\nFire Team\\nsec [ ar cesoca\\nere |\\nFete\\niO Y use\\ntee\\nFive Team\\ngee'"
+    "notes": "Header OCR: '', Middle OCR: 'ka FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

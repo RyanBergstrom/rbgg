@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Hue counter.jpg",
+  "id": "US-HUE-COUNTER",
   "path": "api\\img\\fof\\counters\\Hue counter.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "cdd07375a7017e06e393851828371b2ae9993c74de9ed1621c62b235877a4234",
-    "classified_at": "2026-11-04T03:06:43.094591+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:16:49.436321+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:HUE",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='HUE\\n>\\nue\\n* re\\nOG bad\\nee)\\na'"
+    "notes": "Header OCR: 'HUE', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

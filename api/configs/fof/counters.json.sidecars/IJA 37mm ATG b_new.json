@@ -1,0 +1,69 @@
+{
+  "id": "Japanese-IJA-37MM-ATG-B-NEW",
+  "path": "api\\img\\fof\\counters\\IJA 37mm ATG b_new.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "IJA 37mm ATG b_new.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "5ae80dd1aab93cfb2d6fc86670fab11e4ff5714c634a0ea616e8b799052204df",
+    "classified_at": "2026-11-06T06:18:02.423584+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
+  },
+  "country": "Japanese",
+  "category": "unit",
+  "subtype": "weapons_team",
+  "unit_details": {
+    "unit_type": "weapons_team",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": "C",
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:37mm ATG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '37mm ATG', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): C"
+  }
+}

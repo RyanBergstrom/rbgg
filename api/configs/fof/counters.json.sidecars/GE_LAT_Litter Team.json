@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_LAT_Litter Team.png",
+  "id": "German-GE-LAT-LITTER-TEAM",
   "path": "api\\img\\fof\\counters\\GE_LAT_Litter Team.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "a328964e27c5dc623860f60782b6d0fcab4f14b79c59e3f0124e9fb2cae312a5",
-    "classified_at": "2026-11-04T03:05:12.580958+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:11:18.331840+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Litter Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Co",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='PA eal'"
+    "notes": "Header OCR: 'Co', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

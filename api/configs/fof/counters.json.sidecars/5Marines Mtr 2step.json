@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-5Marines Mtr 2step.png",
+  "id": "US-5MARINES-MTR-2STEP",
   "path": "api\\img\\fof\\counters\\5Marines Mtr 2step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,17 +7,17 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "40ee206d860db5aeaad9b7f9f3de245537dd9bd9ae8394996a91699ff74db0e7",
-    "classified_at": "2026-11-04T03:01:22.577746+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:04.132379+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -27,7 +27,9 @@
     "steps_remaining": 2,
     "vof_rating": "H",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:H",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='tr See\\nAh\\nH eeCL fh'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 2, VOF (Left): H, Range (Right): "
   }
 }

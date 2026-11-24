@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA Sniper b.png",
+  "id": "NVA-NVA-SNIPER-B",
   "path": "api\\img\\fof\\counters\\NVA Sniper b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "e0ccf558a4a5581be98190abd5b0fefd42b57a13af5ae79c45479e06fda2f033",
-    "classified_at": "2026-11-04T03:11:18.864726+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:25:43.673092+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:SHIPERI",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'SHIPERI', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Commands_XO.png",
+  "id": "US-COMMANDS-XO",
   "path": "api\\img\\fof\\counters\\Commands_XO.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "26a65bd4c9473b553e067a3a670f90eb2d51667477c19fba1588fb01bcc278f9",
-    "classified_at": "2026-11-04T03:03:30.340196+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:08:04.832171+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "G",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:5",
+      "bottom_left_vof:G",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Canna\\naaliale sr'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 5, VOF (Left): G, Range (Right): "
   }
 }

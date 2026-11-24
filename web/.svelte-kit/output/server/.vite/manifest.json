@@ -25,6 +25,13 @@
     "file": "chunks/exports.js",
     "name": "exports"
   },
+  "_fofCommand.js": {
+    "file": "chunks/fofCommand.js",
+    "name": "fofCommand",
+    "imports": [
+      "_index-server2.js"
+    ]
+  },
   "_index-server.js": {
     "file": "chunks/index-server.js",
     "name": "index-server",
@@ -150,10 +157,11 @@
     "imports": [
       "_index-server.js",
       "_server.js",
-      "_api.js"
+      "_api.js",
+      "_fofCommand.js"
     ],
     "css": [
-      "_app/immutable/assets/FieldsOfFireBoard.CDzXKk2c.css"
+      "_app/immutable/assets/FieldsOfFireBoard.Bxr7PHDb.css"
     ]
   },
   "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {
@@ -181,7 +189,7 @@
       "_server.js"
     ],
     "css": [
-      "_app/immutable/assets/TwilightStruggleBoard.VODqShwk.css"
+      "_app/immutable/assets/TwilightStruggleBoard.D25XUoDS.css"
     ]
   },
   "src/routes/+layout.svelte": {
@@ -207,7 +215,7 @@
       "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.KV5Xzteb.css"
+      "_app/immutable/assets/_page.CaEDvvl0.css"
     ]
   },
   "src/routes/asset-reviewer/+page.svelte": {
@@ -222,6 +230,34 @@
     ],
     "css": [
       "_app/immutable/assets/_page.LFpv0oir.css"
+    ]
+  },
+  "src/routes/card-validator/+page.svelte": {
+    "file": "entries/pages/card-validator/_page.svelte.js",
+    "name": "entries/pages/card-validator/_page.svelte",
+    "src": "src/routes/card-validator/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.KuGp3Noi.css"
+    ]
+  },
+  "src/routes/counter-validator/+page.svelte": {
+    "file": "entries/pages/counter-validator/_page.svelte.js",
+    "name": "entries/pages/counter-validator/_page.svelte",
+    "src": "src/routes/counter-validator/+page.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-server.js",
+      "_server.js",
+      "_api.js"
+    ],
+    "css": [
+      "_app/immutable/assets/_page.4gROeoRX.css"
     ]
   },
   "src/routes/games/[gameId]/play/+page.js": {
@@ -240,6 +276,7 @@
       "_server.js",
       "_api.js",
       "_dev.js",
+      "_fofCommand.js",
       "_settings.js"
     ],
     "dynamicImports": [
@@ -250,7 +287,7 @@
       "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte"
     ],
     "css": [
-      "_app/immutable/assets/_page.C69RP0gW.css"
+      "_app/immutable/assets/_page.DAPmWvHF.css"
     ]
   },
   "src/routes/games/[gameId]/setup/+page.js": {
@@ -270,7 +307,7 @@
       "_api.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.BpqsFR-R.css"
+      "_app/immutable/assets/_page.KfVxSBED.css"
     ]
   },
   "src/routes/horizon-tree/+page.svelte": {

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Counter - Fire - large.png",
+  "id": "US-COUNTER-FIRE-LARGE",
   "path": "api\\img\\fof\\counters\\Counter - Fire - large.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,24 +7,33 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "9e2475fee79dda2169346e196836009e954e95e30bbe882c5711dd2eda042326",
-    "classified_at": "2026-11-04T03:03:52.843398+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T06:08:12.611483+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
-  "country": "Unknown",
-  "category": "marker",
-  "subtype": "potential_contact",
-  "unit_details": null,
-  "marker_details": {
-    "marker_type": "potential_contact",
-    "vof_level": "S",
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": "red VOF marker"
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "F",
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
   },
+  "marker_details": null,
   "status": {
     "exposed": null,
     "pinned": null,
@@ -36,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "F",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -44,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:LARGE",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:F",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='pce\\nAN YY\\nFIRE'"
+    "notes": "Header OCR: 'LARGE', Middle OCR: '', Yellow Dots: 1, VOF (Left): F, Range (Right): "
   }
 }

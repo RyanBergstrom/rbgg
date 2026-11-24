@@ -78,6 +78,24 @@ describe('Twilight Struggle board interaction', () => {
     expect(hand?.querySelector('.hand-list')).toBeTruthy();
   });
 
+  it('shows a large card preview on hover and keyboard focus', async () => {
+    const { container } = renderBoard();
+    const card = container.querySelector('.hand-card');
+    expect(card).toBeTruthy();
+
+    await fireEvent.mouseEnter(card!);
+    expect(container.querySelector('.card-hover-preview img')?.getAttribute('src')).toContain('TNRnTS-30.svg');
+    expect(container.querySelector('.card-hover-preview')?.getAttribute('style')).toContain('width:');
+
+    await fireEvent.mouseLeave(card!);
+    expect(container.querySelector('.card-hover-preview')).toBeNull();
+
+    await fireEvent.focus(card!);
+    expect(container.querySelector('.card-hover-preview img')?.getAttribute('src')).toContain('TNRnTS-30.svg');
+    await fireEvent.blur(card!);
+    expect(container.querySelector('.card-hover-preview')).toBeNull();
+  });
+
   it('builds a structured four-country event choice instead of JSON text', async () => {
     renderBoard();
     await fireEvent.click(screen.getByRole('button', { name: /Decolonization/ }));

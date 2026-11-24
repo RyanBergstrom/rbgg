@@ -1,6 +1,6 @@
 {
   "id": "MARKER-PILLBOX",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Pillbox +4.png",
+  "path": "api\\img\\fof\\counters\\Cover - Pillbox +4.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Pillbox +4.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "2101f2103c95e4583b269746a89098f6eebfc4bd357606e00f3530aec0e40942",
-    "classified_at": "2026-11-05T05:15:39.538814+00:00",
+    "classified_at": "2026-11-06T06:08:42.102133+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "pillbox",
     "cover_modifier": 4,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:PILLBOX",
+      "header_ocr:",
       "middle_ocr:",
-      "yellow_dots:1",
-      "bottom_left_vof:44",
-      "bottom_right_range:2"
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'PILLBOX', Middle OCR: '', Yellow Dots: 1, VOF (Left): 44, Range (Right): 2"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

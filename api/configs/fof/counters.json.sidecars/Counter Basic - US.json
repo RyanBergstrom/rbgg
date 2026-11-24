@@ -1,5 +1,5 @@
 {
-  "id": "US-Counter Basic - US.png",
+  "id": "US-COUNTER-BASIC-US",
   "path": "api\\img\\fof\\counters\\Counter Basic - US.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "1b05383742d741a3ae5b2f031420f872a64a201b88885e74da0a19d1debc6815",
-    "classified_at": "2026-11-04T03:03:58.775473+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:08:31.049424+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.6
   },
   "country": "US",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='-| | ='"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

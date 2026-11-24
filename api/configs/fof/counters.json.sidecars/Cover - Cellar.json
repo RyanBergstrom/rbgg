@@ -1,6 +1,6 @@
 {
   "id": "MARKER-CELLAR",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Cellar.png",
+  "path": "api\\img\\fof\\counters\\Cover - Cellar.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Cellar.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "7424d50418489114ccb05999dd7dc0c410a28d5b5a1b57a303c623cbea24b704",
-    "classified_at": "2026-11-05T05:15:32.073443+00:00",
+    "classified_at": "2026-11-06T06:08:42.018498+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "Other",
   "category": "marker",
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "cellar",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:CHLARt",
+      "header_ocr:",
       "middle_ocr:",
-      "yellow_dots:4",
-      "bottom_left_vof:J3",
-      "bottom_right_range:14"
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'CHLARt', Middle OCR: '', Yellow Dots: 4, VOF (Left): J3, Range (Right): 14"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

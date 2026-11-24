@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA MG 4.png",
+  "id": "NVA-NVA-MG-4",
   "path": "api\\img\\fof\\counters\\NVA MG 4.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,10 +7,10 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "eb94fea9169b7c2c31cae13f5ebaf5a22395a6ec1e653685183f3bc65adc8a50",
-    "classified_at": "2026-11-04T03:11:09.455820+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T15:24:59.623370+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
   "country": "NVA",
@@ -23,11 +23,13 @@
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "L",
     "weapon_type": "Machine Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:ELL",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:L"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ANGINA\\neae,\\nAe L an \u2014\\noy\\nhoe'"
+    "notes": "Header OCR: 'ELL', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): L"
   }
 }

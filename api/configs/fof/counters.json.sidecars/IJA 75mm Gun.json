@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-IJA 75mm Gun.png",
+  "id": "Japanese-IJA-75MM-GUN",
   "path": "api\\img\\fof\\counters\\IJA 75mm Gun.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "81618be0c33ccc8ca4c2216f51732629afef202e26d5f77f0a84150afcd921a0",
-    "classified_at": "2026-11-04T03:07:08.290849+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:18:20.577885+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ey:'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

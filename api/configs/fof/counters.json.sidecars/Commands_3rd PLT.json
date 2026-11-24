@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Commands_3rd PLT.png",
+  "id": "US-COMMANDS-3RD-PLT",
   "path": "api\\img\\fof\\counters\\Commands_3rd PLT.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "03cbc4abed33458f2bcfd871dc8ff2220ae294131885d10eefede1600afb0566",
-    "classified_at": "2026-11-04T03:03:20.713289+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:07:27.232470+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "G",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:OrnnriT",
+      "middle_ocr:",
+      "yellow_dots:5",
+      "bottom_left_vof:G",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018PLT\\nCommands\\n\u2018Available ee\\nCanitads\\narate ='"
+    "notes": "Header OCR: 'OrnnriT', Middle OCR: '', Yellow Dots: 5, VOF (Left): G, Range (Right): "
   }
 }

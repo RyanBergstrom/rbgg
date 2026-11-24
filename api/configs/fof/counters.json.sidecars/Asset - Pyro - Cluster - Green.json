@@ -1,5 +1,5 @@
 {
-  "id": "US-Asset - Pyro - Cluster - Green.png",
+  "id": "ASSET-ASSET-PYRO-CLUSTER-GREEN",
   "path": "api\\img\\fof\\counters\\Asset - Pyro - Cluster - Green.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,30 +7,16 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ab6fc1f4cc912fa233f3383d8e9c2896c765f3883c5b066b02cf0f9b40b2bc93",
-    "classified_at": "2026-11-04T03:02:28.272146+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:51.023398+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "US",
-  "category": "unit",
-  "subtype": "unknown",
-  "unit_details": {
-    "unit_type": "squad",
-    "division": null,
-    "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
-    "ammo_type": null,
-    "ammo_amount": null
-  },
+  "country": "Other",
+  "category": "asset",
+  "subtype": "squad",
+  "unit_details": null,
   "marker_details": null,
   "status": {
     "exposed": null,
@@ -39,8 +25,8 @@
     "ammo_state": null
   },
   "assets": {
-    "type": null,
-    "amount": null
+    "type": "Asset",
+    "amount": 1
   },
   "combat": {
     "vof": null,
@@ -51,11 +37,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

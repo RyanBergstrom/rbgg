@@ -11,6 +11,12 @@ _project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
+# Ensure script subdirectories are importable for test harnesses
+for _subdir in ("twilight", "bus", "lost_cities", "checkers", "fof", "shared"):
+    _script_path = os.path.join(_project_root, "scripts", _subdir)
+    if os.path.isdir(_script_path) and _script_path not in sys.path:
+        sys.path.insert(0, _script_path)
+
 # Exclude JS test files misfiled with .py extension
 collect_ignore_glob = ["test_santorini_end_to_end.py"]
 

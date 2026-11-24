@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_VG_10 3step.png",
+  "id": "German-GE-VG-10-3STEP",
   "path": "api\\img\\fof\\counters\\GE_VG_10 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "b6aeeb1a52370dc03576b662d632fbffce483fa0032a68d3d878b716540d746b",
-    "classified_at": "2026-11-04T03:06:03.858636+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:14:18.351199+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
+    "experience_level": "Line",
     "steps_total": 3,
     "steps_remaining": 3,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "S",
+    "range_band": "P",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:P"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018lop V6 J bap v0\\n<isu'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 3, VOF (Left): S, Range (Right): P"
   }
 }

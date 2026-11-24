@@ -36,6 +36,10 @@ app/games/checkers/__init__.py
 app/games/checkers/search_policy.py
 app/games/checkers/serialize.py
 app/games/checkers/validator.py
+app/games/fields_of_fire/__init__.py
+app/games/fields_of_fire/serialize.py
+app/games/fields_of_fire/terrain.py
+app/games/fields_of_fire/validator.py
 app/games/lost_cities/__init__.py
 app/games/lost_cities/gym_env.py
 app/games/lost_cities/rl_adapter.py
@@ -86,6 +90,8 @@ tests/test_config_schema.py
 tests/test_db.py
 tests/test_difficulty.py
 tests/test_engine.py
+tests/test_fields_of_fire.py
+tests/test_fields_of_fire_extended.py
 tests/test_game_engine.py
 tests/test_game_state.py
 tests/test_hybrid_mcts.py

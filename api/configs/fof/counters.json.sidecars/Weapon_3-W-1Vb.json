@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_3-W-1Vb.png",
+  "id": "US-WEAPON-3-W-1VB-FT",
   "path": "api\\img\\fof\\counters\\Weapon_3-W-1Vb.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "back",
+    "side": "front",
     "hash_sha256": "eb9a066b8f9d5df5bc65f890b06d910eb4a5f646390b60ba622e720e3c55db38",
-    "classified_at": "2026-11-04T03:14:45.341877+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:49:51.596821+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/W73",
+      "middle_ocr:l FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Fife Tear\\nAe Ct'"
+    "notes": "Header OCR: '1/W73', Middle OCR: 'l FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

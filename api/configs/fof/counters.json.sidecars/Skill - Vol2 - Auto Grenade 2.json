@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Skill - Vol2 - Auto Grenade 2.png",
+  "id": "US-SKILL-VOL2-AUTO-GRENADE-2",
   "path": "api\\img\\fof\\counters\\Skill - Vol2 - Auto Grenade 2.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "e41cecd93c00743231fd1ee255646493afa95943a63aa705554d25e2718d1e0d",
-    "classified_at": "2026-11-04T03:12:04.091183+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:33:26.110502+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.6
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='AUTO\\neLP\\nSkit AUT@\\nna\\nsu'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

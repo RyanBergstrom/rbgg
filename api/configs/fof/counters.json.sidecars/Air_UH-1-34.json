@@ -1,5 +1,5 @@
 {
-  "id": "US-Air_UH-1-34.png",
+  "id": "US-1-34-SQUAD",
   "path": "api\\img\\fof\\counters\\Air_UH-1-34.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "a28e9272b4dcccd481ba4ff8112d8a4d9f34b4758ca013a5a9774e0b91b0a975",
-    "classified_at": "2026-11-04T03:01:38.383322+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:43.598061+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
   "country": "US",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
+    "platoon": "34",
+    "squad_number": "1",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Se\\n(3\\ns c a'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): S, Range (Right): C"
   }
 }

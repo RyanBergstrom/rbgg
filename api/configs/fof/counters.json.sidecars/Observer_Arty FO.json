@@ -1,6 +1,6 @@
 {
-  "id": "US-ARTY-FO",
-  "path": "api\\img\\fof\\ocr-test\\Observer_Arty FO.png",
+  "id": "US-FO-SPOTTER",
+  "path": "api\\img\\fof\\counters\\Observer_Arty FO.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Observer_Arty FO.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "52eca83a1edd4bd1ac7ebf430ca1323950f67eb961dfd4f6c7ddd862f2b422e1",
-    "classified_at": "2026-11-05T05:16:13.892861+00:00",
+    "classified_at": "2026-11-06T15:27:10.724903+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.75
   },
   "country": "US",
   "category": "unit",
@@ -27,7 +27,7 @@
     "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
-    "weapon_type": "Artillery FO",
+    "weapon_type": "Forward Observer",
     "mount_type": null,
     "lat_subtype": null,
     "ammo_type": null,
@@ -55,7 +55,7 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:ARTYF6",
+      "header_ocr:ARTYF",
       "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'ARTYF6', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: 'ARTYF', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

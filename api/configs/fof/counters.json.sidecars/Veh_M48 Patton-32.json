@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Veh_M48 Patton-32.png",
+  "id": "US-VEH-M48-PATTON-32",
   "path": "api\\img\\fof\\counters\\Veh_M48 Patton-32.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "0e8e6f22a88748b43efc1a6baf065429e76dfc91be7a29ac5086dcb1701461c8",
-    "classified_at": "2026-11-04T03:13:26.549856+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:44:37.810898+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "H",
+    "range_band": "V",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:MabPation",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:H",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='|'"
+    "notes": "Header OCR: 'MabPation', Middle OCR: '', Yellow Dots: 0, VOF (Left): H, Range (Right): V"
   }
 }

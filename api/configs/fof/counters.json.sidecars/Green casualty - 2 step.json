@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Green casualty - 2 step.png",
+  "id": "US-GREEN-CASUALTY-2-STEP",
   "path": "api\\img\\fof\\counters\\Green casualty - 2 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "535027db32a1076452bfc455333af290617dc0ce682aa67c76961ae9e3cf79de",
-    "classified_at": "2026-11-04T03:06:13.375786+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:14:51.817711+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "casualty",
   "unit_details": {
@@ -28,6 +28,8 @@
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:yw",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='@) OQ'"
+    "notes": "Header OCR: 'yw', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): "
   }
 }

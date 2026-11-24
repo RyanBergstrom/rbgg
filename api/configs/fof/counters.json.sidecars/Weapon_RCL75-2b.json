@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_RCL75-2b.png",
+  "id": "US-75-2-FT",
   "path": "api\\img\\fof\\counters\\Weapon_RCL75-2b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "26b204765520670a56dc9cd038e143d99de1eaf77a735e5f87f3aa058a1716f3",
-    "classified_at": "2026-11-04T03:15:19.884352+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:51:37.056510+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "2",
+    "squad_number": "75",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2/7SmmRCL",
+      "middle_ocr:cae wer FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='275mm ROL\\n\\nae\\nFie Team\\n\\nwore Fed'"
+    "notes": "Header OCR: '2/7SmmRCL', Middle OCR: 'cae wer FireTeam', Yellow Dots: 1, VOF (Left): , Range (Right): C"
   }
 }

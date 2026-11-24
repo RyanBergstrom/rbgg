@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-2_2_MG 2 step.png",
+  "id": "US-2-2-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\2_2_MG 2 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "11542c08138b30ba9cf14efc7e30f2d87fe33be5ebf7c95898dbb8e2e8459425",
-    "classified_at": "2026-11-04T03:00:25.028835+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:01:15.571681+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "2",
+    "battalion": null,
     "platoon": "2",
     "squad_number": "2",
     "experience_level": null,
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "A",
+    "range_band": "L",
     "weapon_type": "Machine Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:22mc",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ces\\nAeeL Ca'"
+    "notes": "Header OCR: '22mc', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): L"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Ammo Tank 5.png",
+  "id": "MARKER-AMMO-5",
   "path": "api\\img\\fof\\counters\\Ammo Tank 5.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,23 +7,28 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "09001438fc43980783bc5b03cc405b62bd664e571db36a606de3b6fbe0c6210a",
-    "classified_at": "2026-11-04T03:02:18.234498+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T06:04:47.264692+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "ammo",
   "unit_details": null,
   "marker_details": {
     "marker_type": "ammo",
+    "ammo_type": "AMMO",
+    "ammo_index": 5,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+    "effects": "AMMO #5"
   },
   "status": {
     "exposed": null,
@@ -44,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='=\\na'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

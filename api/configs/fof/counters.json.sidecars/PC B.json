@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-PC B.png",
+  "id": "MARKER-PC-B",
   "path": "api\\img\\fof\\counters\\PC B.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,21 +9,26 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "587b18b9fd54629aea414480c5cc9092e7f852514ffec30e84bfedebb9506886",
-    "classified_at": "2026-11-04T03:11:42.568011+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:28:59.224308+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "potential_contact",
   "unit_details": null,
   "marker_details": {
     "marker_type": "potential_contact",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+    "effects": "Potential Contact B"
   },
   "status": {
     "exposed": null,
@@ -41,14 +46,25 @@
     "concentrated_fire": null,
     "crossfire": null
   },
-  "potential_contact": null,
+  "potential_contact": {
+    "id": "B",
+    "weather": null,
+    "type": null,
+    "amount": null
+  },
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='POTENTIAL\\nCONTACT\\nB POTENTIAL\\nCONTACT)\\ni BS POTENTIAL\\nCONTACT\\nBE'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

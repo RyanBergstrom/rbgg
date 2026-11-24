@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-25th_Engineersb.png",
+  "id": "US-25TH-ENGINEERSB",
   "path": "api\\img\\fof\\counters\\25th_Engineersb.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "back",
+    "side": "front",
     "hash_sha256": "bcfef2f77d1abb85c07a12d315f3ff7bb9737300f3d6d0d20c7cd8f9dea2ec24",
-    "classified_at": "2026-11-04T03:00:10.970689+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:00:37.922662+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "2",
-    "platoon": "2",
-    "squad_number": "5",
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "range_band": "L",
+    "weapon_type": "Engineers",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:ENGINEERS",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='| ENGINEERS\\nAG oe L'"
+    "notes": "Header OCR: 'ENGINEERS', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): L"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA SU-76M 204.png",
+  "id": "NKPA-NKPA-SU-76M-204",
   "path": "api\\img\\fof\\counters\\NKPA SU-76M 204.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "709dbe1fbb575c494d40dfbe9747df931d639c68419f054ffc652ea107223d83",
-    "classified_at": "2026-11-04T03:10:14.512404+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:14:33.187383+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NKPA",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": "V",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:SU-76M",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='le 0! al'"
+    "notes": "Header OCR: 'SU-76M', Middle OCR: '', Yellow Dots: 0, VOF (Left): A, Range (Right): V"
   }
 }

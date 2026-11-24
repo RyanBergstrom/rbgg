@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-VOF - -4 Incoming pending.png",
+  "id": "MARKER-VOF",
   "path": "api\\img\\fof\\counters\\VOF - -4 Incoming pending.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,23 +7,28 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "a88f53e3d74ad0d88702c88a79afe8905ea2fb2b1092fb5f9c098b5d54dafef7",
-    "classified_at": "2026-11-04T03:13:59.241774+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:48:11.132392+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "vof",
   "unit_details": null,
   "marker_details": {
     "marker_type": "vof",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": "standard",
+    "cover_modifier": -4,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": "S",
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": "red VOF marker"
+    "effects": "Cover -4"
   },
   "status": {
     "exposed": null,
@@ -44,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Tnasn les taal\\nVmease'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

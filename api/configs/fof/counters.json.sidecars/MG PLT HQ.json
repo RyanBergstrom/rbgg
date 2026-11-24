@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\MG PLT HQ.png",
+  "id": "US-MG-PLT-HQ",
+  "path": "api\\img\\fof\\counters\\MG PLT HQ.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "MG PLT HQ.png",
@@ -9,15 +9,15 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "58283e5007a0247c92938796d291024bb8379747dafdb4864a6634ffa5842a88",
-    "classified_at": "2026-11-05T03:15:08.828242+00:00",
+    "classified_at": "2026-11-06T06:21:43.456823+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.65
   },
   "country": "US",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "hq_plt",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "hq_plt",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -55,7 +55,7 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:MGPLTHG",
+      "header_ocr:MGPLTHQ",
       "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'MGPLTHG', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: 'MGPLTHQ', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

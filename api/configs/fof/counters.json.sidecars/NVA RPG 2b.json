@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA RPG 2b.png",
+  "id": "NVA-NVA-RPG-2B",
   "path": "api\\img\\fof\\counters\\NVA RPG 2b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "1ab71b1d917d0ef3495fb041a79ef4c50d793086f55aee0abb7ed1efe6a35d27",
-    "classified_at": "2026-11-04T03:11:13.013915+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:25:15.085805+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": "Bazooka",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2INVARPG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ase \u00a2 tc lental\\nVrs'"
+    "notes": "Header OCR: '2INVARPG', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

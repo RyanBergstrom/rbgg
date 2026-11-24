@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_81mmMtr SECb.png",
+  "id": "US-WEAPON-81MMMTR-SECB",
   "path": "api\\img\\fof\\counters\\Weapon_81mmMtr SECb.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "back",
+    "side": "front",
     "hash_sha256": "4c30cab2f22912a1056d449fb2df8f02cc5e5fa7c3a5b9dc610a024724470a7b",
-    "classified_at": "2026-11-04T03:14:54.708809+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:50:21.031787+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "8",
-    "platoon": "8",
-    "squad_number": "1",
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "H",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:See",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:H",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='rN'"
+    "notes": "Header OCR: 'See', Middle OCR: '', Yellow Dots: 2, VOF (Left): H, Range (Right): "
   }
 }

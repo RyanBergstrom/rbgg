@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA Mtr 13b.png",
+  "id": "NKPA-NKPA-MTR-13B",
   "path": "api\\img\\fof\\counters\\NKPA Mtr 13b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "3a12f9b1d928c1b61f058119bf07d76008bb2bff2f21093a1822623fd30cb270",
-    "classified_at": "2026-11-04T03:10:04.468218+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:12:51.046396+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "range_band": "C",
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:143Mtr",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '143Mtr', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): C"
   }
 }

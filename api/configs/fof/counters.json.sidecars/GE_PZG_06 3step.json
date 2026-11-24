@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_PZG_06 3step.png",
+  "id": "German-GE-PZG-06-3STEP-SQUAD",
   "path": "api\\img\\fof\\counters\\GE_PZG_06 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "b69bde45411a810415822361815dca9e526d83d48b5ac2afb5fbf2361bc0a15f",
-    "classified_at": "2026-11-04T03:05:32.520272+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:12:26.207808+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -21,13 +21,15 @@
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
+    "squad_number": "6",
+    "experience_level": "Line",
     "steps_total": 3,
     "steps_remaining": 3,
-    "vof_rating": null,
+    "vof_rating": "S",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 6/Op pz0",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Gp P28'"
+    "notes": "Header OCR: 'f 6/Op pz0', Middle OCR: '', Yellow Dots: 3, VOF (Left): S, Range (Right): "
   }
 }

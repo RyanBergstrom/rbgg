@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Ammo Mtr 6.png",
+  "id": "MARKER-AMMO-6",
   "path": "api\\img\\fof\\counters\\Ammo Mtr 6.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,23 +7,28 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "5c4ce44b0627aeb3259cb3b6c98a2a13518c6e18cc73fc7e3a7ec4211fd40448",
-    "classified_at": "2026-11-04T03:02:04.626040+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T06:04:46.957576+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "ammo",
   "unit_details": null,
   "marker_details": {
     "marker_type": "ammo",
+    "ammo_type": "AMMO",
+    "ammo_index": 6,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+    "effects": "AMMO #6"
   },
   "status": {
     "exposed": null,
@@ -44,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='of\\nol\\n8 | -'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

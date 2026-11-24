@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA 133b.png",
+  "id": "NKPA-48-3-SQUAD",
   "path": "api\\img\\fof\\counters\\NKPA 133b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "205174b00791c4e654ddcb5ab374344cab738c84a95172b60f395b76823317c7",
-    "classified_at": "2026-11-04T03:09:07.614339+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:24:02.576095+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NKPA",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "platoon": "3",
+    "squad_number": "48",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:/48/3",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Bou SS'"
+    "notes": "Header OCR: '/48/3', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): L"
   }
 }

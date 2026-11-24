@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\Engineer PLT HQ.png",
+  "id": "US-ENGINEER-PLT-HQ",
+  "path": "api\\img\\fof\\counters\\Engineer PLT HQ.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Engineer PLT HQ.png",
@@ -9,15 +9,15 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "c05d3ffef96e743f971c01ad4f1c101ec58fae1a32157ac90c0298c2e37d49fc",
-    "classified_at": "2026-11-05T03:39:25.638484+00:00",
+    "classified_at": "2026-11-06T06:08:55.437725+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.65
   },
   "country": "US",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "hq_plt",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "hq_plt",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -55,8 +55,8 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:GNGPLTHO",
-      "middle_ocr:an",
+      "header_ocr:ONGPLTHO",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
       "bottom_right_range:"
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'GNGPLTHO', Middle OCR: 'an', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: 'ONGPLTHO', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

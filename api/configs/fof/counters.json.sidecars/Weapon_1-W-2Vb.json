@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_1-W-2Vb.png",
+  "id": "US-2-41-FT",
   "path": "api\\img\\fof\\counters\\Weapon_1-W-2Vb.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "back",
+    "side": "front",
     "hash_sha256": "f3b668f80f54ab457b1058bdb6c26a6951db06145dc570028d854a74c7389b0f",
-    "classified_at": "2026-11-04T03:14:38.049303+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:49:32.989628+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "41",
+    "squad_number": "2",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2/41",
+      "middle_ocr:l FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Fife Tear\\nAe Ct eal'"
+    "notes": "Header OCR: '2/41', Middle OCR: 'l FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

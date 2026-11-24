@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-LAT",
-  "path": "api\\img\\fof\\ocr-test\\LAT_Litter Team Green.jpg",
+  "id": "US-LAT-LITTER-TEAM-GREEN",
+  "path": "api\\img\\fof\\counters\\LAT_Litter Team Green.jpg",
   "source": "fof-images-folder",
   "image": {
     "filename": "LAT_Litter Team Green.jpg",
@@ -9,9 +9,9 @@
     "format": "jpg",
     "side": "front",
     "hash_sha256": "48b20cf49dfe69499de4d0783c8408076ed0302ffee619b7b12496fbcc66b583",
-    "classified_at": "2026-11-05T03:15:07.877044+00:00",
+    "classified_at": "2026-11-06T06:19:56.626487+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "US",
   "category": "unit",
@@ -25,7 +25,7 @@
     "experience_level": null,
     "steps_total": 1,
     "steps_remaining": 1,
-    "vof_rating": null,
+    "vof_rating": "C",
     "range_band": null,
     "weapon_type": null,
     "mount_type": null,
@@ -45,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "C",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -58,12 +58,12 @@
       "header_ocr:",
       "middle_ocr:",
       "yellow_dots:1",
-      "bottom_left_vof:",
-      "bottom_right_range:Y"
+      "bottom_left_vof:C",
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): Y"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): C, Range (Right): "
   }
 }

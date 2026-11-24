@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weather_2 Fog.png",
+  "id": "German-WEATHER-2-FOG",
   "path": "api\\img\\fof\\counters\\Weather_2 Fog.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "0d142dcfa6918f64e0100e240eab5c8dc40138fbfd93ee733b0f0d7385c81287",
-    "classified_at": "2026-11-04T03:15:22.862249+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:51:49.656597+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:wa",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='fee Ry'"
+    "notes": "Header OCR: 'wa', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

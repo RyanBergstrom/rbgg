@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-CCF Assault Squad (SMG) b.png",
+  "id": "Chinese-CCF-ASSAULT-SQUAD-SMG-B",
   "path": "api\\img\\fof\\counters\\CCF Assault Squad (SMG) b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,11 +9,11 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "c98f3e25036de5c547570001f99d2330d4c9cacadc2c10057d64b305fc394568",
-    "classified_at": "2026-11-04T03:02:58.751315+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T06:06:27.294338+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "Chinese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
     "range_band": null,
-    "weapon_type": "Machine Gun",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f ey",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Ze Ze'"
+    "notes": "Header OCR: 'f ey', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): "
   }
 }

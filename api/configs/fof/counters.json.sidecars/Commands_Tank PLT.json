@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Commands_Tank PLT.png",
+  "id": "US-COMMANDS-TANK-PLT",
   "path": "api\\img\\fof\\counters\\Commands_Tank PLT.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "59799a0d4992b8baa037c80744621aa79385dbea9b2ab064837096aa3abbc8fc",
-    "classified_at": "2026-11-04T03:03:29.157167+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:07:58.913555+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "G",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:QeitWRheanrFra",
+      "middle_ocr:",
+      "yellow_dots:5",
+      "bottom_left_vof:G",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='7\" TANK PLT\\nCommands\\n\u2018Available aTANK PH\\nConia\\niraaule ='"
+    "notes": "Header OCR: 'QeitWRheanrFra', Middle OCR: '', Yellow Dots: 5, VOF (Left): G, Range (Right): "
   }
 }

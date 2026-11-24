@@ -1,5 +1,5 @@
 {
-  "id": "Australian-1ATF 12-1.jpg",
+  "id": "Australian-12-1-SQUAD",
   "path": "api\\img\\fof\\counters\\1ATF 12-1.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ea826ca564296279662c58493d72b99825586684e438dfb93e963ae667cea356",
-    "classified_at": "2026-11-04T02:59:52.977025+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:59:11.501309+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
   "country": "Australian",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "platoon": "1",
+    "squad_number": "12",
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "S",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='col'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 3, VOF (Left): S, Range (Right): L"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_FJ_6Gp b.png",
+  "id": "German-GE-FJ-6GP-B",
   "path": "api\\img\\fof\\counters\\GE_FJ_6Gp b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,22 +9,31 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "6e8991c718511dc006385db1f6e426500be2ae3d10847ecf899be7feb2823203",
-    "classified_at": "2026-11-04T03:04:58.024992+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T06:10:38.640047+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
-  "category": "marker",
-  "subtype": "pin",
-  "unit_details": null,
-  "marker_details": {
-    "marker_type": "pin",
-    "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+  "country": "German",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "P",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
   },
+  "marker_details": null,
   "status": {
     "exposed": null,
     "pinned": null,
@@ -36,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -44,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:-GrGpFLZD",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:P"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ea ,\\npine\\nAtel ra'"
+    "notes": "Header OCR: '-GrGpFLZD', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): P"
   }
 }

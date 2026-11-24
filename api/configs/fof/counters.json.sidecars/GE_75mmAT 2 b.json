@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_75mmAT 2 b.png",
+  "id": "German-GE-75MMAT-2-B",
   "path": "api\\img\\fof\\counters\\GE_75mmAT 2 b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "edb83f90b65e125d69bde15773ba0119072e7671cdfffa82a2264bf63c0077cf",
-    "classified_at": "2026-11-04T03:04:42.921593+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:10:06.494304+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "7",
-    "platoon": "7",
-    "squad_number": "5",
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
-    "weapon_type": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 275mm AL",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='275mm, P cftetieanl a'"
+    "notes": "Header OCR: 'f 275mm AL', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

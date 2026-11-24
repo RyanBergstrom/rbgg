@@ -57,6 +57,10 @@
     </div>
     <footer>
       <a href="/asset-reviewer" class="footer-link">Asset Reviewer</a>
+      <span class="footer-sep">&bull;</span>
+      <a href="/counter-validator" class="footer-link">Counter Validator</a>
+      <span class="footer-sep">&bull;</span>
+      <a href="/card-validator" class="footer-link">Card Validator</a>
     </footer>
   {/if}
 </main>
@@ -205,6 +209,12 @@ footer {
 
   .footer-link:hover {
     color: #888;
+  }
+
+  .footer-sep {
+    color: #444;
+    margin: 0 0.5rem;
+    font-size: 0.75rem;
   }
 
   @media (max-width: 480px) {

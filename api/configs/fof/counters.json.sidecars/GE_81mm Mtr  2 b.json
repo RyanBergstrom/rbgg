@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_81mm Mtr  2 b.png",
+  "id": "German-2-81-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\GE_81mm Mtr  2 b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "ddd66c8952946e2552760fe0b74c1e596df8e757e999b6be2bc97df4fa82696c",
-    "classified_at": "2026-11-04T03:04:46.465670+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:10:14.848091+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "8",
-    "platoon": "8",
-    "squad_number": "1",
+    "battalion": null,
+    "platoon": "81",
+    "squad_number": "2",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 2/81mmMits",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'f 2/81mmMits', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): "
   }
 }

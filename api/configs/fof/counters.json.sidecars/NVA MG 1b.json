@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA MG 1b.png",
+  "id": "NVA-NVA-MG-1B",
   "path": "api\\img\\fof\\counters\\NVA MG 1b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "640e9e94706ed51d4bbb2f082a9ad5c7454094bf2c7ecabc17571a21edc3f6d4",
-    "classified_at": "2026-11-04T03:11:06.313449+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T15:24:43.115751+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:TAMG/NVA",
+      "middle_ocr:Q FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u201cMGA\\nFire Team,\\nae ct \u2014\u2014.\\n~\\nfat Teo,\\naee'"
+    "notes": "Header OCR: 'TAMG/NVA', Middle OCR: 'Q FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

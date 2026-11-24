@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-HQ 3 PLT b.png",
+  "id": "US-HQ-3-PLT-B",
   "path": "api\\img\\fof\\counters\\HQ 3 PLT b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,11 +9,11 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "f99d4d14d0805bd2515406c34d75f13d2ab390710252e9af032f69715e8c8d00",
-    "classified_at": "2026-11-04T03:06:19.263193+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T06:15:16.484815+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "hq_plt",
   "unit_details": {
@@ -23,11 +23,13 @@
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3PLTHG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '3PLTHG', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): "
   }
 }

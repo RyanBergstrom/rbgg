@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-5Marines Mtr 1step.png",
+  "id": "US-5MARINES-MTR-1STEP",
   "path": "api\\img\\fof\\counters\\5Marines Mtr 1step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,17 +7,17 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "97e69848d6077308c5e35a9e206c21fa02ff012f6a06accc8d14807dc347e610",
-    "classified_at": "2026-11-04T03:01:21.836979+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:01.856860+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -25,9 +25,11 @@
     "experience_level": null,
     "steps_total": 1,
     "steps_remaining": 1,
-    "vof_rating": null,
+    "vof_rating": "G!",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G!",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:G!",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='tr See\\nAh\\nG! oe CL fh'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): G!, Range (Right): "
   }
 }

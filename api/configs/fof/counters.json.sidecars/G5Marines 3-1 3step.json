@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-G5Marines 3-1 3step.png",
+  "id": "US-3-1-SQUAD",
   "path": "api\\img\\fof\\counters\\G5Marines 3-1 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "fb97a3cffe3330c66793400f49112b32b6bbd3aff931f80d477b816c03d862fc",
-    "classified_at": "2026-11-04T03:04:36.940025+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:09:49.381637+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
+    "platoon": "1",
+    "squad_number": "3",
+    "experience_level": "Line",
     "steps_total": 3,
     "steps_remaining": 3,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3HPLT",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='&. esa 7\\nAstene L 2!'"
+    "notes": "Header OCR: '3HPLT', Middle OCR: '', Yellow Dots: 3, VOF (Left): , Range (Right): L"
   }
 }

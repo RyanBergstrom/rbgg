@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-HQ 2 PLT.png",
+  "id": "US-HQ-2-PLT",
   "path": "api\\img\\fof\\counters\\HQ 2 PLT.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "b0018e9842532493545d81a52c9c32ee4c91c7f522a282bb5bc751e2a620dc4d",
-    "classified_at": "2026-11-04T03:06:18.717596+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:15:14.295722+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "hq_plt",
   "unit_details": {
@@ -23,11 +23,13 @@
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2PLTHG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '2PLTHG', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

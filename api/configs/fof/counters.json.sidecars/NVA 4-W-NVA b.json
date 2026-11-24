@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA 4-W-NVA b.png",
+  "id": "NVA-NVA-4-W-NVA-FT",
   "path": "api\\img\\fof\\counters\\NVA 4-W-NVA b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "f16309ffc3d1619f494d6157c473d633f24a632eb5b217579785891b0e7cf9d1",
-    "classified_at": "2026-11-04T03:10:42.738310+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:20:41.889892+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
+    "squad_number": "4",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": "A",
-    "range_band": null,
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:A/WINVA",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='anne\\na\\n\\nFire feanir\\n\\nAe ct fae c'"
+    "notes": "Header OCR: 'A/WINVA', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

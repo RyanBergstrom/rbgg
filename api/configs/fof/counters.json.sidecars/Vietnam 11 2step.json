@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Vietnam 11 2step.png",
+  "id": "US-VIETNAM-11-2STEP",
   "path": "api\\img\\fof\\counters\\Vietnam 11 2step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,17 +7,17 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "9e8c0f5cc5d61b857748bfb2fd6081c3555a345182ec079ec4f37530f17cf5a2",
-    "classified_at": "2026-11-04T03:13:45.316662+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:47:02.701154+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -28,6 +28,8 @@
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:141PLT",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Bria ria ]\\na)'"
+    "notes": "Header OCR: '141PLT', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): L"
   }
 }

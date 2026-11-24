@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Asset - Illum - Handheld.png",
+  "id": "ASSET-ASSET-ILLUM-HANDHELD",
   "path": "api\\img\\fof\\counters\\Asset - Illum - Handheld.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,30 +7,16 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "d536089214f93503e79c8e9f6945e3ca3300ee11f1b74970cd27734c6e358b85",
-    "classified_at": "2026-11-04T03:02:25.802184+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:04:50.942031+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
-  "category": "unit",
-  "subtype": "unknown",
-  "unit_details": {
-    "unit_type": "squad",
-    "division": null,
-    "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
-    "ammo_type": null,
-    "ammo_amount": null
-  },
+  "country": "Other",
+  "category": "asset",
+  "subtype": "squad",
+  "unit_details": null,
   "marker_details": null,
   "status": {
     "exposed": null,
@@ -39,8 +25,8 @@
     "ammo_state": null
   },
   "assets": {
-    "type": null,
-    "amount": null
+    "type": "Asset",
+    "amount": 1
   },
   "combat": {
     "vof": null,
@@ -51,11 +37,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA 23b.png",
+  "id": "NVA-2-3-SQUAD",
   "path": "api\\img\\fof\\counters\\NVA 23b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "f18fd59c46a4641c9e05fe98bf16ae3e687102a23e29fa8a878a6ad882384ffa",
-    "classified_at": "2026-11-04T03:10:33.421298+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:18:32.328827+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NVA",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "platoon": "3",
+    "squad_number": "2",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2/3/NVA",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='INA\\n\\n\u2014\\nKa\u2019,\\nAeeL \u2014_\\n\u201cfy\\nAol'"
+    "notes": "Header OCR: '2/3/NVA', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): L"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA MG 23b.png",
+  "id": "NKPA-NKPA-MG-23B-FT",
   "path": "api\\img\\fof\\counters\\NKPA MG 23b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "905bf3a33c1879c50bc3cff558b70448117953dd47200cb6b8a71866458cce71",
-    "classified_at": "2026-11-04T03:09:54.458686+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T15:11:10.403627+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "2",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:/2/afHMG",
+      "middle_ocr:FireTeam",
+      "yellow_dots:3",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='2eHMG\\nee\\nEreTeam Aaeoda Ch ees'"
+    "notes": "Header OCR: '/2/afHMG', Middle OCR: 'FireTeam', Yellow Dots: 3, VOF (Left): A, Range (Right): C"
   }
 }

@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { getGame, getSessions, getLegalMoves, getAiMove, makeMove, startSession, confirmTurn, undoMove, debugLoadState, loadSession } from '$lib/api';
   import GameProgressPanel from '$lib/components/GameProgressPanel.svelte';
+  import GameAuditLog from '$lib/components/GameAuditLog.svelte';
   import DebugPanel from '$lib/components/DebugPanel.svelte';
   import SettingsPanel from '$lib/components/SettingsPanel.svelte';
   import { settings } from '$lib/stores/settings';
@@ -30,6 +31,8 @@
   let actionError = null;
   let lastSelectedMove = null;
   let selectedMoveTimeout = null;
+  let auditLog = [];
+  let auditId = 0;
   let BoardComponent = null;
 
   function getLegalMoveByType(type) {
@@ -40,12 +43,14 @@
     if (gameId !== 'fields_of_fire') return false;
     const gd = screenState?.game_data || game?.state?.game_data || {};
     const units = gd.company?.units || [];
-    const placed = units.filter(u => u.position !== null && u.position !== undefined);
-    return placed.length === units.length && units.length > 0;
+    const requiredUnits = units.filter(u => u.setup_required !== false);
+    const placed = requiredUnits.filter(u => u.position !== null && u.position !== undefined);
+    return placed.length === requiredUnits.length && requiredUnits.length > 0;
   })();
 
   const HUMAN_PLAYER = 'player_1';
-  const HOT_SEAT_GAME = 'twilight_struggle';
+  // Twilight setup assigns the chosen faction to player_1 and the other faction to the AI.
+  const HOT_SEAT_GAME = null;
   $: isHotSeatGame = gameId === HOT_SEAT_GAME;
 
   $: currentPlayer = screenState?.current_player || game?.state?.player_turn || null;
@@ -105,6 +110,11 @@
     }
   }
 
+  function logAudit(text) {
+    auditLog = [...auditLog, { id: ++auditId, timestamp: Date.now(), text }];
+    if (auditLog.length > 500) auditLog = auditLog.slice(-500);
+  }
+
   function handleAiProviderChange() {
     localStorage.setItem('rbgg:lost-cities-ai-provider-v2', aiProvider);
     aiProviderUsed = null;
@@ -144,6 +154,7 @@
   async function handleBoardSelect(event) {
     if (actionInProgress) return;
     const move = event.detail;
+    logAudit(`Move selected: ${move.type}${move.unit_id ? ' ' + move.unit_id : ''}${move.position !== undefined ? ' @' + move.position : ''}${move.to_position !== undefined ? ' →' + move.to_position : ''}`);
     traceMove('play:page', 'move selected locally', move);
     actionError = null;
 
@@ -211,12 +222,12 @@
     }
   }
 
-  function handleExit() {
-    window.location.href = `/games/${gameId}/setup`;
-  }
-
   function handleSettings() {
     showSettings = true;
+  }
+
+  function handleExit() {
+    window.location.href = `/`;
   }
 
   async function handleConfirm() {
@@ -258,6 +269,23 @@
     if (actionInProgress) return;
     pendingMove = null;
     actionError = null;
+  }
+
+  async function handleUndo() {
+    if (actionInProgress || !sessionId) return;
+    actionInProgress = true;
+    actionError = null;
+    try {
+      const result = await undoMove(sessionId);
+      updateScreenState(result);
+      legalMoves = result?.screen_state?.legal_moves || legalMoves;
+      pendingMove = null;
+      canUndo = result?.can_undo ?? false;
+    } catch (e) {
+      actionError = e.message || 'Unable to undo.';
+    } finally {
+      actionInProgress = false;
+    }
   }
 
   function handleDebugLoadState(event) {
@@ -321,6 +349,9 @@
         aiProviderUsed = moveData.ai_provider || null;
 
         updateScreenState(moveData);
+        if (moveData.move) {
+          logAudit(`AI move: ${moveData.move.type || 'move'}${moveData.move.unit_id ? ' ' + moveData.move.unit_id : ''}`);
+        }
         if (moveData.winner || screenState?.winner || game?.state?.winner) {
           clearInterval(aiInterval);
           aiInterval = null;
@@ -379,6 +410,7 @@
           const loaded = await loadSession(sessionId);
           game = loaded;
           updateScreenState(loaded);
+          canUndo = loaded?.can_undo ?? false;
           sessions = await getSessions(gameId);
           const movesResult = await getLegalMoves(sessionId);
           updateScreenState(movesResult);
@@ -521,6 +553,7 @@
         {pendingMove}
         {actionInProgress}
         {lastSelectedMove}
+        auditEntries={auditLog}
         on:select-move={handleBoardSelect}
         on:confirm={handleConfirm}
         on:cancel-pending-move={handleCancelPendingMove}
@@ -561,6 +594,10 @@
   on:settings={handleSettings}
   on:start-mission={handleStartMission}
 />
+
+{#if gameId !== 'fields_of_fire'}
+  <GameAuditLog entries={auditLog} />
+{/if}
 
 {#if showSettings}
   <SettingsPanel on:close={() => showSettings = false} />

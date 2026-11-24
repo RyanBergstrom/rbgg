@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_1_HMG 1step.png",
+  "id": "US-1-1-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\1_1_HMG 1step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "20d9d017608cbd7be5bbee32683f1ea39ef47f326520c17754bbc65cb59d8da7",
-    "classified_at": "2026-11-04T02:59:19.613270+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:56:57.437966+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "1",
+    "battalion": null,
     "platoon": "1",
     "squad_number": "1",
     "experience_level": null,
     "steps_total": 1,
     "steps_remaining": 1,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "A",
+    "range_band": "V",
     "weapon_type": "Machine Gun",
+    "mount_type": "Tripod",
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/16",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ri'"
+    "notes": "Header OCR: '1/16', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): V"
   }
 }

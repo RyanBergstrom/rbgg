@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_88mm_1 Fireteam.png",
+  "id": "German-GE-88MM-1-FIRETEAM",
   "path": "api\\img\\fof\\counters\\GE_88mm_1 Fireteam.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "61fde3707a2712001dd2159c44b2418517b03ae18c497ebcb3d8129b4a981f80",
-    "classified_at": "2026-11-04T03:04:49.955023+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:10:23.763506+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
-    "battalion": "8",
-    "platoon": "8",
-    "squad_number": "8",
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 188mm",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='rae'"
+    "notes": "Header OCR: 'f 188mm', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

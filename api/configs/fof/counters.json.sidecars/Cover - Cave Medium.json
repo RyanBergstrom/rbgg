@@ -1,6 +1,6 @@
 {
   "id": "MARKER-CAVE",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Cave Medium.png",
+  "path": "api\\img\\fof\\counters\\Cover - Cave Medium.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Cave Medium.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "d43953c833576f1896f7834c4f6fba5d2153838e66a8d4f517ec64de291e5bc3",
-    "classified_at": "2026-11-05T05:15:29.642611+00:00",
+    "classified_at": "2026-11-06T06:08:41.987624+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "Other",
   "category": "marker",
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "cave",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:CAVE",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
       "bottom_left_vof:",
-      "bottom_right_range:7"
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'CAVE', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): 7"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

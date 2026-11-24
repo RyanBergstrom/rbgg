@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC Sniper.png",
+  "id": "VietCong-VC-SNIPER",
   "path": "api\\img\\fof\\counters\\VC Sniper.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "5e348c20756366b9690479ce9db736fb94e77b0547a7fd7e24a28fce1fc8d2df",
-    "classified_at": "2026-11-04T03:13:05.991020+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:42:23.585327+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "VietCong",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:SNIPER",
+      "middle_ocr:",
+      "yellow_dots:6",
+      "bottom_left_vof:S!",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018SNIPER!\\nBie ails'"
+    "notes": "Header OCR: 'SNIPER', Middle OCR: '', Yellow Dots: 6, VOF (Left): S!, Range (Right): L"
   }
 }

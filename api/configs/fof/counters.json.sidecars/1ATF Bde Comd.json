@@ -1,5 +1,5 @@
 {
-  "id": "Australian-1ATF Bde Comd.jpg",
+  "id": "Australian-1ATF-BDE-COMD",
   "path": "api\\img\\fof\\counters\\1ATF Bde Comd.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "04341c459b5c041ad24f64cc664283b928fab72360d1a4e7b2fdce90912940c0",
-    "classified_at": "2026-11-04T02:59:59.340023+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:59:39.768965+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.6
   },
   "country": "Australian",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='re Net So'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 3, VOF (Left): , Range (Right): "
   }
 }

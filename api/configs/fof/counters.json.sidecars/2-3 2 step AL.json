@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-2-3 2 step AL.png",
+  "id": "US-2-3-SQUAD",
   "path": "api\\img\\fof\\counters\\2-3 2 step AL.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "alternate",
     "hash_sha256": "f0681a23756bef27e684ab181b9aa8b766e476365195c2a97ff797e3d565a3dd",
-    "classified_at": "2026-11-04T03:00:06.849962+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:00:18.925949+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "2",
-    "platoon": "2",
-    "squad_number": "3",
-    "experience_level": null,
+    "battalion": null,
+    "platoon": "3",
+    "squad_number": "2",
+    "experience_level": "Line",
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
-    "range_band": null,
+    "vof_rating": "A",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2/3PLT",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ice ries'"
+    "notes": "Header OCR: '2/3PLT', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): L"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "US-5Marines 1-2-Aslt.png",
+  "id": "US-1-2-SQUAD",
   "path": "api\\img\\fof\\counters\\5Marines 1-2-Aslt.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "7d61934ee92fae38947490ef2ba3a0c28cd4b79b9b67478e1aae2b1cfd0d15dc",
-    "classified_at": "2026-11-04T03:01:01.783734+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:03:08.432616+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "platoon": "2",
+    "squad_number": "1",
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Assault Team",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:12Asit",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: '12Asit', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): C"
   }
 }

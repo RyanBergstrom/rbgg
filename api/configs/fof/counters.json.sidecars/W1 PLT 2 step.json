@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-W1 PLT 2 step.png",
+  "id": "US-W1-PLT-2-STEP",
   "path": "api\\img\\fof\\counters\\W1 PLT 2 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "3dca6dc5721e93e88eb02d9fe70c7972c9f7712c77cddf100a84cd8c79924386",
-    "classified_at": "2026-11-04T03:14:29.365608+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:49:00.061476+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
+    "experience_level": "Line",
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
+    "vof_rating": "G!",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G!",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:W/ATPLT",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:G!",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='4.'"
+    "notes": "Header OCR: 'W/ATPLT', Middle OCR: '', Yellow Dots: 2, VOF (Left): G!, Range (Right): "
   }
 }

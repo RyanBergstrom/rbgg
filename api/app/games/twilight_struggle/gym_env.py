@@ -51,6 +51,8 @@ class TwilightStruggleGymEnv(gym.Env):
         reward_scale: float = 0.1, timeout_penalty: float = -0.5,
         win_reward: float = 1.0, learner_faction: str | None = None,
         curriculum_stage: int = 2,  # 0=auto-DONE, 1=guided DONE reward, 2=full staged decisions
+        reward_shaping: bool = False, gamma: float = 0.9995,
+        schema_version: int = 1, safety_mask: bool = False,
     ):
         super().__init__()
         self.opponents = dict(opponents or DEFAULT_OPPONENTS)
@@ -64,9 +66,20 @@ class TwilightStruggleGymEnv(gym.Env):
         self.win_reward = win_reward
         self.fixed_faction = learner_faction
         self.curriculum_stage = max(0, min(2, curriculum_stage))  # Clamp to 0-2
-        self.adapter = TwilightStruggleReferenceEnv(seed=seed)
-        self.action_space = spaces.Discrete(ACTION_COUNT)
-        self.observation_space = spaces.Box(low=-1.0, high=1.0, shape=(OBSERVATION_SIZE,), dtype=np.float32)
+        self.reward_shaping = reward_shaping
+        self.gamma = gamma
+        self.schema_version = schema_version
+        self.safety_mask = safety_mask
+        if self.reward_shaping:
+            from app.games.twilight_struggle.rl_rewards import PotentialRewardShaper
+            self._shaper: PotentialRewardShaper | None = PotentialRewardShaper(gamma=self.gamma)
+        else:
+            self._shaper = None
+        self.adapter = TwilightStruggleReferenceEnv(seed=seed, schema_version=schema_version)
+        self.action_space = spaces.Discrete(self.adapter.action_count)
+        self.observation_space = spaces.Box(
+            low=-1.0, high=1.0, shape=(self.adapter.observation_size,), dtype=np.float32
+        )
         self._policy_rng = random.Random(seed)
         self._seeded = False
         self._observation: dict[str, Any] | None = None
@@ -173,17 +186,36 @@ class TwilightStruggleGymEnv(gym.Env):
         self._observation = self._play_opponent(self.adapter.observe(self.adapter.current_player))
         if self.adapter.current_player == self.learner:
             self._observation = self.adapter.observe(self.learner)
+        if self.safety_mask and self._observation is not None:
+            raw_mask = np.asarray(self._observation["action_mask"], dtype=bool)
+            self._observation["action_mask"] = self._filter_safety_mask(raw_mask).tolist()
         self._last_vp = self._vp()
         self._start_vp = self._last_vp
+        if self._shaper is not None:
+            self._shaper.reset(self.adapter.game_data, self.learner_faction)
         return self._vector(self._observation), {
             "player_id": self.learner, "faction": faction, "opponent": self.opponent_kind,
             "episode_seed": episode_seed,
         }
 
+    def _filter_safety_mask(self, mask: np.ndarray) -> np.ndarray:
+        if not self.safety_mask:
+            return mask
+        from app.games.twilight_struggle.rl_strategy import filter_safe_actions
+        legal = [i for i, f in enumerate(mask) if f]
+        if not legal:
+            return mask
+        safe = filter_safe_actions(self, legal)
+        if len(safe) < len(legal):
+            safe_mask = np.zeros_like(mask)
+            safe_mask[safe] = True
+            return safe_mask
+        return mask
+
     def action_masks(self) -> np.ndarray:
         if self._observation is None:
             raise RuntimeError("environment must be reset before requesting an action mask")
-        return np.asarray(self._observation["action_mask"], dtype=bool)
+        return self._filter_safety_mask(np.asarray(self._observation["action_mask"], dtype=bool))
 
     def step(self, action: int):
         if self._observation is None:
@@ -227,14 +259,17 @@ class TwilightStruggleGymEnv(gym.Env):
             observation = self._play_opponent(observation)
             terminated = self.adapter.is_terminal()
         observation = self.adapter.observe(self.learner)
+        if self.safety_mask:
+            raw_mask = np.asarray(observation["action_mask"], dtype=bool)
+            observation["action_mask"] = self._filter_safety_mask(raw_mask).tolist()
         self._observation = observation
         vp = self._vp()
         reward = self.reward_scale * (vp - self._last_vp)
         self._last_vp = vp
         
-        # Curriculum Stage 1: Guided DONE reward - small bonus for selecting DONE in staged decisions
-        if self.curriculum_stage >= 1 and done_selected:
-            reward += 0.05  # Small positive reward for correctly completing a sub-decision
+        # Curriculum Stage 1: Guided DONE reward - small bonus for selecting DONE only during guided Stage 1
+        if self.curriculum_stage == 1 and done_selected:
+            reward += 0.05  # Small positive reward for correctly completing a sub-decision in stage 1
         
         truncated = not terminated and self.steps >= self.max_episode_steps
         stalled = not terminated and not any(observation["action_mask"])
@@ -242,10 +277,21 @@ class TwilightStruggleGymEnv(gym.Env):
             reward += self.timeout_penalty
         winner = self.adapter.validator.check_win(self.adapter.state) if terminated else None
         if winner is not None:
-            reward += self.win_reward if winner == self.learner else -self.win_reward
+            if winner == "draw":
+                pass
+            elif winner == self.learner:
+                reward += self.win_reward
+            else:
+                reward -= self.win_reward
         terminal = self.adapter.game_data.get("terminal_result") if terminated else None
         if terminal and terminal.get("reason") == "defcon_1" and winner != self.learner:
             reward -= 2.0
+        
+        if self._shaper is not None:
+            reward = self._shaper.shape_reward(
+                reward, self.adapter.game_data, self.learner_faction, is_terminal=bool(terminated)
+            )
+
         out = {
             "learner": self.learner, "faction": self.learner_faction, "opponent": self.opponent_kind,
             "vp_margin": vp, "terminal_result": self.adapter.game_data.get("terminal_result"),

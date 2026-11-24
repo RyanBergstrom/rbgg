@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Control_BoundaryL.png",
+  "id": "MARKER-CONTROL-BOUNDARYL",
   "path": "api\\img\\fof\\counters\\Control_BoundaryL.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,31 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "32306069f2a3e5b7b7e9cded42bd4c4c2fd5e48e9fe7cb4c097f5040e259495d",
-    "classified_at": "2026-11-04T03:03:32.721821+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:08:07.803672+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
-  "category": "unit",
-  "subtype": "squad",
-  "unit_details": {
-    "unit_type": "squad",
-    "division": null,
-    "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+  "country": "Other",
+  "category": "marker",
+  "subtype": "tactical_control",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "tactical_control",
     "ammo_type": null,
-    "ammo_amount": null
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Control Boundaryl"
   },
-  "marker_details": null,
   "status": {
     "exposed": null,
     "pinned": null,
@@ -51,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Lunt\\n|feuvnaet | Tee\\npa'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

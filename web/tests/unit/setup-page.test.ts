@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor, within } from '@testing-library/svelte';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte';
 
 const mockGetGame = vi.fn();
 const mockGetSessions = vi.fn();
@@ -214,8 +214,29 @@ describe('SetupPage', () => {
       expect(mockStartSession).toHaveBeenCalledWith(
         'game-1',
         'Ryan',
-        expect.anything(),
-        expect.anything(),
+        2,
+        '',
+        null,
+      );
+    });
+  });
+
+  it('lets a Twilight player choose US or USSR and sends the selected faction', async () => {
+    mockGetGame.mockResolvedValue({ id: 'twilight_struggle', name: 'Twilight Struggle' });
+    mockGetSessions.mockResolvedValue([]);
+    mockStartSession.mockResolvedValue({ game_id: 'twilight_struggle', session_id: 190 });
+    render(SetupPage, { props: { data: { gameId: 'twilight_struggle' } } });
+
+    const usChoice = await screen.findByRole('radio', { name: /United States/i });
+    const ussrChoice = screen.getByRole('radio', { name: /Soviet Union/i });
+    expect((usChoice as HTMLInputElement).checked).toBe(true);
+    await fireEvent.click(ussrChoice);
+    expect((ussrChoice as HTMLInputElement).checked).toBe(true);
+
+    await fireEvent.click(screen.getByRole('button', { name: /Start Game/i }));
+    await waitFor(() => {
+      expect(mockStartSession).toHaveBeenCalledWith(
+        'twilight_struggle', 'Ryan', expect.anything(), expect.anything(), null, 'ussr',
       );
     });
   });

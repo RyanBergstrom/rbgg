@@ -15,7 +15,9 @@ export const nodes = [
 	() => import('./nodes/3'),
 	() => import('./nodes/4'),
 	() => import('./nodes/5'),
-	() => import('./nodes/6')
+	() => import('./nodes/6'),
+	() => import('./nodes/7'),
+	() => import('./nodes/8')
 ];
 
 export const server_loads = [];
@@ -23,9 +25,11 @@ export const server_loads = [];
 export const dictionary = {
 		"/": [2],
 		"/asset-reviewer": [3],
-		"/games/[gameId]/play": [4],
-		"/games/[gameId]/setup": [5],
-		"/horizon-tree": [6]
+		"/card-validator": [4],
+		"/counter-validator": [5],
+		"/games/[gameId]/play": [6],
+		"/games/[gameId]/setup": [7],
+		"/horizon-tree": [8]
 	};
 
 export const hooks = {

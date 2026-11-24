@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-HQ_08-2PLT.png",
+  "id": "US-08-2-SQUAD",
   "path": "api\\img\\fof\\counters\\HQ_08-2PLT.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ef2e0f9aab46fd7db34d919c612278550396a3b67f24ea8339f6b9434053c2a1",
-    "classified_at": "2026-11-04T03:06:40.531100+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:16:39.306171+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.8
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
-    "battalion": "08",
-    "platoon": "08",
-    "squad_number": "2",
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "battalion": null,
+    "platoon": "2",
+    "squad_number": "08",
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2PLTH",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='rq cS y my'"
+    "notes": "Header OCR: '2PLTH', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

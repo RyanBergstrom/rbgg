@@ -1,6 +1,9 @@
 import pytest
 
-from scripts.evaluate_twilight_model import mean_interval, summarize, wilson_interval
+try:
+    from evaluate_twilight_model import mean_interval, summarize, wilson_interval
+except ModuleNotFoundError:
+    from scripts.twilight.evaluate_twilight_model import mean_interval, summarize, wilson_interval
 
 
 def test_wilson_interval_is_finite_and_contains_observed_rate():

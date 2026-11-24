@@ -209,6 +209,51 @@ def add_snapshot(model, path: Path, max_snapshots: int) -> None:
     model.get_env().env_method("add_opponent_snapshot", f"{path}.zip", max_snapshots)
 
 
+def resolve_model_path(path: str | Path) -> str:
+    """Resolve a model path considering repo root, api directory, and runtime folders."""
+    p = Path(path)
+    if p.is_file():
+        return str(p.resolve())
+    if p.with_suffix(".zip").is_file():
+        return str(p.with_suffix(".zip").resolve())
+    repo_root = Path(__file__).resolve().parents[3]
+    api_dir = repo_root / "api"
+    path_str = str(path)
+    candidates = [
+        Path.cwd() / path,
+        api_dir / "runtime" / "twilight" / path,
+        api_dir / "runtime" / path,
+        repo_root / "runtime" / "twilight" / path,
+        repo_root / "runtime" / path,
+        repo_root / path,
+        api_dir / path,
+    ]
+    norm = path_str.replace("\\", "/")
+    if norm.startswith("api/"):
+        candidates.append(repo_root / norm)
+        candidates.append(repo_root / norm[4:])
+    for c in candidates:
+        if c.is_file():
+            return str(c.resolve())
+        if c.with_suffix(".zip").is_file():
+            return str(c.with_suffix(".zip").resolve())
+    return str(path)
+
+
+def resolve_output_path(path_str: str) -> Path:
+    """Resolve an output path cleanly whether called from repo root or scripts dir."""
+    p = Path(path_str)
+    if p.is_absolute():
+        return p
+    repo_root = Path(__file__).resolve().parents[3]
+    norm = str(path_str).replace("\\", "/")
+    if norm.startswith("api/"):
+        return (repo_root / norm).resolve()
+    if norm.startswith("runtime/"):
+        return (repo_root / "api" / norm).resolve()
+    return p.resolve()
+
+
 def override_resume_hyperparameters(model, learning_rate: float | None, ent_coef: float | None) -> None:
     """Apply explicitly supplied PPO overrides to a loaded model."""
     if learning_rate is not None:
@@ -331,6 +376,12 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Win rate threshold (vs rule) to advance curriculum stage (auto mode)")
     parser.add_argument("--curriculum-min-timesteps", type=int, default=100_000,
                         help="Minimum timesteps per curriculum stage (auto mode)")
+    parser.add_argument("--reward-shaping", action="store_true",
+                        help="Enable potential-based reward shaping r'_t = r_t + gamma*Phi(s_{t+1}) - Phi(s_t).")
+    parser.add_argument("--schema-version", type=int, choices=(1, 2), default=1,
+                        help="Adapter schema version: 1=legacy (781 actions, 1092 obs), 2=v2 (894 actions, 1104 obs with Space Race/CMC).")
+    parser.add_argument("--safety-mask", action="store_true",
+                        help="Mask out self-destructive coups (DEFCON 2 and CMC) during training rollouts.")
     return parser
 
 
@@ -356,8 +407,11 @@ def main() -> None:
         parser.error("ent-coef cannot be negative")
     if args.resume and args.pretrain_episodes:
         parser.error("--resume cannot be combined with --pretrain-episodes")
-    if args.resume and not Path(args.resume).is_file():
-        parser.error(f"resume model not found: {args.resume}")
+    if args.resume:
+        resolved_resume = resolve_model_path(args.resume)
+        if not Path(resolved_resume).is_file():
+            parser.error(f"resume model not found: {args.resume}")
+        args.resume = resolved_resume
     if "." in Path(args.output).name and not args.output.endswith(".zip"):
         parser.error("--output must not contain a dot before the final component (SB3 would not append .zip)")
     try:
@@ -366,8 +420,20 @@ def main() -> None:
     except ValueError as error:
         parser.error(str(error))
 
-    output = Path(args.output)
+    output = resolve_output_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Curriculum mode:
+    # manual -> args.curriculum_stage
+    # auto -> 0 (starts at 0 and auto-advances based on performance)
+    # none -> 2 (full staged decisions, standard RL training)
+    if args.curriculum == "manual":
+        curriculum_stage = args.curriculum_stage
+    elif args.curriculum == "auto":
+        curriculum_stage = 0
+    else:
+        curriculum_stage = 2
+
     env_kwargs = {
         "opponents": opponents,
         "reward_scale": args.reward_scale,
@@ -375,7 +441,11 @@ def main() -> None:
         "win_reward": args.win_reward,
         "max_episode_steps": args.max_episode_steps,
         "learner_faction": args.learner_faction,
-        "curriculum_stage": args.curriculum_stage if args.curriculum == "manual" else 0,
+        "curriculum_stage": curriculum_stage,
+        "reward_shaping": args.reward_shaping,
+        "gamma": args.gamma,
+        "schema_version": args.schema_version,
+        "safety_mask": args.safety_mask,
     }
     env = make_vec_env(
         TwilightStruggleGymEnv,

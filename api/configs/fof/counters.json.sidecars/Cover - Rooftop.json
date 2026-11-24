@@ -1,6 +1,6 @@
 {
   "id": "MARKER-ROOFTOP",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Rooftop.png",
+  "path": "api\\img\\fof\\counters\\Cover - Rooftop.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Rooftop.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "beb93583afa10da6f20e10bde02c7ca87d6ca700abc9f433ae34ec0b3726a295",
-    "classified_at": "2026-11-05T05:15:46.714361+00:00",
+    "classified_at": "2026-11-06T06:08:42.158982+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "Other",
   "category": "marker",
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "rooftop",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:Ypeerrer",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
-      "bottom_left_vof:-",
+      "bottom_left_vof:",
       "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'Ypeerrer', Middle OCR: '', Yellow Dots: 0, VOF (Left): -, Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

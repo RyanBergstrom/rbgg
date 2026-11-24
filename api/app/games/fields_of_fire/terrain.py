@@ -2,11 +2,28 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 from pathlib import Path
 from typing import Any
 
 _CONFIG_PATH = Path(__file__).resolve().parents[3] / "configs" / "fof" / "fields_of_fire_terrain.json"
 _CSV_PATH = Path(__file__).resolve().parents[4] / "documentation" / "fof" / "terrain_cards.csv"
+_SUGGESTED_CARDS_PATH = Path(__file__).resolve().parents[3] / "configs" / "fof" / "cards.json"
+_FINAL_CARDS_PATH = Path(__file__).resolve().parents[3] / "configs" / "fof" / "cards-final.json"
+
+_NORMANDY_TERRAIN_TYPES = {
+    "hill": "hill",
+    "marsh": "marsh",
+    "orchard grove": "orchard_grove",
+    "woods": "woods",
+    "hedgerow bocage": "hedgerow_bocage",
+    "village": "village",
+    "open fields": "open_field",
+    "gully draw": "gully_draw",
+    "farm": "farm",
+    "church": "church",
+    "cemetery": "cemetery",
+}
 
 
 def _load_types() -> dict[str, dict[str, Any]]:
@@ -72,13 +89,10 @@ def _load_cards() -> None:
             # Build image path
             image = None
             if file_name:
-                # The file_name is relative to documentation/fof/
-                # Mount serves from documentation/fof/organized at /api/v1/img/fof/
-                # Extract path relative to organized
-                if file_name.startswith("organized/"):
-                    image = f"/api/v1/img/fof/{file_name[len('organized/'): ]}"
-                else:
-                    image = f"/api/v1/img/fof/{file_name}"
+                # Images are served from api/img/fof/cards (flat filenames).
+                from pathlib import PurePosixPath
+
+                image = f"/api/v1/img/fof/cards/{PurePosixPath(file_name).name}"
             
             card_data = {
                 "card_id": card_id,
@@ -104,6 +118,70 @@ def _load_cards() -> None:
             if deck not in _CARDS_BY_DECK:
                 _CARDS_BY_DECK[deck] = []
             _CARDS_BY_DECK[deck].append(card_data)
+
+    # Match validator precedence: cards.json provides testable suggestions;
+    # reviewed cards-final.json records override them.
+    for source_path, require_reviewed in (
+        (_SUGGESTED_CARDS_PATH, False),
+        (_FINAL_CARDS_PATH, True),
+    ):
+        if not source_path.is_file():
+            continue
+        try:
+            with source_path.open("r", encoding="utf-8-sig") as handle:
+                source_records = json.load(handle)
+            for record in source_records:
+                if record.get("card_type") != "terrain" or record.get("deck") != "Normandy Terrain":
+                    continue
+                if require_reviewed and not (record.get("classification") or {}).get("reviewed"):
+                    continue
+                image = record.get("image") or {}
+                filename = Path(image.get("filename") or "").name
+                match = re.fullmatch(r"N(\d{2})[^/]*", filename, re.IGNORECASE)
+                if not match:
+                    continue
+                card_id = f"N{match.group(1)}"
+                details = record.get("terrain_details") or {}
+                terrain_name = (details.get("terrain_name") or record.get("name") or "").strip()
+                terrain_type = _NORMANDY_TERRAIN_TYPES.get(terrain_name.casefold())
+                if terrain_type is None:
+                    continue
+                card_data = _CARDS_CACHE.get(card_id, {"card_id": card_id})
+                card_data.update({
+                    "terrain_type": terrain_type,
+                    "terrain_name": terrain_name,
+                    "cover_high": details.get("cover_high"),
+                    "cover_low": details.get("cover_low"),
+                    "burst": details.get("burst_modifier"),
+                    "elevation": details.get("elevation"),
+                    "landing_zone": details.get("landing_zone") not in (None, "None"),
+                    "trafficability": details.get("trafficability"),
+                    "cover_potential": details.get("cover_potential"),
+                    "cover_draw": details.get("cover_draw"),
+                    "borders": [
+                        (details.get("borders") or {}).get(side)
+                        for side in ("north", "east", "south", "west")
+                    ] if details.get("borders") else None,
+                    "deck": card_data.get("deck") or "Normandy Terrain",
+                    "source": source_path.name,
+                })
+                _CARDS_CACHE[card_id] = card_data
+
+            # The CSV catalogs N01-N54 under the legacy Starter 1 deck and N55
+            # under Normandy. Expose a complete Normandy draw pile as well,
+            # without changing the legacy deck listing used by older scenarios.
+            normandy_cards = []
+            for number in range(1, 56):
+                card_data = _CARDS_CACHE.get(f"N{number:02d}")
+                if card_data is None:
+                    continue
+                normandy_card = {**card_data, "deck": "Normandy Terrain"}
+                normandy_cards.append(normandy_card)
+            _CARDS_BY_DECK["Normandy Terrain"] = normandy_cards
+        except (OSError, json.JSONDecodeError):
+            # Keep the existing CSV/type-preset fallback if final JSON is absent
+            # or temporarily unreadable.
+            pass
 
 
 def get_card(card_id: str) -> dict[str, Any] | None:
@@ -170,6 +248,8 @@ def terrain_card(terrain_type: str, card_id: str | None = None) -> dict[str, Any
                 result["trafficability"] = card_data["trafficability"]
             if card_data["cover_potential"] is not None:
                 result["cover_potential"] = card_data["cover_potential"]
+            if card_data.get("cover_draw") is not None:
+                result["cover_draw"] = card_data["cover_draw"]
             if card_data["borders"] is not None:
                 result["borders"] = card_data["borders"]
             if card_data["source"] is not None:

@@ -1,6 +1,6 @@
 {
   "id": "MARKER-ROOFTOP",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Rooftop +2.png",
+  "path": "api\\img\\fof\\counters\\Cover - Rooftop +2.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Rooftop +2.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "62aa9083fb81601bc6e17c94f03b7d55ec8bf6972549b585b38ef94b67c120ff",
-    "classified_at": "2026-11-05T05:15:44.029683+00:00",
+    "classified_at": "2026-11-06T06:08:42.144851+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "rooftop",
     "cover_modifier": 2,
     "secondary_modifier": null,

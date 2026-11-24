@@ -1,6 +1,6 @@
 {
   "id": "MARKER-BUNKER",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Bunker +3.png",
+  "path": "api\\img\\fof\\counters\\Cover - Bunker +3.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Bunker +3.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "55351b2c79d09561e21e3085800bf1f4dcb85632bf1a867af32f66936e92c48d",
-    "classified_at": "2026-11-05T05:15:25.576697+00:00",
+    "classified_at": "2026-11-06T06:08:41.945868+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "bunker",
     "cover_modifier": 3,
     "secondary_modifier": null,
@@ -50,13 +53,13 @@
     "labels": [
       "header_ocr:",
       "middle_ocr:",
-      "yellow_dots:1",
+      "yellow_dots:0",
       "bottom_left_vof:",
-      "bottom_right_range:4"
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): 4"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

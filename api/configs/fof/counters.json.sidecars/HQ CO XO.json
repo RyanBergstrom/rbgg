@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-CO_STAFF",
-  "path": "api\\img\\fof\\ocr-test\\HQ CO XO.png",
+  "id": "US-CO-XO",
+  "path": "api\\img\\fof\\counters\\HQ CO XO.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ CO XO.png",
@@ -9,15 +9,15 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "e512465e6f5ba3249212ec2755375436e79da7497a3bbc53a9c60f5d53c97673",
-    "classified_at": "2026-11-05T03:15:06.130530+00:00",
+    "classified_at": "2026-11-06T06:15:52.150786+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.6
   },
   "country": "US",
   "category": "unit",
-  "subtype": "co_staff",
+  "subtype": "co_xo",
   "unit_details": {
-    "unit_type": "co_staff",
+    "unit_type": "co_xo",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -56,7 +56,7 @@
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
       "header_ocr:",
-      "middle_ocr:eats",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
       "bottom_right_range:"
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '', Middle OCR: 'eats', Yellow Dots: 1, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

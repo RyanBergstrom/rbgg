@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Commands_HMG PLT.png",
+  "id": "US-COMMANDS-HMG-PLT",
   "path": "api\\img\\fof\\counters\\Commands_HMG PLT.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "7cb4f2a9c30dc12fa95ddc1582b09535a09e620aa3810961cc73fb53c17b9a69",
-    "classified_at": "2026-11-04T03:03:25.646093+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:07:45.809406+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "G",
     "range_band": null,
     "weapon_type": "Machine Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "G",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Ffeamelha",
+      "middle_ocr:",
+      "yellow_dots:5",
+      "bottom_left_vof:G",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='HMG PLT\\nCommands\\n\u2018Available Hag FLT\\nprim\\naniaule ='"
+    "notes": "Header OCR: 'Ffeamelha', Middle OCR: '', Yellow Dots: 5, VOF (Left): G, Range (Right): "
   }
 }

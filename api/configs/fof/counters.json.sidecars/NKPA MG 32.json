@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA MG 32.png",
+  "id": "NKPA-NKPA-MG-32",
   "path": "api\\img\\fof\\counters\\NKPA MG 32.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,10 +7,10 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "b768ec84447fde8832a2d993e61db998f21ab7708bc776e246f368111faba431",
-    "classified_at": "2026-11-04T03:09:56.166168+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
+    "classified_at": "2026-11-06T15:11:37.952166+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.75
   },
   "country": "NKPA",
@@ -23,11 +23,13 @@
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": "V",
     "weapon_type": "Machine Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:/syeeHMG",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:V"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='F070 kal'"
+    "notes": "Header OCR: '/syeeHMG', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): V"
   }
 }

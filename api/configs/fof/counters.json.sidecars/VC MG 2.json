@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC MG 2.png",
+  "id": "VietCong-VC-MG-2-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\VC MG 2.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "c9aaa2bd133c9a353ba70ee7de1e41ff5135d101e2a7e388fc4950116dd0e9a3",
-    "classified_at": "2026-11-04T03:12:55.798260+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T15:41:15.524551+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "VietCong",
   "category": "unit",
@@ -21,13 +21,15 @@
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "2",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
+    "range_band": "L",
     "weapon_type": "Machine Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:2/MGNC",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:L"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Mee\\n\u00e9\\nOrr IL Ey 0\u2019: veane\\n+\\njee'"
+    "notes": "Header OCR: '2/MGNC', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): L"
   }
 }

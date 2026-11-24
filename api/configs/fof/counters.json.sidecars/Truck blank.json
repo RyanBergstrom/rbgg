@@ -1,0 +1,69 @@
+{
+  "id": "German-VEHICLE-1",
+  "path": "api\\img\\fof\\counters\\Truck blank.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Truck blank.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "45b2668ddcc61d8684f69dd7d61e62c4a472401c24929a49629d5ecb68cf2de6",
+    "classified_at": "2026-11-06T15:36:44.334620+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.8
+  },
+  "country": "German",
+  "category": "unit",
+  "subtype": "vehicle",
+  "unit_details": {
+    "unit_type": "vehicle",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:TRUOK4",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'TRUOK4', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
+  }
+}

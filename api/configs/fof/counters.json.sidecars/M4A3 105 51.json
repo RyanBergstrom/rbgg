@@ -1,0 +1,69 @@
+{
+  "id": "US-M4A3-105-51",
+  "path": "api\\img\\fof\\counters\\M4A3 105 51.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "M4A3 105 51.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "355a0dcc3a81cb4c9185fe6d8b7600b2d0d09207a8387fe76031c0cc564b6aa2",
+    "classified_at": "2026-11-06T06:21:22.957590+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": "V",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:M4A3168",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'M4A3168', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): V"
+  }
+}

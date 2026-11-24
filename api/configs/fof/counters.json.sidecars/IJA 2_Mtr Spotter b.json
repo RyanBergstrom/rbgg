@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-IJA 2_Mtr Spotter b.png",
+  "id": "Japanese-FO-SPOTTER",
   "path": "api\\img\\fof\\counters\\IJA 2_Mtr Spotter b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "1e8ed1aadd92a552f1bdce44ea2b74513c7f76a26385dc4fdf8b6b28921762d5",
-    "classified_at": "2026-11-04T03:07:01.131405+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:17:57.932427+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "fo_spotter",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "fo_spotter",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": "S",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "S",
+    "squad_number": "2",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 2/Mitr",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='2, le s'"
+    "notes": "Header OCR: 'f 2/Mitr', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

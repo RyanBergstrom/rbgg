@@ -1,6 +1,6 @@
 {
-  "id": "MARKER-STANDARD",
-  "path": "api\\img\\fof\\ocr-test\\Counter - Pinned full.png",
+  "id": "MARKER-PIN",
+  "path": "api\\img\\fof\\counters\\Counter - Pinned full.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Counter - Pinned full.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "042a4be7ff5febc7da698af4c05347b68fd989665598cfe890062293619b4492",
-    "classified_at": "2026-11-05T05:15:22.795844+00:00",
+    "classified_at": "2026-11-06T06:08:17.992115+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,13 +19,16 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "pin",
-    "cover_type": "standard",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": null,
     "cover_modifier": null,
     "secondary_modifier": null,
     "no_fire": false,
     "no_pdf": false,
-    "vof_level": "S",
-    "effects": null
+    "vof_level": null,
+    "effects": "Pin"
   },
   "status": {
     "exposed": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:O41",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
       "bottom_left_vof:",
-      "bottom_right_range:0"
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'O41', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): 0"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

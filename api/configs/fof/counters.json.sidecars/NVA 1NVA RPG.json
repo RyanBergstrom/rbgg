@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA 1NVA RPG.png",
+  "id": "NVA-NVA-1NVA-RPG",
   "path": "api\\img\\fof\\counters\\NVA 1NVA RPG.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "2a7e09b8957186e6f5ead77cc8ad783b372f532490e225df5b2fcfe4428c04ca",
-    "classified_at": "2026-11-04T03:10:28.635177+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:17:17.474363+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NVA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
-    "weapon_type": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "/",
+    "range_band": "C",
+    "weapon_type": "Bazooka",
+    "mount_type": "Tripod",
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "/",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:T/NVARPG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:/",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u201cIWVARPS\\n=\\nse Reon |\\nBSS a'"
+    "notes": "Header OCR: 'T/NVARPG', Middle OCR: '', Yellow Dots: 1, VOF (Left): /, Range (Right): C"
   }
 }

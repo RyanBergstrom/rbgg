@@ -1,6 +1,6 @@
 {
   "id": "US-BN-MTR-FO",
-  "path": "api\\img\\fof\\ocr-test\\Bn Mtr FO.png",
+  "path": "api\\img\\fof\\counters\\Bn Mtr FO.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Bn Mtr FO.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "3d36f812794fe2fd3ffe086c0b6bdb024c21b26637ee0b1a4bc7c96255400dd9",
-    "classified_at": "2026-11-05T05:15:16.492938+00:00",
+    "classified_at": "2026-11-06T06:05:02.778220+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "US",
   "category": "unit",

@@ -1,6 +1,6 @@
 {
-  "id": "Chinese-1-1-SQUAD",
-  "path": "api\\img\\fof\\ocr-test\\CCF Assault Squad (SMG).png",
+  "id": "Chinese-CCF-ASSAULT-SQUAD-SMG",
+  "path": "api\\img\\fof\\counters\\CCF Assault Squad (SMG).png",
   "source": "fof-images-folder",
   "image": {
     "filename": "CCF Assault Squad (SMG).png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "15cee96370c4ca3017af3dc1751a75ad188e87c0845e7b25422b63edbe9ca955",
-    "classified_at": "2026-11-05T05:15:19.038904+00:00",
+    "classified_at": "2026-11-06T06:06:28.757180+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.75
   },
   "country": "Chinese",
   "category": "unit",
@@ -26,7 +26,7 @@
     "steps_total": 3,
     "steps_remaining": 3,
     "vof_rating": "A",
-    "range_band": "L",
+    "range_band": "P",
     "weapon_type": null,
     "mount_type": null,
     "lat_subtype": null,
@@ -55,15 +55,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:oF",
+      "header_ocr:or",
       "middle_ocr:",
       "yellow_dots:3",
       "bottom_left_vof:A",
-      "bottom_right_range:L"
+      "bottom_right_range:P"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'oF', Middle OCR: '', Yellow Dots: 3, VOF (Left): A, Range (Right): L"
+    "notes": "Header OCR: 'or', Middle OCR: '', Yellow Dots: 3, VOF (Left): A, Range (Right): P"
   }
 }

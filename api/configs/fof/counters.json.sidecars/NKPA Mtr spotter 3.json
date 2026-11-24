@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA Mtr spotter 3.png",
+  "id": "NKPA-FO-SPOTTER",
   "path": "api\\img\\fof\\counters\\NKPA Mtr spotter 3.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "55089cbdc92520b7cd8c7502105a47d1b3e3c7d65d355b6805239eab3da1da68",
-    "classified_at": "2026-11-04T03:10:09.802579+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:13:53.789122+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "fo_spotter",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "fo_spotter",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Forward Observer",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:l S/Mtr",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='2\\nA'"
+    "notes": "Header OCR: 'l S/Mtr', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

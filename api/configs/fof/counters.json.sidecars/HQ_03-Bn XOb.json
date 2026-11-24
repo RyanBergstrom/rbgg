@@ -1,6 +1,6 @@
 {
-  "id": "US-0-3-SQUAD",
-  "path": "api\\img\\fof\\ocr-test\\HQ_03-Bn XOb.png",
+  "id": "US-HQ-03-BN-XOB",
+  "path": "api\\img\\fof\\counters\\HQ_03-Bn XOb.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ_03-Bn XOb.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "344a83205944f43f2d7558986ea2724992732d354203b015f56685d124bfc309",
-    "classified_at": "2026-11-05T03:39:26.501585+00:00",
+    "classified_at": "2026-11-06T06:16:07.942256+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.75
   },
   "country": "US",
   "category": "unit",
@@ -20,13 +20,13 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": "3",
-    "squad_number": "0",
-    "experience_level": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
     "steps_total": 1,
     "steps_remaining": 1,
     "vof_rating": "S",
-    "range_band": "C",
+    "range_band": null,
     "weapon_type": null,
     "mount_type": null,
     "lat_subtype": null,
@@ -56,14 +56,14 @@
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
       "header_ocr:BnXO/S-3",
-      "middle_ocr:A Cc of",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:S",
-      "bottom_right_range:C"
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'BnXO/S-3', Middle OCR: 'A Cc of', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
+    "notes": "Header OCR: 'BnXO/S-3', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): "
   }
 }

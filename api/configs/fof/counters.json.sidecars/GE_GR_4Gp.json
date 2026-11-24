@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_GR_4Gp.png",
+  "id": "German-GE-GR-4GP-SQUAD",
   "path": "api\\img\\fof\\counters\\GE_GR_4Gp.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "80c9031ee849a4cef6c9ca178d45237a92dac2d8b5e7413796265679f35ff358",
-    "classified_at": "2026-11-04T03:05:03.417717+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:10:49.374530+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "unknown",
+  "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "squad_number": "4",
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 4/GpGr",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'f 4/GpGr', Middle OCR: '', Yellow Dots: 3, VOF (Left): , Range (Right): L"
   }
 }

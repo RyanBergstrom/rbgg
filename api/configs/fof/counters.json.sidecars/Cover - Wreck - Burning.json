@@ -1,6 +1,6 @@
 {
   "id": "MARKER-BURNING_WRECK",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Wreck - Burning.png",
+  "path": "api\\img\\fof\\counters\\Cover - Wreck - Burning.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Wreck - Burning.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "0ca6bf0eb6619218090d4c31f4a991efdcf3e8f1900eb965a930f014db7cb0b8",
-    "classified_at": "2026-11-05T05:15:57.743730+00:00",
+    "classified_at": "2026-11-06T06:08:42.251629+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.7
   },
   "country": "Other",
   "category": "marker",
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "burning_wreck",
     "cover_modifier": null,
     "secondary_modifier": null,
@@ -51,12 +54,12 @@
       "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
-      "bottom_left_vof:B",
+      "bottom_left_vof:",
       "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): B, Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

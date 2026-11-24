@@ -13,6 +13,8 @@
   const COLOR = { us: '#2878c7', ussr: '#d34f4f' };
 
   let selectedCardId = null;
+  let hoveredCard = null;
+  let cardPreviewStyle = '';
   let selectedMode = 'event';
   let eventChoicesText = '{}';
   let nestedEventChoicesText = '{}';
@@ -401,6 +403,24 @@
     return card?.card_face_asset ? `/api/v1/img/twilight-struggle/${card.card_face_asset}` : '';
   }
 
+  function showCardPreview(event, card) {
+    if (!cardAsset(card) || typeof window === 'undefined') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const width = Math.min(320, window.innerWidth - 32, (window.innerHeight - 32) * 388 / 538);
+    const height = width * 538 / 388;
+    const gap = 14;
+    let left = bounds.right + gap;
+    if (left + width > window.innerWidth - 12) left = bounds.left - width - gap;
+    left = Math.max(12, Math.min(left, window.innerWidth - width - 12));
+    const top = Math.max(12, Math.min(bounds.top + bounds.height / 2 - height / 2, window.innerHeight - height - 12));
+    cardPreviewStyle = `left:${left}px;top:${top}px;width:${width}px;`;
+    hoveredCard = card;
+  }
+
+  function hideCardPreview() {
+    hoveredCard = null;
+  }
+
   function number(value) {
     return Number.isFinite(Number(value)) ? Number(value) : 0;
   }
@@ -480,7 +500,7 @@
         <div class="hand-list">
           {#each hand as card}
             {@const playable = cardMoves.some((move) => move.card_id === card.id)}
-            <button class="hand-card" class:selected={selectedCardId === card.id} class:playable={playable} disabled={!playable || !canChoose} aria-label={`${card.name}, ${card.operations} Operations${card.scoring ? ', scoring card' : ''}${playable ? ', playable' : ', not currently playable'}`} title={`${card.name} · ${card.operations} Ops · ${card.alignment}`} on:click={() => selectCard(card)}>
+            <button class="hand-card" class:selected={selectedCardId === card.id} class:playable={playable} aria-disabled={!playable || !canChoose} aria-label={`${card.name}, ${card.operations} Operations${card.scoring ? ', scoring card' : ''}${playable ? ', playable' : ', not currently playable'}`} title={`${card.name} · ${card.operations} Ops · ${card.alignment}`} on:click={() => playable && selectCard(card)} on:mouseenter={(event) => showCardPreview(event, card)} on:mouseleave={hideCardPreview} on:focus={(event) => showCardPreview(event, card)} on:blur={hideCardPreview}>
               {#if cardAsset(card)}<img src={cardAsset(card)} alt={card.name} />{/if}
               <span class="card-caption"><strong>{card.name}</strong><small>{card.operations} Ops · {card.alignment}{card.scoring ? ' · Scoring' : ''}</small></span>
               {#if playable}<em>Playable</em>{/if}
@@ -889,6 +909,16 @@
     </aside>
   </main>
 
+  {#if hoveredCard && cardAsset(hoveredCard)}
+    <div class="card-hover-preview" style={cardPreviewStyle} aria-hidden="true">
+      <img src={cardAsset(hoveredCard)} alt="" />
+      <div class="card-preview-caption">
+        <strong>{hoveredCard.name}</strong>
+        <span>{hoveredCard.operations} Ops · {hoveredCard.alignment}{hoveredCard.scoring ? ' · Scoring' : ''}</span>
+      </div>
+    </div>
+  {/if}
+
   <footer class="disclaimer">Development UI · only moves exposed by the game engine are submitted. Unimplemented choice flows may require entering event-choice JSON.</footer>
 </div>
 
@@ -935,7 +965,7 @@
   button { cursor:pointer; }
   button:disabled { cursor:not-allowed; opacity:.5; }
   .choice-button { display:flex; flex-direction:column; gap:.22rem; align-items:flex-start; min-width:0; padding:.7rem; border:1px solid #34485a; border-radius:9px; background:#1c2b38; color:#eff4f8; text-align:left; }
-  .choice-button:hover:not(:disabled), .hand-card:hover:not(:disabled) { border-color:#d5b366; background:#26394a; }
+  .choice-button:hover:not(:disabled) { border-color:#d5b366; background:#26394a; }
   .choice-button span { font-weight:700; text-transform:capitalize; }.choice-button small { color:#aab8c5; font-size:.72rem; }
   .field-label { display:block; color:#c4d0db; font-size:.77rem; font-weight:700; margin:.65rem 0 .3rem; }
   textarea, select, input[type="number"] { box-sizing:border-box; width:100%; border:1px solid #3b4c5b; border-radius:8px; background:#0e1821; color:#edf2f7; padding:.65rem; }
@@ -953,13 +983,23 @@
   .check-row { display:flex; gap:.5rem; align-items:center; color:#bfccd8; font-size:.78rem; margin:.6rem 0; }
   .form-error { color:#ffaaa0; margin-top:.65rem; font-size:.8rem; }
   .hand-list { display:flex; gap:.7rem; overflow-x:auto; padding:.8rem .15rem .65rem; }
-  .hand-card { position:relative; flex:0 0 clamp(116px, 12vw, 170px); display:flex; flex-direction:column; gap:.35rem; overflow:hidden; padding:0; text-align:left; border:2px solid #304252; border-radius:8px; background:#101820; color:#eef2f5; }
-  .hand-card img { display:block; width:100%; aspect-ratio:2 / 3; object-fit:cover; border-radius:5px; }
-  .hand-card .card-caption { display:grid; gap:.2rem; padding:.3rem .4rem .45rem; }
-  .hand-card strong { overflow:hidden; font-size:.68rem; white-space:nowrap; text-overflow:ellipsis; }
-  .hand-card small { color:#9eafbe; font-size:.62rem; }
-  .hand-card em { position:absolute; top:.35rem; right:.35rem; padding:.2rem .35rem; border-radius:4px; background:#132536e8; color:#f3d88f; font-size:.62rem; font-style:normal; font-weight:800; }
-  .hand-card.playable { border-color:#71899c; }.hand-card.selected { border-color:#f0cd76; box-shadow:0 0 0 2px #f0cd7666; transform:translateY(-3px); }
+  .hand-card { position:relative; flex:0 0 clamp(120px, 13vw, 175px); display:flex; flex-direction:column; gap:0; overflow:hidden; padding:0; text-align:left; border:2px solid #304252; border-radius:8px; background:#141f2a; color:#eef2f5; box-shadow:0 2px 6px rgba(0,0,0,.35); transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
+  .hand-card:disabled { opacity:.88; cursor:default; }
+  .hand-card:hover:not(:disabled) { border-color:#d5b366; transform:translateY(-2px); box-shadow:0 4px 12px rgba(0,0,0,.45); }
+  .hand-card img { display:block; width:100%; aspect-ratio:388 / 538; object-fit:contain; background:#fbf9f5; border-radius:6px 6px 0 0; }
+  .hand-card .card-caption { display:grid; gap:.2rem; padding:.4rem .45rem .5rem; background:#141f2a; }
+  .hand-card strong { overflow:hidden; font-size:.7rem; white-space:nowrap; text-overflow:ellipsis; }
+  .hand-card small { color:#a3b4c4; font-size:.64rem; font-weight:600; }
+  .hand-card em { position:absolute; top:.35rem; right:.35rem; padding:.2rem .4rem; border-radius:4px; background:#132536f0; color:#f3d88f; font-size:.62rem; font-style:normal; font-weight:800; box-shadow:0 1px 4px rgba(0,0,0,.4); }
+  .hand-card.playable { border-color:#71899c; }
+  .hand-card.selected { border-color:#f0cd76; box-shadow:0 0 0 2px #f0cd7666, 0 6px 14px rgba(0,0,0,.5); transform:translateY(-3px); }
+  .hand-card:focus-visible { outline:3px solid #f0cd76; outline-offset:3px; }
+  .card-hover-preview { position:fixed; z-index:1000; overflow:hidden; border:2px solid #e1c57f; border-radius:10px; background:#fbf9f5; box-shadow:0 12px 36px rgba(0,0,0,.65); pointer-events:none; animation:card-preview-in .12s ease-out; }
+  .card-hover-preview img { display:block; width:100%; aspect-ratio:388 / 538; object-fit:contain; background:#fbf9f5; }
+  .card-preview-caption { display:grid; gap:.2rem; padding:.55rem .7rem .65rem; background:#182635; color:#f3f5f7; }
+  .card-preview-caption strong { font-size:.9rem; }
+  .card-preview-caption span { color:#b8c5d1; font-size:.75rem; }
+  @keyframes card-preview-in { from { opacity:0; transform:scale(.97); } to { opacity:1; transform:scale(1); } }
   .disclaimer { color:#8293a2; font-size:.72rem; padding:1.2rem .2rem .2rem; }
   @media(max-width:850px) { .tracks { grid-template-columns:repeat(2,minmax(0,1fr)); }.map-scroll { max-height:60vh; }.panel { padding:.7rem; } }
   @media(max-width:480px) { .topbar { align-items:flex-start; flex-direction:column; }.tracks { gap:.45rem; }.track { padding:.7rem; } }

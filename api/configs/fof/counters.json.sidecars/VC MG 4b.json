@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC MG 4b.png",
+  "id": "VietCong-VC-MG-4B-FT",
   "path": "api\\img\\fof\\counters\\VC MG 4b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "d868aa3f3471aeed559749f126143baeeb286e65bc24f5d8b117d3ba3cf1a2a6",
-    "classified_at": "2026-11-04T03:12:58.783844+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T15:41:37.188011+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "VietCong",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
+    "squad_number": "4",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": "A",
     "range_band": null,
-    "weapon_type": "Machine Gun",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:4/MG/VC",
+      "middle_ocr:a FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='_ aN\\nFie fem\\nAe C | a fon,'"
+    "notes": "Header OCR: '4/MG/VC', Middle OCR: 'a FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

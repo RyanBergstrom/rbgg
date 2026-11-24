@@ -1,5 +1,5 @@
 {
-  "id": "Commonwealth-2PARA LAT Cas 2.png",
+  "id": "Commonwealth-2PARA-LAT-CAS-2",
   "path": "api\\img\\fof\\counters\\2PARA LAT Cas 2.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "71c8568eb74c68352ae2746b59e9d2402bc0fd91bd852724e9d644e6fe1954b2",
-    "classified_at": "2026-11-04T03:00:46.438077+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:02:23.307900+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "Commonwealth",
   "category": "unit",
-  "subtype": "lat",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "lat",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:fo",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": null
+    "notes": "Header OCR: 'fo', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): "
   }
 }

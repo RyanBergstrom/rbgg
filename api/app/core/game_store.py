@@ -3,22 +3,36 @@
 Entries are keyed by opaque database session IDs, never by game type. SQLite
 is the authoritative store; this module only avoids repeatedly parsing the
 same session JSON during one request flow.
+
+Undo history is durable: every pushed snapshot is also appended to
+``api/runtime/undo/undo_<session_id>.txt`` so it survives process restarts and
+can be resumed on a later request.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
+
+from app.core.undo_log import (
+    append_undo,
+    clear_undo_file,
+    has_undo_file,
+    load_stack,
+    pop_undo_file,
+    rewrite_stack,
+)
 
 
 @dataclass
 class GameEntry:
     """Active game with its DB session reference."""
+
     state: Any
     session_id: int | None = None
 
 
 _store: Dict[int, GameEntry] = {}
-_undo_store: Dict[int, Any] = {}  # session_id -> serialized state snapshot
+_undo_store: Dict[int, List[Any]] = {}  # session_id -> stack of serialized state snapshots
 
 
 def get_state(session_id: int) -> Any:
@@ -48,23 +62,48 @@ def clear_all() -> None:
     _undo_store.clear()
 
 
+def _ensure_loaded(session_id: int) -> List[Any]:
+    """Ensure the in-memory undo stack is loaded from the durable file."""
+    stack = _undo_store.get(session_id)
+    if stack is None:
+        stack = load_stack(session_id)
+        _undo_store[session_id] = stack
+    return stack
+
+
 def push_undo(session_id: int, state: Any) -> None:
-    """Save a state snapshot for undo. Only one level of undo is stored."""
+    """Save a state snapshot for undo. Snapshots accumulate as a stack and are
+    appended to the durable per-session undo log."""
     import json
+
     snapshot = json.loads(state.model_dump_json())
-    _undo_store[session_id] = snapshot
+    stack = _ensure_loaded(session_id)
+    stack.append(snapshot)
+    append_undo(session_id, snapshot)
 
 
 def pop_undo(session_id: int) -> Any | None:
-    """Retrieve and remove the undo snapshot. Returns None if no undo available."""
-    return _undo_store.pop(session_id, None)
+    """Retrieve and remove the most recent undo snapshot. Returns None if empty."""
+    stack = _ensure_loaded(session_id)
+    if not stack:
+        return None
+    snapshot = stack.pop()
+    rewrite_stack(session_id, stack)
+    return snapshot
 
 
 def has_undo(session_id: int) -> bool:
     """Check if an undo snapshot exists."""
-    return session_id in _undo_store
+    stack = _ensure_loaded(session_id)
+    return bool(stack) or has_undo_file(session_id)
 
 
 def clear_undo(session_id: int) -> None:
-    """Clear the undo snapshot for a session."""
+    """Clear all undo snapshots for a session (memory + durable file)."""
     _undo_store.pop(session_id, None)
+    clear_undo_file(session_id)
+
+
+def load_undo_stack(session_id: int) -> List[Any]:
+    """Public helper to load the durable undo stack into memory for a session."""
+    return _ensure_loaded(session_id)

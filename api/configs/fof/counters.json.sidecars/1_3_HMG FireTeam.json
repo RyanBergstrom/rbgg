@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_3_HMG FireTeam.png",
+  "id": "US-1-3-FT",
   "path": "api\\img\\fof\\counters\\1_3_HMG FireTeam.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "a44c7d962f8ce00a41cc662e0e31518af58339ba25cd51b2ceb73ed6702bbb05",
-    "classified_at": "2026-11-04T02:59:33.113155+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.85
+    "classified_at": "2026-11-06T05:57:35.796401+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
-    "battalion": "1",
-    "platoon": "1",
-    "squad_number": "3",
+    "battalion": null,
+    "platoon": "3",
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/3/MG",
+      "middle_ocr:Fy FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='43IMG\\nFire Team\\nasec'"
+    "notes": "Header OCR: '1/3/MG', Middle OCR: 'Fy FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

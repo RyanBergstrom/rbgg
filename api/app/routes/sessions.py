@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.games.registry import ensure_validator
-from app.core.game_store import set_state, clear_state, clear_undo
+from app.core.game_store import set_state, clear_state, clear_undo, has_undo
 from app.core.repository import create_session, list_sessions, delete_session, load_game_state, save_game_state
 
 router = APIRouter(prefix="/api/v1/sessions", tags=["sessions"])
@@ -83,4 +83,5 @@ def load_session(session_id: int) -> dict:
         "turn": state.turn.__dict__ if state.turn else None,
         "screen_state": screen_state,
         "session_id": session_id,
+        "can_undo": has_undo(session_id),
     }

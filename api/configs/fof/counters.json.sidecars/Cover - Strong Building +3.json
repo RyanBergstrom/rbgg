@@ -1,6 +1,6 @@
 {
   "id": "MARKER-STANDARD",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Strong Building +3.png",
+  "path": "api\\img\\fof\\counters\\Cover - Strong Building +3.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Strong Building +3.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "50c6ecb2d4f9031a1a6f4da35dfbb74097046787f0d90bc6ed05e2540f9c0d77",
-    "classified_at": "2026-11-05T05:15:49.756386+00:00",
+    "classified_at": "2026-11-06T06:08:42.185949+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "standard",
     "cover_modifier": 3,
     "secondary_modifier": null,

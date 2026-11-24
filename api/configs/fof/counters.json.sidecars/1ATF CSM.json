@@ -1,5 +1,5 @@
 {
-  "id": "Australian-1ATF CSM.jpg",
+  "id": "Australian-1ATF-CSM",
   "path": "api\\img\\fof\\counters\\1ATF CSM.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "6b3556b4ad889a9ba8224c279e9a3d9398c159cd6e611d34220b6ae35f6df7a1",
-    "classified_at": "2026-11-04T03:00:02.277723+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:59:59.503151+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
   "country": "Australian",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
-    "weapon_type": "Company Sergeant Major",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:PY",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='B:'"
+    "notes": "Header OCR: 'PY', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

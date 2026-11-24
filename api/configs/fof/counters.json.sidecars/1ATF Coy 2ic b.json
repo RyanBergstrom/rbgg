@@ -1,5 +1,5 @@
 {
-  "id": "Australian-1ATF Coy 2ic b.jpg",
+  "id": "Australian-1ATF-COY-2IC-B",
   "path": "api\\img\\fof\\counters\\1ATF Coy 2ic b.jpg",
   "source": "fof-images-folder",
   "image": {
@@ -9,9 +9,9 @@
     "format": "jpg",
     "side": "back",
     "hash_sha256": "fa16675833659e57dc7d70cafe39b7be9716311b8f6c89fbe26a6cafb3bfd740",
-    "classified_at": "2026-11-04T02:59:59.880525+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:59:45.102052+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
   "country": "Australian",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ADE\\neT if a\\nsee'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): C"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_HMG50-1b.png",
+  "id": "US-50-1-FT",
   "path": "api\\img\\fof\\counters\\Weapon_HMG50-1b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "928b6d6ee3a96b0ad1483e48b3b6819d33c862fbde88762a61eacf636034daa9",
-    "classified_at": "2026-11-04T03:15:05.532736+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:50:55.072064+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "1",
+    "squad_number": "50",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "H",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:l FireTeam",
+      "yellow_dots:2",
+      "bottom_left_vof:H",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='cos 50 cal HG\\nFire Tea\\nHe C ed cere!\\nwe 6'"
+    "notes": "Header OCR: '', Middle OCR: 'l FireTeam', Yellow Dots: 2, VOF (Left): H, Range (Right): C"
   }
 }

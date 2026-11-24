@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA Arty Spotter 1b.png",
+  "id": "NKPA-NKPA-ARTY-SPOTTER-1B-FT",
   "path": "api\\img\\fof\\counters\\NKPA Arty Spotter 1b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "3247a0fea8c6af8e2a4df5d5b94775e9107987d4c979b2743a325f078da30db1",
-    "classified_at": "2026-11-04T03:09:34.629623+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:07:26.493675+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "C",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/ArlySpatter",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018ity Spoor od'"
+    "notes": "Header OCR: '1/ArlySpatter', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): , Range (Right): C"
   }
 }

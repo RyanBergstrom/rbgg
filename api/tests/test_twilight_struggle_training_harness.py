@@ -70,7 +70,10 @@ def test_win_reward_is_zero_sum_with_the_default_off_and_applied_when_set():
 
 
 def test_training_cli_parser_builds_with_documented_defaults():
-    from scripts.train_twilight_ppo import build_parser
+    try:
+        from train_twilight_ppo import build_parser
+    except ModuleNotFoundError:
+        from scripts.twilight.train_twilight_ppo import build_parser
 
     args = build_parser().parse_args([])
     assert args.gamma == 0.9995 and args.win_reward == 1.0 and args.learner_faction is None

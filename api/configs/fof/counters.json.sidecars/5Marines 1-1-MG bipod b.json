@@ -1,5 +1,5 @@
 {
-  "id": "US-5Marines 1-1-MG bipod b.png",
+  "id": "US-1-1-FT",
   "path": "api\\img\\fof\\counters\\5Marines 1-1-MG bipod b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "0cf1f87f34ebd50fd2598721106c11f1b838c1bb3c0a0b8e4b0f87cf8606fc32",
-    "classified_at": "2026-11-04T03:00:59.573790+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:03:01.455462+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "1",
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Machine Gun",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:TA/MG",
+      "middle_ocr:FireTeam",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='106\\nFire Team\\nAcc fire tesa\\nasc'"
+    "notes": "Header OCR: 'TA/MG', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): A, Range (Right): C"
   }
 }

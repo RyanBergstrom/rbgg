@@ -188,13 +188,15 @@ class GameEngine:
             state.current_phase_index,
         )
 
-        # Fallback: games that manage their own phase tracking store
-        # current_phase as a string in game_data.  Look it up in config.
-        if phase is None:
-            game_data = getattr(state, "game_data", {})
-            phase_name = game_data.get("current_phase", "")
-            if phase_name:
-                phase = self._find_phase_by_name(phase_name)
+        # Games that own phase tracking may store it as ``current_phase`` or
+        # ``phase`` in game_data. Prefer that value when it maps to a configured
+        # phase, since the generic phase index can otherwise remain stale.
+        game_data = getattr(state, "game_data", {})
+        phase_name = game_data.get("current_phase") or game_data.get("phase", "")
+        if phase_name:
+            game_phase = self._find_phase_by_name(phase_name)
+            if game_phase is not None:
+                phase = game_phase
 
         if phase is None:
             return {
@@ -325,7 +327,7 @@ class GameEngine:
         """
         game_data = state.game_data
         current_player_id = game_data.get("current_player")
-        current_phase_name = game_data.get("current_phase")
+        current_phase_name = game_data.get("current_phase") or game_data.get("phase")
         manages_transition = bool(current_player_id or current_phase_name)
 
         if current_player_id and state.players:

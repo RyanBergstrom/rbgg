@@ -25,6 +25,103 @@ def test_start_session_without_validator_returns_501():
     assert response.status_code == 501
 
 
+def test_twilight_session_assigns_selected_faction_to_human_and_starts_ussr_headline():
+    from app.core.game_store import get_state
+
+    client = TestClient(app)
+    for selected_faction in ("us", "ussr"):
+        response = client.post(
+            "/api/v1/moves/start-session/twilight_struggle",
+            json={"playerName": "Alex", "playerFaction": selected_faction},
+        )
+        assert response.status_code == 200
+        state = get_state(response.json()["session_id"])
+        gd = state.game_data
+        opponent_faction = "ussr" if selected_faction == "us" else "us"
+        assert gd["faction_by_player"] == {"player_1": selected_faction, "player_2": opponent_faction}
+        assert gd["player_by_faction"][selected_faction] == "player_1"
+        assert gd["current_player_faction"] == "ussr"
+        assert gd["current_player"] == gd["player_by_faction"]["ussr"]
+        assert state.players[state.current_player_index].player_id == gd["current_player"]
+        assert state.turn.player_id == gd["current_player"]
+
+
+def test_twilight_session_rejects_unknown_player_faction():
+    client = TestClient(app)
+    response = client.post(
+        "/api/v1/moves/start-session/twilight_struggle",
+        json={"playerName": "Alex", "playerFaction": "neutral"},
+    )
+    assert response.status_code == 422
+
+
+def test_twilight_us_player_receives_turn_after_ussr_ai_opens():
+    client = TestClient(app)
+    started = client.post(
+        "/api/v1/moves/start-session/twilight_struggle",
+        json={"playerName": "Alex", "playerFaction": "us"},
+    )
+    assert started.status_code == 200
+    session_id = started.json()["session_id"]
+    assert started.json()["screen_state"]["current_player"] == "player_2"
+
+    ai_response = client.post("/api/v1/moves/ai", json={"sessionId": session_id})
+
+    assert ai_response.status_code == 200
+    assert ai_response.json()["screen_state"]["current_player"] == "player_1"
+
+
+def test_twilight_ai_route_uses_ppo_provider_by_default(monkeypatch):
+    import app.games.twilight_struggle.rl_inference as inference
+
+    monkeypatch.delenv("RBGG_TWILIGHT_AI_PROVIDER", raising=False)
+
+    def choose_first_legal(state, player_id, validator, **kwargs):
+        return validator.get_legal_moves(state, player_id)[0]
+
+    monkeypatch.setattr(inference, "choose_live_move", choose_first_legal)
+    client = TestClient(app)
+    started = client.post(
+        "/api/v1/moves/start-session/twilight_struggle",
+        json={"playerName": "Alex", "playerFaction": "us"},
+    )
+    assert started.status_code == 200
+
+    ai_response = client.post(
+        "/api/v1/moves/ai", json={"sessionId": started.json()["session_id"]}
+    )
+
+    assert ai_response.status_code == 200
+    assert ai_response.json()["ai_provider"] == "ppo"
+    assert ai_response.json()["screen_state"]["current_player"] == "player_1"
+
+
+def test_twilight_ai_route_runs_promoted_ppo_model():
+    from pathlib import Path
+    import pytest
+
+    model_path = Path(__file__).resolve().parents[1] / "runtime" / "twilight-ppo-v2-safe-500k.zip"
+    if not model_path.is_file():
+        pytest.skip("Promoted Twilight PPO model is not present")
+
+    client = TestClient(app)
+    started = client.post(
+        "/api/v1/moves/start-session/twilight_struggle",
+        json={"playerName": "Alex", "playerFaction": "us"},
+    )
+    assert started.status_code == 200
+
+    ai_response = client.post(
+        "/api/v1/moves/ai", json={"sessionId": started.json()["session_id"]}
+    )
+
+    assert ai_response.status_code == 200
+    assert ai_response.json()["status"] == "ok"
+    assert ai_response.json()["ai_provider"] == "ppo"
+    assert ai_response.json()["move"]["type"] == "headline"
+    assert ai_response.json()["screen_state"]["current_player"] == "player_1"
+
+
 def test_new_lost_cities_sessions_receive_fresh_deals(monkeypatch):
     from app.core.game_store import get_state
 

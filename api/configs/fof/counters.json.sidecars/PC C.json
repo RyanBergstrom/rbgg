@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-PC C.png",
+  "id": "MARKER-PC-C",
   "path": "api\\img\\fof\\counters\\PC C.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,23 +7,28 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "19ad8abed624aafebcd171d27a1efeff0ba76af1c25133e0f959426022a4297f",
-    "classified_at": "2026-11-04T03:11:43.175270+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:28:59.299698+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "potential_contact",
   "unit_details": null,
   "marker_details": {
     "marker_type": "potential_contact",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
     "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
-    "effects": null
+    "effects": "Potential Contact C"
   },
   "status": {
     "exposed": null,
@@ -41,14 +46,25 @@
     "concentrated_fire": null,
     "crossfire": null
   },
-  "potential_contact": null,
+  "potential_contact": {
+    "id": "C",
+    "weather": null,
+    "type": null,
+    "amount": null
+  },
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='POTENTIAL\\nCONTACT\\nC POTENTIAL\\nCOWTAET)\\naie POTENTIAL\\nCONTACT\\nC'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

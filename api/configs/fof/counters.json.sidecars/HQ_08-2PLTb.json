@@ -1,6 +1,6 @@
 {
   "id": "US-08-2-SQUAD",
-  "path": "api\\img\\fof\\ocr-test\\HQ_08-2PLTb.png",
+  "path": "api\\img\\fof\\counters\\HQ_08-2PLTb.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ_08-2PLTb.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "85f2a62fe138acd667a3a878a4be302f2631d4f28cfde97f163cf6d0da54945b",
-    "classified_at": "2026-11-05T03:39:28.455918+00:00",
+    "classified_at": "2026-11-06T06:16:41.231716+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
@@ -22,7 +22,7 @@
     "battalion": null,
     "platoon": "2",
     "squad_number": "08",
-    "experience_level": null,
+    "experience_level": "Line",
     "steps_total": 1,
     "steps_remaining": 1,
     "vof_rating": "S",
@@ -56,7 +56,7 @@
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
       "header_ocr:2PLTHO",
-      "middle_ocr:FireTeaiy",
+      "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:S",
       "bottom_right_range:C"
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '2PLTHO', Middle OCR: 'FireTeaiy', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
+    "notes": "Header OCR: '2PLTHO', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

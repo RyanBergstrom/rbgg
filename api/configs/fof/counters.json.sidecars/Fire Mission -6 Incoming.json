@@ -1,0 +1,65 @@
+{
+  "id": "MARKER-FIRE-MISSION",
+  "path": "api\\img\\fof\\counters\\Fire Mission -6 Incoming.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Fire Mission -6 Incoming.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "1cc0f74a434141fce868b5e444ca2c30fb85ff23835c3faacb43b08a8941e5ec",
+    "classified_at": "2026-11-06T06:09:02.497646+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "fire_mission",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "fire_mission",
+    "ammo_type": "Fire Mission",
+    "ammo_index": null,
+    "is_fire_mission": true,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Fire Mission"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
+  }
+}

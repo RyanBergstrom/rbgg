@@ -1,0 +1,69 @@
+{
+  "id": "US-M67",
+  "path": "api\\img\\fof\\counters\\M67.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "M67.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "5a5c8ae93f16791e77931d5167f62b633a595c16435bda354c0de61a29c38563",
+    "classified_at": "2026-11-06T06:21:33.857241+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
+  },
+  "country": "US",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "F",
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": "F",
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:MG7A2",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:F",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'MG7A2', Middle OCR: '', Yellow Dots: 0, VOF (Left): F, Range (Right): "
+  }
+}

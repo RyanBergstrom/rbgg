@@ -1,0 +1,65 @@
+{
+  "id": "MARKER-VISIBILITY-MARKER-BRIDGE",
+  "path": "api\\img\\fof\\counters\\Marker - Bridge.png",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Marker - Bridge.png",
+    "width": 75,
+    "height": 75,
+    "format": "png",
+    "side": "front",
+    "hash_sha256": "2fc0a29bb260f8cc46aade6fa42237d0f23142e49bc9520a40da64dcef3dc6ad",
+    "classified_at": "2026-11-06T06:21:34.062320+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.85
+  },
+  "country": "Other",
+  "category": "marker",
+  "subtype": "visibility",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "visibility",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": null,
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": "Smoke / WP Visibility"
+  },
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
+  }
+}

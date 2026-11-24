@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA Arty Spotter 1.png",
+  "id": "NKPA-FO-SPOTTER",
   "path": "api\\img\\fof\\counters\\NKPA Arty Spotter 1.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "f34e118f304dcdb3a90c47899815e7db544274b9a44d1d68df6665628f95080a",
-    "classified_at": "2026-11-04T03:09:33.908486+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:07:17.865517+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "fo_spotter",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "fo_spotter",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": null,
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Forward Observer",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:LtAsty",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Aiarty\\nS om\\nA'"
+    "notes": "Header OCR: 'LtAsty', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

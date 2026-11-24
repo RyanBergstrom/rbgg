@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-1_Engineers b.png",
+  "id": "Japanese-1-ENGINEERS-SQUAD",
   "path": "api\\img\\fof\\counters\\1_Engineers b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,11 +9,11 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "20b7722e26ca2eee9aa5f6b6e48654d34b024a4f552bd14cbd55d536b913a141",
-    "classified_at": "2026-11-04T02:59:36.554250+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T05:57:46.693297+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -21,13 +21,15 @@
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
-    "weapon_type": null,
+    "squad_number": "1",
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "S",
+    "range_band": "L",
+    "weapon_type": "Engineers",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:T/ENGINEERS",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018VENGINEERS\\nS eel a\\nSeek'"
+    "notes": "Header OCR: 'T/ENGINEERS', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): L"
   }
 }

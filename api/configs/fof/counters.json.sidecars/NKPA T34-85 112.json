@@ -1,5 +1,5 @@
 {
-  "id": "NKPA-NKPA T34-85 112.png",
+  "id": "NKPA-VEHICLE-34",
   "path": "api\\img\\fof\\counters\\NKPA T34-85 112.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ae0775bf0a318e8b94bcb862f7b80663f5f87f6482caf1b011d7db3fc4dac94a",
-    "classified_at": "2026-11-04T03:10:16.562487+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:14:59.513752+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NKPA",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "vehicle",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "vehicle",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
+    "platoon": "85",
+    "squad_number": "34",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
-    "range_band": null,
+    "range_band": "V",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:3486",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2014'"
+    "notes": "Header OCR: '3486', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): V"
   }
 }

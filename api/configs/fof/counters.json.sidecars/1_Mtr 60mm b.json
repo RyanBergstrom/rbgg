@@ -1,6 +1,6 @@
 {
-  "id": "US-1-1-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\1_Mtr 60mm b.png",
+  "id": "US-1-MTR-60MM-FT",
+  "path": "api\\img\\fof\\counters\\1_Mtr 60mm b.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "1_Mtr 60mm b.png",
@@ -9,15 +9,15 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "aac6bdfc453c50fa8dc0eab94a54a895b1c945e928da8d90a1dcdac46f21786a",
-    "classified_at": "2026-11-05T03:14:59.967710+00:00",
+    "classified_at": "2026-11-06T05:57:52.553804+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
-  "subtype": "weapons_team",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "weapons_team",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -27,9 +27,9 @@
     "steps_remaining": 1,
     "vof_rating": "S",
     "range_band": "C",
-    "weapon_type": "Mortar",
+    "weapon_type": null,
     "mount_type": null,
-    "lat_subtype": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -55,7 +55,7 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:1Mitr",
+      "header_ocr:1Mtr",
       "middle_ocr:FireTeam",
       "yellow_dots:1",
       "bottom_left_vof:S",
@@ -64,6 +64,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '1Mitr', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
+    "notes": "Header OCR: '1Mtr', Middle OCR: 'FireTeam', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

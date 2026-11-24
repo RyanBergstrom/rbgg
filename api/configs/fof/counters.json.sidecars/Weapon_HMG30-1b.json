@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Weapon_HMG30-1b.png",
+  "id": "Japanese-30-1-SQUAD",
   "path": "api\\img\\fof\\counters\\Weapon_HMG30-1b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "5296c416b964cc7de097670a9a0c13fb4a627e5bdacb37ab76e1a4fc83168337",
-    "classified_at": "2026-11-04T03:15:02.524306+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.85
+    "classified_at": "2026-11-06T15:50:47.177693+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "platoon": "1",
+    "squad_number": "30",
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "A",
     "range_band": null,
-    "weapon_type": "Machine Gun",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/30calHMG",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='FS\\nFire Team\\ndk \u00a9 silt eaten\\n\\ntoe\\nare Team\\n\\nABEOELC: \u2018 wa\\nAe'"
+    "notes": "Header OCR: '1/30calHMG', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC NVA Arty Target.png",
+  "id": "VietCong-VC-NVA-ARTY-TARGET",
   "path": "api\\img\\fof\\counters\\VC NVA Arty Target.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "64e6b87bf2ad20abb918876ed2d4c02f9ef645bd00eb9f60ffc9333ed97f63be",
-    "classified_at": "2026-11-04T03:12:59.374933+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:41:43.794058+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
   },
   "country": "VietCong",
   "category": "unit",
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:ARTY",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ARTY\\n| eet\\n| -*'"
+    "notes": "Header OCR: 'ARTY', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

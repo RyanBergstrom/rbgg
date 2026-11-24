@@ -23,6 +23,7 @@ async function request(url, options = {}, timeoutMs = 30000) {
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
     const response = await fetch(url, { ...options, signal: controller.signal });
+    const responseRevision = response.headers.get('ETag');
     let payload = null;
     try {
       payload = await response.json();
@@ -33,6 +34,9 @@ async function request(url, options = {}, timeoutMs = 30000) {
       const error = payload?.error || payload?.detail || {};
       const message = typeof error === 'string' ? error : error.message || `Request failed (${response.status})`;
       throw new ApiError(message, response.status, typeof error === 'object' ? error.code : 'API_ERROR');
+    }
+    if (payload && typeof payload === 'object' && responseRevision && !payload.revision) {
+      payload.revision = responseRevision;
     }
     return payload;
   } catch (error) {
@@ -83,6 +87,38 @@ export async function updateAssetReviewFields(gameId, csvName, add = [], remove 
   });
 }
 
+export async function getAssetReviewJson(gameId, jsonName) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/config/${encodeURIComponent(jsonName)}`);
+}
+
+export async function updateAssetReviewJsonRow(gameId, jsonName, rowIndex, updates, revision = null) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/config/${encodeURIComponent(jsonName)}/rows/${rowIndex}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(revision ? { 'If-Match': revision } : {}),
+    },
+    body: JSON.stringify({ updates }),
+  }).then(async (payload) => {
+    if (!payload?.revision) {
+      const current = await getAssetReviewJson(gameId, jsonName);
+      payload.revision = current.revision || null;
+    }
+    return payload;
+  });
+}
+
+export async function syncAssetReviewJsonRecord(gameId, jsonName, action, record, targetId, revision = null) {
+  return request(`${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/config/${encodeURIComponent(jsonName)}/sync-record`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(revision ? { 'If-Match': revision } : {}),
+    },
+    body: JSON.stringify({ action, record, id: targetId }),
+  });
+}
+
 export function getAssetReviewImageUrl(gameId, imagePath) {
   const safePath = imagePath.split(/[\\/]+/).map(encodeURIComponent).join('/');
   return `${BASE_URL}/asset-review/${encodeURIComponent(gameId)}/images/${safePath}`;
@@ -109,10 +145,13 @@ export async function deleteSession(sessionId) {
   return res.json();
 }
 
-export async function startSession(gameId, playerName, playerCount, difficulty, scenarioId = null) {
+export async function startSession(gameId, playerName, playerCount, difficulty, scenarioId = null, playerFaction = null) {
   const body = { playerName, playerCount, difficulty };
   if (scenarioId) {
     body.scenarioId = scenarioId;
+  }
+  if (playerFaction) {
+    body.playerFaction = playerFaction;
   }
   const res = await fetch(`${BASE_URL}/moves/start-session/${gameId}`, {
     method: 'POST',

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-5Marines 81mm 3step.png",
+  "id": "Japanese-5MARINES-81MM-3STEP",
   "path": "api\\img\\fof\\counters\\5Marines 81mm 3step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,17 +7,17 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "f2deb1219d1e9757d064b7623249ea0b6d1fa359606cbac97273d6adaed20168",
-    "classified_at": "2026-11-04T03:01:18.674005+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:03:52.798672+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "Japanese",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
     "battalion": null,
     "platoon": null,
@@ -25,9 +25,11 @@
     "experience_level": null,
     "steps_total": 3,
     "steps_remaining": 3,
-    "vof_rating": null,
+    "vof_rating": "H",
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Mortar",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:BnMtrSec",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:H",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Bn Mtr Sec\\n0\\nHeee ly cA'"
+    "notes": "Header OCR: 'BnMtrSec', Middle OCR: '', Yellow Dots: 3, VOF (Left): H, Range (Right): "
   }
 }

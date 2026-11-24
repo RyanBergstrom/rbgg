@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Panther 103.png",
+  "id": "German-VEHICLE-103",
   "path": "api\\img\\fof\\counters\\Panther 103.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "ca907f17524b781ee1f22dfe4263379102b9f1bbbfb58d72ece9a567ecdc6cbd",
-    "classified_at": "2026-11-04T03:11:35.932775+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:28:00.125689+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "vehicle",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "vehicle",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
+    "experience_level": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": "V",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:PANTHER",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='H Vv A PANTHER,\\nSAE'"
+    "notes": "Header OCR: 'PANTHER', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): V"
   }
 }

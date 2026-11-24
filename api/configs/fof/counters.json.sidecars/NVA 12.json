@@ -1,5 +1,5 @@
 {
-  "id": "NVA-NVA 12.png",
+  "id": "NVA-1-2-SQUAD",
   "path": "api\\img\\fof\\counters\\NVA 12.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "260ddede6eaca823bc807e53bf468402d560a3a44159e5b854e080e0243af104",
-    "classified_at": "2026-11-04T03:10:25.310952+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:16:44.522067+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "NVA",
   "category": "unit",
@@ -20,14 +20,16 @@
     "unit_type": "squad",
     "division": null,
     "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
+    "platoon": "2",
+    "squad_number": "1",
+    "experience_level": "Line",
+    "steps_total": 3,
+    "steps_remaining": 3,
+    "vof_rating": "A",
+    "range_band": "L",
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/2/NVA",
+      "middle_ocr:",
+      "yellow_dots:3",
+      "bottom_left_vof:A",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='VQnNvA\\n\\noe\\nfy\\nAeoe lL a.\\nAeee'"
+    "notes": "Header OCR: '1/2/NVA', Middle OCR: '', Yellow Dots: 3, VOF (Left): A, Range (Right): L"
   }
 }

@@ -3,7 +3,16 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Body, HTTPException, Path
 
-from app.core.game_store import get_state, set_state, push_undo, pop_undo, clear_state, clear_undo
+from app.core.game_store import (
+    get_state,
+    set_state,
+    push_undo,
+    pop_undo,
+    load_undo_stack,
+    clear_state,
+    clear_undo,
+    has_undo,
+)
 from app.core.log import trace, trace_move
 from app.games.registry import ensure_validator
 from app.core.repository import (
@@ -136,6 +145,10 @@ def start_session(game_id: str = Path(...), body: dict = Body(default={})) -> di
     import secrets
 
     requested_player_count = body.get("playerCount")
+    requested_faction = body.get("playerFaction", "us")
+    if game_id == "twilight_struggle":
+        if requested_faction not in {"us", "ussr"}:
+            raise HTTPException(status_code=422, detail="playerFaction must be 'us' or 'ussr'")
     if game_id == "bus":
         requested_player_count = requested_player_count or body.get("minPlayers", 3)
         try:
@@ -193,6 +206,22 @@ def start_session(game_id: str = Path(...), body: dict = Body(default={})) -> di
     initial_game_data = initializer(**initializer_kwargs)
     rng_state_json = initial_game_data.pop("_rng_state_json", "{}")
 
+    if game_id == "twilight_struggle":
+        human_faction = requested_faction
+        bot_faction = "ussr" if human_faction == "us" else "us"
+        initial_game_data["player_by_faction"] = {
+            human_faction: "player_1",
+            bot_faction: "player_2",
+        }
+        initial_game_data["faction_by_player"] = {
+            "player_1": human_faction,
+            "player_2": bot_faction,
+        }
+        # USSR always commits the first headline. If the user selected US,
+        # the initial actor is the bot; the play page will run its AI turn.
+        initial_game_data["current_player_faction"] = "ussr"
+        initial_game_data["current_player"] = initial_game_data["player_by_faction"]["ussr"]
+
     state = GameState(
         state_id=f"{game_id}-state",
         game_type=game_id,
@@ -212,6 +241,12 @@ def start_session(game_id: str = Path(...), body: dict = Body(default={})) -> di
         current_turn_index=0,
         current_phase_index=0,
     )
+    if game_id == "twilight_struggle":
+        current_player = state.game_data.get("current_player", players[0].player_id)
+        state.current_player_index = next(
+            (index for index, player in enumerate(state.players) if player.player_id == current_player), 0,
+        )
+        state.turn.player_id = current_player
 
     session = create_session(profile_id="default-profile", game_id=game_id, state_id=game_id)
     state.state_id = f"{game_id}-session-{session['id']}"
@@ -312,6 +347,8 @@ def confirm_turn(session_id: int = Path(...)) -> dict:
         raise HTTPException(status_code=501, detail=f"Validator not registered for {game_id}")
 
     result = engine.confirm_turn(state)
+    # Save state snapshot for undo (before applying the confirm)
+    push_undo(session_id, state)
     set_state(session_id, state)
     _persist_state(session_id, state)
     _complete_session_if_finished(session_id, state, result)
@@ -331,6 +368,8 @@ def confirm_turn(session_id: int = Path(...)) -> dict:
 def undo_move(session_id: int = Path(...)) -> dict:
     """Undo the last human move by restoring the previous state snapshot."""
     _, current_state = _get_session_state(session_id)
+    # Ensure the durable undo stack is loaded so undo works across restarts.
+    load_undo_stack(session_id)
     snapshot = pop_undo(session_id)
     if snapshot is None:
         raise HTTPException(status_code=400, detail="Nothing to undo")
@@ -361,6 +400,7 @@ def undo_move(session_id: int = Path(...)) -> dict:
     return {
         "status": "undone",
         "screen_state": screen_state,
+        "can_undo": has_undo(session_id),
     }
 
 
@@ -377,11 +417,13 @@ def post_ai_move(body: dict = Body(...)) -> dict:
     default_provider = os.environ.get("RBGG_LOST_CITIES_AI_PROVIDER", "ppo") if game_id == "lost_cities" else "mcts"
     if game_id == "bus":
         default_provider = os.environ.get("RBGG_BUS_AI_PROVIDER", "mcts")
+    elif game_id == "twilight_struggle":
+        default_provider = os.environ.get("RBGG_TWILIGHT_AI_PROVIDER", "ppo")
     provider = body.get("provider", default_provider)
     if not isinstance(provider, str) or provider not in {"mcts", "ppo"}:
         raise HTTPException(status_code=422, detail="provider must be 'mcts' or 'ppo'")
-    if provider == "ppo" and game_id not in {"lost_cities", "bus"}:
-        raise HTTPException(status_code=422, detail="PPO provider is currently supported only for Lost Cities and Bus")
+    if provider == "ppo" and game_id not in {"lost_cities", "bus", "twilight_struggle"}:
+        raise HTTPException(status_code=422, detail="PPO provider is currently supported only for Lost Cities, Bus, and Twilight Struggle")
     ai_difficulty = body.get("aiDifficulty", body.get("ai_difficulty", "hard"))
     if provider == "ppo" and (
         not isinstance(ai_difficulty, str)
@@ -430,6 +472,15 @@ def post_ai_move(body: dict = Body(...)) -> dict:
                     )
                 elif game_id == "bus":
                     from app.games.bus.rl_inference import choose_live_move
+
+                    chosen = choose_live_move(
+                        engine._build_state_dict(st),
+                        pid,
+                        engine.validator,
+                        difficulty=ai_difficulty,
+                    )
+                elif game_id == "twilight_struggle":
+                    from app.games.twilight_struggle.rl_inference import choose_live_move
 
                     chosen = choose_live_move(
                         engine._build_state_dict(st),

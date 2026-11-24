@@ -1,6 +1,6 @@
 {
   "id": "US-2-RUNNER",
-  "path": "api\\img\\fof\\ocr-test\\2_Runner-V.png",
+  "path": "api\\img\\fof\\counters\\2_Runner-V.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "2_Runner-V.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "e1b9479c2f50a57937a0e1c1dda60fb0bd7ec086d1de538160df3732ea265a45",
-    "classified_at": "2026-11-05T05:15:13.939812+00:00",
+    "classified_at": "2026-11-06T06:01:45.332857+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.8
   },
   "country": "US",
   "category": "unit",
@@ -59,11 +59,11 @@
       "middle_ocr:",
       "yellow_dots:1",
       "bottom_left_vof:",
-      "bottom_right_range:R"
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: '2munner', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): R"
+    "notes": "Header OCR: '2munner', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): "
   }
 }

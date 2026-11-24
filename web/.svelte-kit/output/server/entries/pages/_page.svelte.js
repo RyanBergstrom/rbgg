@@ -22,7 +22,7 @@ function _page($$renderer, $$props) {
 				else $$renderer.push(`<!--[-1--><div class="tile-placeholder svelte-1uha8ag"><span class="placeholder-icon svelte-1uha8ag">♟</span></div>`);
 				$$renderer.push(`<!--]--> <div class="tile-label svelte-1uha8ag"><span class="tile-name svelte-1uha8ag">${escape_html(game.name)}</span></div></a>`);
 			}
-			$$renderer.push(`<!--]--></div> <footer class="svelte-1uha8ag"><a href="/asset-reviewer" class="footer-link svelte-1uha8ag">Asset Reviewer</a></footer>`);
+			$$renderer.push(`<!--]--></div> <footer class="svelte-1uha8ag"><a href="/asset-reviewer" class="footer-link svelte-1uha8ag">Asset Reviewer</a> <span class="footer-sep svelte-1uha8ag">•</span> <a href="/counter-validator" class="footer-link svelte-1uha8ag">Counter Validator</a> <span class="footer-sep svelte-1uha8ag">•</span> <a href="/card-validator" class="footer-link svelte-1uha8ag">Card Validator</a></footer>`);
 		}
 		$$renderer.push(`<!--]--></main>`);
 	});

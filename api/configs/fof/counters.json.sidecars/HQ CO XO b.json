@@ -1,6 +1,6 @@
 {
   "id": "US-CO-XO-FT",
-  "path": "api\\img\\fof\\ocr-test\\HQ CO XO b.png",
+  "path": "api\\img\\fof\\counters\\HQ CO XO b.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "HQ CO XO b.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "6ea16028bac118e8b37e38efa60609133865b59e2c7916d670e33de7e5b49a44",
-    "classified_at": "2026-11-05T05:16:11.077519+00:00",
+    "classified_at": "2026-11-06T06:15:48.288810+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.75
   },
   "country": "US",
   "category": "unit",

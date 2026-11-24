@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-GE_VG_07 2step.png",
+  "id": "German-GE-VG-07-2STEP-SQUAD",
   "path": "api\\img\\fof\\counters\\GE_VG_07 2step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,13 +7,13 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "b2c19620c196b7205a5d24de7de0e5704517c6304e6420af231e3a2e4efefa69",
-    "classified_at": "2026-11-04T03:05:59.538294+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T06:14:09.255007+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
-  "country": "Unknown",
+  "country": "German",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -21,13 +21,15 @@
     "division": null,
     "battalion": null,
     "platoon": null,
-    "squad_number": null,
-    "experience_level": null,
+    "squad_number": "7",
+    "experience_level": "Line",
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
+    "vof_rating": "A",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:f 7/Gp veI",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='-\u2014T1Gp NG, ee?\\n\u00a2 Pd\\nAte P'"
+    "notes": "Header OCR: 'f 7/Gp veI', Middle OCR: '', Yellow Dots: 2, VOF (Left): A, Range (Right): "
   }
 }

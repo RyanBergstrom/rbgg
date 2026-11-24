@@ -1,5 +1,5 @@
 {
-  "id": "German-Casualty - GER 2 step.png",
+  "id": "German-CASUALTY-GER-2-STEP",
   "path": "api\\img\\fof\\counters\\Casualty - GER 2 step.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,11 +7,11 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "a76d6e263f6af1f3b7d246d8e805dcbea9eb04f028301ae62304e2db2feb1055",
-    "classified_at": "2026-11-04T03:02:42.695430+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.75
+    "classified_at": "2026-11-06T06:05:31.892448+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "German",
   "category": "unit",
@@ -28,6 +28,8 @@
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Nf",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='*) @)'"
+    "notes": "Header OCR: 'Nf', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): "
   }
 }

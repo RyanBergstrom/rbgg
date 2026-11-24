@@ -1,6 +1,6 @@
 {
   "id": "MARKER-STANDARD",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Standard +1.png",
+  "path": "api\\img\\fof\\counters\\Cover - Standard +1.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Standard +1.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "44dc825173d70828113e20fc33edc8fe2e955d7375f5bdf9d6e9dfd3b7f400b8",
-    "classified_at": "2026-11-05T05:15:48.252385+00:00",
+    "classified_at": "2026-11-06T06:08:42.172693+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "standard",
     "cover_modifier": 1,
     "secondary_modifier": null,

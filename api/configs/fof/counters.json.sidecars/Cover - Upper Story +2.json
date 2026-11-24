@@ -1,6 +1,6 @@
 {
   "id": "MARKER-UPPER_STORY",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Upper Story +2.png",
+  "path": "api\\img\\fof\\counters\\Cover - Upper Story +2.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Upper Story +2.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "74d379748db9327b34299f9f727b08d87860851ff6f17f842bfc8eea992fe130",
-    "classified_at": "2026-11-05T05:15:54.847445+00:00",
+    "classified_at": "2026-11-06T06:08:42.224766+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "upper_story",
     "cover_modifier": 2,
     "secondary_modifier": null,
@@ -48,7 +51,7 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:UPPERSTORY",
+      "header_ocr:",
       "middle_ocr:",
       "yellow_dots:0",
       "bottom_left_vof:",
@@ -57,6 +60,6 @@
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'UPPERSTORY', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

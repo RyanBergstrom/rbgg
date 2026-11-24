@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "coordinate_system": {
+    "origin": "top_left",
+    "units": "normalized",
+    "bounds": "0_to_1_of_source_image",
+    "preview_fit": "contain",
+    "note": "Crop regions are starting bounds copied from current extraction logic; hotspot regions describe current validator overlay positions. Calibrate per deck/card before treating OCR crops as authoritative."
+  },
+  "terrain": {
+    "default": {
+      "cover": {
+        "crop": { "x": 0.03, "y": 0.03, "width": 0.32, "height": 0.25 },
+        "hotspot": { "x": 0.04, "y": 0.04, "width": 0.29, "height": 0.22 },
+        "fields": ["cover_high", "cover_low"]
+      },
+      "terrain_name_and_vehicle": {
+        "crop": { "x": 0.2, "y": 0.04, "width": 0.62, "height": 0.31 },
+        "hotspot": { "x": 0.31, "y": 0.05, "width": 0.48, "height": 0.22 },
+        "fields": ["terrain_name", "vehicle_access"]
+      },
+      "card_number_and_burst": {
+        "crop": { "x": 0.68, "y": 0.04, "width": 0.28, "height": 0.18 },
+        "hotspot": { "x": 0.76, "y": 0.04, "width": 0.2, "height": 0.18 },
+        "fields": ["card_number", "burst_modifier"]
+      },
+      "cover_capacity": {
+        "crop": { "x": 0.04, "y": 0.76, "width": 0.26, "height": 0.21 },
+        "hotspot": { "x": 0.05, "y": 0.79, "width": 0.28, "height": 0.16 },
+        "fields": ["cover_potential"]
+      },
+      "cover_draw": {
+        "crop": { "x": 0.38, "y": 0.76, "width": 0.24, "height": 0.21 },
+        "hotspot": { "x": 0.38, "y": 0.78, "width": 0.25, "height": 0.18 },
+        "fields": ["cover_draw"]
+      },
+      "elevation": {
+        "crop": { "x": 0.68, "y": 0.76, "width": 0.28, "height": 0.21 },
+        "hotspot": { "x": 0.67, "y": 0.79, "width": 0.28, "height": 0.16 },
+        "fields": ["elevation"]
+      },
+      "borders": {
+        "north": { "x": 0.25, "y": 0.03, "width": 0.5, "height": 0.04 },
+        "south": { "x": 0.25, "y": 0.93, "width": 0.5, "height": 0.04 },
+        "west": { "x": 0.03, "y": 0.25, "width": 0.04, "height": 0.5 },
+        "east": { "x": 0.93, "y": 0.25, "width": 0.04, "height": 0.5 }
+      }
+    },
+    "Normandy Terrain": {
+      "elevation": {
+        "crop": { "x": 0.69, "y": 0.11, "width": 0.18, "height": 0.07 },
+        "hotspot": { "x": 0.6, "y": 0.1, "width": 0.18, "height": 0.13 },
+        "fields": ["elevation"],
+        "note": "Signed contour badge is top-right, separate from the card-number stamp."
+      }
+    }
+  },
+  "action": {
+    "header": {
+      "crop": { "x": 0.4, "y": 0.04, "width": 0.52, "height": 0.14 },
+      "hotspot": { "x": 0.42, "y": 0.04, "width": 0.48, "height": 0.15 },
+      "fields": ["action_attempt"]
+    },
+    "commands": {
+      "crop": { "x": 0.105, "y": 0.07, "width": 0.115, "height": 0.1 },
+      "hotspot": { "x": 0.04, "y": 0.03, "width": 0.32, "height": 0.18 },
+      "fields": ["commands"]
+    },
+    "initiative": {
+      "crop": { "x": 0.18, "y": 0.18, "width": 0.22, "height": 0.12 },
+      "hotspot": { "x": 0.18, "y": 0.2, "width": 0.2, "height": 0.12 },
+      "fields": ["initiative"]
+    },
+    "card_number": {
+      "crop": { "x": 0.68, "y": 0.04, "width": 0.28, "height": 0.18 },
+      "hotspot": { "x": 0.74, "y": 0.03, "width": 0.22, "height": 0.12 },
+      "fields": ["card_number"]
+    },
+    "attempt_icons": {
+      "crop": { "x": 0.4, "y": 0.2, "width": 0.52, "height": 0.36 },
+      "hotspot": { "x": 0.4, "y": 0.2, "width": 0.55, "height": 0.5 },
+      "fields": [
+        "spot_concentrate_fire",
+        "infiltrate",
+        "grenade",
+        "call_for_fire",
+        "battalion_fire_mission",
+        "call_for_fire_short",
+        "hq_event",
+        "jam"
+      ]
+    },
+    "attempt_text": {
+      "crop": { "x": 0.38, "y": 0.18, "width": 0.57, "height": 0.58 },
+      "fields": ["call_for_fire_short", "jam"]
+    },
+    "anti_tank": {
+      "crop": { "x": 0.55, "y": 0.58, "width": 0.4, "height": 0.14 },
+      "hotspot": { "x": 0.62, "y": 0.59, "width": 0.33, "height": 0.14 },
+      "fields": ["anti_tank"]
+    },
+    "hit_effects": {
+      "crop": { "x": 0.38, "y": 0.75, "width": 0.58, "height": 0.12 },
+      "hotspot": { "x": 0.36, "y": 0.74, "width": 0.58, "height": 0.14 },
+      "fields": ["hit_effects"]
+    },
+    "combat_resolution": {
+      "crop": { "x": 0.03, "y": 0.26, "width": 0.32, "height": 0.5 },
+      "fields": ["combat_resolution"]
+    },
+    "random_numbers": {
+      "crop": { "x": 0.05, "y": 0.885, "width": 0.9, "height": 0.09 },
+      "hotspot": { "x": 0.04, "y": 0.89, "width": 0.92, "height": 0.09 },
+      "fields": ["random_number", "random_numbers"]
+    }
+  }
+}

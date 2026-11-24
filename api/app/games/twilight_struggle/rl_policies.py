@@ -131,4 +131,14 @@ def rule_policy(env, observation, rng) -> int:
     return legal[0]
 
 
-FIXED_POLICIES: dict[str, Selector] = {"random": random_policy, "null": null_policy, "rule": rule_policy}
+def adviser_policy(env, observation, rng) -> int:
+    from app.games.twilight_struggle.rl_strategy import adviser_policy as _adv
+    return _adv(env, observation, rng)
+
+
+FIXED_POLICIES: dict[str, Selector] = {
+    "random": random_policy,
+    "null": null_policy,
+    "rule": rule_policy,
+    "adviser": adviser_policy,
+}

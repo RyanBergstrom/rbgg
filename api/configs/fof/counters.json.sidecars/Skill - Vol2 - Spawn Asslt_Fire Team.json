@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Skill - Vol2 - Spawn Asslt_Fire Team.png",
+  "id": "US-SKILL-VOL2-SPAWN-ASSLT-FIRE-TEAM",
   "path": "api\\img\\fof\\counters\\Skill - Vol2 - Spawn Asslt_Fire Team.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "80e40fabeaaf6ba665130de812bde37d7f05902524a5224067dce01a6a59d6a2",
-    "classified_at": "2026-11-04T03:12:09.851284+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:34:11.530671+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "lat",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "lat",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
+    "experience_level": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": "A",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": "Fire Team",
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Cnn",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ites\\na sae ia\\nsian'"
+    "notes": "Header OCR: 'Cnn', Middle OCR: '', Yellow Dots: 1, VOF (Left): A, Range (Right): "
   }
 }

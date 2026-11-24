@@ -1,0 +1,69 @@
+{
+  "id": "Japanese-BN-OPS-OFFR",
+  "path": "api\\img\\fof\\counters\\Bn Ops Offr.jpg",
+  "source": "fof-images-folder",
+  "image": {
+    "filename": "Bn Ops Offr.jpg",
+    "width": 75,
+    "height": 75,
+    "format": "jpg",
+    "side": "front",
+    "hash_sha256": "31f4ba05e8db3fe4cc17677c8410bfe6dc8b90f0fe7bf67461cde7e95dd69078",
+    "classified_at": "2026-11-06T06:05:06.351308+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.65
+  },
+  "country": "Japanese",
+  "category": "unit",
+  "subtype": "squad",
+  "unit_details": {
+    "unit_type": "squad",
+    "division": null,
+    "battalion": null,
+    "platoon": null,
+    "squad_number": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": null,
+    "range_band": null,
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
+    "ammo_type": null,
+    "ammo_amount": null
+  },
+  "marker_details": null,
+  "status": {
+    "exposed": null,
+    "pinned": null,
+    "cover": null,
+    "ammo_state": null
+  },
+  "assets": {
+    "type": null,
+    "amount": null
+  },
+  "combat": {
+    "vof": null,
+    "pdf": null,
+    "concentrated_fire": null,
+    "crossfire": null
+  },
+  "potential_contact": null,
+  "classification": {
+    "method": "ocr",
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:pT",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
+    "reviewer": null,
+    "reviewed_at": null,
+    "notes": "Header OCR: 'pT', Middle OCR: '', Yellow Dots: 2, VOF (Left): , Range (Right): "
+  }
+}

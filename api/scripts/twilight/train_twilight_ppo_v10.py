@@ -86,6 +86,29 @@ class EpisodeStatsCallback(BaseCallback):
         return True
 
 
+class OpponentSnapshotCallback(BaseCallback):
+    """Periodically freeze the learner and add it to every env's opponent pool."""
+
+    def __init__(self, frequency: int, directory: Path, prefix: str, max_snapshots: int, start: int = 0):
+        super().__init__()
+        self.frequency = frequency
+        self.directory = directory
+        self.prefix = prefix
+        self.max_snapshots = max_snapshots
+        self.last_snapshot = start
+
+    def _on_step(self) -> bool:
+        if self.num_timesteps - self.last_snapshot >= self.frequency:
+            self.last_snapshot = self.num_timesteps
+            add_snapshot(self.model, self.directory / f"{self.prefix}_{self.num_timesteps}", self.max_snapshots)
+        return True
+
+
+def add_snapshot(model, path: Path, max_snapshots: int) -> None:
+    model.save(str(path))
+    model.get_env().env_method("add_opponent_snapshot", f"{path}.zip", max_snapshots)
+
+
 class DynamicOpponentCallback(BaseCallback):
     """Adjust opponent mix weights based on US win rate vs each opponent type.
 
@@ -199,6 +222,51 @@ def override_resume_hyperparameters(model, learning_rate: float | None, ent_coef
         model.ent_coef = ent_coef
 
 
+def resolve_model_path(path: str | Path) -> str:
+    """Resolve a model path considering repo root, api directory, and runtime folders."""
+    p = Path(path)
+    if p.is_file():
+        return str(p.resolve())
+    if p.with_suffix(".zip").is_file():
+        return str(p.with_suffix(".zip").resolve())
+    repo_root = Path(__file__).resolve().parents[3]
+    api_dir = repo_root / "api"
+    path_str = str(path)
+    candidates = [
+        Path.cwd() / path,
+        api_dir / "runtime" / "twilight" / path,
+        api_dir / "runtime" / path,
+        repo_root / "runtime" / "twilight" / path,
+        repo_root / "runtime" / path,
+        repo_root / path,
+        api_dir / path,
+    ]
+    norm = path_str.replace("\\", "/")
+    if norm.startswith("api/"):
+        candidates.append(repo_root / norm)
+        candidates.append(repo_root / norm[4:])
+    for c in candidates:
+        if c.is_file():
+            return str(c.resolve())
+        if c.with_suffix(".zip").is_file():
+            return str(c.with_suffix(".zip").resolve())
+    return str(path)
+
+
+def resolve_output_path(path_str: str) -> Path:
+    """Resolve an output path cleanly whether called from repo root or scripts dir."""
+    p = Path(path_str)
+    if p.is_absolute():
+        return p
+    repo_root = Path(__file__).resolve().parents[3]
+    norm = str(path_str).replace("\\", "/")
+    if norm.startswith("api/"):
+        return (repo_root / norm).resolve()
+    if norm.startswith("runtime/"):
+        return (repo_root / "api" / norm).resolve()
+    return p.resolve()
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -223,6 +291,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Initial opponent mix weights.")
     parser.add_argument("--learner-faction", choices=("us", "ussr"), required=True,
                         help="Faction the learner plays.")
+    parser.add_argument("--snapshot-frequency", type=int, default=100_000)
+    parser.add_argument("--max-snapshots", type=int, default=5)
     parser.add_argument("--curriculum-stage", type=int, default=2, choices=(0, 1, 2),
                         help="Manual curriculum stage: 0=auto-DONE, 1=guided DONE, 2=full staged.")
     parser.add_argument("--max-episode-steps", type=int, default=3000)
@@ -235,6 +305,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--pretrain-teacher", choices=sorted(FIXED_POLICIES), default="rule",
                         help="Teacher policy for behavior cloning.")
     parser.add_argument("--pretrain-epochs", type=int, default=10)
+    parser.add_argument("--reward-shaping", action="store_true",
+                        help="Enable potential-based reward shaping.")
+    parser.add_argument("--schema-version", type=int, choices=(1, 2), default=1,
+                        help="Adapter schema version: 1=legacy (781 actions, 1092 obs), 2=v2 (894 actions, 1104 obs).")
+    parser.add_argument("--safety-mask", action="store_true",
+                        help="Mask out self-destructive coups (DEFCON 2 and CMC) during training rollouts.")
     return parser
 
 
@@ -257,14 +333,20 @@ def main() -> None:
         parser.error("learning-rate must be positive")
     if args.ent_coef is not None and args.ent_coef < 0:
         parser.error("ent-coef cannot be negative")
-    if args.resume and not Path(args.resume).is_file():
-        parser.error(f"resume model not found: {args.resume}")
+    if args.resume:
+        resolved_resume = resolve_model_path(args.resume)
+        if not Path(resolved_resume).is_file():
+            parser.error(f"resume model not found: {args.resume}")
+        args.resume = resolved_resume
+        # On resume, disable pretraining unless explicitly requested via CLI
+        if "--pretrain-episodes" not in sys.argv:
+            args.pretrain_episodes = 0
     if "." in Path(args.output).name and not args.output.endswith(".zip"):
         parser.error("--output must not contain a dot before the final component (SB3 would not append .zip)")
 
     net_arch = [int(width) for width in args.net_arch.split(",")]
 
-    output = Path(args.output)
+    output = resolve_output_path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
 
     opponents = parse_opponent_mix(args.opponents)
@@ -277,6 +359,10 @@ def main() -> None:
         "max_episode_steps": args.max_episode_steps,
         "learner_faction": args.learner_faction,
         "curriculum_stage": args.curriculum_stage,
+        "reward_shaping": args.reward_shaping,
+        "gamma": args.gamma,
+        "schema_version": args.schema_version,
+        "safety_mask": args.safety_mask,
     }
     env = make_vec_env(
         TwilightStruggleGymEnv,
@@ -389,7 +475,17 @@ def main() -> None:
         model.save(f"{output}-pretrained")
         print(f"pretrained_model={output}-pretrained.zip", flush=True)
 
+    snapshot_dir = output.parent / f"{output.stem}-opponents"
+    snapshot_dir.mkdir(parents=True, exist_ok=True)
+    if args.resume and opponents.get("snapshot", 0) > 0:
+        add_snapshot(model, snapshot_dir / f"{output.stem}_{start_timesteps}", args.max_snapshots)
+    if args.pretrain_episodes and opponents.get("snapshot", 0) > 0:
+        add_snapshot(model, snapshot_dir / f"{output.stem}_0", args.max_snapshots)
+
     callbacks: list[BaseCallback] = [EpisodeStatsCallback(), DynamicOpponentCallback()]
+    if opponents.get("snapshot", 0) > 0:
+        callbacks.append(OpponentSnapshotCallback(args.snapshot_frequency, snapshot_dir, output.stem,
+                                                  args.max_snapshots, start=start_timesteps))
     if args.checkpoint_frequency:
         checkpoint_dir = output.parent / f"{output.stem}-checkpoints"
         checkpoint_dir.mkdir(parents=True, exist_ok=True)

@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Claymore (1).jpg",
+  "id": "US-CLAYMORE-1",
   "path": "api\\img\\fof\\counters\\Claymore (1).jpg",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "jpg",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "58311b12a8c0d583db052966d236294c39fbd8ea9b9165205fc9096acd732459",
-    "classified_at": "2026-11-04T03:03:10.996017+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T06:07:14.532664+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.75
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
-  "subtype": "lat",
+  "subtype": "squad",
   "unit_details": {
-    "unit_type": "lat",
+    "unit_type": "squad",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
+    "experience_level": "Line",
+    "steps_total": 2,
+    "steps_remaining": 2,
+    "vof_rating": "A",
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "A",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:Raa",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:A",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='ee?)\\nCLATMORE,'"
+    "notes": "Header OCR: 'Raa', Middle OCR: '', Yellow Dots: 0, VOF (Left): A, Range (Right): "
   }
 }

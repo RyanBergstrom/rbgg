@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-5Marines 3-Aslt b.png",
+  "id": "US-5MARINES-3-ASLT-B",
   "path": "api\\img\\fof\\counters\\5Marines 3-Aslt b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,11 +9,11 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "c660a60d92212dc1d2536881b5ace6e5c368bed0fcaf3e62683c7fb71cc69384",
-    "classified_at": "2026-11-04T03:01:16.668757+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.85
+    "classified_at": "2026-11-06T06:03:45.781336+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "US",
   "category": "unit",
   "subtype": "squad",
   "unit_details": {
@@ -22,12 +22,14 @@
     "battalion": null,
     "platoon": null,
     "squad_number": null,
-    "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": null,
-    "range_band": null,
-    "weapon_type": "Assault Team",
+    "experience_level": "Line",
+    "steps_total": 1,
+    "steps_remaining": 1,
+    "vof_rating": "S",
+    "range_band": "C",
+    "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -43,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "S",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='\u2018iat\\nfire Team\\nNS* C \u201cial'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 1, VOF (Left): S, Range (Right): C"
   }
 }

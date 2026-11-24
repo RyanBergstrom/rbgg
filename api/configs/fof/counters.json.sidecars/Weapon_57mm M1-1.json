@@ -1,5 +1,5 @@
 {
-  "id": "US-Weapon_57mm M1-1.png",
+  "id": "US-1-1-WEAPONS_TEAM",
   "path": "api\\img\\fof\\counters\\Weapon_57mm M1-1.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "5e68d81ce17e3037efd80a8969b6b1dd1892025dde83ce7ef3fcc659c76af266",
-    "classified_at": "2026-11-04T03:14:51.111192+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:50:06.783187+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "US",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "weapons_team",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "weapons_team",
     "division": null,
-    "battalion": "5",
-    "platoon": "5",
-    "squad_number": "7",
+    "battalion": null,
+    "platoon": "1",
+    "squad_number": "1",
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 1,
+    "steps_remaining": 1,
     "vof_rating": null,
-    "range_band": null,
-    "weapon_type": null,
+    "range_band": "V",
+    "weapon_type": "Anti-Tank Gun",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:1/74167MM",
+      "middle_ocr:",
+      "yellow_dots:1",
+      "bottom_left_vof:",
+      "bottom_right_range:V"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='read'"
+    "notes": "Header OCR: '1/74167MM', Middle OCR: '', Yellow Dots: 1, VOF (Left): , Range (Right): V"
   }
 }

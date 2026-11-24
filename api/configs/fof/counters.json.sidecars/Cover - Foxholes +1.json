@@ -1,6 +1,6 @@
 {
   "id": "MARKER-FOXHOLES",
-  "path": "api\\img\\fof\\ocr-test\\Cover - Foxholes +1.png",
+  "path": "api\\img\\fof\\counters\\Cover - Foxholes +1.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "Cover - Foxholes +1.png",
@@ -9,7 +9,7 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "09b29505da4aa81804dbf4948575e9954c3c773ea9f50f354f8b52353a4711e8",
-    "classified_at": "2026-11-05T05:15:35.933759+00:00",
+    "classified_at": "2026-11-06T06:08:42.067440+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
     "confidence": 0.85
   },
@@ -19,6 +19,9 @@
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
     "cover_type": "foxholes",
     "cover_modifier": 1,
     "secondary_modifier": null,
@@ -48,15 +51,15 @@
     "method": "ocr",
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
-      "header_ocr:FOXMOLES",
+      "header_ocr:",
       "middle_ocr:",
-      "yellow_dots:1",
-      "bottom_left_vof:OT",
-      "bottom_right_range:OO"
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'FOXMOLES', Middle OCR: '', Yellow Dots: 1, VOF (Left): OT, Range (Right): OO"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

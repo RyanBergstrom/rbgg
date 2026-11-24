@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Wreck pickup burning.png",
+  "id": "MARKER-BURNING_WRECK",
   "path": "api\\img\\fof\\counters\\Wreck pickup burning.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,31 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "6862880bc0b50988998ae9608e9e86f506bb32507c0789bedf49f3dd5da3be0a",
-    "classified_at": "2026-11-04T03:15:28.058342+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:52:12.570908+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
-  "category": "unit",
-  "subtype": "squad",
-  "unit_details": {
-    "unit_type": "squad",
-    "division": null,
-    "battalion": null,
-    "platoon": null,
-    "squad_number": null,
-    "experience_level": "A",
-    "steps_total": null,
-    "steps_remaining": null,
-    "vof_rating": "A",
-    "range_band": null,
-    "weapon_type": null,
+  "country": "Other",
+  "category": "marker",
+  "subtype": "cover",
+  "unit_details": null,
+  "marker_details": {
+    "marker_type": "cover",
     "ammo_type": null,
-    "ammo_amount": null
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": "burning_wreck",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": false,
+    "no_pdf": false,
+    "vof_level": null,
+    "effects": null
   },
-  "marker_details": null,
   "status": {
     "exposed": null,
     "pinned": null,
@@ -51,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='+2\\nWreck. 2\\na\\nWea'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC 5b.png",
+  "id": "VietCong-VC-5B",
   "path": "api\\img\\fof\\counters\\VC 5b.png",
   "source": "fof-images-folder",
   "image": {
@@ -9,25 +9,27 @@
     "format": "png",
     "side": "back",
     "hash_sha256": "7786ff06662c907899193215564776c1249fb50428560202a6f9522349e14194",
-    "classified_at": "2026-11-04T03:12:34.185894+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:38:23.686450+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "VietCong",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 3,
+    "steps_remaining": 3,
     "vof_rating": null,
     "range_band": null,
     "weapon_type": null,
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:ngSIMG",
+      "middle_ocr:",
+      "yellow_dots:4",
+      "bottom_left_vof:",
+      "bottom_right_range:L"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='SNC\\naS,\\n\\n~\\n\\nNSeo L et\\n~\\n| ABoo L'"
+    "notes": "Header OCR: 'ngSIMG', Middle OCR: '', Yellow Dots: 4, VOF (Left): , Range (Right): L"
   }
 }

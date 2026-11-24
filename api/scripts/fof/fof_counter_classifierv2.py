@@ -32,13 +32,14 @@ except ImportError as exc:
 
 try:
     import pytesseract
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Users\p211587\AppData\Local\Tesseract-OCR\tesseract.exe'
 except ImportError as exc:
     raise SystemExit("pytesseract is required: pip install pytesseract") from exc
 
 SCHEMA_PATH_DEFAULT = Path("documentation/fof/counter-schema.json")
-IMAGES_DIR_DEFAULT = Path("documentation/fof/images")
-OUT_DEFAULT = Path("documentation/fof/counters.json")
+#IMAGES_DIR_DEFAULT = Path("api/img/fof/ocr-test") if Path("api/img/fof/ocr-test").is_dir() else Path("documentation/fof/test-images")
+IMAGES_DIR_DEFAULT = Path("api/img/fof/counters") if Path("api/img/fof/counters").is_dir() else Path("documentation/fof/test-images")
+OUT_DEFAULT = Path("api/configs/fof/counters.json")
 REVIEW_QUEUE_DEFAULT = Path("documentation/fof/review_queue.jsonl")
 
 # ── Mappings & Constants ─────────────────────────────────────────────────────
@@ -75,6 +76,8 @@ COUNTRY_PATTERN_MAP = {
     "vc": "VietCong",
     "nva": "NVA",
     "german": "German",
+    "tiger": "German",
+    "panzer": "German",
     "pzg": "German",
     "wehrmacht": "German",
     "us": "US",
@@ -91,6 +94,9 @@ COUNTRY_PATTERN_MAP = {
     "1-1": "US",
     "1-2": "US",
     "1-3": "US",
+    "1_1": "US",
+    "1_2": "US",
+    "1_3": "US",
     "bw": "German",
     "north korea": "NKPA",
     "arvn": "ARVN",
@@ -114,12 +120,13 @@ EXPERIENCE_RATING_MAP = {
     "A": "A_rated",
 }
 
-# Valid range band enum values per FoF rules
-RANGE_BAND_ENUM = {"P", "C", "L", "V"}
+# Valid range band enum values per FoF rules (mortars have minimum Close range: C-L, C-V)
+RANGE_BAND_ENUM = {"P", "C", "L", "V", "C-L", "C-V"}
 
 
 LAT_TYPES_ENUM = {
     "Fire Team",
+    "Assault Team",
     "Litter Team",
     "Paralyzed Team",
 }
@@ -146,20 +153,23 @@ def parse_filename(name: str) -> dict:
             break
 
     for pattern, country in COUNTRY_PATTERN_MAP.items():
-        if pattern in stem:
+        if re.search(r"(?<![a-z0-9])" + re.escape(pattern) + r"(?![a-z0-9])", stem):
             hints["country"] = hints.get("country") or country
+            break
 
     for suffix, side in SIDE_SUFFIX_MAP.items():
-        if stem.endswith(" " + suffix) or stem.endswith("_" + suffix):
+        if re.search(r"(?:[_\s-]|(?<=\d))" + re.escape(suffix) + r"$", stem):
             hints["side"] = side
             break
 
-    m = re.match(r"^[a-z]*([-_]?\d+)[-_]?(\d+)", stem)
+    # Strip faction prefixes before searching for squad/platoon numbers
+    clean_stem = re.sub(r"^(?:1atf|2para|22sas|katusa|us|ger?|ija|nkpa|ccf|vc|nva|arvn)[-_\s]*", "", stem)
+    m = re.search(r"(?<!\d)(\d+)[-_/](\d+)(?!\d)", clean_stem)
     if m:
-        hints["squad_number"] = m.group(1).strip("-_")
-        hints["platoon"] = m.group(2).strip("-_")
+        hints["squad_number"] = m.group(1)
+        hints["platoon"] = m.group(2)
     else:
-        m_single = re.match(r"^(\d+)[-_ ]", stem)
+        m_single = re.match(r"^(\d+)[-_ ]", clean_stem)
         if m_single:
             hints["squad_number"] = m_single.group(1)
 
@@ -167,74 +177,106 @@ def parse_filename(name: str) -> dict:
     if m:
         hints["steps_total"] = int(m.group(1))
 
-    # Unit Types Mapping (A - J) with Fire Team / LAT precedence
-    # Use (?:^|[_\s])...(?:[_\s]|$) so '_' is treated as a word boundary too
-    if re.search(r"(?:^|[_\s])(lat|litter|assault team|fire team|aslt|paralyzed)(?:[_\s]|$)", stem):
-        hints["unit_type_hint"] = "lat"
-    elif re.search(r"\b(mtr|mortar|60mm|81mm|4\.2|82mm|120mm)\b", stem):
-        hints["unit_type_hint"] = "weapons_team"
-        hints["weapon_type_hint"] = "Mortar"
-    elif re.search(r"\b(engineer|engineers|engr|eng|sapper)\b", stem):
-        hints["unit_type_hint"] = "weapons_team"
-        hints["weapon_type_hint"] = "Engineers"
-    elif re.search(r"\b(fo|spotter|observer)\b", stem):
-        hints["unit_type_hint"] = "fo_spotter"
-    elif re.search(r"(?:^|[_\s-])runner(?:[_\s-]|$)", stem):
-        hints["unit_type_hint"] = "runner"
-    elif re.search(r"\b(xo)\b", stem):
-        hints["unit_type_hint"] = "co_xo"
-    elif re.search(r"\b(1st\s*sgt|1sgt|1-sgt)\b", stem):
-        hints["unit_type_hint"] = "co_1sgt"
-    elif re.search(r"\b(co\s*hq|company\s*hq|coy\s*hq)\b", stem):
-        hints["unit_type_hint"] = "hq_co"
-    elif re.search(r"\b(s3|s-3|staff)\b", stem):
-        hints["unit_type_hint"] = "co_staff"
-    elif re.search(r"\b(casualty|cas)\b", stem):
-        hints["unit_type_hint"] = "casualty"
-    elif re.search(r"(?<![a-z0-9])(weapons|hmg|lmg|mmg|mg|bazooka|rpg|recoilless|rocket|machine gun|88mm|75mm|76mm|57mm|atg)(?![a-z0-9])|(?<![a-z0-9])wpns\w*", stem):
-        hints["unit_type_hint"] = "weapons_team"
-    elif re.search(r"\b(tank|apc|vehicle|truck|aircraft|chopper|helo)\b", stem):
-        hints["unit_type_hint"] = "vehicle" if not re.search(r"\b(aircraft|chopper|helo)\b", stem) else "aircraft"
-    elif re.search(r"\b(bn hq|battalion hq)\b", stem):
-        hints["unit_type_hint"] = "hq_bn"
-    elif re.search(r"\b(plt hq|platoon hq)\b", stem):
-        hints["unit_type_hint"] = "hq_plt"
-    elif re.search(r"\b(hq)\b", stem):
-        hints["unit_type_hint"] = "hq_plt"
-    elif re.search(r"\b(sqd|squad)\b", stem):
-        hints["unit_type_hint"] = "squad"
+    # Priority 1: Potential Contact markers (e.g. PC C)
+    m_pc = re.search(r"\bpc\s+([a-z0-9]+)\b", stem)
+    if m_pc:
+        hints["category_hint"] = "marker"
+        hints["marker_type_hint"] = "potential_contact"
+        hints["subtype_hint"] = "potential_contact"
+        hints["pc_id"] = m_pc.group(1).upper()
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
 
-    # Weapon type hint detection (only if non-Assault/Fire Team)
-    if hints.get("unit_type_hint") != "lat" and not hints.get("weapon_type_hint"):
-        if re.search(r"(?<![a-z0-9])hmg(?![a-z0-9])|(?<![a-z0-9])lmg(?![a-z0-9])|(?<![a-z0-9])mmg(?![a-z0-9])|(?<![a-z0-9])mg(?![a-z0-9])|machine gun", stem):
-            hints["weapon_type_hint"] = "Machine Gun"
-        elif re.search(r"bazooka|rpg|recoilless|rocket", stem):
-            hints["weapon_type_hint"] = "Bazooka"
-        elif re.search(r"88mm|75mm|76mm|57mm|\batg\b|anti.?tank", stem):
-            hints["weapon_type_hint"] = "Anti-Tank Gun"
-        elif re.search(r"flame|flamethrower|\bft\b", stem):
-            hints["weapon_type_hint"] = "Flame Thrower"
-        elif re.search(r"\bweapons\b|\bwpns\w*", stem):
-            hints["weapon_type_hint"] = "Weapon"
+    # Priority 2: Tactical Control & Commands Complete markers (Control_*, Commands * complete, FPF, Route Point, Target)
+    if re.search(r"\bcontrol[_\s]|(?<![a-z0-9])commands?\b|(?<![a-z0-9])complete\b|\broute\s*point\b|\bfpf\b|\btarget\s+[a-z0-9]+", stem):
+        hints["category_hint"] = "marker"
+        hints["marker_type_hint"] = "tactical_control"
+        hints["subtype_hint"] = "tactical_control"
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
 
-    if re.search(r"\b(radio|phone|wire|pyro|asset)\b", stem):
-        hints["category_hint"] = "asset"
-        hints["subtype_hint"] = "asset"
-    elif re.search(r"\bvof\b", stem):
+    # Priority 3: Ammo & Fire Mission Token Parsing
+    if re.search(r"\b(ammo|50cal|hmg\s*ammo|mg\s*ammo|arty\s*fm|hvy\s*mtr\s*fm|hv\s*mtr\s*fm|fire\s*mission)\b", stem) or stem.startswith("ammo"):
+        hints["category_hint"] = "marker"
+        if "fire" in stem and "mission" in stem:
+            hints["marker_type_hint"] = "fire_mission"
+            hints["ammo_type_hint"] = "Fire Mission"
+            hints["is_fire_mission"] = True
+        elif "arty" in stem and "fm" in stem:
+            hints["marker_type_hint"] = "fire_mission"
+            hints["ammo_type_hint"] = "ARTY FM"
+            hints["is_fire_mission"] = True
+        elif ("hvy" in stem or "hv" in stem) and "mtr" in stem and "fm" in stem:
+            hints["marker_type_hint"] = "fire_mission"
+            hints["ammo_type_hint"] = "HV MTR FM"
+            hints["is_fire_mission"] = True
+        elif "50cal" in stem or ".50" in stem:
+            hints["marker_type_hint"] = "ammo"
+            hints["ammo_type_hint"] = ".50 Cal AMMO"
+            hints["is_fire_mission"] = False
+        elif "hmg" in stem:
+            hints["marker_type_hint"] = "ammo"
+            hints["ammo_type_hint"] = "HMG AMMO"
+            hints["is_fire_mission"] = False
+        elif re.search(r"\b(mg|lmg|mmg)\b", stem):
+            hints["marker_type_hint"] = "ammo"
+            hints["ammo_type_hint"] = "MG AMMO"
+            hints["is_fire_mission"] = False
+        else:
+            hints["marker_type_hint"] = "ammo"
+            hints["ammo_type_hint"] = "AMMO"
+            hints["is_fire_mission"] = False
+        idx_match = re.search(r"(\d+)\s*(?:\.png|\.jpg)?$", stem)
+        if idx_match:
+            hints["ammo_index"] = int(idx_match.group(1))
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
+
+    # Priority 4: Assets & Visibility / Smoke
+    if re.search(r"\b(assets?|smoke|wp)\b", stem) or stem.startswith("marker -"):
+        if re.search(r"\bassets?\b", stem):
+            hints["category_hint"] = "asset"
+            hints["subtype_hint"] = "asset"
+            hints["asset_type"] = "Smoke - Screening" if "smoke" in stem or "screening" in stem else "Asset"
+        else:
+            hints["category_hint"] = "marker"
+            hints["marker_type_hint"] = "visibility"
+            hints["subtype_hint"] = "visibility"
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
+
+    # Priority 5: Combat & Status Markers
+    if re.search(r"\bvof\b", stem):
         hints["category_hint"] = "marker"
         hints["marker_type_hint"] = "vof"
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
     elif re.search(r"\bpdf\b|primary direction", stem):
         hints["category_hint"] = "marker"
         hints["marker_type_hint"] = "pdf"
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
     elif re.search(r"\bexposed\b", stem):
         hints["category_hint"] = "marker"
         hints["marker_type_hint"] = "exposed"
+        hints["subtype_hint"] = "exposed"
         hints["cover_type_hint"] = "standard"
+        hints["cover_modifier"] = -2
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
     elif re.search(r"\bpin(ned)?\b", stem):
         hints["category_hint"] = "marker"
         hints["marker_type_hint"] = "pin"
+        hints["subtype_hint"] = "pin"
         hints["cover_type_hint"] = "standard"
-    # Cover & Visibility Token Parsing - specific cover types (checked before generic cover)
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
+    elif re.search(r"\bactivity[_\s]", stem) or "current activity" in stem:
+        hints["category_hint"] = "marker"
+        hints["marker_type_hint"] = "current_activity"
+        hints["subtype_hint"] = "current_activity"
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
     elif re.search(r"\b(deep\s*bunker|bunker|pillbox|foxhole|foxholes|trench|cellar|church|upper\s*story|rooftop|cave|wreck|unspotted|unaware|cover)\b", stem):
         hints["category_hint"] = "marker"
         if "unspotted" in stem:
@@ -279,29 +321,70 @@ def parse_filename(name: str) -> dict:
         else:
             hints["marker_type_hint"] = "cover"
             hints["cover_type_hint"] = "standard"
-    # Ammo & Fire Mission Token Parsing
-    elif re.search(r"\b(ammo|50cal|hmg|arty\s*fm|hvy\s*mtr\s*fm|hv\s*mtr\s*fm)\b", stem):
-        hints["category_hint"] = "marker"
-        if "arty" in stem and "fm" in stem:
-            hints["marker_type_hint"] = "fire_mission"
-            hints["ammo_type_hint"] = "ARTY FM"
-            hints["is_fire_mission"] = True
-        elif ("hvy" in stem or "hv" in stem) and "mtr" in stem and "fm" in stem:
-            hints["marker_type_hint"] = "fire_mission"
-            hints["ammo_type_hint"] = "HV MTR FM"
-            hints["is_fire_mission"] = True
-        elif "50cal" in stem or ".50" in stem:
-            hints["marker_type_hint"] = "ammo"
-            hints["ammo_type_hint"] = ".50 Cal AMMO"
-            hints["is_fire_mission"] = False
-        elif "hmg" in stem:
-            hints["marker_type_hint"] = "ammo"
-            hints["ammo_type_hint"] = "HMG AMMO"
-            hints["is_fire_mission"] = False
-        # Extract sequence index number (e.g. Ammo 50cal 1.png -> 1)
-        idx_match = re.search(r"(\d+)\s*(?:\.png|\.jpg)?$", stem)
-        if idx_match:
-            hints["ammo_index"] = int(idx_match.group(1))
+        print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
+        return hints
+
+    # Priority 6: Unit Types Mapping (A - J)
+    if re.search(r"\b(sqd|squad)\b", stem):
+        hints["unit_type_hint"] = "squad"
+    elif re.search(r"(?:^|[_\s])(lat|litter|assault(?:\s*team)?|as+lt(?:\s*team)?|fire\s*team|paralyzed)(?:[_\s]|$)", stem):
+        hints["unit_type_hint"] = "lat"
+        if re.search(r"as+lt|fire\s*team", stem):
+            hints["lat_subtype"] = "Fire Team"
+        elif "litter" in stem:
+            hints["lat_subtype"] = "Litter Team"
+        elif "paralyzed" in stem:
+            hints["lat_subtype"] = "Paralyzed Team"
+    elif re.search(r"\b(mtr|mortar|60mm|81mm|4\.2|82mm|120mm)\b", stem):
+        hints["unit_type_hint"] = "weapons_team"
+        hints["weapon_type_hint"] = "Mortar"
+    elif re.search(r"\b(engineer|engineers|engr|eng|sapper)\b", stem):
+        hints["unit_type_hint"] = "weapons_team"
+        hints["weapon_type_hint"] = "Engineers"
+    elif re.search(r"\b(fo|spotter|observer)\b", stem):
+        hints["unit_type_hint"] = "fo_spotter"
+    elif re.search(r"(?:^|[_\s-])runner(?:[_\s-]|$)", stem):
+        hints["unit_type_hint"] = "runner"
+    elif re.search(r"\b(xo)\b", stem):
+        hints["unit_type_hint"] = "co_xo"
+    elif re.search(r"\b(1st\s*sgt|1sgt|1-sgt)\b", stem):
+        hints["unit_type_hint"] = "co_1sgt"
+    elif re.search(r"\b(co\s*hq|company\s*hq|coy\s*hq)\b", stem):
+        hints["unit_type_hint"] = "hq_co"
+    elif re.search(r"\b(s3|s-3|staff)\b", stem):
+        hints["unit_type_hint"] = "co_staff"
+    elif re.search(r"\b(casualty|cas)\b", stem):
+        hints["unit_type_hint"] = "casualty"
+    elif re.search(r"(?<![a-z0-9])(weapons|hmg|lmg|mmg|mg|bazooka|rpg|recoilless|rocket|machine gun|88mm|75mm|76mm|57mm|atg)(?![a-z0-9])|(?<![a-z0-9])wpns\w*", stem):
+        hints["unit_type_hint"] = "weapons_team"
+    elif re.search(r"\b(tiger|panzer|panther|stug|sherman|t-?34|tank|apc|vehicle|truck|aircraft|chopper|helo)\b", stem):
+        hints["unit_type_hint"] = "vehicle" if not re.search(r"\b(aircraft|chopper|helo)\b", stem) else "aircraft"
+        if re.search(r"\b(tiger|panzer|panther|stug)\b", stem):
+            hints["country"] = hints.get("country") or "German"
+    elif re.search(r"\b(bn hq|battalion hq)\b", stem):
+        hints["unit_type_hint"] = "hq_bn"
+    elif re.search(r"\b(plt hq|platoon hq)\b", stem):
+        hints["unit_type_hint"] = "hq_plt"
+    elif re.search(r"\b(hq)\b", stem):
+        hints["unit_type_hint"] = "hq_plt"
+    elif re.search(r"\b(sqd|squad)\b", stem):
+        hints["unit_type_hint"] = "squad"
+    elif not hints.get("unit_type_hint") and not hints.get("category_hint") and (hints.get("steps_total") or (hints.get("squad_number") and hints.get("platoon"))):
+        hints["unit_type_hint"] = "squad"
+        hints["category_hint"] = "unit"
+
+    # Weapon type hint detection (only if non-Assault/Fire Team)
+    if hints.get("unit_type_hint") != "lat" and not hints.get("weapon_type_hint"):
+        if re.search(r"(?<![a-z0-9])hmg(?![a-z0-9])|(?<![a-z0-9])lmg(?![a-z0-9])|(?<![a-z0-9])mmg(?![a-z0-9])|(?<![a-z0-9])mg(?![a-z0-9])|machine gun", stem):
+            hints["weapon_type_hint"] = "Machine Gun"
+        elif re.search(r"bazooka|rpg|recoilless|rocket", stem):
+            hints["weapon_type_hint"] = "Bazooka"
+        elif re.search(r"88mm|75mm|76mm|57mm|\batg\b|anti.?tank", stem):
+            hints["weapon_type_hint"] = "Anti-Tank Gun"
+        elif re.search(r"flame|flamethrower|\bft\b", stem):
+            hints["weapon_type_hint"] = "Flame Thrower"
+        elif re.search(r"\bweapons\b|\bwpns\w*", stem):
+            hints["weapon_type_hint"] = "Weapon"
 
     print(f"  [DEBUG - Filename Parse] Input Stem: '{stem}' -> Hints: {hints}", flush=True)
     return hints
@@ -350,54 +433,53 @@ def extract_header_ocr(img_bgr: np.ndarray) -> str:
         return ""
 
 
-def extract_middle_text(img_bgr: np.ndarray) -> str:
+def extract_middle_text(img_bgr: np.ndarray, hints: dict | None = None) -> str:
     """Crop middle region and extract text like 'Fire Team' or 'Litter Team'."""
     h, w, _ = img_bgr.shape
     mid_crop = img_bgr[int(h * 0.30):int(h * 0.68), 0:w]
 
-    # HSV Yellow Mask adjusted for anti-aliased text over tan backgrounds
+    # Fast pre-check: only units with side in ('back', 'reduced'), or unit_type_hint == 'lat', or yellow pixels need middle OCR
     hsv = cv2.cvtColor(mid_crop, cv2.COLOR_BGR2HSV)
     lower_yellow = np.array([10, 50, 110])
     upper_yellow = np.array([40, 255, 255])
     yellow_mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+    yellow_pixels = cv2.countNonZero(yellow_mask)
 
-    # Upscale 5x for Tesseract clarity
-    scaled_mask = cv2.resize(yellow_mask, (w * 5, mid_crop.shape[0] * 5), interpolation=cv2.INTER_CUBIC)
-
-    # Morphological dilation to reconnect thin font strokes
-    kernel = np.ones((2, 2), np.uint8)
-    processed = cv2.dilate(scaled_mask, kernel, iterations=1)
+    hints = hints or {}
+    needs_middle = (
+        hints.get("side") in {"back", "reduced"} or
+        hints.get("unit_type_hint") in {"lat", "casualty"} or
+        yellow_pixels > 15
+    )
+    if not needs_middle:
+        return ""
 
     custom_config = r"--psm 6 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "
 
     try:
-        raw_text = pytesseract.image_to_string(processed, config=custom_config).strip()
-        clean_text = " ".join(raw_text.split())
-        print(f"  [DEBUG - Middle OCR] Text: '{raw_text}' -> Cleaned: '{clean_text}'", flush=True)
+        # Pass 1: Yellow mask text (if yellow pixels present)
+        if yellow_pixels > 15:
+            scaled_mask = cv2.resize(yellow_mask, (w * 5, mid_crop.shape[0] * 5), interpolation=cv2.INTER_CUBIC)
+            kernel = np.ones((2, 2), np.uint8)
+            processed = cv2.dilate(scaled_mask, kernel, iterations=1)
+            raw_text = pytesseract.image_to_string(processed, config=custom_config).strip()
+            clean_text = " ".join(raw_text.split())
+            if clean_text and re.search(r"\b(fire\s*team|fire|team|aslt|assault|litter|paralyzed|casualty)\b", clean_text, re.IGNORECASE):
+                print(f"  [DEBUG - Middle OCR] Matched keyword: '{clean_text}'", flush=True)
+                return clean_text
 
-        # Strict keyword filter: discard garbage OCR (e.g., tripod legs read as letters)
-        if clean_text and not re.search(r"\b(fire\s*team|fire|team|aslt|assault|litter|paralyzed|casualty)\b", clean_text, re.IGNORECASE):
-            print(f"  [DEBUG - Middle OCR] Discarded non-keyword noise: '{clean_text}'", flush=True)
-            clean_text = ""
-
-        # Fallback to simple upscaled grayscale if color masking yields nothing
-        if len(clean_text) < 3:
-            gray = cv2.cvtColor(mid_crop, cv2.COLOR_BGR2GRAY)
-            scaled_gray = cv2.resize(gray, (w * 5, mid_crop.shape[0] * 5), interpolation=cv2.INTER_CUBIC)
-            _, gray_thresh = cv2.threshold(scaled_gray, 160, 255, cv2.THRESH_BINARY)
-            fallback_text = pytesseract.image_to_string(gray_thresh, config=custom_config).strip()
+        # Pass 2: Grayscale threshold 160 (normal then inverted) with immediate exit
+        gray = cv2.cvtColor(mid_crop, cv2.COLOR_BGR2GRAY)
+        scaled_gray = cv2.resize(gray, (w * 5, mid_crop.shape[0] * 5), interpolation=cv2.INTER_CUBIC)
+        _, gray_thresh = cv2.threshold(scaled_gray, 160, 255, cv2.THRESH_BINARY)
+        for test_img in [gray_thresh, cv2.bitwise_not(gray_thresh)]:
+            fallback_text = pytesseract.image_to_string(test_img, config=custom_config).strip()
             fallback_text = " ".join(fallback_text.split())
-
-            # Apply same keyword filter to fallback
-            if fallback_text and not re.search(r"\b(fire\s*team|fire|team|aslt|assault|litter|paralyzed|casualty)\b", fallback_text, re.IGNORECASE):
-                print(f"  [DEBUG - Middle OCR Fallback] Discarded non-keyword noise: '{fallback_text}'", flush=True)
-                fallback_text = ""
-
-            if len(fallback_text) >= 3:
+            if fallback_text and re.search(r"\b(fire\s*team|fireteam|fire|team|as+lt|assault|litter|paralyzed|casualty)\b", fallback_text, re.IGNORECASE):
                 print(f"  [DEBUG - Middle OCR Fallback] Text: '{fallback_text}'", flush=True)
                 return fallback_text
 
-        return clean_text
+        return ""
     except Exception as exc:
         print(f"  [DEBUG - Middle OCR Error] Exception: {exc}", flush=True)
         return ""
@@ -408,36 +490,65 @@ def extract_bottom_side_letters(img_bgr: np.ndarray) -> tuple[str, str]:
     h, w, _ = img_bgr.shape
     bottom_y1, bottom_y2 = int(h * 0.70), int(h * 0.98)
 
-    # Left crop widened to 40% width to capture multi-character ratings like 'A/S'
     left_crop = img_bgr[bottom_y1:bottom_y2, 0:int(w * 0.40)]
-    # Right crop tightened to 65%-98% width to exclude step dot artifacts
     right_crop = img_bgr[bottom_y1:bottom_y2, int(w * 0.65):int(w * 0.98)]
-
-    # Whitelist explicitly allowing slash '/' for compound ratings (A/S, G/S, S/S)
-    config_left = r"--psm 7 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-!"
-    config_right = r"--psm 10 -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!-"
 
     left_char, right_char = "", ""
 
+    # Left Side: VOF rating (early exit on match)
     try:
         left_gray = cv2.cvtColor(left_crop, cv2.COLOR_BGR2GRAY)
         left_scaled = cv2.resize(left_gray, (0, 0), fx=5, fy=5, interpolation=cv2.INTER_CUBIC)
         _, left_thresh = cv2.threshold(left_scaled, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        left_char = pytesseract.image_to_string(left_thresh, config=config_left).strip()
-    except Exception:
-        pass
 
+        for thresh in [left_thresh, cv2.bitwise_not(left_thresh)]:
+            for psm in [7, 10]:
+                cfg = f"--psm {psm} -c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-!"
+                res = pytesseract.image_to_string(thresh, config=cfg).strip()
+                norm = res.replace("6!", "G!").replace(" ", "")
+                clean = re.sub(r"[^A-Z!/]", "", norm)
+                # Check for composite basic + special superscript e.g. SG!, SF!, SD!, AG!
+                if re.search(r"^(A/S|[ASH])([GFDS]!)$", clean):
+                    left_char = clean
+                    break
+                if "/" in clean:
+                    left_char = clean
+                    break
+                if clean in {"A", "S", "H", "G", "F", "E", "C", "A!", "S!", "G!", "F!", "D!"}:
+                    left_char = clean
+                    break
+                if clean and clean[-1] in {"A", "S", "H", "G", "F", "E", "C"}:
+                    left_char = clean[-1]
+                    break
+            if left_char:
+                break
+    except Exception as exc:
+        print(f"  [DEBUG - Left Side OCR Error] Exception: {exc}", flush=True)
+
+    # Right Side: Range band (early exit on match)
     try:
         right_gray = cv2.cvtColor(right_crop, cv2.COLOR_BGR2GRAY)
         right_scaled = cv2.resize(right_gray, (0, 0), fx=5, fy=5, interpolation=cv2.INTER_CUBIC)
         _, right_thresh = cv2.threshold(right_scaled, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        right_char = pytesseract.image_to_string(right_thresh, config=config_right).strip()
-
-        # Clean up known single-character OCR misreadings
-        if right_char == "PL":
-            right_char = "L"
-    except Exception:
-        pass
+        for thresh in [right_thresh, cv2.bitwise_not(right_thresh)]:
+            for psm in [10, 7]:
+                cfg = f"--psm {psm} -c tessedit_char_whitelist=PCLVE!-"
+                res = pytesseract.image_to_string(thresh, config=cfg).strip()
+                clean = re.sub(r"[^A-Z-]", "", res.upper())
+                if clean in {"CL", "C_L"}:
+                    clean = "C-L"
+                elif clean in {"CV", "C_V"}:
+                    clean = "C-V"
+                if "P" in clean and clean in {"P", "PL"}:
+                    right_char = "P"
+                    break
+                if clean in RANGE_BAND_ENUM:
+                    right_char = clean
+                    break
+            if right_char:
+                break
+    except Exception as exc:
+        print(f"  [DEBUG - Right Side OCR Error] Exception: {exc}", flush=True)
 
     print(f"  [DEBUG - Bottom Side OCR] Left Rating (VOF): '{left_char}' | Right Rating (Range): '{right_char}'", flush=True)
     return left_char, right_char
@@ -470,7 +581,7 @@ def detect_vof_red(img_bgr: np.ndarray) -> bool:
 
     mask1 = cv2.inRange(hsv, np.array([0, 100, 100]), np.array([10, 255, 255]))
     mask2 = cv2.inRange(hsv, np.array([160, 100, 100]), np.array([180, 255, 255]))
-    red_mask = mask1 | mask2
+    red_mask = cv2.bitwise_or(mask1, mask2)
 
     total_pixels = top_crop.shape[0] * top_crop.shape[1]
     red_pixels = cv2.countNonZero(red_mask)
@@ -562,45 +673,43 @@ def detect_lat_subtype(img_bgr: np.ndarray, stem: str, ocr_middle: str) -> tuple
     combined_text = f"{stem} {ocr_middle}".lower()
 
     # Text-based checks first (treat '_' as word boundary)
-    if "casualty" in combined_text or "cas" in combined_text:
+    if re.search(r"\b(casualty|cas)\b", combined_text):
         print("  [DEBUG - LAT Detection] Text Match: CASUALTY", flush=True)
         return "casualty", None
-    if "litter" in combined_text:
+    if re.search(r"\blitter\b", combined_text):
         print("  [DEBUG - LAT Detection] Text Match: LITTER TEAM", flush=True)
         return "lat", "Litter Team"
-    if "paralyzed" in combined_text or "paralysed" in combined_text:
+    if re.search(r"\b(paralyzed|paralysed)\b", combined_text):
         print("  [DEBUG - LAT Detection] Text Match: PARALYZED TEAM", flush=True)
         return "lat", "Paralyzed Team"
-    if "fire team" in combined_text or re.search(r"(?:^|[_\s])(aslt|assault)(?:[_\s]|$)", combined_text):
+    if "fire team" in combined_text or re.search(r"\bfire\s*team\b", combined_text):
         print("  [DEBUG - LAT Detection] Text Match: FIRE TEAM", flush=True)
         return "lat", "Fire Team"
+    if re.search(r"(?:^|[_\s])(as+lt|assault)(?:\s*team)?(?:[_\s]|$)", combined_text) and not re.search(r"\b(squad|sqd)\b", combined_text):
+        print("  [DEBUG - LAT Detection] Text Match: ASSAULT TEAM", flush=True)
+        return "lat", "Assault Team"
 
-    # 1. Red Cross Detection (Casualty) - most distinctive visual
+    # 1. Red Cross Detection (Casualty) - check red pixels only if not already an assault/fire team
     mask_red1 = cv2.inRange(hsv, np.array([0, 120, 100]), np.array([10, 255, 255]))
     mask_red2 = cv2.inRange(hsv, np.array([165, 120, 100]), np.array([180, 255, 255]))
-    if cv2.countNonZero(cv2.bitwise_or(mask_red1, mask_red2)) > (roi_pixels * 0.10):
-        print("  [DEBUG - LAT Detection] Visual Match: CASUALTY (Red Cross)", flush=True)
-        return "casualty", None
-
-    # 2. Yellow Arrow Detection (Paralyzed)
-    lower_yellow = np.array([15, 120, 120])
-    upper_yellow = np.array([35, 255, 255])
-    if cv2.countNonZero(cv2.inRange(hsv, lower_yellow, upper_yellow)) > (roi_pixels * 0.08):
-        print("  [DEBUG - LAT Detection] Visual Match: PARALYZED (Yellow Arrow)", flush=True)
-        return "lat", "Paralyzed Team"
-
-    # 3. Stretcher Detection (Litter) - long thin contour
-    lower_stretcher = np.array([35, 30, 40])
-    upper_stretcher = np.array([85, 255, 200])
-    stretcher_mask = cv2.inRange(hsv, lower_stretcher, upper_stretcher)
-    contours, _ = cv2.findContours(stretcher_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Only flag as casualty if there's a strong red cross presence and white background circle/square
+    red_mask = cv2.bitwise_or(mask_red1, mask_red2)
+    contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    has_cross_shape = False
     for c in contours:
-        if cv2.contourArea(c) > 35:
-            rect = cv2.minAreaRect(c)
-            width, height = rect[1]
-            if height > 0 and (max(width, height) / min(width, height)) > 2.0:
-                print("  [DEBUG - LAT Detection] Visual Match: LITTER TEAM (Stretcher)", flush=True)
-                return "lat", "Litter Team"
+        area = cv2.contourArea(c)
+        if area > 25:
+            bx, by, bw, bh = cv2.boundingRect(c)
+            # A cross has roughly square bounding box (aspect 0.7 - 1.4) and low fill (<0.65)
+            aspect = float(bw) / float(bh) if bh > 0 else 0
+            fill = float(area) / float(bw * bh) if bw * bh > 0 else 0
+            if 0.65 <= aspect <= 1.45 and 0.25 <= fill <= 0.65:
+                has_cross_shape = True
+                break
+
+    if has_cross_shape and cv2.countNonZero(red_mask) > (roi_pixels * 0.08):
+        print("  [DEBUG - LAT Detection] Visual Match: CASUALTY (Red Cross Shape)", flush=True)
+        return "casualty", None
 
     return "unit", None
 
@@ -709,45 +818,54 @@ def build_record(
         fmt = "jpg"
 
     img_bgr = cv2.imread(str(path))
+    if img_bgr is None:
+        raise ValueError(f"Could not load image: {path}")
+    if img_bgr.shape[0] != 75 or img_bgr.shape[1] != 75:
+        img_bgr = cv2.resize(img_bgr, (75, 75), interpolation=cv2.INTER_CUBIC)
     h, w, _ = img_bgr.shape
 
     hints = parse_filename(filename)
-    ocr_header = extract_header_ocr(img_bgr)
-    ocr_middle = extract_middle_text(img_bgr)
-    left_char, right_char = extract_bottom_side_letters(img_bgr)
-    detected_steps = detect_yellow_steps(img_bgr)
-    # Ensure Exposed, Pinned, Cover, Unaware, Unspotted markers do not get forced into VOF red markers
-    if hints.get("marker_type_hint") in {"exposed", "pin", "cover", "unaware", "unspotted"}:
-        is_red_marker = False
-    else:
-        is_red_marker = detect_vof_red(img_bgr)
-    has_tripod_mount = detect_tripod_mount_arrow(img_bgr)
-    visual_country = detect_country_by_color(img_bgr)
-    stem_for_cover = Path(filename).stem.lower()
-    cover_primary_mod, cover_secondary_mod, cover_no_fire = extract_cover_modifiers(img_bgr, stem_for_cover)
     stem = Path(filename).stem.lower()
     category = hints.get("category_hint", "unit")
-    subtype = hints.get("unit_type_hint", "squad")
+    subtype = hints.get("subtype_hint") or hints.get("unit_type_hint", "squad")
     weapon_type = hints.get("weapon_type_hint")  # Pre-initialize weapon_type from hints
     country = hints.get("country", "US")
-    # Fallback to visual color detection when filename hints give only default US
-    if country == "US" and visual_country != "US":
-        country = visual_country
-        print(f"  [DEBUG - Country Visual] Filename hints gave US, visual color suggests: {visual_country}", flush=True)
-    confidence = 0.85
+
+    # Fast-path for markers and assets: skip heavy unit OCR and CV pipelines
+    if category in {"marker", "asset"}:
+        ocr_header = ""
+        ocr_middle = ""
+        left_char, right_char = "", ""
+        detected_steps = 0
+        has_tripod_mount = False
+        visual_subtype, visual_lat_type = "unit", None
+        is_red_marker = (hints.get("marker_type_hint") == "vof")
+        stem_for_cover = stem
+        cover_primary_mod, cover_secondary_mod, cover_no_fire = extract_cover_modifiers(img_bgr, stem_for_cover)
+    else:
+        ocr_header = extract_header_ocr(img_bgr)
+        ocr_middle = extract_middle_text(img_bgr, hints)
+        left_char, right_char = extract_bottom_side_letters(img_bgr)
+        detected_steps = detect_yellow_steps(img_bgr)
+        has_tripod_mount = detect_tripod_mount_arrow(img_bgr)
+        visual_country = detect_country_by_color(img_bgr)
+        stem_for_cover = stem
+        cover_primary_mod, cover_secondary_mod, cover_no_fire = None, None, False
+        if country == "US" and visual_country != "US":
+            country = visual_country
+            print(f"  [DEBUG - Country Visual] Filename hints gave US, visual color suggests: {visual_country}", flush=True)
+
+        is_red_marker = False
+        visual_subtype, visual_lat_type = detect_lat_subtype(img_bgr, stem, ocr_middle)
+
     method = "ocr"
 
-    # Visual LAT detection should ONLY run on unit category counters, never on markers
-    if category == "unit":
-        visual_subtype, visual_lat_type = detect_lat_subtype(img_bgr, stem, ocr_middle)
-    else:
-        visual_subtype, visual_lat_type = "unit", None
     if hints.get("marker_type_hint") or is_red_marker:
         category = "marker"
         subtype = hints.get("marker_type_hint", "vof" if is_red_marker else "cover")
 
     # Non-factional markers default to "Other" unless filename has explicit nationality prefix
-    if category == "marker":
+    if category in {"marker", "asset"}:
         if not any(stem.startswith(prefix) for prefix in COUNTRY_PREFIX_MAP):
             country = "Other"
 
@@ -769,12 +887,12 @@ def build_record(
 
     # Subtype precedence using explicit OCR text
     full_ocr = f"{ocr_header} {ocr_middle}".lower()
-
-    # LAT / Fire Team Detection
     filename_subtype = hints.get("unit_type_hint", "squad")
 
-    # If Middle OCR detects "Fire Team" (e.g. back side of XO/1SGT/Squad), enforce LAT Fire Team
-    if re.search(r"\b(fire\s*team|fireteam)\b", full_ocr):
+    if category == "marker":
+        pass
+    # LAT / Fire Team Detection
+    elif re.search(r"\b(fire\s*team|fireteam)\b", full_ocr) or (hints.get("side") in {"back", "reduced"} and re.search(r"\b(fire|team)\b", full_ocr)):
         subtype = "lat"
         lat_type = "Fire Team"
         weapon_type = None
@@ -783,11 +901,12 @@ def build_record(
         subtype = "casualty"
         lat_type = None
         weapon_type = None
-    elif visual_subtype == "lat" and filename_subtype == "lat":
-        subtype = "lat"
-        lat_type = visual_lat_type
-        weapon_type = None  # Clear heavy weapon defaults for LATs
+    elif filename_subtype in ("co_xo", "co_1sgt", "co_staff", "hq_co", "fo_spotter", "runner", "higher_command", "hq_bn", "hq_plt") and hints.get("side") not in {"back", "reduced"}:
+        ns_subtype, _, ns_weapon_type = parse_non_squad_subtypes(ocr_header, ocr_middle, filename)
+        subtype = ns_subtype if ns_subtype != "squad" else filename_subtype
+        weapon_type = ns_weapon_type if ns_weapon_type else hints.get("weapon_type_hint")
     elif filename_subtype == "lat":
+        subtype = "lat"
         # OCR-based lat_type determination as secondary check
         if re.search(r"\bparalyzed\b", full_ocr):
             lat_type = "Paralyzed Team"
@@ -797,9 +916,18 @@ def build_record(
             lat_type = "Fire Team"
         elif visual_lat_type:
             lat_type = visual_lat_type
+        else:
+            lat_type = hints.get("lat_subtype")
+        weapon_type = None
+    elif visual_subtype == "lat" and hints.get("side") in {"back", "reduced"}:
+        subtype = "lat"
+        lat_type = visual_lat_type or hints.get("lat_subtype") or "Fire Team"
+        weapon_type = None  # Clear heavy weapon defaults for LATs
+    elif filename_subtype == "squad":
+        subtype = "squad"
         weapon_type = None
     # Non-squad command/staff/runner/observer detection (takes precedence over weapons team)
-    elif filename_subtype in ("squad", None, "weapons_team", "co_xo", "co_1sgt", "co_staff", "hq_co", "fo_spotter"):
+    elif filename_subtype in (None, "weapons_team"):
         ns_subtype, _, ns_weapon_type = parse_non_squad_subtypes(ocr_header, ocr_middle, filename)
         if ns_subtype != "squad":
             subtype = ns_subtype
@@ -821,28 +949,66 @@ def build_record(
     if left_char == "AJS":
         left_char = "A/S"
 
-    # Clean VOF ratings like "1A" -> "A" (OCR picks up step dot edge as leading digit)
-    if left_char and len(left_char) > 1 and left_char[-1] in {"A", "S", "H", "G", "F", "E"}:
-        left_char = left_char[-1]
+    special_vof = None
+    if left_char:
+        # Check for composite basic + special superscript e.g. SG!, SF!, SD!, AG!, A/SG!
+        m_comp = re.search(r"^(A/S|[ASH])([GFDS]!)$", left_char)
+        if m_comp:
+            vof_rating = m_comp.group(1)
+            special_vof = m_comp.group(2)
+        else:
+            # Clean VOF ratings like "1A" -> "A" (OCR picks up step dot edge as leading digit)
+            if len(left_char) > 1 and left_char[-1] in {"A", "S", "H", "G", "F", "E"}:
+                left_char = left_char[-1]
+            vof_rating = left_char
+    else:
+        vof_rating = None
 
-    vof_rating = None if subtype in ("casualty", "fo_spotter") else (left_char if left_char in {"S", "A", "H", "G", "F", "E", "G!", "A!", "S!"} or "G" in left_char else left_char or None)
+    if subtype in ("casualty", "fo_spotter"):
+        vof_rating = None
+        special_vof = None
 
     # Suppress VOF rating on non-combat markers (e.g. Unspotted, Cover, Pin, Exposed)
     if category == "marker" and subtype in {"cover", "unspotted", "unaware", "pin", "exposed"}:
         vof_rating = None
+        special_vof = None
 
     # Sanitize known range letter OCR artifacts
-    if right_char in {"PL", "P", "1L", "|L"}:
-        right_char = "L"
-    # Range band: strictly one of P, C, L, V (Point Blank, Close, Long, Very Long)
-    range_band = None if subtype in ("casualty", "fo_spotter") else (right_char if right_char in RANGE_BAND_ENUM else None)
+    if right_char:
+        clean_rc = re.sub(r"[^PCGLV-]", "", right_char.upper())
+        if clean_rc in {"CL", "C_L"}:
+            clean_rc = "C-L"
+        elif clean_rc in {"CV", "C_V"}:
+            clean_rc = "C-V"
+        if clean_rc in RANGE_BAND_ENUM:
+            right_char = clean_rc
+        elif any(c in RANGE_BAND_ENUM for c in clean_rc):
+            for c in reversed(clean_rc):
+                if c in RANGE_BAND_ENUM:
+                    right_char = c
+                    break
+        else:
+            right_char = ""
 
+    # Range band: one of P, C, L, V, C-L, C-V
+    range_band = None if subtype in ("casualty", "fo_spotter", "potential_contact", "tactical_control", "visibility", "asset") else (right_char if right_char in RANGE_BAND_ENUM else None)
+
+    # Experience level: do NOT map from bottom-right range band!
+    experience_level = None
     if subtype == "higher_command":
         experience_level = "Line"
-    elif subtype in ("casualty", "fo_spotter"):
-        experience_level = None
-    else:
-        experience_level = EXPERIENCE_RATING_MAP.get(right_char, "Line" if right_char == "L" or "L" in right_char else None)
+    elif category == "unit" and subtype not in ("casualty", "fo_spotter", "lat"):
+        combined_text = f"{ocr_header} {ocr_middle} {stem}".lower()
+        if re.search(r"\b(veteran|vet)\b", combined_text):
+            experience_level = "Veteran"
+        elif re.search(r"\bgreen\b", combined_text):
+            experience_level = "Green"
+        elif re.search(r"\belite\b", combined_text):
+            experience_level = "Elite"
+        elif re.search(r"\bline\b", combined_text):
+            experience_level = "Line"
+        elif subtype == "squad":
+            experience_level = "Line"
 
     # Fallback weapon type detection if not already defined
     if subtype != "lat" and not weapon_type:
@@ -894,9 +1060,10 @@ def build_record(
             "steps_total": min(steps_total, 3),
             "steps_remaining": min(detected_steps if detected_steps > 0 else steps_total, 3),
             "vof_rating": vof_rating,
+            "special_vof": special_vof,
             "range_band": range_band,
             "weapon_type": weapon_type,
-            "mount_type": "Tripod" if has_tripod_mount else None,
+            "mount_type": "Tripod" if has_tripod_mount and subtype == "weapons_team" else None,
             "lat_subtype": lat_type if subtype == "lat" else None,
             "ammo_type": None,
             "ammo_amount": None,
@@ -910,14 +1077,58 @@ def build_record(
             "visibility", "unaware", "unspotted", "fire_mission"
         }
         cover_type = hints.get("cover_type_hint", "standard")
-        if hints.get("ammo_type_hint"):
+        if hints.get("marker_type_hint") == "potential_contact":
+            pc_id = hints.get("pc_id", "A")
+            marker_details = {
+                "marker_type": "potential_contact",
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
+                "cover_type": None,
+                "cover_modifier": None,
+                "secondary_modifier": None,
+                "no_fire": False,
+                "no_pdf": False,
+                "vof_level": None,
+                "effects": f"Potential Contact {pc_id}",
+            }
+        elif hints.get("marker_type_hint") == "tactical_control":
+            marker_details = {
+                "marker_type": "tactical_control",
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
+                "cover_type": None,
+                "cover_modifier": None,
+                "secondary_modifier": None,
+                "no_fire": False,
+                "no_pdf": False,
+                "vof_level": None,
+                "effects": stem.replace("_", " ").title(),
+            }
+        elif hints.get("marker_type_hint") == "visibility":
+            marker_details = {
+                "marker_type": "visibility",
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
+                "cover_type": None,
+                "cover_modifier": None,
+                "secondary_modifier": None,
+                "no_fire": False,
+                "no_pdf": False,
+                "vof_level": None,
+                "effects": "Smoke / WP Visibility",
+            }
+        elif hints.get("ammo_type_hint"):
             ammo_type = hints.get("ammo_type_hint")
             ammo_idx = hints.get("ammo_index")
+            is_fm = hints.get("is_fire_mission", False)
             marker_details = {
-                "marker_type": hints.get("marker_type_hint", "ammo"),
+                "marker_type": "fire_mission" if is_fm else "ammo",
                 "ammo_type": ammo_type,
                 "ammo_index": ammo_idx,
-                "is_fire_mission": hints.get("is_fire_mission", False),
+                "is_fire_mission": is_fm,
                 "cover_type": None,
                 "cover_modifier": None,
                 "secondary_modifier": None,
@@ -927,19 +1138,41 @@ def build_record(
                 "effects": f"{ammo_type} #{ammo_idx}" if ammo_idx else ammo_type,
             }
         elif subtype in {"exposed", "pin"}:
+            cov_mod = -2 if subtype == "exposed" else cover_primary_mod
             marker_details = {
                 "marker_type": subtype,
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
                 "cover_type": None,
-                "cover_modifier": cover_primary_mod if cover_primary_mod is not None else (-2 if subtype == "exposed" else None),
+                "cover_modifier": cov_mod,
                 "secondary_modifier": None,
                 "no_fire": False,
                 "no_pdf": False,
                 "vof_level": None,
-                "effects": f"{subtype.title()} {cover_primary_mod}" if cover_primary_mod is not None else f"{subtype.title()}",
+                "effects": f"{subtype.title()} -2" if subtype == "exposed" else (f"{subtype.title()} {cov_mod}" if cov_mod is not None else subtype.title()),
+            }
+        elif subtype == "current_activity":
+            clean_activity = re.sub(r"^activity[_\s]*", "", stem).strip().title()
+            marker_details = {
+                "marker_type": "current_activity",
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
+                "cover_type": None,
+                "cover_modifier": None,
+                "secondary_modifier": None,
+                "no_fire": False,
+                "no_pdf": False,
+                "vof_level": None,
+                "effects": f"Activity: {clean_activity}",
             }
         else:
             marker_details = {
                 "marker_type": subtype if subtype in valid_marker_types else "cover",
+                "ammo_type": None,
+                "ammo_index": None,
+                "is_fire_mission": False,
                 "cover_type": cover_type,
                 "cover_modifier": cover_primary_mod,
                 "secondary_modifier": cover_secondary_mod,
@@ -954,18 +1187,28 @@ def build_record(
     side = raw_side if raw_side in valid_sides else "front"
 
     # Specific ID generation for Company & Command Roles
-    # Counter ID Generation
+    clean_stem_slug = re.sub(r"[^a-zA-Z0-9]+", "-", Path(filename).stem).strip("-").upper()
     if category == "marker":
-        if hints.get("ammo_type_hint"):
+        if hints.get("marker_type_hint") == "potential_contact":
+            counter_id = f"MARKER-PC-{hints.get('pc_id', 'A')}"
+        elif hints.get("marker_type_hint") == "tactical_control":
+            counter_id = f"MARKER-CONTROL-{clean_stem_slug.replace('CONTROL-', '')}"
+        elif hints.get("marker_type_hint") == "visibility":
+            counter_id = f"MARKER-VISIBILITY-{clean_stem_slug}"
+        elif hints.get("ammo_type_hint"):
             ammo_type = hints.get("ammo_type_hint")
             ammo_idx = hints.get("ammo_index")
-            clean_type = ammo_type.replace(" ", "-").replace(".", "").upper()
+            clean_type = (ammo_type or "AMMO").replace(" ", "-").replace(".", "").upper()
             counter_id = f"MARKER-{clean_type}-{ammo_idx}" if ammo_idx else f"MARKER-{clean_type}"
         elif subtype in {"exposed", "pin"}:
             counter_id = f"MARKER-{subtype.upper()}"
+        elif hints.get("marker_type_hint") == "current_activity" or subtype == "current_activity":
+            counter_id = f"MARKER-ACTIVITY-{clean_stem_slug.replace('ACTIVITY-', '')}"
         else:
             marker_name = hints.get("cover_type_hint") or subtype
             counter_id = f"MARKER-{marker_name.upper().replace(' ', '_')}"
+    elif category == "asset":
+        counter_id = f"ASSET-{clean_stem_slug}"
     elif subtype == "hq_co":
         counter_id = f"{country}-CO-HQ"
     elif subtype == "co_xo":
@@ -991,19 +1234,64 @@ def build_record(
             counter_id = f"{country}-FAC"
         else:
             counter_id = f"{country}-FO-SPOTTER"
-    elif subtype == "lat" and lat_type == "Fire Team":
+    elif subtype == "lat" and lat_type in {"Fire Team", "Assault Team"}:
+        suffix = "AT" if lat_type == "Assault Team" else "FT"
         if "xo" in stem:
-            counter_id = f"{country}-CO-XO-FT"
+            counter_id = f"{country}-CO-XO-{suffix}"
         elif "1sgt" in stem:
-            counter_id = f"{country}-CO-1SGT-FT"
+            counter_id = f"{country}-CO-1SGT-{suffix}"
         elif "co" in stem:
-            counter_id = f"{country}-CO-HQ-FT"
+            counter_id = f"{country}-CO-HQ-{suffix}"
+        elif squad_num and platoon:
+            counter_id = f"{country}-{squad_num}-{platoon}-{suffix}"
+        elif squad_num:
+            clean_role = re.sub(r"[^A-Z0-9]+", "-", stem.upper()).replace("CCF-", "").replace("-B", "")
+            counter_id = f"{country}-{clean_role}-FT"
         else:
-            counter_id = f"{country}-{squad_num or '1'}-{platoon or '1'}-FT"
+            counter_id = f"{country}-{clean_stem_slug}"
+    elif subtype == "vehicle":
+        veh_match = re.search(r"(\d+)", stem)
+        num_str = squad_num or (veh_match.group(1) if veh_match else "1")
+        counter_id = f"{country}-VEHICLE-{num_str}"
+    elif squad_num and platoon:
+        counter_id = f"{country}-{squad_num}-{platoon}-{subtype.upper()}"
+    elif squad_num:
+        clean_role = re.sub(r"[^A-Z0-9]+", "-", stem.upper()).replace(f"{country.upper()}-", "").replace("-B", "")
+        counter_id = f"{country}-{clean_role}-{subtype.upper()}"
     else:
-        counter_id = f"{country}-{squad_num or '1'}-{platoon or '1'}-{subtype.upper()}"
+        counter_id = f"{country}-{clean_stem_slug}"
 
     print(f"  [DEBUG - Final Schema Output] ID: '{counter_id}' | Subtype: '{subtype}' | VOF (Left): '{vof_rating}' | Range (Right): '{range_band}'", flush=True)
+
+    # Dynamic Confidence Calculation
+    confidence = 0.90
+    if category == "unit":
+        if squad_num is None and platoon is None and subtype not in {"vehicle", "aircraft", "casualty"}:
+            confidence -= 0.15
+        if vof_rating is None and range_band is None and subtype not in {"casualty", "fo_spotter"}:
+            confidence -= 0.10
+    elif category == "marker":
+        if subtype == "cover" and cover_primary_mod is None:
+            confidence -= 0.15
+    if not ocr_header and not ocr_middle:
+        confidence -= 0.05
+    confidence = max(0.20, min(0.95, confidence))
+
+    potential_contact_obj = None
+    if subtype == "potential_contact" or hints.get("marker_type_hint") == "potential_contact":
+        potential_contact_obj = {
+            "id": hints.get("pc_id"),
+            "weather": None,
+            "type": None,
+            "amount": None,
+        }
+
+    assets_obj = {"type": None, "amount": None}
+    if category == "asset":
+        assets_obj = {
+            "type": hints.get("asset_type", "Asset"),
+            "amount": 1,
+        }
 
     record = {
         "id": counter_id,
@@ -1031,14 +1319,14 @@ def build_record(
             "cover": None,
             "ammo_state": None,
         },
-        "assets": {"type": None, "amount": None},
+        "assets": assets_obj,
         "combat": {
-            "vof": vof_rating,
+            "vof": vof_rating if category == "unit" else None,
             "pdf": None,
             "concentrated_fire": None,
             "crossfire": None,
         },
-        "potential_contact": None,
+        "potential_contact": potential_contact_obj,
         "classification": {
             "method": method,
             "model": "tesseract-whitelist + opencv-hsv",
@@ -1049,7 +1337,7 @@ def build_record(
                 f"bottom_left_vof:{left_char}",
                 f"bottom_right_range:{right_char}"
             ],
-            "reviewed": confidence < confidence_threshold,
+            "reviewed": False,
             "reviewer": None,
             "reviewed_at": None,
             "notes": f"Header OCR: '{ocr_header}', Middle OCR: '{ocr_middle}', Yellow Dots: {detected_steps}, VOF (Left): {left_char}, Range (Right): {right_char}",
@@ -1085,14 +1373,15 @@ def main() -> int:
     for p in images:
         try:
             with Image.open(p) as im:
-                if im.size == (75, 75):
+                w, h = im.size
+                if 70 <= w <= 80 and 70 <= h <= 80:
                     filtered_images.append(p)
                 else:
-                    print(f"SKIPPING {p.name}: size {im.size} (not 75x75)", flush=True)
+                    print(f"SKIPPING {p.name}: size {im.size} (not ~75x75)", flush=True)
         except Exception as e:
             print(f"SKIPPING {p.name}: cannot open ({e})", flush=True)
     images = filtered_images
-    print(f"Processing {len(images)} images of size 75x75", flush=True)
+    print(f"Processing {len(images)} images of size ~75x75", flush=True)
 
     records = []
     review = []
@@ -1106,7 +1395,7 @@ def main() -> int:
             )
             jsonschema.validate(instance=rec, schema=schema)
             records.append(rec)
-            if rec["classification"]["reviewed"]:
+            if rec["image"]["confidence"] < args.confidence:
                 review.append(rec)
             print(f"[{idx}/{len(images)}] OK {img_path.name} -> {rec['category']}/{rec['subtype']} (conf={rec['image']['confidence']})", flush=True)
         except Exception as exc:

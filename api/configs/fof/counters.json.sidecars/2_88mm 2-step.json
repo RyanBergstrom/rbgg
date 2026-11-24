@@ -1,6 +1,6 @@
 {
-  "id": "German-88-2-WEAPONS_TEAM",
-  "path": "api\\img\\fof\\ocr-test\\2_88mm 2-step.png",
+  "id": "German-2-88-WEAPONS_TEAM",
+  "path": "api\\img\\fof\\counters\\2_88mm 2-step.png",
   "source": "fof-images-folder",
   "image": {
     "filename": "2_88mm 2-step.png",
@@ -9,9 +9,9 @@
     "format": "png",
     "side": "front",
     "hash_sha256": "a31f6d1675b3ace4d949ef0ade7995779dee2c0aba4f1f319ca6038ef4523394",
-    "classified_at": "2026-11-05T03:15:01.671627+00:00",
+    "classified_at": "2026-11-06T06:01:29.320535+00:00",
     "classifier": "fof-counter-pipeline v3.8-middle-ocr",
-    "confidence": 0.85
+    "confidence": 0.9
   },
   "country": "German",
   "category": "unit",
@@ -22,10 +22,10 @@
     "battalion": null,
     "platoon": "88",
     "squad_number": "2",
-    "experience_level": "Veteran",
+    "experience_level": null,
     "steps_total": 2,
     "steps_remaining": 2,
-    "vof_rating": null,
+    "vof_rating": "H",
     "range_band": "V",
     "weapon_type": "Anti-Tank Gun",
     "mount_type": null,
@@ -45,7 +45,7 @@
     "amount": null
   },
   "combat": {
-    "vof": null,
+    "vof": "H",
     "pdf": null,
     "concentrated_fire": null,
     "crossfire": null
@@ -56,14 +56,14 @@
     "model": "tesseract-whitelist + opencv-hsv",
     "labels": [
       "header_ocr:f 2/88mm",
-      "middle_ocr:wOoON",
+      "middle_ocr:",
       "yellow_dots:2",
-      "bottom_left_vof:",
+      "bottom_left_vof:H",
       "bottom_right_range:V"
     ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "Header OCR: 'f 2/88mm', Middle OCR: 'wOoON', Yellow Dots: 2, VOF (Left): , Range (Right): V"
+    "notes": "Header OCR: 'f 2/88mm', Middle OCR: '', Yellow Dots: 2, VOF (Left): H, Range (Right): V"
   }
 }

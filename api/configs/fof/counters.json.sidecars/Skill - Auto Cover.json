@@ -1,5 +1,5 @@
 {
-  "id": "Unknown-Skill - Auto Cover.png",
+  "id": "MARKER-STANDARD",
   "path": "api\\img\\fof\\counters\\Skill - Auto Cover.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,22 +7,27 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "d9365fffa017f38d1096b7193cf32817d2321eaeeac545dedacc79d0e09698f6",
-    "classified_at": "2026-11-04T03:11:56.803753+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.8
+    "classified_at": "2026-11-06T15:32:01.704799+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.7
   },
-  "country": "Unknown",
+  "country": "Other",
   "category": "marker",
   "subtype": "cover",
   "unit_details": null,
   "marker_details": {
     "marker_type": "cover",
+    "ammo_type": null,
+    "ammo_index": null,
+    "is_fire_mission": false,
+    "cover_type": "standard",
+    "cover_modifier": null,
+    "secondary_modifier": null,
+    "no_fire": true,
+    "no_pdf": false,
     "vof_level": null,
-    "pdf": null,
-    "concentrated_fire": null,
-    "crossfire": null,
     "effects": null
   },
   "status": {
@@ -44,11 +49,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:",
+      "middle_ocr:",
+      "yellow_dots:0",
+      "bottom_left_vof:",
+      "bottom_right_range:"
+    ],
     "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='Skill\\n4\\nAUTO?\\nCOVER | PR Skits\\nBauroy |\\nCOTA EF'"
+    "notes": "Header OCR: '', Middle OCR: '', Yellow Dots: 0, VOF (Left): , Range (Right): "
   }
 }

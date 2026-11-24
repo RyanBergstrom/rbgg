@@ -1,5 +1,5 @@
 {
-  "id": "VietCong-VC RPG 3.png",
+  "id": "VietCong-VC-RPG-3",
   "path": "api\\img\\fof\\counters\\VC RPG 3.png",
   "source": "fof-images-folder",
   "image": {
@@ -7,27 +7,29 @@
     "width": 75,
     "height": 75,
     "format": "png",
-    "side": "unknown",
+    "side": "front",
     "hash_sha256": "e5ae226ddfbdd8d1990cc8781c0bf36191efa1cab96c01f9715d85e857ee9098",
-    "classified_at": "2026-11-04T03:13:03.086037+00:00",
-    "classifier": "fof-counter-pipeline v2.1",
-    "confidence": 0.5
+    "classified_at": "2026-11-06T15:42:06.321243+00:00",
+    "classifier": "fof-counter-pipeline v3.8-middle-ocr",
+    "confidence": 0.9
   },
   "country": "VietCong",
   "category": "unit",
-  "subtype": "squad",
+  "subtype": "casualty",
   "unit_details": {
-    "unit_type": "squad",
+    "unit_type": "casualty",
     "division": null,
     "battalion": null,
     "platoon": null,
     "squad_number": null,
     "experience_level": null,
-    "steps_total": null,
-    "steps_remaining": null,
+    "steps_total": 2,
+    "steps_remaining": 2,
     "vof_rating": null,
     "range_band": null,
-    "weapon_type": null,
+    "weapon_type": "Bazooka",
+    "mount_type": null,
+    "lat_subtype": null,
     "ammo_type": null,
     "ammo_amount": null
   },
@@ -51,11 +53,17 @@
   "potential_contact": null,
   "classification": {
     "method": "ocr",
-    "model": "tesseract",
-    "labels": [],
-    "reviewed": true,
+    "model": "tesseract-whitelist + opencv-hsv",
+    "labels": [
+      "header_ocr:SNC RPG",
+      "middle_ocr:",
+      "yellow_dots:2",
+      "bottom_left_vof:S",
+      "bottom_right_range:C"
+    ],
+    "reviewed": false,
     "reviewer": null,
     "reviewed_at": null,
-    "notes": "ocr_text='NC RPG\\nNn\\nBale ii wm\\n\u2122\\nSe'"
+    "notes": "Header OCR: 'SNC RPG', Middle OCR: '', Yellow Dots: 2, VOF (Left): S, Range (Right): C"
   }
 }

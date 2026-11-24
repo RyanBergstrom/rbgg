@@ -13,6 +13,7 @@
   let error = null;
   let newPlayerName = 'Ryan';
   let playerCount = gameId === 'bus' ? 3 : 2;
+  let selectedFaction = 'us';
   let selectedDifficulty = '';
   let selectedCampaign = '';
   let selectedScenario = '';
@@ -74,7 +75,10 @@
 
   function handleStartNewGame() {
     localStorage.removeItem(`rbgg:debug:${gameId}`);
-    startSession(gameId, newPlayerName, parseInt(playerCount), selectedDifficulty, selectedScenario || null)
+    const startRequest = gameId === 'twilight_struggle'
+      ? startSession(gameId, newPlayerName, parseInt(playerCount), selectedDifficulty, selectedScenario || null, selectedFaction)
+      : startSession(gameId, newPlayerName, parseInt(playerCount), selectedDifficulty, selectedScenario || null);
+    startRequest
       .then((session) => {
         window.location.href = `/games/${gameId}/play?sessionId=${session.session_id}`;
       })
@@ -211,6 +215,23 @@
                 maxlength="20"
               />
             </div>
+
+            {#if gameId === 'twilight_struggle'}
+              <fieldset class="form-group faction-picker">
+                <legend>Your side</legend>
+                <p class="field-help">Choose the faction you will play. The other side is controlled by the computer.</p>
+                <label class="faction-option" class:selected={selectedFaction === 'us'}>
+                  <input type="radio" name="twilight-faction" value="us" bind:group={selectedFaction} />
+                  <span class="faction-swatch us-swatch"></span>
+                  <span><strong>United States</strong><small>Play as the US</small></span>
+                </label>
+                <label class="faction-option" class:selected={selectedFaction === 'ussr'}>
+                  <input type="radio" name="twilight-faction" value="ussr" bind:group={selectedFaction} />
+                  <span class="faction-swatch ussr-swatch"></span>
+                  <span><strong>Soviet Union</strong><small>Play as the USSR</small></span>
+                </label>
+              </fieldset>
+            {/if}
 
 
             {#if game?.min_players || gameId === 'bus'}
@@ -535,6 +556,66 @@
   .form-group {
     margin-bottom: 1rem;
   }
+
+  .faction-picker {
+    min-width: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .faction-picker legend {
+    margin-bottom: 0.4rem;
+    color: #aaa;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .field-help {
+    margin: 0 0 0.55rem;
+    color: #b7c3d1;
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .faction-option {
+    display: flex !important;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0 0 0.5rem !important;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    background: rgba(15,52,96,0.55);
+    color: #eee !important;
+    cursor: pointer;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+  }
+
+  .faction-option.selected {
+    border-color: #e2bd68;
+    background: rgba(61,56,40,0.8);
+    box-shadow: 0 0 0 1px rgba(226,189,104,0.25);
+  }
+
+  .faction-option input[type="radio"] {
+    width: auto;
+    margin: 0;
+    accent-color: #e2bd68;
+  }
+
+  .faction-option > span:last-child {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .faction-option strong { color: #fff; font-size: 0.9rem; }
+  .faction-option small { color: #c1ccd7; font-size: 0.75rem; font-weight: 400; }
+  .faction-swatch { width: 0.65rem; height: 1.8rem; border-radius: 4px; }
+  .us-swatch { background: #527da8; }
+  .ussr-swatch { background: #bd514e; }
 
   .form-group label {
     display: block;
