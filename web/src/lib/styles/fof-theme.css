@@ -1,0 +1,39 @@
+/* Fields of Fire theme tokens — Unslop pass */
+:root {
+  --fof-bg: #1f2318;
+  --fof-surface: #262a1f;
+  --fof-surface-2: #303528;
+  --fof-surface-3: #3a4030;
+  --fof-border: rgba(232, 224, 196, 0.12);
+  --fof-border-strong: rgba(232, 224, 196, 0.22);
+  --fof-text: #e7e2d6;
+  --fof-text-2: #b8b09a;
+  --fof-muted: #8a8370;
+  --fof-accent: #b8941f;
+  --fof-accent-text: #1a1a0a;
+  --fof-danger: #a9443a;
+  --fof-success: #5f8a4a;
+  --fof-warning: #c9a227;
+  --fof-radius-sm: 6px;
+  --fof-radius-md: 10px;
+  --fof-radius-lg: 14px;
+  --fof-space-1: 4px;
+  --fof-space-2: 8px;
+  --fof-space-3: 12px;
+  --fof-space-4: 16px;
+  --fof-space-5: 20px;
+  --fof-space-6: 24px;
+  --fof-space-8: 32px;
+  --fof-font: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --fof-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --fof-ease: cubic-bezier(0.2, 0, 0, 1);
+  --fof-dur-fast: 120ms;
+  --fof-dur-base: 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fof-dur-fast: 0ms;
+    --fof-dur-base: 0ms;
+  }
+}

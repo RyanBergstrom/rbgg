@@ -158,7 +158,7 @@
           <button type="button" class="cp-btn" on:click={() => dispatchMove(fire)}>Card {fire.position}</button>
         {/each}
         {#if fireMoves.length === 0}
-          <span class="cp-label">no VOF target</span>
+          <span class="cp-label">No VOF target</span>
         {/if}
       </div>
       {#if lastFire}
@@ -307,5 +307,128 @@
   .cp-waiting {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  /* Unslop pass */
+  .command-panel {
+    background: var(--fof-surface);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-md);
+    color: var(--fof-text);
+    font-family: var(--fof-font);
+    font-size: 0.8rem;
+    box-shadow: none;
+  }
+
+  .cp-row {
+    gap: var(--fof-space-2);
+    margin-bottom: var(--fof-space-2);
+  }
+
+  .cp-label {
+    color: var(--fof-muted);
+    font-size: 0.75rem;
+  }
+
+  .cp-pool {
+    color: var(--fof-accent);
+    font-family: var(--fof-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cp-btn {
+    border-radius: var(--fof-radius-sm);
+    border: 1px solid var(--fof-border-strong);
+    background: var(--fof-surface-2);
+    color: var(--fof-text);
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: background-color var(--fof-dur-fast) var(--fof-ease), border-color var(--fof-dur-fast) var(--fof-ease), color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .cp-btn:hover {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-accent);
+  }
+
+  .cp-hq {
+    background: var(--fof-surface-2);
+    border-color: var(--fof-border-strong);
+    color: var(--fof-text);
+  }
+
+  .cp-hq small {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.65rem;
+    color: var(--fof-muted);
+  }
+
+  .cp-ready {
+    background: var(--fof-accent);
+    border-color: var(--fof-accent);
+    color: var(--fof-accent-text);
+  }
+
+  .cp-done {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-border-strong);
+    color: var(--fof-success);
+  }
+
+  .cp-exit {
+    background: var(--fof-danger);
+    border-color: var(--fof-danger);
+    color: var(--fof-text);
+  }
+
+  .cp-next {
+    background: var(--fof-success);
+    border-color: var(--fof-success);
+    color: var(--fof-text);
+  }
+
+  .cp-undo {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-border-strong);
+    color: var(--fof-text-2);
+  }
+
+  .cp-undo:disabled {
+    opacity: 0.45;
+  }
+
+  .cp-command-list {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .cp-cmd {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-border-strong);
+    color: var(--fof-text);
+  }
+
+  .cp-expanded {
+    box-shadow: 0 0 0 2px var(--fof-accent);
+  }
+
+  .cp-waiting {
+    opacity: 0.45;
+  }
+
+  select {
+    background: var(--fof-surface-2);
+    color: var(--fof-text);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-sm);
+    font-family: var(--fof-font);
+  }
+
+  button:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--fof-accent);
+    outline-offset: 2px;
   }
 </style>

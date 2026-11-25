@@ -217,4 +217,112 @@
   .tt-segments li {
     margin-bottom: 0.15rem;
   }
+
+  /* Unslop pass */
+  .turn-tracker {
+    background: var(--fof-surface);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-md);
+    color: var(--fof-text);
+    box-shadow: none;
+    font-family: var(--fof-font);
+  }
+
+  .turn-tracker.collapsed {
+    width: 2.2rem;
+  }
+
+  .tt-top {
+    gap: var(--fof-space-2);
+    margin-bottom: var(--fof-space-2);
+  }
+
+  .tt-title strong {
+    color: var(--fof-accent);
+    font-weight: 500;
+    font-family: var(--fof-mono);
+  }
+
+  .tt-collapse {
+    background: transparent;
+    border: 1px solid var(--fof-border-strong);
+    color: var(--fof-text-2);
+    border-radius: var(--fof-radius-sm);
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+    transition: background-color var(--fof-dur-fast) var(--fof-ease), color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .tt-phases {
+    gap: var(--fof-space-2);
+  }
+
+  .tt-phase {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-sm);
+    color: var(--fof-text-2);
+  }
+
+  .tt-phase.done {
+    color: var(--fof-success);
+    border-color: rgba(95, 138, 74, 0.35);
+  }
+
+  .tt-phase.current {
+    background: var(--fof-accent);
+    color: var(--fof-accent-text);
+    border-color: var(--fof-accent);
+    font-weight: 500;
+  }
+
+  .tt-row {
+    gap: var(--fof-space-2);
+    padding: var(--fof-space-2) var(--fof-space-3);
+  }
+
+  .tt-marker {
+    background: var(--fof-surface-3);
+    color: var(--fof-text);
+    border-radius: 50%;
+    font-family: var(--fof-mono);
+    font-size: 0.65rem;
+  }
+
+  .tt-phase.current .tt-marker {
+    background: var(--fof-accent-text);
+    color: var(--fof-accent);
+  }
+
+  .tt-label {
+    font-size: 0.75rem;
+  }
+
+  .tt-rule {
+    color: var(--fof-muted);
+    font-family: var(--fof-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .tt-phase.current .tt-rule {
+    color: var(--fof-accent-text);
+  }
+
+  .tt-segments {
+    padding: var(--fof-space-2) var(--fof-space-3) var(--fof-space-3);
+    border-top: 1px solid var(--fof-border);
+    color: var(--fof-text-2);
+    font-size: 0.7rem;
+  }
+
+  .tt-segments li {
+    margin-bottom: var(--fof-space-1);
+  }
+
+  button:focus-visible {
+    outline: 2px solid var(--fof-accent);
+    outline-offset: 2px;
+  }
 </style>

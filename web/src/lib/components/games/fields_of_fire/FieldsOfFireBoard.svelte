@@ -521,7 +521,7 @@ legalMoves = screenState.legal_moves || legalMoves;
       if (match) asset = `Tokens/Markers/Weapon_AT-${match[1]}.png`;
     }
     return asset
-      ? `${API_BASE}/img/fof/${asset.split('/').map(encodeURIComponent).join('/')}`
+      ? `${API_BASE}/img/fof/counters/${encodeURIComponent(asset.split('/').pop())}`
       : null;
   }
 
@@ -591,7 +591,7 @@ legalMoves = screenState.legal_moves || legalMoves;
   />
     <div class="draw-pile-panel">
       <div class="dp-count">{cardsLeft}</div>
-      <div class="dp-label">cards left</div>
+      <div class="dp-label">Cards remaining</div>
       <div class="dp-pile" role="img" aria-label="Last played card" on:mouseenter={startDiscardHover} on:mouseleave={clearDiscardHover}>
         {#if topDiscardUrl}
           <img src={topDiscardUrl} alt="Last played card" class="dp-card-img" />
@@ -604,12 +604,12 @@ legalMoves = screenState.legal_moves || legalMoves;
           </div>
         {/if}
       </div>
-      <div class="dp-discard">Discard: {discardCount}</div>
+      <div class="dp-discard">Discard {discardCount}</div>
     </div>
     <div class="audit-panel" class:collapsed={auditCollapsed}>
       <div class="ap-top">
         {#if !auditCollapsed}
-          <div class="ap-title"><strong>Audit Log ({auditEntries.length})</strong></div>
+          <div class="ap-title"><strong>Activity log ({auditEntries.length})</strong></div>
         {/if}
         <button
           type="button"
@@ -624,7 +624,7 @@ legalMoves = screenState.legal_moves || legalMoves;
       {#if !auditCollapsed}
         <div class="ap-body">
           {#if auditEntries.length === 0}
-            <div class="ap-empty">No activity yet.</div>
+            <div class="ap-empty">No activity yet</div>
           {:else}
             {#each auditEntries as entry (entry.id)}
               <div class="ap-entry">
@@ -643,7 +643,7 @@ legalMoves = screenState.legal_moves || legalMoves;
 
   {#if winner}
     <div class="winner-banner">
-      Mission complete - {winner} wins!
+      Mission complete - {winner} wins.
     </div>
   {/if}
 
@@ -823,7 +823,7 @@ legalMoves = screenState.legal_moves || legalMoves;
             <div class="legal-move-overlay"></div>
           {/if}
           {#if popupIdx === idx}
-            <div class="placement-target-badge">PLACE HERE</div>
+            <div class="placement-target-badge">Place here</div>
           {/if}
           {#if card}
             {@const img = c?.image || (c?.id ? getCardImageUrl(c.id) : getCardImage(card))}
@@ -1745,5 +1745,364 @@ legalMoves = screenState.legal_moves || legalMoves;
     margin-top: 0.5rem;
     color: #ccc;
     font-size: 0.8rem;
+  }
+
+  /* Unslop pass */
+  .fof-board {
+    background: var(--fof-bg);
+    padding: var(--fof-space-4);
+  }
+
+  .fof-layout {
+    gap: var(--fof-space-3);
+  }
+
+  .fof-sidebar,
+  .draw-pile-panel,
+  .audit-panel {
+    width: 240px;
+    background: var(--fof-surface);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-md);
+    padding: var(--fof-space-3);
+    color: var(--fof-text);
+    box-shadow: none;
+  }
+
+  .draw-pile-panel,
+  .audit-panel {
+    width: 240px;
+  }
+
+  .dp-count {
+    color: var(--fof-accent);
+    font-family: var(--fof-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dp-label,
+  .dp-discard {
+    color: var(--fof-muted);
+    font-size: 0.7rem;
+  }
+
+  .dp-card-img,
+  .dp-card-back {
+    border-color: var(--fof-border-strong);
+    border-radius: var(--fof-radius-sm);
+    box-shadow: none;
+  }
+
+  .dp-hover-preview {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .ap-title,
+  .ap-text {
+    color: var(--fof-text);
+  }
+
+  .ap-time {
+    color: var(--fof-muted);
+    font-family: var(--fof-mono);
+  }
+
+  .ap-empty {
+    color: var(--fof-muted);
+    font-style: normal;
+  }
+
+  .ap-collapse {
+    background: transparent;
+    border: 1px solid var(--fof-border-strong);
+    color: var(--fof-text-2);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .info-bar {
+    color: var(--fof-text-2);
+    font-size: 0.8rem;
+    font-family: var(--fof-mono);
+  }
+
+  .winner-banner {
+    background: var(--fof-surface-2);
+    color: var(--fof-text);
+    border: 1px solid var(--fof-accent);
+    border-radius: var(--fof-radius-sm);
+    font-weight: 500;
+  }
+
+  .setup-panel,
+  .unit-popup,
+  .setup-stack-column {
+    background: var(--fof-surface);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .setup-stack-column h3 {
+    color: var(--fof-accent);
+  }
+
+  .setup-stack-column h3 span {
+    color: var(--fof-text);
+  }
+
+  .unit-popup .popup-header span {
+    color: var(--fof-accent);
+    font-weight: 500;
+  }
+
+  .popup-title small,
+  .dp-label {
+    color: var(--fof-muted);
+  }
+
+  .cancel-btn {
+    background: transparent;
+    color: var(--fof-accent);
+    border: 1px solid var(--fof-accent);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .cancel-btn:hover {
+    background: var(--fof-accent);
+    color: var(--fof-accent-text);
+  }
+
+  .available-unit-option {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-sm);
+    color: var(--fof-text);
+    transition: border-color var(--fof-dur-fast) var(--fof-ease), background-color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .available-unit-option:hover {
+    border-color: var(--fof-accent);
+    background: var(--fof-surface-3);
+  }
+
+  .unit-option-details strong {
+    color: var(--fof-text);
+  }
+
+  .unit-option-details small {
+    color: var(--fof-muted);
+  }
+
+  .place-arrow {
+    color: var(--fof-accent);
+  }
+
+  .map-container {
+    max-width: 960px;
+  }
+
+  .map-grid {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-md);
+    gap: var(--fof-space-3);
+    padding: var(--fof-space-3);
+  }
+
+  .map-card {
+    border: 1px solid var(--fof-border);
+    background: var(--fof-surface-3);
+    border-radius: var(--fof-radius-sm);
+    transition: border-color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .map-card:hover:not(:disabled) {
+    border-color: var(--fof-accent);
+  }
+
+  .map-card.empty {
+    background: var(--fof-surface);
+  }
+
+  .map-card.deployment-zone {
+    border-color: var(--fof-text-2);
+  }
+
+  .map-card.has-legal-moves {
+    box-shadow: 0 0 0 2px var(--fof-accent);
+  }
+
+  .map-card.placing-target {
+    border: 2px solid var(--fof-accent);
+    box-shadow: 0 0 0 2px var(--fof-accent);
+  }
+
+  .map-card.stack-focused {
+    border: 2px solid var(--fof-success);
+    box-shadow: 0 0 0 2px var(--fof-success);
+  }
+
+  .map-card.move-destination.legal-destination {
+    border-color: var(--fof-success);
+  }
+
+  .map-card.move-destination:not(.legal-destination) {
+    filter: saturate(0.5) brightness(0.7);
+  }
+
+  .map-card:disabled {
+    opacity: 0.55;
+  }
+
+  .deployment-overlay {
+    background: rgba(184, 148, 31, 0.12);
+  }
+
+  .legal-move-overlay {
+    background: rgba(184, 148, 31, 0.10);
+  }
+
+  .card-label {
+    color: var(--fof-text-2);
+    font-size: 0.7rem;
+  }
+
+  .empty-card {
+    color: var(--fof-muted);
+  }
+
+  .pc-marker-badge {
+    background: var(--fof-surface-3);
+    color: var(--fof-text);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-sm);
+    font-family: var(--fof-mono);
+  }
+
+  .elevation,
+  .cover {
+    background: rgba(0, 0, 0, 0.55);
+    color: var(--fof-accent);
+    border-radius: 3px;
+    font-family: var(--fof-mono);
+  }
+
+  .progress-bar {
+    background: var(--fof-surface-3);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .progress-fill {
+    background: var(--fof-accent);
+    transition: width var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .moving-stack-banner {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-warning);
+    color: var(--fof-text);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .move-selection-error {
+    color: var(--fof-danger);
+  }
+
+  .stack-member-row {
+    background: var(--fof-surface-2);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .stack-action-btn,
+  .move-whole-stack-btn,
+  .cancel-move-btn {
+    border-radius: var(--fof-radius-sm);
+    transition: background-color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .move-whole-stack-btn {
+    background: var(--fof-success);
+    border-color: var(--fof-success);
+    color: var(--fof-text);
+  }
+
+  .counter-thumbnail,
+  .counter-fallback {
+    border-radius: var(--fof-radius-sm);
+    background: var(--fof-surface-3);
+  }
+
+  .bottom-bar {
+    border-top: 1px solid var(--fof-border);
+    color: var(--fof-text-2);
+  }
+
+  .markers {
+    font-family: var(--fof-mono);
+    font-size: 0.75rem;
+  }
+
+  .unit-counter-tile {
+    border-radius: 4px;
+  }
+
+  .stack-hover-preview {
+    background: var(--fof-surface);
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-md);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .hover-counter-item small {
+    color: var(--fof-muted);
+    font-size: 0.65rem;
+  }
+
+  .placement-target-badge {
+    background: var(--fof-accent);
+    color: var(--fof-accent-text);
+    border-radius: var(--fof-radius-sm);
+    font-size: 0.65rem;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .unit-popup .popup-header {
+    gap: var(--fof-space-2);
+  }
+
+  .no-units-available {
+    color: var(--fof-muted);
+  }
+
+  button:focus-visible,
+  .map-card:focus-visible,
+  .available-unit-option:focus-visible {
+    outline: 2px solid var(--fof-accent);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .fof-layout {
+      flex-direction: column;
+    }
+
+    .fof-sidebar,
+    .draw-pile-panel,
+    .audit-panel {
+      width: 100%;
+    }
+
+    .map-container {
+      max-width: 100%;
+    }
+
+    .setup-stack-content {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

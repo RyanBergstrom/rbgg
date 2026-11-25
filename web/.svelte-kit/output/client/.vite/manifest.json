@@ -1,6 +1,6 @@
 {
   ".svelte-kit/generated/client-optimized/app.js": {
-    "file": "_app/immutable/entry/app.Dng5G3jm.js",
+    "file": "_app/immutable/entry/app.DCcsiloA.js",
     "name": "entry/app",
     "src": ".svelte-kit/generated/client-optimized/app.js",
     "isEntry": true,
@@ -24,7 +24,7 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/0.js": {
-    "file": "_app/immutable/nodes/0.D0aUMrMY.js",
+    "file": "_app/immutable/nodes/0.BukZe7Rm.js",
     "name": "nodes/0",
     "src": ".svelte-kit/generated/client-optimized/nodes/0.js",
     "isEntry": true,
@@ -34,17 +34,17 @@
       "_DRhpOcIC.js"
     ],
     "css": [
-      "_app/immutable/assets/0.52v5p-hL.css"
+      "_app/immutable/assets/0.COSiPFel.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/1.js": {
-    "file": "_app/immutable/nodes/1.DcG57jgk.js",
+    "file": "_app/immutable/nodes/1.C1kD30F9.js",
     "name": "nodes/1",
     "src": ".svelte-kit/generated/client-optimized/nodes/1.js",
     "isEntry": true,
     "imports": [
       "_Rr-Im1Oz.js",
-      "_DvAD-QyM.js",
+      "_DBt_LIhM.js",
       "_xihTtKlq.js"
     ]
   },
@@ -109,7 +109,7 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/6.js": {
-    "file": "_app/immutable/nodes/6.DJQo6XkB.js",
+    "file": "_app/immutable/nodes/6.CUBGs3NG.js",
     "name": "nodes/6",
     "src": ".svelte-kit/generated/client-optimized/nodes/6.js",
     "isEntry": true,
@@ -131,7 +131,7 @@
       "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte"
     ],
     "css": [
-      "_app/immutable/assets/6.DhPJD26L.css"
+      "_app/immutable/assets/6.Bsw7HsX8.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/7.js": {
@@ -208,20 +208,20 @@
       "_B2KOXJbu.js"
     ]
   },
-  "_DRhpOcIC.js": {
-    "file": "_app/immutable/chunks/DRhpOcIC.js",
-    "name": "legacy",
-    "imports": [
-      "_Rr-Im1Oz.js"
-    ]
-  },
-  "_DvAD-QyM.js": {
-    "file": "_app/immutable/chunks/DvAD-QyM.js",
+  "_DBt_LIhM.js": {
+    "file": "_app/immutable/chunks/DBt_LIhM.js",
     "name": "client",
     "imports": [
       "_Rr-Im1Oz.js",
       "_B2KOXJbu.js",
       "_BrijyIqX.js"
+    ]
+  },
+  "_DRhpOcIC.js": {
+    "file": "_app/immutable/chunks/DRhpOcIC.js",
+    "name": "legacy",
+    "imports": [
+      "_Rr-Im1Oz.js"
     ]
   },
   "_Rr-Im1Oz.js": {
@@ -237,12 +237,12 @@
     "name": "disclose-version"
   },
   "node_modules/@sveltejs/kit/src/runtime/client/entry.js": {
-    "file": "_app/immutable/entry/start.Bmgmkw1K.js",
+    "file": "_app/immutable/entry/start.Cmoyamsu.js",
     "name": "entry/start",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/entry.js",
     "isEntry": true,
     "imports": [
-      "_DvAD-QyM.js"
+      "_DBt_LIhM.js"
     ]
   },
   "src/lib/components/games/bus/BusBoard.svelte": {
@@ -275,7 +275,7 @@
     ]
   },
   "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte": {
-    "file": "_app/immutable/chunks/DE8DX-1L.js",
+    "file": "_app/immutable/chunks/Dlq43oaq.js",
     "name": "FieldsOfFireBoard",
     "src": "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
     "isDynamicEntry": true,
@@ -287,7 +287,7 @@
       "_CYYOlazE.js"
     ],
     "css": [
-      "_app/immutable/assets/FieldsOfFireBoard.Bxr7PHDb.css"
+      "_app/immutable/assets/FieldsOfFireBoard.YxJ780aL.css"
     ]
   },
   "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {

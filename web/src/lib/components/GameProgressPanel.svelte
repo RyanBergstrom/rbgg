@@ -355,4 +355,84 @@
   .exit-button:hover {
     background: #c82333;
   }
+
+  /* Unslop pass: FOF footer only */
+  .game-progress-panel.fof-mode {
+    background: var(--fof-surface);
+    color: var(--fof-text);
+    border-top: 1px solid var(--fof-border);
+    font-family: var(--fof-font);
+  }
+
+  .game-progress-panel.fof-mode .panel-left,
+  .game-progress-panel.fof-mode .panel-right {
+    color: var(--fof-text);
+  }
+
+  .game-progress-panel.fof-mode .settings-button {
+    background: transparent;
+    border: 1px solid var(--fof-border-strong);
+    color: var(--fof-text-2);
+    border-radius: var(--fof-radius-sm);
+    transition: background-color var(--fof-dur-fast) var(--fof-ease), color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .game-progress-panel.fof-mode .settings-button:hover {
+    background: var(--fof-surface-2);
+    color: var(--fof-text);
+  }
+
+  .game-progress-panel.fof-mode .player-dot {
+    border: 1px solid var(--fof-border-strong);
+  }
+
+  .game-progress-panel.fof-mode .phase-status,
+  .game-progress-panel.fof-mode .phase-text {
+    color: var(--fof-text-2);
+  }
+
+  .game-progress-panel.fof-mode .phase-name {
+    color: var(--fof-text);
+    font-weight: 500;
+  }
+
+  .game-progress-panel.fof-mode .start-mission-btn-panel {
+    background: var(--fof-success);
+    color: var(--fof-text);
+    border-radius: var(--fof-radius-sm);
+    font-weight: 500;
+  }
+
+  .game-progress-panel.fof-mode .start-mission-btn-panel:disabled {
+    opacity: 0.45;
+  }
+
+  .game-progress-panel.fof-mode .confirm-button {
+    background: var(--fof-accent);
+    color: var(--fof-accent-text);
+    border-radius: var(--fof-radius-sm);
+    font-weight: 500;
+  }
+
+  .game-progress-panel.fof-mode .confirm-button:hover:not(:disabled) {
+    background: var(--fof-accent);
+    filter: brightness(1.08);
+  }
+
+  .game-progress-panel.fof-mode .undo-button {
+    background: var(--fof-surface-3);
+    color: var(--fof-text);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .game-progress-panel.fof-mode .exit-button {
+    background: var(--fof-danger);
+    color: var(--fof-text);
+    border-radius: var(--fof-radius-sm);
+  }
+
+  .game-progress-panel.fof-mode button:focus-visible {
+    outline: 2px solid var(--fof-accent);
+    outline-offset: 2px;
+  }
 </style>

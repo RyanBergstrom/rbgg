@@ -65,7 +65,7 @@ function CommandPanel($$renderer, $$props) {
 			const each_array = ensure_array_like(hqRows);
 			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
 				let row = each_array[$$index];
-				$$renderer.push(`<div class="cp-hq-group"><button type="button"${attr_class(`cp-btn cp-hq cp-${stringify(row.state)}`, "svelte-1kjy6xs", { "cp-expanded": selectedCommander === row.id })}${attr("disabled", row.state === "waiting", true)}${attr("title", row.state === "waiting" ? "Waiting: an earlier HQ must activate first" : row.state === "done" ? row.pool > 0 ? "Click to use a command" : row.draw ? "Click to draw commands" : "Already activated this turn" : row.id === hqOrder[0] ? "Click to activate (free)" : "Click a commander to activate")}>${escape_html(row.label)} <small class="svelte-1kjy6xs">${escape_html(row.state === "done" ? row.pool > 0 ? `${row.pool} Available` : row.draw ? "Draw" : "finished" : row.state === "ready" ? "Waiting" : "finished")}</small></button></div>`);
+				$$renderer.push(`<div class="cp-hq-group"><button type="button"${attr_class(`cp-btn cp-hq cp-${stringify(row.state)}`, "svelte-1kjy6xs", { "cp-expanded": selectedCommander === row.id })}${attr("disabled", row.state === "waiting", true)}${attr("title", row.state === "waiting" ? "Waiting: an earlier HQ must activate first" : row.state === "done" ? row.pool > 0 ? "Click to use a command" : row.draw ? "Click to draw commands" : "Already activated this turn" : row.id === hqOrder[0] || activated.length === 0 ? "Click to activate (free)" : "Click a commander to activate")}>${escape_html(row.label)} <small class="svelte-1kjy6xs">${escape_html(row.state === "done" ? row.pool > 0 ? `${row.pool} Available` : row.draw ? "Draw" : "finished" : row.state === "ready" ? "Ready" : "finished")}</small></button></div>`);
 			}
 			$$renderer.push(`<!--]--> <div class="cp-exit-group svelte-1kjy6xs"><button type="button" class="cp-btn cp-exit svelte-1kjy6xs">Exit</button> `);
 			if (advanceMove) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-next svelte-1kjy6xs">End Cmd</button>`);
@@ -94,7 +94,8 @@ function CommandPanel($$renderer, $$props) {
 				$$renderer.push(`<!--[0--><div class="cp-row cp-infil svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Infiltrate to</span> `);
 				$$renderer.select({
 					value: infilUnit,
-					"aria-label": "Infiltrate unit"
+					"aria-label": "Infiltrate unit",
+					class: ""
 				}, ($$renderer) => {
 					$$renderer.push(`<!--[-->`);
 					const each_array_2 = ensure_array_like(infilUnits);
@@ -105,11 +106,12 @@ function CommandPanel($$renderer, $$props) {
 						});
 					}
 					$$renderer.push(`<!--]-->`);
-				});
+				}, "svelte-1kjy6xs");
 				$$renderer.push(` `);
 				$$renderer.select({
 					value: infilDest,
-					"aria-label": "Infiltrate destination"
+					"aria-label": "Infiltrate destination",
+					class: ""
 				}, ($$renderer) => {
 					$$renderer.push(`<!--[-->`);
 					const each_array_3 = ensure_array_like(infilDests);
@@ -120,7 +122,7 @@ function CommandPanel($$renderer, $$props) {
 						});
 					}
 					$$renderer.push(`<!--]-->`);
-				});
+				}, "svelte-1kjy6xs");
 				$$renderer.push(` <button type="button" class="cp-btn svelte-1kjy6xs"${attr("disabled", !selectedInfil, true)}>Infiltrate</button></div>`);
 			} else $$renderer.push("<!--[-1-->");
 			$$renderer.push(`<!--]--> `);
@@ -132,7 +134,7 @@ function CommandPanel($$renderer, $$props) {
 					$$renderer.push(`<button type="button" class="cp-btn svelte-1kjy6xs">Card ${escape_html(fire.position)}</button>`);
 				}
 				$$renderer.push(`<!--]--> `);
-				if (fireMoves.length === 0) $$renderer.push(`<!--[0--><span class="cp-label svelte-1kjy6xs">no VOF target</span>`);
+				if (fireMoves.length === 0) $$renderer.push(`<!--[0--><span class="cp-label svelte-1kjy6xs">No VOF target</span>`);
 				else $$renderer.push("<!--[-1-->");
 				$$renderer.push(`<!--]--></div> `);
 				if (lastFire) $$renderer.push(`<!--[0--><div class="cp-row cp-lastdraw svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Last fire:</span> <strong>card ${escape_html(lastFire.position)}</strong> <span>net ${escape_html(lastFire.net_modifier)}, result <strong class="cp-pool svelte-1kjy6xs">${escape_html(lastFire.result)}</strong></span></div>`);
