@@ -1,14 +1,14 @@
 import { r as onDestroy, t as createEventDispatcher } from "../../../../../chunks/index-server.js";
-import { At as fallback, T as escape_html, a as ensure_array_like, d as unsubscribe_stores, l as store_get, n as attr_style, r as bind_props, t as attr_class, u as stringify, w as attr } from "../../../../../chunks/server.js";
+import { T as escape_html, a as ensure_array_like, d as unsubscribe_stores, jt as fallback, l as store_get, n as attr_style, r as bind_props, t as attr_class, u as stringify, w as attr } from "../../../../../chunks/server.js";
 import "../../../../../chunks/api.js";
 import "../../../../../chunks/dev.js";
-import { t as fofCommand } from "../../../../../chunks/fofCommand.js";
+import { n as fofCommand } from "../../../../../chunks/fofCommand.js";
 import { t as settings } from "../../../../../chunks/settings.js";
 //#endregion
 //#region src/lib/components/games/fields_of_fire/CommandPanel.svelte
 function CommandPanel($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
-		let activateMoves, readyIds, hqRows, advanceMove, visible, fireMoves, vofMoves, vofOrigins, vofTargets, vofRatings, infiltrateMoves, infilUnits, infilDests, selectedInfil;
+		let activateMoves, readyIds, hqRows, advanceMove, commandStripMoves, visible, fireMoves, vofMoves, vofOrigins, vofTargets, vofRatings, infiltrateMoves, infilUnits, infilDests, selectedInfil, commandCategories;
 		let legalMoves = fallback($$props["legalMoves"], () => [], true);
 		let activated = fallback($$props["activated"], () => [], true);
 		let hqLabels = fallback($$props["hqLabels"], () => ({}), true);
@@ -28,6 +28,71 @@ function CommandPanel($$renderer, $$props) {
 		let vofRating = null;
 		let infilUnit = null;
 		let infilDest = null;
+		const ACTION_CATEGORY = {
+			"activate_a_subordinate_hq_or_staff": "cmd_ctrl",
+			"exhort": "cmd_ctrl",
+			"deploy_pyrotechnic": "cmd_ctrl",
+			"reconstitute_a_plt_hq": "cmd_ctrl",
+			"reconstitute_the_co_hq": "cmd_ctrl",
+			"create_a_runner": "cmd_ctrl",
+			"dispatch_a_runner": "cmd_ctrl",
+			"dismiss_a_runner": "cmd_ctrl",
+			"activate_for_at_combat_&_vehicle_movement": "cmd_ctrl",
+			"switch_radio_phone_to_a_different_network": "cmd_ctrl",
+			"repair_a_cut_phone_line": "cmd_ctrl",
+			"designate_a_new_tactical_control": "cmd_ctrl",
+			"move_to_an_adjacent_card": "movement",
+			"move_a_platoon_to_an_adjacent_card": "movement",
+			"attempt_to_infiltrate_an_adjacent_card": "movement",
+			"attempt_to_have_a_platoon_infiltrate_an_adjacent_card": "movement",
+			"attempt_to_seek_cover": "movement",
+			"move_within_a_card": "movement",
+			"attempt_to_infiltrate_within_a_card": "movement",
+			"pick_up_load_unload_embark": "movement",
+			"attempt_to_remove_a_pinned_marker": "rally",
+			"attempt_to_convert_a_paralyzed_team_to_a_litter_team": "rally",
+			"attempt_to_convert_a_litter_team_to_a_fire_team": "rally",
+			"attempt_to_convert_a_fire_team_to_an_assault_team": "rally",
+			"convert_an_assault_team_to_a_fire_team": "rally",
+			"attempt_to_flip_a_unit_with_a_fire_team_side_to_front": "rally",
+			"detach_team": "rally",
+			"supplement_squad": "rally",
+			"attempt_to_reconstitute_squad": "rally",
+			"flip_a_unit_with_a_fire_team_side_to_its_fire_team_side": "rally",
+			"attempt_to_spot": "combat",
+			"attempt_to_concentrate_fire": "combat",
+			"attempt_to_have_a_platoon_concentrate_fire": "combat",
+			"attempt_to_make_a_grenade_attack": "combat",
+			"attempt_to_throw_a_demolition_charge": "combat",
+			"place_a_demolition_charge": "combat",
+			"flamethrower_attack": "combat",
+			"attempt_to_have_a_platoon_make_a_grenade_attack": "combat",
+			"attempt_to_call_for_fire_from_an_off_map_firing_agency_includes_air_strikes_and_attack_helicopters": "combat",
+			"call_for_indirect_fire_from_an_on_map_mortar": "combat",
+			"cease_fire": "combat",
+			"shift_fire": "combat",
+			"fire_fpf_fpl": "combat"
+		};
+		const CATEGORY_ORDER = [
+			"cmd_ctrl",
+			"movement",
+			"rally",
+			"combat"
+		];
+		const CATEGORY_LABELS = {
+			"cmd_ctrl": "Command & Control",
+			"movement": "Movement",
+			"rally": "Rally",
+			"combat": "Combat"
+		};
+		let selectedCategory = null;
+		function isMovementAction(type) {
+			return type === "move_to_an_adjacent_card" || type === "move_a_platoon_to_an_adjacent_card";
+		}
+		function commandActionLabel(move) {
+			if (move.type === "activate_hq") return `Act ${abbr(hqLabels[move.hq_id] || move.hq_id)}`;
+			return String(move.type || move.move_id || "Action").replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+		}
 		$: activateMoves = legalMoves.filter((m) => m.type === "activate_hq");
 		$: readyIds = new Set(activateMoves.map((m) => m.hq_id));
 		$: hqRows = hqOrder.map((id) => ({
@@ -41,6 +106,21 @@ function CommandPanel($$renderer, $$props) {
 		}));
 		$: advanceMove = legalMoves.find((m) => m.type === "advance_phase");
 		$: if (legalMoves) selectedCommander = null;
+		$: commandStripMoves = [...new Map((legalMoves || []).filter((m) => {
+			if ([
+				"draw_commands",
+				"spend_command",
+				"advance_phase",
+				"move_unit",
+				"move_stack",
+				"place_unit",
+				"place_vof",
+				"infiltrate",
+				"fire"
+			].includes(m.type)) return false;
+			if (selectedCommander && m.originator_hq_id !== selectedCommander) return false;
+			return true;
+		}).map((m) => [m.move_id, m])).values()];
 		$: visible = phaseName === "friendly_command" || phaseName === "mutual_combat";
 		$: fireMoves = legalMoves.filter((m) => m.type === "fire");
 		$: vofMoves = legalMoves.filter((m) => m.type === "place_vof");
@@ -57,6 +137,30 @@ function CommandPanel($$renderer, $$props) {
 		$: infilDests = infiltrateMoves.filter((m) => m.unit_id === infilUnit).map((m) => m.to_position);
 		$: if (!infilDests.includes(infilDest)) infilDest = infilDests[0] ?? null;
 		$: selectedInfil = infiltrateMoves.find((m) => m.unit_id === infilUnit && m.to_position === infilDest);
+		$: commandCategories = (() => {
+			const byCat = /* @__PURE__ */ new Map();
+			for (const move of commandStripMoves) {
+				const cat = ACTION_CATEGORY[move.type] || "combat";
+				if (!byCat.has(cat)) byCat.set(cat, []);
+				byCat.get(cat).push(move);
+			}
+			return CATEGORY_ORDER.filter((k) => byCat.has(k)).map((k) => {
+				const byType = /* @__PURE__ */ new Map();
+				for (const m of byCat.get(k)) {
+					if (!byType.has(m.type)) byType.set(m.type, []);
+					byType.get(m.type).push(m);
+				}
+				return {
+					key: k,
+					label: CATEGORY_LABELS[k],
+					groups: [...byType.entries()].map(([type, moves]) => ({
+						type,
+						moves
+					}))
+				};
+			});
+		})();
+		$: commandCategories.flatMap((c) => c.groups).filter((g) => isMovementAction(g.type));
 		if (phaseName === "friendly_higher_hq_event" && advanceMove) $$renderer.push(`<!--[0--><section class="command-panel svelte-1kjy6xs" aria-label="Higher HQ Event controls"><div class="cp-row svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">HQ Event (T2+)</span> <button type="button" class="cp-btn cp-next svelte-1kjy6xs">Continue</button> <button type="button" class="cp-btn cp-exit svelte-1kjy6xs">Exit</button></div></section>`);
 		else $$renderer.push("<!--[-1-->");
 		$$renderer.push(`<!--]--> `);
@@ -72,22 +176,50 @@ function CommandPanel($$renderer, $$props) {
 			else $$renderer.push("<!--[-1-->");
 			$$renderer.push(`<!--]--> <button type="button" class="cp-btn cp-undo svelte-1kjy6xs"${attr("disabled", !canUndo, true)}>Undo</button></div></div> `);
 			if (selectedCommander !== null) {
-				$$renderer.push(`<!--[0--><div class="cp-command-strip svelte-1kjy6xs"><div class="cp-command-list svelte-1kjy6xs"><!--[-->`);
-				const each_array_1 = ensure_array_like(legalMoves.filter((m) => m.type === "activate_hq" && !activated.includes(m.hq_id)));
-				for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
-					let m = each_array_1[$$index_1];
-					$$renderer.push(`<button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">Act ${escape_html(abbr(hqLabels[m.hq_id] || m.hq_id))}</button>`);
+				$$renderer.push(`<!--[0--><div class="cp-command-strip svelte-1kjy6xs"><!--[-->`);
+				const each_array_1 = ensure_array_like(commandCategories);
+				for (let $$index_5 = 0, $$length = each_array_1.length; $$index_5 < $$length; $$index_5++) {
+					let category = each_array_1[$$index_5];
+					$$renderer.push(`<div class="cp-category"><button type="button"${attr_class("cp-cat-btn svelte-1kjy6xs", void 0, { "cp-expanded": selectedCategory === category.key })}${attr("aria-expanded", selectedCategory === category.key)}>${escape_html(category.label)}</button> `);
+					if (selectedCategory === category.key) {
+						$$renderer.push(`<!--[0--><div class="cp-category-actions cp-cols-3"><!--[-->`);
+						const each_array_2 = ensure_array_like(category.groups);
+						for (let $$index_4 = 0, $$length = each_array_2.length; $$index_4 < $$length; $$index_4++) {
+							let group = each_array_2[$$index_4];
+							$$renderer.push(`<div class="cp-cmd-group">`);
+							if (isMovementAction(group.type)) {
+								$$renderer.push(`<!--[0--><div class="cp-move-selector">`);
+								$$renderer.push(`<!--[-1--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button>`);
+								$$renderer.push(`<!--]--></div>`);
+							} else {
+								$$renderer.push(`<!--[-1--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button> `);
+								if (group.moves.length > 1) {
+									$$renderer.push("<!--[0-->");
+									$$renderer.select({
+										class: "cp-target",
+										value: selectedCommandMove[group.type],
+										"aria-label": `${stringify(commandActionLabel(group.moves[0]))} target`
+									}, ($$renderer) => {
+										$$renderer.push(`<!--[-->`);
+										const each_array_5 = ensure_array_like(group.moves);
+										for (let $$index_3 = 0, $$length = each_array_5.length; $$index_3 < $$length; $$index_3++) {
+											let move = each_array_5[$$index_3];
+											$$renderer.option({ value: move.move_id }, ($$renderer) => {
+												$$renderer.push(`${escape_html(move.originator_hq_id ?? move.move_id)}`);
+											});
+										}
+										$$renderer.push(`<!--]-->`);
+									}, "svelte-1kjy6xs");
+								} else $$renderer.push("<!--[-1-->");
+								$$renderer.push(`<!--]-->`);
+							}
+							$$renderer.push(`<!--]--></div>`);
+						}
+						$$renderer.push(`<!--]--></div>`);
+					} else $$renderer.push("<!--[-1-->");
+					$$renderer.push(`<!--]--></div>`);
 				}
-				$$renderer.push(`<!--]--> `);
-				if (legalMoves.some((m) => m.type === "exhort")) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">Exhort</button>`);
-				else $$renderer.push("<!--[-1-->");
-				$$renderer.push(`<!--]--> `);
-				if (legalMoves.some((m) => m.type === "reconstitute")) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">Reconstitute</button>`);
-				else $$renderer.push("<!--[-1-->");
-				$$renderer.push(`<!--]--> `);
-				if (legalMoves.some((m) => m.type === "create_runner")) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">Create Runner</button>`);
-				else $$renderer.push("<!--[-1-->");
-				$$renderer.push(`<!--]--></div></div>`);
+				$$renderer.push(`<!--]--></div>`);
 			} else $$renderer.push("<!--[-1-->");
 			$$renderer.push(`<!--]--> `);
 			if (infiltrateMoves.length > 0) {
@@ -98,9 +230,9 @@ function CommandPanel($$renderer, $$props) {
 					class: ""
 				}, ($$renderer) => {
 					$$renderer.push(`<!--[-->`);
-					const each_array_2 = ensure_array_like(infilUnits);
-					for (let $$index_2 = 0, $$length = each_array_2.length; $$index_2 < $$length; $$index_2++) {
-						let uid = each_array_2[$$index_2];
+					const each_array_6 = ensure_array_like(infilUnits);
+					for (let $$index_6 = 0, $$length = each_array_6.length; $$index_6 < $$length; $$index_6++) {
+						let uid = each_array_6[$$index_6];
 						$$renderer.option({ value: uid }, ($$renderer) => {
 							$$renderer.push(`${escape_html(uid)}`);
 						});
@@ -114,9 +246,9 @@ function CommandPanel($$renderer, $$props) {
 					class: ""
 				}, ($$renderer) => {
 					$$renderer.push(`<!--[-->`);
-					const each_array_3 = ensure_array_like(infilDests);
-					for (let $$index_3 = 0, $$length = each_array_3.length; $$index_3 < $$length; $$index_3++) {
-						let dest = each_array_3[$$index_3];
+					const each_array_7 = ensure_array_like(infilDests);
+					for (let $$index_7 = 0, $$length = each_array_7.length; $$index_7 < $$length; $$index_7++) {
+						let dest = each_array_7[$$index_7];
 						$$renderer.option({ value: dest }, ($$renderer) => {
 							$$renderer.push(`Card ${escape_html(dest)}`);
 						});
@@ -128,9 +260,9 @@ function CommandPanel($$renderer, $$props) {
 			$$renderer.push(`<!--]--> `);
 			if (phaseName === "mutual_combat") {
 				$$renderer.push(`<!--[0--><div class="cp-row cp-fire svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Fire:</span> <!--[-->`);
-				const each_array_4 = ensure_array_like(fireMoves);
-				for (let $$index_4 = 0, $$length = each_array_4.length; $$index_4 < $$length; $$index_4++) {
-					let fire = each_array_4[$$index_4];
+				const each_array_8 = ensure_array_like(fireMoves);
+				for (let $$index_8 = 0, $$length = each_array_8.length; $$index_8 < $$length; $$index_8++) {
+					let fire = each_array_8[$$index_8];
 					$$renderer.push(`<button type="button" class="cp-btn svelte-1kjy6xs">Card ${escape_html(fire.position)}</button>`);
 				}
 				$$renderer.push(`<!--]--> `);

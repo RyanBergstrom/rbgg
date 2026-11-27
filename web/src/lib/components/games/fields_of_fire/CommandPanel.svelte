@@ -2,6 +2,7 @@
   // Command controls for the Friendly Command phase. Every button is driven by
   // the server's legal moves, so the UI cannot offer a move the rules reject.
   import { createEventDispatcher } from 'svelte';
+  import { movementAction } from '$lib/stores/fofCommand';
   export let legalMoves = [];
   export let activated = [];
   export let hqLabels = {};
@@ -41,6 +42,20 @@
     spend: legalMoves.find(m => m.type === 'spend_command' && m.hq_id === id),
   }));
   $: advanceMove = legalMoves.find(m => m.type === 'advance_phase');
+  $: commandStripMoves = [
+    ...new Map(
+      (legalMoves || [])
+        .filter(m => {
+          if ([
+            'draw_commands', 'spend_command', 'advance_phase', 'move_unit', 'move_stack',
+            'place_unit', 'place_vof', 'infiltrate', 'fire',
+          ].includes(m.type)) return false;
+          if (selectedCommander && m.originator_hq_id !== selectedCommander) return false;
+          return true;
+        })
+        .map(m => [m.move_id, m])
+    ).values(),
+  ];
   $: if (legalMoves) selectedCommander = null;
   $: visible = phaseName === 'friendly_command' || phaseName === 'mutual_combat';
   // 6.4: fire is offered per VOF-marked card in Mutual Combat.
@@ -61,15 +76,109 @@
   $: if (!vofRatings.includes(vofRating)) vofRating = vofRatings[0] ?? null;
   $: selectedVof = vofMoves.find(m => m.from_position === vofOrigin && m.position === vofTarget && m.rating === vofRating);
 
-  // 5.1.4: Infiltrate moves come only from the server, so the UI cannot offer an illegal attempt.
-  $: infiltrateMoves = legalMoves.filter(m => m.type === 'infiltrate');
-  $: infilUnits = [...new Set(infiltrateMoves.map(m => m.unit_id))];
-  let infilUnit = null;
-  let infilDest = null;
-  $: if (!infilUnits.includes(infilUnit)) infilUnit = infilUnits[0] ?? null;
-  $: infilDests = infiltrateMoves.filter(m => m.unit_id === infilUnit).map(m => m.to_position);
-  $: if (!infilDests.includes(infilDest)) infilDest = infilDests[0] ?? null;
-  $: selectedInfil = infiltrateMoves.find(m => m.unit_id === infilUnit && m.to_position === infilDest);
+  // Action categories sourced from the config (4.2.1-4.2.4).
+  const ACTION_CATEGORY = {
+    'activate_a_subordinate_hq_or_staff': 'cmd_ctrl',
+    'exhort': 'cmd_ctrl',
+    'deploy_pyrotechnic': 'cmd_ctrl',
+    'reconstitute_a_plt_hq': 'cmd_ctrl',
+    'reconstitute_the_co_hq': 'cmd_ctrl',
+    'create_a_runner': 'cmd_ctrl',
+    'dispatch_a_runner': 'cmd_ctrl',
+    'dismiss_a_runner': 'cmd_ctrl',
+    'activate_for_at_combat_&_vehicle_movement': 'cmd_ctrl',
+    'switch_radio_phone_to_a_different_network': 'cmd_ctrl',
+    'repair_a_cut_phone_line': 'cmd_ctrl',
+    'designate_a_new_tactical_control': 'cmd_ctrl',
+    'move_to_an_adjacent_card': 'movement',
+    'move_a_platoon_to_an_adjacent_card': 'movement',
+    'attempt_to_infiltrate_an_adjacent_card': 'movement',
+    'attempt_to_have_a_platoon_infiltrate_an_adjacent_card': 'movement',
+    'attempt_to_seek_cover': 'movement',
+    'move_within_a_card': 'movement',
+    'attempt_to_infiltrate_within_a_card': 'movement',
+    'pick_up_load_unload_embark': 'movement',
+    'attempt_to_remove_a_pinned_marker': 'rally',
+    'attempt_to_convert_a_paralyzed_team_to_a_litter_team': 'rally',
+    'attempt_to_convert_a_litter_team_to_a_fire_team': 'rally',
+    'attempt_to_convert_a_fire_team_to_an_assault_team': 'rally',
+    'convert_an_assault_team_to_a_fire_team': 'rally',
+    'attempt_to_flip_a_unit_with_a_fire_team_side_to_front': 'rally',
+    'detach_team': 'rally',
+    'supplement_squad': 'rally',
+    'attempt_to_reconstitute_squad': 'rally',
+    'flip_a_unit_with_a_fire_team_side_to_its_fire_team_side': 'rally',
+    'attempt_to_spot': 'combat',
+    'attempt_to_concentrate_fire': 'combat',
+    'attempt_to_have_a_platoon_concentrate_fire': 'combat',
+    'attempt_to_make_a_grenade_attack': 'combat',
+    'attempt_to_throw_a_demolition_charge': 'combat',
+    'place_a_demolition_charge': 'combat',
+    'flamethrower_attack': 'combat',
+    'attempt_to_have_a_platoon_make_a_grenade_attack': 'combat',
+    'attempt_to_call_for_fire_from_an_off_map_firing_agency_includes_air_strikes_and_attack_helicopters': 'combat',
+    'call_for_indirect_fire_from_an_on_map_mortar': 'combat',
+    'cease_fire': 'combat',
+    'shift_fire': 'combat',
+    'fire_fpf_fpl': 'combat',
+  };
+  const CATEGORY_ORDER = ['cmd_ctrl', 'movement', 'rally', 'combat'];
+  const CATEGORY_LABELS = {
+    'cmd_ctrl': 'Command & Control',
+    'movement': 'Movement',
+    'rally': 'Rally',
+    'combat': 'Combat',
+  };
+
+  let selectedCategory = null;
+  $: commandCategories = (() => {
+    const byCat = new Map();
+    for (const move of commandStripMoves) {
+      const cat = ACTION_CATEGORY[move.type] || 'combat';
+      if (!byCat.has(cat)) byCat.set(cat, []);
+      byCat.get(cat).push(move);
+    }
+    return CATEGORY_ORDER.filter(k => byCat.has(k)).map(k => {
+      const byType = new Map();
+      for (const m of byCat.get(k)) {
+        if (!byType.has(m.type)) byType.set(m.type, []);
+        byType.get(m.type).push(m);
+      }
+      return {
+        key: k,
+        label: CATEGORY_LABELS[k],
+        groups: [...byType.entries()].map(([type, moves]) => ({ type, moves })),
+      };
+    });
+  })();
+
+  // Movement action: click button → board highlights eligible units → click unit → board highlights destinations → click destination
+  let moveActionType = null;
+  let selectedMoveUnit = null;
+  let selectedMoveDest = null;
+
+  function isMovementAction(type) {
+    return type === 'move_to_an_adjacent_card' || type === 'move_a_platoon_to_an_adjacent_card';
+  }
+
+  function startMoveSelection(type) {
+    moveActionType = type;
+    selectedMoveUnit = null;
+    selectedMoveDest = null;
+    movementAction.set({
+      type,
+      step: 'select_unit',
+      selectedUnitId: null,
+      originatorId: selectedCommander,
+    });
+  }
+
+  function commandActionLabel(move) {
+    if (move.type === 'activate_hq') return `Act ${abbr(hqLabels[move.hq_id] || move.hq_id)}`;
+    return String(move.type || move.move_id || 'Action')
+      .replace(/_/g, ' ')
+      .replace(/\b\w/g, char => char.toUpperCase());
+  }
 </script>
 
 {#if phaseName === 'friendly_higher_hq_event' && advanceMove}
@@ -119,39 +228,34 @@
       </div>
     {#if selectedCommander !== null}
       <div class="cp-command-strip">
-        <div class="cp-command-list">
-          {#each legalMoves.filter(m => m.type === 'activate_hq' && !activated.includes(m.hq_id)) as m (m.move_id)}
-            <button type="button" class="cp-btn cp-cmd" on:click={() => { dispatchMove(m); selectedCommander = null; }}>Act {abbr(hqLabels[m.hq_id] || m.hq_id)}</button>
-          {/each}
-          {#if legalMoves.some(m => m.type === 'exhort')}
-            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'exhort'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Exhort</button>
-          {/if}
-          {#if legalMoves.some(m => m.type === 'reconstitute')}
-            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'reconstitute'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Reconstitute</button>
-          {/if}
-          {#if legalMoves.some(m => m.type === 'create_runner')}
-            <button type="button" class="cp-btn cp-cmd" on:click={() => { const mv = legalMoves.find(m => m.type === 'create_runner'); if (mv) { dispatchMove(mv); selectedCommander = null; } }}>Create Runner</button>
-          {/if}
-        </div>
+        {#each commandCategories as category}
+          <div class="cp-category">
+            <button type="button" class="cp-cat-btn" class:cp-expanded={selectedCategory === category.key} on:click={() => selectedCategory = selectedCategory === category.key ? null : category.key} aria-expanded={selectedCategory === category.key}>
+              {category.label}
+            </button>
+            {#if selectedCategory === category.key}
+              <div class="cp-category-actions cp-cols-3">
+                {#each category.groups as group (group.type)}
+                  <div class="cp-cmd-group">
+                    {#if isMovementAction(group.type)}
+                      <button type="button" class="cp-btn cp-cmd" on:click={() => startMoveSelection(group.type)}>
+                        {commandActionLabel(group.moves[0])}
+                      </button>
+                    {:else}
+                      <button type="button" class="cp-btn cp-cmd" on:click={() => {
+                        const selected = group.moves[0];
+                        if (selected) { dispatchMove(selected); selectedCommander = null; }
+                      }}>{commandActionLabel(group.moves[0])}</button>
+                    {/if}
+                  </div>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {/each}
       </div>
     {/if}
-    {#if infiltrateMoves.length > 0}
-      <div class="cp-row cp-infil">
-        <span class="cp-label">Infiltrate to</span>
-        <select bind:value={infilUnit} aria-label="Infiltrate unit">
-          {#each infilUnits as uid (uid)}
-            <option value={uid}>{uid}</option>
-          {/each}
-        </select>
-        <select bind:value={infilDest} aria-label="Infiltrate destination">
-          {#each infilDests as dest (dest)}
-            <option value={dest}>Card {dest}</option>
-          {/each}
-        </select>
-        <button type="button" class="cp-btn" disabled={!selectedInfil} on:click={() => selectedInfil && dispatchMove(selectedInfil)}>Infiltrate</button>
-      </div>
-    {/if}
-    {#if phaseName === 'mutual_combat'}
+      {#if phaseName === 'mutual_combat'}
       <div class="cp-row cp-fire">
         <span class="cp-label">Fire:</span>
         {#each fireMoves as fire (fire.position)}
@@ -276,7 +380,7 @@
   }
   .cp-command-strip {
     width: 100%;
-    margin-top: 0.35rem;
+    margin-top: 0.15rem;
     box-sizing: border-box;
   }
 
@@ -321,8 +425,8 @@
   }
 
   .cp-row {
-    gap: var(--fof-space-2);
-    margin-bottom: var(--fof-space-2);
+    gap: var(--fof-space-1);
+    margin-bottom: var(--fof-space-1);
   }
 
   .cp-label {
@@ -430,5 +534,59 @@
   select:focus-visible {
     outline: 2px solid var(--fof-accent);
     outline-offset: 2px;
+  }
+
+  /* Consistent command-bar buttons — no more unstyled white squares */
+  .cp-cat-btn {
+    width: 100%;
+    padding: 0.28rem 0.45rem;
+    border: 1px solid var(--fof-border-strong);
+    border-radius: var(--fof-radius-sm);
+    background: var(--fof-surface-2);
+    color: var(--fof-text);
+    font-family: var(--fof-font);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color var(--fof-dur-fast) var(--fof-ease), border-color var(--fof-dur-fast) var(--fof-ease);
+  }
+
+  .cp-cat-btn:hover {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-accent);
+  }
+
+  .cp-cat-btn[aria-expanded="true"] {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-accent);
+  }
+
+  .cp-move-unit,
+  .cp-move-dest,
+  .cp-back,
+  .cp-cmd {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.66rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cp-category-actions {
+    gap: var(--fof-space-1);
+    padding: var(--fof-space-1);
+  }
+
+  .cp-cmd-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fof-space-1);
+  }
+
+  .cp-move-selector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--fof-space-1);
   }
 </style>

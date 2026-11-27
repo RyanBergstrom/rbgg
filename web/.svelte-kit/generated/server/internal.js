@@ -26,7 +26,7 @@ export const options = {
 		app: ({ head, body, assets, nonce, env }) => "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"UTF-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>RBGG</title>\r\n    " + head + "\r\n  </head>\r\n  <body>\r\n    <div id=\"svelte\">" + body + "</div>\r\n  </body>\r\n</html>\r\n",
 		error
 	},
-	version_hash: "6g11pa"
+	version_hash: "c2a16k"
 };
 
 export async function get_hooks() {

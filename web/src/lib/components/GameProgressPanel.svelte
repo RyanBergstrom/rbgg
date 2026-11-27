@@ -161,17 +161,17 @@
   .footer-commands {
     width: 100%;
     min-width: 0;
-    max-height: 40vh;
+    max-height: 34vh;
     overflow-y: auto;
     overflow-x: hidden;
   }
 
   .game-progress-panel.fof-mode {
-    padding: 0.3rem 0.5rem;
+    padding: 0.2rem 0.4rem;
   }
 
   .game-progress-panel.fof-mode .footer-commands {
-    max-height: 40vh;
+    max-height: 34vh;
     overflow-y: auto;
     overflow-x: hidden;
   }

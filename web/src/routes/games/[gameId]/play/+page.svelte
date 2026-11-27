@@ -609,7 +609,7 @@
     flex-direction: column;
     gap: 0;
     padding: 0;
-    padding-bottom: 70px;
+    padding-bottom: 44px;
     width: 100%;
     min-height: 100vh;
     box-sizing: border-box;

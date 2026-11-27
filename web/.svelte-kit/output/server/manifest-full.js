@@ -10,7 +10,7 @@ return {
 	assets: new Set(["bus-game-board.png"]),
 	mimeTypes: {".png":"image/png"},
 	_: {
-		client: {start:"_app/immutable/entry/start.Cmoyamsu.js",app:"_app/immutable/entry/app.DCcsiloA.js",imports:["_app/immutable/entry/start.Cmoyamsu.js","_app/immutable/chunks/DBt_LIhM.js","_app/immutable/chunks/Rr-Im1Oz.js","_app/immutable/chunks/B2KOXJbu.js","_app/immutable/chunks/BrijyIqX.js","_app/immutable/entry/app.DCcsiloA.js","_app/immutable/chunks/Rr-Im1Oz.js","_app/immutable/chunks/BrijyIqX.js","_app/immutable/chunks/uBIymjUX.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
+		client: {start:"_app/immutable/entry/start.CsoMQ4K3.js",app:"_app/immutable/entry/app.BFkGuTfK.js",imports:["_app/immutable/entry/start.CsoMQ4K3.js","_app/immutable/chunks/CH-PAwOJ.js","_app/immutable/chunks/BoBp9zlW.js","_app/immutable/chunks/BX2oQ5_e.js","_app/immutable/chunks/ALmbKXLG.js","_app/immutable/entry/app.BFkGuTfK.js","_app/immutable/chunks/BoBp9zlW.js","_app/immutable/chunks/ALmbKXLG.js","_app/immutable/chunks/uBIymjUX.js","_app/immutable/chunks/xihTtKlq.js"],stylesheets:[],fonts:[],uses_env_dynamic_public:false},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),

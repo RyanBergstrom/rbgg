@@ -549,3 +549,96 @@ def test_get_elevation():
     assert isinstance(elev, int)
 
 
+def _command_state(v, pool=1):
+    gd = v.initial_game_data()
+    gd["phase"] = "friendly_command"
+    gd["company"]["command"]["co_hq"] = "co_hq_1"
+    gd["company"]["command"]["pool_by_hq"] = {"co_hq_1": pool}
+    gd["company"]["command"]["activated"] = ["co_hq_1"]
+    return {"game_data": gd, "players": [], "current_player": "player_1"}
+
+
+def test_command_action_requires_friendly_command_phase():
+    v = FieldsOfFireValidator()
+    state = _command_state(v)
+    state["game_data"]["phase"] = "setup"
+    move = {"type": "activate_a_subordinate_hq_or_staff", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_command_action_requires_originator():
+    v = FieldsOfFireValidator()
+    state = _command_state(v)
+    move = {"type": "activate_a_subordinate_hq_or_staff", "player_id": "player_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_command_action_requires_pool():
+    v = FieldsOfFireValidator()
+    state = _command_state(v, pool=0)
+    move = {"type": "activate_a_subordinate_hq_or_staff", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_command_action_unknown_type_invalid():
+    v = FieldsOfFireValidator()
+    state = _command_state(v)
+    move = {"type": "not_a_real_action", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_exhort_requires_failed_attempt():
+    v = FieldsOfFireValidator()
+    state = _command_state(v)
+    move = {"type": "exhort", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_exhort_requires_pool():
+    v = FieldsOfFireValidator()
+    state = _command_state(v, pool=0)
+    state["game_data"]["last_failed_attempt"] = {"action_id": "attempt_to_spot", "originator_hq_id": "co_hq_1"}
+    move = {"type": "exhort", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_exhort_rejected_when_already_used():
+    v = FieldsOfFireValidator()
+    state = _command_state(v)
+    state["game_data"]["last_failed_attempt"] = {"action_id": "attempt_to_spot", "originator_hq_id": "co_hq_1"}
+    state["game_data"]["exhort_used"] = True
+    move = {"type": "exhort", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "cost": 1}
+    assert v.validate_move(state, move) is False
+
+
+def test_command_action_spends_originator_pool():
+    v = FieldsOfFireValidator()
+    state = _command_state(v, pool=3)
+    move = {"type": "activate_a_subordinate_hq_or_staff", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "recipient_hq_id": "plt_hq_1", "cost": 1,
+            "action_id": "activate_a_subordinate_hq_or_staff"}
+    new = v.apply_move(state, move)
+    assert new["game_data"]["company"]["command"]["pool_by_hq"]["co_hq_1"] == 2
+    assert new["game_data"]["company"]["command"]["commands_pool"] == 2
+
+
+def test_command_action_rejected_when_pool_insufficient_at_apply():
+    v = FieldsOfFireValidator()
+    state = _command_state(v, pool=0)
+    move = {"type": "activate_a_subordinate_hq_or_staff", "player_id": "player_1",
+            "originator_hq_id": "co_hq_1", "recipient_hq_id": "plt_hq_1", "cost": 1,
+            "action_id": "activate_a_subordinate_hq_or_staff"}
+    try:
+        v.apply_move(state, move)
+        raised = False
+    except Exception:
+        raised = True
+    assert raised is True
+
+

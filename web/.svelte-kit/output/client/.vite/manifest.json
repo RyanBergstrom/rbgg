@@ -1,12 +1,12 @@
 {
   ".svelte-kit/generated/client-optimized/app.js": {
-    "file": "_app/immutable/entry/app.DCcsiloA.js",
+    "file": "_app/immutable/entry/app.BFkGuTfK.js",
     "name": "entry/app",
     "src": ".svelte-kit/generated/client-optimized/app.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
-      "_BrijyIqX.js",
+      "_BoBp9zlW.js",
+      "_ALmbKXLG.js",
       "_uBIymjUX.js",
       "_xihTtKlq.js"
     ],
@@ -24,39 +24,39 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/0.js": {
-    "file": "_app/immutable/nodes/0.BukZe7Rm.js",
+    "file": "_app/immutable/nodes/0.82dbg7UO.js",
     "name": "nodes/0",
     "src": ".svelte-kit/generated/client-optimized/nodes/0.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js"
+      "_DIRlNjzO.js"
     ],
     "css": [
       "_app/immutable/assets/0.COSiPFel.css"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/1.js": {
-    "file": "_app/immutable/nodes/1.C1kD30F9.js",
+    "file": "_app/immutable/nodes/1.Bn-6yxA0.js",
     "name": "nodes/1",
     "src": ".svelte-kit/generated/client-optimized/nodes/1.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
-      "_DBt_LIhM.js",
+      "_BoBp9zlW.js",
+      "_CH-PAwOJ.js",
       "_xihTtKlq.js"
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/2.js": {
-    "file": "_app/immutable/nodes/2.-tYtkWrA.js",
+    "file": "_app/immutable/nodes/2.xlCx1jx7.js",
     "name": "nodes/2",
     "src": ".svelte-kit/generated/client-optimized/nodes/2.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js"
     ],
     "css": [
@@ -64,14 +64,14 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/3.js": {
-    "file": "_app/immutable/nodes/3.CnWG3cFH.js",
+    "file": "_app/immutable/nodes/3.DJkOowqJ.js",
     "name": "nodes/3",
     "src": ".svelte-kit/generated/client-optimized/nodes/3.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js"
     ],
     "css": [
@@ -79,14 +79,14 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/4.js": {
-    "file": "_app/immutable/nodes/4.CL05W7Y1.js",
+    "file": "_app/immutable/nodes/4.BbApJVAf.js",
     "name": "nodes/4",
     "src": ".svelte-kit/generated/client-optimized/nodes/4.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js"
     ],
     "css": [
@@ -94,14 +94,14 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/5.js": {
-    "file": "_app/immutable/nodes/5.hCfhtiOR.js",
+    "file": "_app/immutable/nodes/5.BgU3KUXS.js",
     "name": "nodes/5",
     "src": ".svelte-kit/generated/client-optimized/nodes/5.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js"
     ],
     "css": [
@@ -109,19 +109,19 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/6.js": {
-    "file": "_app/immutable/nodes/6.CUBGs3NG.js",
+    "file": "_app/immutable/nodes/6.DyoGhSsv.js",
     "name": "nodes/6",
     "src": ".svelte-kit/generated/client-optimized/nodes/6.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_uBIymjUX.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js",
       "_BkbXeqTE.js",
-      "_CYYOlazE.js",
-      "_BFlopsU8.js"
+      "_D0XOlMvb.js",
+      "_DxnprySW.js"
     ],
     "dynamicImports": [
       "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
@@ -135,14 +135,14 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/7.js": {
-    "file": "_app/immutable/nodes/7.BZHnKd4e.js",
+    "file": "_app/immutable/nodes/7.BYKbC2MT.js",
     "name": "nodes/7",
     "src": ".svelte-kit/generated/client-optimized/nodes/7.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js"
     ],
     "css": [
@@ -150,14 +150,14 @@
     ]
   },
   ".svelte-kit/generated/client-optimized/nodes/8.js": {
-    "file": "_app/immutable/nodes/8.B8zGFbwj.js",
+    "file": "_app/immutable/nodes/8.BxN8zH_7.js",
     "name": "nodes/8",
     "src": ".svelte-kit/generated/client-optimized/nodes/8.js",
     "isEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js"
+      "_DIRlNjzO.js"
     ],
     "css": [
       "_app/immutable/assets/8.DOi6UaZz.css"
@@ -169,64 +169,64 @@
     "src": ".svelte-kit/generated/shared/error-template.js",
     "isDynamicEntry": true
   },
-  "_B2KOXJbu.js": {
-    "file": "_app/immutable/chunks/B2KOXJbu.js",
-    "name": "index-client",
+  "_ALmbKXLG.js": {
+    "file": "_app/immutable/chunks/ALmbKXLG.js",
+    "name": "env",
     "imports": [
-      "_Rr-Im1Oz.js"
+      "_BoBp9zlW.js"
     ]
   },
   "_BAGWs563.js": {
     "file": "_app/immutable/chunks/BAGWs563.js",
     "name": "api"
   },
-  "_BFlopsU8.js": {
-    "file": "_app/immutable/chunks/BFlopsU8.js",
-    "name": "settings",
+  "_BX2oQ5_e.js": {
+    "file": "_app/immutable/chunks/BX2oQ5_e.js",
+    "name": "index-client",
     "imports": [
-      "_Rr-Im1Oz.js",
-      "_B2KOXJbu.js",
-      "_BrijyIqX.js"
+      "_BoBp9zlW.js"
     ]
   },
   "_BkbXeqTE.js": {
     "file": "_app/immutable/chunks/BkbXeqTE.js",
     "name": "dev"
   },
-  "_BrijyIqX.js": {
-    "file": "_app/immutable/chunks/BrijyIqX.js",
-    "name": "env",
-    "imports": [
-      "_Rr-Im1Oz.js"
-    ]
+  "_BoBp9zlW.js": {
+    "file": "_app/immutable/chunks/BoBp9zlW.js",
+    "name": "index-client"
   },
-  "_CYYOlazE.js": {
-    "file": "_app/immutable/chunks/CYYOlazE.js",
-    "name": "fofCommand",
-    "imports": [
-      "_Rr-Im1Oz.js",
-      "_B2KOXJbu.js"
-    ]
-  },
-  "_DBt_LIhM.js": {
-    "file": "_app/immutable/chunks/DBt_LIhM.js",
+  "_CH-PAwOJ.js": {
+    "file": "_app/immutable/chunks/CH-PAwOJ.js",
     "name": "client",
     "imports": [
-      "_Rr-Im1Oz.js",
-      "_B2KOXJbu.js",
-      "_BrijyIqX.js"
+      "_BoBp9zlW.js",
+      "_BX2oQ5_e.js",
+      "_ALmbKXLG.js"
     ]
   },
-  "_DRhpOcIC.js": {
-    "file": "_app/immutable/chunks/DRhpOcIC.js",
+  "_D0XOlMvb.js": {
+    "file": "_app/immutable/chunks/D0XOlMvb.js",
+    "name": "fofCommand",
+    "imports": [
+      "_BoBp9zlW.js",
+      "_BX2oQ5_e.js"
+    ]
+  },
+  "_DIRlNjzO.js": {
+    "file": "_app/immutable/chunks/DIRlNjzO.js",
     "name": "legacy",
     "imports": [
-      "_Rr-Im1Oz.js"
+      "_BoBp9zlW.js"
     ]
   },
-  "_Rr-Im1Oz.js": {
-    "file": "_app/immutable/chunks/Rr-Im1Oz.js",
-    "name": "index-client"
+  "_DxnprySW.js": {
+    "file": "_app/immutable/chunks/DxnprySW.js",
+    "name": "settings",
+    "imports": [
+      "_BoBp9zlW.js",
+      "_BX2oQ5_e.js",
+      "_ALmbKXLG.js"
+    ]
   },
   "_uBIymjUX.js": {
     "file": "_app/immutable/chunks/uBIymjUX.js",
@@ -237,37 +237,37 @@
     "name": "disclose-version"
   },
   "node_modules/@sveltejs/kit/src/runtime/client/entry.js": {
-    "file": "_app/immutable/entry/start.Cmoyamsu.js",
+    "file": "_app/immutable/entry/start.CsoMQ4K3.js",
     "name": "entry/start",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/entry.js",
     "isEntry": true,
     "imports": [
-      "_DBt_LIhM.js"
+      "_CH-PAwOJ.js"
     ]
   },
   "src/lib/components/games/bus/BusBoard.svelte": {
-    "file": "_app/immutable/chunks/Bk6nDk7N.js",
+    "file": "_app/immutable/chunks/DH4qYOzL.js",
     "name": "BusBoard",
     "src": "src/lib/components/games/bus/BusBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js"
+      "_DIRlNjzO.js"
     ],
     "css": [
       "_app/immutable/assets/BusBoard.DOlsHwg0.css"
     ]
   },
   "src/lib/components/games/checkers/CheckersBoard.svelte": {
-    "file": "_app/immutable/chunks/D77lA6qm.js",
+    "file": "_app/immutable/chunks/B3sOTsRh.js",
     "name": "CheckersBoard",
     "src": "src/lib/components/games/checkers/CheckersBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BkbXeqTE.js"
     ],
     "css": [
@@ -275,46 +275,46 @@
     ]
   },
   "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte": {
-    "file": "_app/immutable/chunks/Dlq43oaq.js",
+    "file": "_app/immutable/chunks/D_MQlbJn.js",
     "name": "FieldsOfFireBoard",
     "src": "src/lib/components/games/fields_of_fire/FieldsOfFireBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BAGWs563.js",
-      "_CYYOlazE.js"
+      "_D0XOlMvb.js"
     ],
     "css": [
-      "_app/immutable/assets/FieldsOfFireBoard.YxJ780aL.css"
+      "_app/immutable/assets/FieldsOfFireBoard.D35JPUxF.css"
     ]
   },
   "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {
-    "file": "_app/immutable/chunks/DEqRe-GX.js",
+    "file": "_app/immutable/chunks/CgicmAZ5.js",
     "name": "LostCitiesBoard",
     "src": "src/lib/components/games/lost_cities/LostCitiesBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js",
+      "_DIRlNjzO.js",
       "_BkbXeqTE.js",
-      "_BFlopsU8.js"
+      "_DxnprySW.js"
     ],
     "css": [
       "_app/immutable/assets/LostCitiesBoard.CylaMi8S.css"
     ]
   },
   "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte": {
-    "file": "_app/immutable/chunks/ROC_SpAL.js",
+    "file": "_app/immutable/chunks/CzizoZQB.js",
     "name": "TwilightStruggleBoard",
     "src": "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte",
     "isDynamicEntry": true,
     "imports": [
-      "_Rr-Im1Oz.js",
+      "_BoBp9zlW.js",
       "_xihTtKlq.js",
-      "_DRhpOcIC.js"
+      "_DIRlNjzO.js"
     ],
     "css": [
       "_app/immutable/assets/TwilightStruggleBoard.D25XUoDS.css"

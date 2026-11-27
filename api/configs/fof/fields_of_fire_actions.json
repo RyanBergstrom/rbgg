@@ -14,7 +14,18 @@
     "move_type": "activate_hq",
     "phases": [
       "friendly_command"
-    ]
+    ],
+    "originator_type": "co_or_bn_hq",
+    "recipient_type": "CO HQ: Any subordinate HQ or Staff; BN HQ: CO HQ only",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "exhort",
@@ -29,7 +40,20 @@
     "details": "You can declare this action once for any failed attempt. Draw one more Action card.",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "A unit that just failed an attempt",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "deploy_pyrotechnic",
@@ -46,7 +70,18 @@
     "move_type": "deploy_pyrotechnic",
     "phases": [
       "friendly_command"
-    ]
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit or Unpinned Assault Team / Fire Team unit with a pyrotechnic asset",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "reconstitute_a_plt_hq",
@@ -61,7 +96,20 @@
     "details": "Reduce the Recipient by one step or remove the CO Staff unit, and place the PLT HQ back into play on that card at a Green Experience Level (6.5.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "co_hq_or_co_staff",
+    "recipient_type": "CO Staff or Any Good Order unit from that platoon",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "reconstitute_the_co_hq",
@@ -76,7 +124,20 @@
     "details": "You may reconstitute the CO HQ from its second-in-command (i.e. the XO). If the XO has already been Removed from Play, use one of the following units in this order of precedence: any Platoon HQ, Arty FO, CO Staff (in rank order) (6.5.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "bn_hq_or_co_staff",
+    "recipient_type": "Eligible HQ or Staff",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "create_a_runner",
@@ -91,7 +152,20 @@
     "details": "Reduce the Recipient by one step and place a Line rated Runner in the CO HQ Assets box on the Command Display. You can have no more than two Runners in play at any given time (4.3.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "co_hq",
+    "recipient_type": "Any Good Order unit or Unpinned Assault Team / Fire Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "dispatch_a_runner",
@@ -106,7 +180,20 @@
     "details": "Place the Runner on the map on a card with any PLT HQ or CO Staff unit on the map that you want to Activate next turn. Mark the Runner as Exposed (4.3.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "co_hq",
+    "recipient_type": "A Runner unit in the CO HQ Assets box",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "dismiss_a_runner",
@@ -121,7 +208,20 @@
     "details": "Remove the Runner from play and add a step to a Good Order unit that can absorb at least one step and that is located on the same area of a card as the CO HQ (4.3.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "co_hq",
+    "recipient_type": "A Good Order Runner unit",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "activate_for_at_combat_&_vehicle_movement",
@@ -136,7 +236,20 @@
     "details": "Mark the unit as Activated. During the AT Combat & Vehicle Movement Phase you may have the unit take Vehicle Actions (AT Fire, Vehicle movement, etc.) (10.5).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any vehicle or Unpinned AT-capable infantry unit",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "switch_radio_phone_to_a_different_network",
@@ -181,7 +294,20 @@
     "details": "Place a new tactical control measure on the same card as the HQ that expends the Command (see 5.1.7 for Casualty Collection Point and MEDEVAC LZ; see 11.1.3 for Landing Zones).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "co_hq_or_co_staff_or_plt_hq",
+    "recipient_type": "The HQ itself",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "move_to_an_adjacent_card",
@@ -196,7 +322,20 @@
     "details": "Move the unit to an adjacent card and mark it as Exposed. If there is a Cover marker on that card, you may place the unit under that Cover marker. Do not mark a unit as Exposed if it moves from under a Trench, Bunker or Pillbox Cover marker on the first card, to one of those markers on the second card (5.1.2), or moves between Attached Buildings on two Urban Terrain cards (13.7).",
     "footnotes": "¹ Also available to Pinned units and some LATs with restrictions (4.2.5). | ² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit¹ not marked as Exposed",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": "cover",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "move_a_platoon_to_an_adjacent_card",
@@ -211,7 +350,20 @@
     "details": "Have each unit in the platoon perform a Move to an Adjacent Card action (5.1.2). All units move to the same card. (Units on the card who are out of communication with the Originator remain in place.)",
     "footnotes": "² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "plt_hq",
+    "recipient_type": "All Good Order units of that platoon on the same card that are not marked as Exposed",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_infiltrate_an_adjacent_card",
@@ -226,7 +378,20 @@
     "details": "Either the origin card or the intended destination card must have a VOF marker on it in order to use this action. Draw Action cards and check for the Infiltrate icon. If it is present, then the attempt succeeds; move the unit to the adjacent card but do not mark it as Exposed. If there is cover on that card, you may place the unit under a Cover marker. If the attempt fails, perform a regular Move to an Adjacent card action to the original intended destination card (5.1.4).",
     "footnotes": "¹ Also available to Pinned units and some LATs with restrictions (4.2.5). | ² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit¹ not marked as Exposed, and that does not have a tripod symbol or an H VOF rating",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "cover",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_have_a_platoon_infiltrate_an_adjacent_card",
@@ -241,7 +406,20 @@
     "details": "Have each unit in the platoon perform an Attempt to Infiltrate an Adjacent Card action (5.1.4). All units move to the same card. (Units on the card who are out of communication with the Originator remain in place.)",
     "footnotes": "² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "plt_hq",
+    "recipient_type": "All Good Order units of that platoon on the same card that are not marked as Exposed and that do not have a tripod symbol or an H VOF rating",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "infiltrate",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_seek_cover",
@@ -256,7 +434,20 @@
     "details": "Draw Action cards equal to the Cover Draw number on the unit’s card and check for the word “Cover.” If it is present, then the attempt succeeds; place the unit under a new Cover marker and mark it as Exposed. If the attempt fails, do nothing (5.1.1).",
     "footnotes": "¹ Also available to Pinned units and some LATs with restrictions (4.2.5). | ² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit¹ on a card that has not reached its Cover Potential and is not under a Cover marker",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": "cover",
+    "success_icon": "cover",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "move_within_a_card",
@@ -271,7 +462,20 @@
     "details": "Place the unit in the desired area of its card (under a Cover marker, out-of-cover, a separate area of an Urban Terrain card, etc.) and mark it as Exposed (5.1.1).",
     "footnotes": "¹ Also available to Pinned units and some LATs with restrictions (4.2.5). | ² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit¹",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": "cover",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_infiltrate_within_a_card",
@@ -286,7 +490,20 @@
     "details": "Requires a VOF marker on the card. Draw Action cards and check for the Infiltrate icon. If the icon is present, then the attempt succeeds; place the unit in the desired area of its card (under a Cover marker, out-of-cover area, etc.). If the attempt fails, perform a regular Move within a Card action (5.1.4). Note: Not available on Urban Terrain cards (13.2.1).",
     "footnotes": "¹ Also available to Pinned units and some LATs with restrictions (4.2.5). | ² Cannot be used by units noted on the Vehicle and Anti-Tank Weapons Chart as being “Immobile” while on their Good Order Side.",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit¹ not marked as Exposed and that does not have a tripod symbol or an H VOF rating",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "cover",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "pick_up_load_unload_embark",
@@ -319,7 +536,18 @@
     "phases": [
       "friendly_command",
       "mutual_combat"
-    ]
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any unit under a Pinned marker",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": true
   },
   {
     "id": "attempt_to_convert_a_paralyzed_team_to_a_litter_team",
@@ -334,7 +562,20 @@
     "details": "If the Recipient’s card has any VOF marker on it, draw Action cards and check for the word “Rally.” If Rally is drawn, then the attempt succeeds; exchange the Paralyzed Team for a Litter Team. If the attempt fails, do nothing. If there is no VOF marker on the card then the action is automatically successful (6.5.1).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Unpinned Paralyzed Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": true
   },
   {
     "id": "attempt_to_convert_a_litter_team_to_a_fire_team",
@@ -349,7 +590,20 @@
     "details": "If the Recipient’s card has any VOF marker on it, draw Action cards and check for the word “Rally.” If Rally is drawn, then the attempt succeeds; exchange the Litter Team for a Fire Team. If the attempt fails, do nothing. If there is no VOF marker on the card then the action is automatically successful (6.5.1).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Unpinned Litter Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": true
   },
   {
     "id": "attempt_to_convert_a_fire_team_to_an_assault_team",
@@ -364,7 +618,20 @@
     "details": "If the Recipient’s card has any VOF marker on it, draw Action cards and check for the word “Rally.” If Rally is drawn, then the attempt succeeds; exchange the Fire Team for an Assault Team. If the attempt fails, do nothing. If there is no VOF marker on the card then the action is automatically successful (6.5.1).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Unpinned Fire Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": true
   },
   {
     "id": "convert_an_assault_team_to_a_fire_team",
@@ -379,7 +646,20 @@
     "details": "Replace the Assault Team with a Fire Team.",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Unpinned Assault Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_flip_a_unit_with_a_fire_team_side_to_front",
@@ -394,7 +674,20 @@
     "details": "If the Recipient’s card has any VOF marker on it, draw Action cards and check for the word “Rally.” If Rally is drawn, then the attempt succeeds; flip the Fire Team side back to its Good Order side. If the attempt fails, do nothing. If there is no VOF marker on the card then the action is automatically successful (6.5.1).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Unpinned named Fire Team (including originator HQ itself)",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": true
   },
   {
     "id": "detach_team",
@@ -409,7 +702,20 @@
     "details": "Reduce the squad or weapons team by a step and place either an Assault or Fire Team into play on the card. Transfer any assets to the detached team as desired. Two-step squads may not split into two teams with this action.",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order 3-4 step squad or 2-step weapons team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "supplement_squad",
@@ -424,7 +730,20 @@
     "details": "Remove the Team from play and add the step to the squad.",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order 2-3 step squad and an Unpinned Fire or Assault Team",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_reconstitute_squad",
@@ -439,7 +758,20 @@
     "details": "Draw Action cards and check for the word “Rally.” If Rally is drawn, then the attempt succeeds; remove the 2 to 4 Teams and replace them with a squad with an equal number of steps that has previously been removed from play. If the attempt fails, do nothing (6.5.2).",
     "footnotes": "¹ Requires an Originator HQ/Staff to order even if carried out in General Initiative (4.1.3).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "2 to 4 Unpinned Assault or Fire Teams",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "rally",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "flip_a_unit_with_a_fire_team_side_to_its_fire_team_side",
@@ -454,7 +786,20 @@
     "details": "Flip the unit from its Good Order side to its Fire Team side.",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit with a Fire Team side",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_spot",
@@ -469,7 +814,20 @@
     "details": "Draw Action cards, modified by the Spotting modifiers on the Spotting Attempt Draw Modifiers Chart, and check for the Crosshairs icon. If the icon is present, then the attempt succeeds; remove any marker being used to indicate an Unspotted unit. If the attempt fails, do nothing (8.5).",
     "footnotes": "² Also available to Pinned units and some LATs with restrictions (4.2.5).",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit² with LOS to an Unspotted enemy",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "crosshairs",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_concentrate_fire",
@@ -485,8 +843,19 @@
     "footnotes": "² Also available to Pinned units and some LATs with restrictions (4.2.5).",
     "move_type": "concentrate_fire",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order S, A, A/S or H VOF rated unit² projecting a VOF onto a card with Spotted enemy units",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "crosshairs",
+    "miss_modifier": null,
+    "ammo_type": "mg",
+    "ammo_cost": 2,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_have_a_platoon_concentrate_fire",
@@ -501,7 +870,20 @@
     "details": "Select either a stack of units under a cover marker or the “out of cover” area as the target. Have each unit make an Attempt to Concentrate Fire on the target. Each successful attempt in the “out of cover” area is placed on one random unit (7.11).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "plt_hq",
+    "recipient_type": "All Good Order S, A, A/S or H VOF rated units of that platoon on the same card who are projecting a VOF onto a card with Spotted enemy units",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_make_a_grenade_attack",
@@ -517,8 +899,19 @@
     "footnotes": "² Also available to Pinned units and some LATs with restrictions (4.2.5).",
     "move_type": "grenade_attack",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any Good Order unit²",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "grenade",
+    "miss_modifier": "place a Grenade Miss Modifier",
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_throw_a_demolition_charge",
@@ -534,8 +927,19 @@
     "footnotes": "",
     "move_type": "demolition_charge",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any demo-capable unit with a demolition charge",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "grenade",
+    "miss_modifier": "place a Demo Miss Modifier",
+    "ammo_type": "demo",
+    "ammo_cost": 1,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "place_a_demolition_charge",
@@ -551,8 +955,19 @@
     "footnotes": "",
     "move_type": "demolition_charge",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any demo-capable unit with a demolition charge not under a VOF",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": "demo",
+    "ammo_cost": 1,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "flamethrower_attack",
@@ -568,8 +983,19 @@
     "footnotes": "",
     "move_type": "flamethrower_attack",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any unit with a flamethrower",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": "f",
+    "ammo_cost": 1,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_have_a_platoon_make_a_grenade_attack",
@@ -584,7 +1010,20 @@
     "details": "Select a single unit out of cover or one stack of units under a cover marker as the target. Have each unit carry out an Attempt to make a Grenade Attack on the target.",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "plt_hq",
+    "recipient_type": "All Good Order units of that platoon on the same card",
+    "communication_required": true,
+    "los_required": false,
+    "draw_count": 2,
+    "success_icon": "grenade",
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "attempt_to_call_for_fire_from_an_off_map_firing_agency_includes_air_strikes_and_attack_helicopters",
@@ -617,8 +1056,19 @@
     "footnotes": "",
     "move_type": "call_fire_mission",
     "phases": [
-      "mutual_combat"
-    ]
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any On-Map Mortar unit",
+    "communication_required": true,
+    "los_required": true,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": "HE",
+    "auto_if_no_vof": false
   },
   {
     "id": "cease_fire",
@@ -633,7 +1083,20 @@
     "details": "Remove the VOF/PDF generated by all occupants of the card. Once the order is given, it is passed on and carried out by all units on the card whether they are in communication or not. Note that units will immediately Open Fire automatically on enemies in LOS (6.3.3).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any unit in communication exerting a VOF regardless of the chain of command",
+    "communication_required": true,
+    "los_required": true,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "shift_fire",
@@ -648,7 +1111,20 @@
     "details": "Move the VOF/PDF in any desired direction, engaging any other eligible card in the Originator’s LOS, including an unoccupied card (but not one with Unspotted opposing units). Once the order is given, it is passed on and carried out by all units on the card whether they are in communication or not (6.1).",
     "footnotes": "",
     "move_type": null,
-    "phases": []
+    "phases": [
+      "friendly_command"
+    ],
+    "originator_type": "any_hq_or_staff",
+    "recipient_type": "Any unit in communication exerting a VOF regardless of the chain of command",
+    "communication_required": true,
+    "los_required": true,
+    "draw_count": 0,
+    "success_icon": null,
+    "miss_modifier": null,
+    "ammo_type": null,
+    "ammo_cost": 0,
+    "fire_mission_type": null,
+    "auto_if_no_vof": false
   },
   {
     "id": "fire_fpf_fpl",

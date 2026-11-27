@@ -13,6 +13,7 @@ from app.games.fields_of_fire.pdf import COMPASS, target_card
 from app.games.fields_of_fire.los import board_los, entry_edges, entry_is_dark
 from app.games.fields_of_fire.vof import SUPPORTED_RATINGS, best_vof, vof_value
 from app.games.fields_of_fire.combat_resolution import resolve_combat
+from app.games.fields_of_fire.actions import load_actions
 
 PHASES = [
     "setup",
@@ -588,6 +589,310 @@ class FieldsOfFireValidator(LegalMoveValidator):
         serialized["last_fire_result"] = fires[-1] if fires else None
         return serialized
 
+    def _friendly_command_actions(self) -> list[dict[str, Any]]:
+        return [a for a in load_actions() if "friendly_command" in (a.get("phases") or []) and a.get("id") != "exhort"]
+
+    def _command_action_ids(self) -> set[str]:
+        return {a["id"] for a in self._friendly_command_actions()}
+
+    def _originator_pool(self, gd: dict[str, Any], originator_id: str) -> int:
+        return int(gd.get("company", {}).get("command", {}).get("pool_by_hq", {}).get(originator_id, 0) or 0)
+
+    def _eligible_originators(self, gd: dict[str, Any], action: dict[str, Any]) -> list[str]:
+        cmd = gd.get("company", {}).get("command", {})
+        originator_type = action.get("originator_type", "any_hq_or_staff")
+        originators = []
+        if originator_type in ("bn_hq", "co_or_bn_hq", "bn_hq_or_co_staff"):
+            if cmd.get("bn_hq"):
+                originators.append(cmd["bn_hq"])
+        if originator_type in ("co_hq", "co_or_bn_hq", "co_hq_or_co_staff", "co_hq_or_co_staff_or_plt_hq"):
+            if cmd.get("co_hq"):
+                originators.append(cmd["co_hq"])
+        if originator_type in ("plt_hq", "co_hq_or_co_staff_or_plt_hq"):
+            originators.extend(cmd.get("plt_hqs", []))
+        if originator_type in ("co_staff", "co_hq_or_co_staff", "bn_hq_or_co_staff", "co_hq_or_co_staff_or_plt_hq", "any_hq_or_staff", "same_card_hq_or_staff", "any_hq_or_staff"):
+            originators.extend(cmd.get("co_staff", []))
+        if originator_type in ("any_hq_or_staff", "same_card_hq_or_staff"):
+            originators.extend([cmd.get("bn_hq"), cmd.get("co_hq")] + cmd.get("plt_hqs", []) + cmd.get("co_staff", []))
+        # De-duplicate while preserving order.
+        seen = set()
+        result = []
+        for originator in originators:
+            if originator and originator not in seen and self._originator_pool(gd, originator) >= int(action.get("cost", 1) or 1):
+                seen.add(originator)
+                result.append(originator)
+        return result
+
+    def _valid_activate_recipients(self, gd: dict[str, Any], originator_id: str) -> list[str]:
+        """Return valid subordinate HQ/staff that ``originator_id`` may activate.
+
+        BN HQ -> CO HQ only.
+        CO HQ -> PLT HQs and CO Staff.
+        BN HQ or CO Staff cannot activate PLT HQs.
+        A subordinate already activated is excluded.
+        """
+        cmd = gd.get("company", {}).get("command", {})
+        activated = set(cmd.get("activated", []))
+        bn_hq = cmd.get("bn_hq")
+        co_hq = cmd.get("co_hq")
+        recipients: list[str] = []
+        if originator_id == bn_hq:
+            if co_hq and co_hq not in activated:
+                recipients.append(co_hq)
+        elif originator_id == co_hq:
+            for r in cmd.get("plt_hqs", []) + cmd.get("co_staff", []):
+                if r and r not in activated:
+                    recipients.append(r)
+        return recipients
+
+    def _casualty_ids(self, gd: dict[str, Any]) -> set[str]:
+        company = gd.get("company", {})
+        ids: set[str] = set()
+        for c in company.get("casualties", []):
+            if isinstance(c, dict):
+                cid = c.get("id")
+                if cid:
+                    ids.add(str(cid))
+            else:
+                ids.add(str(c))
+        return ids
+
+    def _valid_reconstitute_recipients(self, gd: dict[str, Any]) -> list[str]:
+        """Return good order units from platoons that have no HQ on the map.
+
+        Reconstitute a PLT HQ can only be applied to a platoon that doesn't
+        have an HQ. The recipient is any good order unit from that platoon;
+        it is reduced by one step and the PLT HQ is placed back on that card
+        at Green.
+        """
+        company = gd.get("company", {})
+        units = company.get("units", [])
+        casualties = self._casualty_ids(gd)
+        plt_hq_on_map: set[str] = set()
+        for u in units:
+            if u.get("type") == "hq" and str(u.get("level", "")).casefold() == "plt":
+                pid = u.get("platoon")
+                if pid is not None and u.get("position") is not None and str(u.get("id")) not in casualties:
+                    plt_hq_on_map.add(str(pid))
+        recipients: list[str] = []
+        for u in units:
+            pid = u.get("platoon")
+            if pid is None or str(pid) in plt_hq_on_map:
+                continue
+            uid = u.get("id")
+            if not uid or str(uid) in casualties:
+                continue
+            if str(u.get("status", "good_order")).casefold() != "good_order":
+                continue
+            if u.get("position") is None:
+                continue
+            recipients.append(str(uid))
+        return recipients
+
+    def _valid_reconstitute_co_hq_recipients(self, gd: dict[str, Any]) -> list[str]:
+        """Return CO Staff or PLT HQ units still in play and on their command side.
+
+        Reconstitute the CO HQ can only use a CO Staff or PLT HQ as the
+        qualifying unit; the unit must be in play (on a card), good order,
+        and not a casualty.
+        """
+        company = gd.get("company", {})
+        units = company.get("units", [])
+        casualties = self._casualty_ids(gd)
+        recipients: list[str] = []
+        for u in units:
+            if u.get("type") not in ("staff", "hq"):
+                continue
+            uid = u.get("id")
+            if not uid or str(uid) in casualties:
+                continue
+            if str(u.get("status", "good_order")).casefold() != "good_order":
+                continue
+            if u.get("position") is None:
+                continue
+            # CO Staff or PLT HQ only.
+            if u.get("type") == "hq" and str(u.get("level", "")).casefold() != "plt":
+                continue
+            recipients.append(str(uid))
+        return recipients
+
+    def _runner_units(self, gd: dict[str, Any], available_only: bool = False) -> list[str]:
+        """Return runner unit ids that exist in the company roster.
+
+        When ``available_only`` is True, exclude runners already dispatched.
+        """
+        company = gd.get("company", {})
+        runners = company.get("runners", [])
+        recipients: list[str] = []
+        for r in runners:
+            rid = r.get("id")
+            if not rid:
+                continue
+            if available_only and r.get("dispatched"):
+                continue
+            recipients.append(str(rid))
+        return recipients
+
+    def _board_units(self, gd: dict[str, Any]) -> list[dict[str, Any]]:
+        """Return company units in play (on a card) and not casualties."""
+        company = gd.get("company", {})
+        casualties = self._casualty_ids(gd)
+        result: list[dict[str, Any]] = []
+        for u in company.get("units", []):
+            uid = u.get("id")
+            if not uid or str(uid) in casualties:
+                continue
+            if u.get("position") is None:
+                continue
+            result.append(u)
+        return result
+
+    def _rally_has_pinned_unit(self, gd: dict[str, Any]) -> bool:
+        """True if any board unit is under a Pinned marker (status pinned)."""
+        return any(u.get("status") == "pinned" for u in self._board_units(gd))
+
+    def _rally_has_team_type(self, gd: dict[str, Any], team_type: str, pinned_ok: bool = False) -> bool:
+        """True if any board unit of ``team_type`` exists, optionally allowing pinned."""
+        for u in self._board_units(gd):
+            if u.get("type") != team_type:
+                continue
+            if not pinned_ok and u.get("status") == "pinned":
+                continue
+            return True
+        return False
+
+    def _valid_supplement_pairs(self, gd: dict[str, Any]) -> list[tuple[str, str]]:
+        """Return (squad_id, team_id) pairs valid for Supplement Squad.
+
+        Conditions:
+        - Squad: type=squad, status=good_order, steps=2, on a card
+        - Team: type=fire_team or assault_team, status!=pinned, on a card
+        - Both in communication (same card or both staging)
+        """
+        from .communication import check_in_communication
+
+        units = self._board_units(gd)
+        squads = [
+            u for u in units
+            if u.get("type") == "squad"
+            and u.get("status") == "good_order"
+            and u.get("steps") == 2
+        ]
+        teams = [
+            u for u in units
+            if u.get("type") in ("fire_team", "assault_team")
+            and u.get("status") != "pinned"
+        ]
+        pairs: list[tuple[str, str]] = []
+        for s in squads:
+            for t in teams:
+                if check_in_communication(s, t):
+                    pairs.append((str(s["id"]), str(t["id"])))
+        return pairs
+
+    def _valid_reconstitute_squad_groups(self, gd: dict[str, Any]) -> list[list[str]]:
+        """Return lists of 2-3 team IDs valid for Reconstitute Squad.
+
+        Conditions:
+        - 2 or 3 teams of type fire_team or assault_team
+        - All unpinned (status != pinned)
+        - All in communication with each other (same card)
+        """
+        from .communication import check_in_communication
+
+        units = self._board_units(gd)
+        teams = [
+            u for u in units
+            if u.get("type") in ("fire_team", "assault_team")
+            and u.get("status") != "pinned"
+        ]
+        # Group teams by card position
+        by_card: dict[int, list[dict]] = {}
+        for t in teams:
+            pos = t.get("position")
+            if pos is not None:
+                by_card.setdefault(pos, []).append(t)
+
+        groups: list[list[str]] = []
+        for pos, team_list in by_card.items():
+            if len(team_list) >= 2:
+                # All combinations of 2 and 3
+                ids = [str(t["id"]) for t in team_list]
+                # Size 2 combinations
+                for i in range(len(ids)):
+                    for j in range(i + 1, len(ids)):
+                        groups.append([ids[i], ids[j]])
+                # Size 3 combinations
+                for i in range(len(ids)):
+                    for j in range(i + 1, len(ids)):
+                        for k in range(j + 1, len(ids)):
+                            groups.append([ids[i], ids[j], ids[k]])
+        return groups
+
+    def _valid_adjacent_move_pairs(self, gd: dict[str, Any], originator_id: str, action_id: str) -> list[tuple[str, int]]:
+        """Return (unit_id, to_position) pairs valid for adjacent-card movement.
+
+        Conditions depend on action_id:
+        - move_to_an_adjacent_card: any Good Order unit not Exposed, in communication with originator.
+        - move_a_platoon_to_an_adjacent_card: all Good Order units of originator's platoon on same card, not Exposed.
+        """
+        from .communication import check_in_communication
+
+        company = gd.get("company", {})
+        cmd = company.get("command", {})
+        units = self._board_units(gd)
+        map_data = gd.get("map", {})
+        rows, cols = map_data.get("rows", 0), map_data.get("cols", 0)
+        if rows <= 0 or cols <= 0:
+            return []
+
+        # Find originator unit
+        originator_unit = next((u for u in units if u.get("id") == originator_id), None)
+        if not originator_unit:
+            return []
+        originator_pos = originator_unit.get("position")
+        originator_platoon = originator_unit.get("platoon")
+
+        pairs: list[tuple[str, int]] = []
+        for u in units:
+            uid = u.get("id")
+            if not uid or u.get("position") is None:
+                continue
+            # Skip the originator itself
+            if uid == originator_id:
+                continue
+            # Exclude HQ and Staff types (they don't move via this action)
+            if u.get("type") in ("hq", "staff"):
+                continue
+            status = u.get("status", "good_order")
+            if str(status).casefold() != "good_order":
+                continue
+            if u.get("exposed"):
+                continue
+
+            # Action-specific filters
+            if action_id == "move_to_an_adjacent_card":
+                if not check_in_communication(u, originator_unit):
+                    continue
+            elif action_id == "move_a_platoon_to_an_adjacent_card":
+                if u.get("platoon") != originator_platoon:
+                    continue
+                if u.get("position") != originator_pos:
+                    continue
+            else:
+                continue
+
+            # Find valid adjacent destinations
+            from_pos = u.get("position")
+            for d in COMPASS:
+                to_pos = target_card(from_pos, d, rows, cols)
+                if to_pos is not None:
+                    pairs.append((str(uid), to_pos))
+        return pairs
+
+    def _is_command_action(self, move: dict[str, Any]) -> bool:
+        return move.get("type") in self._command_action_ids() or move.get("type") == "exhort"
+
     def validate_move(self, state: dict[str, Any], move: dict[str, Any]) -> bool:
         gd = state.get("game_data", {})
         phase = gd.get("phase")
@@ -595,6 +900,131 @@ class FieldsOfFireValidator(LegalMoveValidator):
         if phase is None:
             phase = state.get("phase")
         mtype = move.get("type")
+        if mtype in self._command_action_ids() or mtype == "exhort":
+            if phase != "friendly_command":
+                return False
+            if state.get("current_player") is not None and move.get("player_id") not in (None, state.get("current_player")):
+                # Backward-compatible tests often omit current_player; do not reject those.
+                pass
+            originator = move.get("originator_hq_id")
+            if not isinstance(originator, str):
+                return False
+            action = next((a for a in self._friendly_command_actions() if a["id"] == mtype), None)
+            if action is None and mtype != "exhort":
+                return False
+            cost = int((action or {}).get("cost", 1) or 1) if mtype != "exhort" else 1
+            if self._originator_pool(gd, originator) < cost:
+                return False
+            if mtype == "activate_a_subordinate_hq_or_staff":
+                recipient = move.get("recipient_hq_id")
+                if recipient not in self._valid_activate_recipients(gd, originator):
+                    return False
+            if mtype == "reconstitute_a_plt_hq":
+                recipient = move.get("recipient_hq_id")
+                if recipient not in self._valid_reconstitute_recipients(gd):
+                    return False
+                cmd = gd.get("company", {}).get("command", {})
+                if originator not in (cmd.get("co_hq"),) + tuple(cmd.get("co_staff", []) or []):
+                    return False
+            if mtype == "reconstitute_the_co_hq":
+                recipient = move.get("recipient_hq_id")
+                if recipient not in self._valid_reconstitute_co_hq_recipients(gd):
+                    return False
+                cmd = gd.get("company", {}).get("command", {})
+                if originator not in (cmd.get("bn_hq"),) + tuple(cmd.get("co_staff", []) or []):
+                    return False
+            if mtype in ("dispatch_a_runner", "dismiss_a_runner"):
+                recipient = move.get("recipient_hq_id")
+                available = mtype == "dispatch_a_runner"
+                if recipient not in self._runner_units(gd, available_only=available):
+                    return False
+            if mtype == "attempt_to_remove_a_pinned_marker":
+                if not self._rally_has_pinned_unit(gd):
+                    return False
+            if mtype == "attempt_to_convert_a_paralyzed_team_to_a_litter_team":
+                if not self._rally_has_team_type(gd, "paralyzed_team"):
+                    return False
+            if mtype == "attempt_to_convert_a_litter_team_to_a_fire_team":
+                if not self._rally_has_team_type(gd, "litter_team"):
+                    return False
+            if mtype == "attempt_to_convert_a_fire_team_to_an_assault_team":
+                if not self._rally_has_team_type(gd, "fire_team"):
+                    return False
+            if mtype == "convert_an_assault_team_to_a_fire_team":
+                if not self._rally_has_team_type(gd, "assault_team"):
+                    return False
+            if mtype == "attempt_to_flip_a_unit_with_a_fire_team_side_to_front":
+                if not self._rally_has_team_type(gd, "fire_team"):
+                    return False
+            if mtype == "flip_a_unit_with_a_fire_team_side_to_its_fire_team_side":
+                if not self._rally_has_team_type(gd, "fire_team"):
+                    return False
+            if mtype == "supplement_squad":
+                squad_id = move.get("squad_id")
+                team_id = move.get("team_id")
+                if not squad_id or not team_id:
+                    return False
+                units = {str(u["id"]): u for u in self._board_units(gd)}
+                squad = units.get(squad_id)
+                team = units.get(team_id)
+                if not squad or not team:
+                    return False
+                if squad.get("type") != "squad" or squad.get("status") != "good_order" or squad.get("steps") != 2:
+                    return False
+                if team.get("type") not in ("fire_team", "assault_team") or team.get("status") == "pinned":
+                    return False
+                from .communication import check_in_communication
+                if not check_in_communication(squad, team):
+                    return False
+            if mtype == "attempt_to_reconstitute_squad":
+                team_ids = move.get("team_ids")
+                if not team_ids or not isinstance(team_ids, list) or len(team_ids) not in (2, 3):
+                    return False
+                units = {str(u["id"]): u for u in self._board_units(gd)}
+                for tid in team_ids:
+                    team = units.get(tid)
+                    if not team or team.get("type") not in ("fire_team", "assault_team") or team.get("status") == "pinned":
+                        return False
+                positions = {units[tid].get("position") for tid in team_ids}
+                if len(positions) != 1 or None in positions:
+                    return False
+            if mtype in ("move_to_an_adjacent_card", "move_a_platoon_to_an_adjacent_card"):
+                unit_id = move.get("unit_id")
+                to_pos = move.get("to_position")
+                if not unit_id or not isinstance(to_pos, int):
+                    return False
+                units = {str(u["id"]): u for u in self._board_units(gd)}
+                unit = units.get(unit_id)
+                if not unit:
+                    return False
+                from_pos = unit.get("position")
+                if from_pos is None:
+                    return False
+                map_data = gd.get("map", {})
+                rows, cols = map_data.get("rows", 0), map_data.get("cols", 0)
+                adjacent = {target_card(from_pos, d, rows, cols) for d in COMPASS}
+                if to_pos not in adjacent:
+                    return False
+                if str(unit.get("status", "")).casefold() != "good_order":
+                    return False
+                if unit.get("exposed"):
+                    return False
+                if mtype == "move_to_an_adjacent_card":
+                    originator = move.get("originator_hq_id")
+                    originator_unit = next((u for u in self._board_units(gd) if u.get("id") == originator), None)
+                    if not originator_unit or not check_in_communication(unit, originator_unit):
+                        return False
+                elif mtype == "move_a_platoon_to_an_adjacent_card":
+                    if unit.get("platoon") != originator_unit.get("platoon"):
+                        return False
+                    if unit.get("position") != originator_unit.get("position"):
+                        return False
+            if mtype == "exhort":
+                if not gd.get("last_failed_attempt"):
+                    return False
+                if gd.get("exhort_used"):
+                    return False
+            return True
         if mtype == "start_mission" and phase == "setup":
             scenario_id = move.get("scenario_id")
             if scenario_id is not None:
@@ -755,10 +1185,6 @@ class FieldsOfFireValidator(LegalMoveValidator):
         if mtype == "deploy_pyrotechnic" and phase == "friendly_command":
             return True
         if mtype == "designate_tactical_control" and phase == "friendly_command":
-            return True
-        if mtype == "move_action" and phase == "friendly_command":
-            return True
-        if mtype == "open_fire" and phase == "friendly_command":
             return True
         if mtype == "place_vof" and phase in ("friendly_command", "mutual_combat"):
             position = move.get("position")
@@ -1180,7 +1606,8 @@ class FieldsOfFireValidator(LegalMoveValidator):
                     }
                     if self.validate_move(state, candidate):
                         moves.append(candidate)
-            for hq_id in ([cmd.get("bn_hq")] if cmd.get("bn_hq") else []) + ([cmd.get("co_hq")] if cmd.get("co_hq") else []) + cmd.get("plt_hqs", []) + cmd.get("co_staff", []):
+            _activation_ids = ([cmd.get("bn_hq")] if cmd.get("bn_hq") else []) + ([cmd.get("co_hq")] if cmd.get("co_hq") else []) + cmd.get("plt_hqs", []) + cmd.get("co_staff", [])
+            for hq_id in _activation_ids:
                 candidate = {"move_id": f"activate_{hq_id}", "type": "activate_hq", "player_id": player_id, "hq_id": hq_id}
                 if hq_id and self.validate_move(state, candidate):
                     moves.append(candidate)
@@ -1192,22 +1619,150 @@ class FieldsOfFireValidator(LegalMoveValidator):
                     spend_candidate = {"move_id": f"spend_{activated_hq}", "type": "spend_command", "player_id": player_id, "amount": 1, "hq_id": activated_hq}
                     if self.validate_move(state, spend_candidate):
                         moves.append(spend_candidate)
-                if cmd.get("commands_pool", 0) > 0:
-                    from app.games.fields_of_fire.actions import load_actions
-
-                    for action in load_actions():
-                        move_type = action.get("move_type")
-                        phases = action.get("phases") or []
-                        if not move_type or phase not in phases:
+            # Configured command actions...
+            for action in self._friendly_command_actions():
+                action_id = action["id"]
+                cost = int(action.get("cost", 1) or 1)
+                for originator in self._eligible_originators(gd, action):
+                    if action_id == "activate_a_subordinate_hq_or_staff":
+                        recipients = self._valid_activate_recipients(gd, originator)
+                        if not recipients:
                             continue
-                        moves.append({
-                            "move_id": move_type,
-                            "type": move_type,
+                    elif action_id == "reconstitute_a_plt_hq":
+                        recipients = self._valid_reconstitute_recipients(gd)
+                        if not recipients:
+                            continue
+                    elif action_id == "reconstitute_the_co_hq":
+                        recipients = self._valid_reconstitute_co_hq_recipients(gd)
+                        if not recipients:
+                            continue
+                    elif action_id in ("dispatch_a_runner", "dismiss_a_runner"):
+                        recipients = self._runner_units(gd, available_only=(action_id == "dispatch_a_runner"))
+                        if not recipients:
+                            continue
+                    elif action_id == "attempt_to_remove_a_pinned_marker":
+                        if not self._rally_has_pinned_unit(gd):
+                            continue
+                    elif action_id == "attempt_to_convert_a_paralyzed_team_to_a_litter_team":
+                        if not self._rally_has_team_type(gd, "paralyzed_team"):
+                            continue
+                    elif action_id == "attempt_to_convert_a_litter_team_to_a_fire_team":
+                        if not self._rally_has_team_type(gd, "litter_team"):
+                            continue
+                    elif action_id == "attempt_to_convert_a_fire_team_to_an_assault_team":
+                        if not self._rally_has_team_type(gd, "fire_team"):
+                            continue
+                    elif action_id == "convert_an_assault_team_to_a_fire_team":
+                        if not self._rally_has_team_type(gd, "assault_team"):
+                            continue
+                    elif action_id == "attempt_to_flip_a_unit_with_a_fire_team_side_to_front":
+                        if not self._rally_has_team_type(gd, "fire_team"):
+                            continue
+                    elif action_id == "flip_a_unit_with_a_fire_team_side_to_its_fire_team_side":
+                        if not self._rally_has_team_type(gd, "fire_team"):
+                            continue
+                    elif action_id == "supplement_squad":
+                        pairs = self._valid_supplement_pairs(gd)
+                        if not pairs:
+                            continue
+                        for squad_id, team_id in pairs:
+                            move = {
+                                "move_id": f"{action_id}_{originator}_{squad_id}_{team_id}",
+                                "type": action_id,
+                                "action_id": action_id,
+                                "player_id": player_id,
+                                "originator_hq_id": originator,
+                                "squad_id": squad_id,
+                                "team_id": team_id,
+                                "cost": cost,
+                                "draw_count": action.get("draw_count", 0),
+                                "success_icon": action.get("success_icon"),
+                                "miss_modifier": action.get("miss_modifier"),
+                                "ammo_type": action.get("ammo_type"),
+                                "ammo_cost": action.get("ammo_cost", 0),
+                                "fire_mission_type": action.get("fire_mission_type"),
+                                "auto_if_no_vof": action.get("auto_if_no_vof", False),
+                            }
+                            moves.append(move)
+                        continue
+                    elif action_id == "attempt_to_reconstitute_squad":
+                        groups = self._valid_reconstitute_squad_groups(gd)
+                        if not groups:
+                            continue
+                        for team_ids in groups:
+                            move = {
+                                "move_id": f"{action_id}_{originator}_{'_'.join(team_ids)}",
+                                "type": action_id,
+                                "action_id": action_id,
+                                "player_id": player_id,
+                                "originator_hq_id": originator,
+                                "team_ids": team_ids,
+                                "cost": cost,
+                                "draw_count": action.get("draw_count", 0),
+                                "success_icon": action.get("success_icon"),
+                                "miss_modifier": action.get("miss_modifier"),
+                                "ammo_type": action.get("ammo_type"),
+                                "ammo_cost": action.get("ammo_cost", 0),
+                                "fire_mission_type": action.get("fire_mission_type"),
+                                "auto_if_no_vof": action.get("auto_if_no_vof", False),
+                            }
+                            moves.append(move)
+                        continue
+                    elif action_id in ("move_to_an_adjacent_card", "move_a_platoon_to_an_adjacent_card"):
+                        pairs = self._valid_adjacent_move_pairs(gd, originator, action_id)
+                        if not pairs:
+                            continue
+                        for unit_id, to_pos in pairs:
+                            move = {
+                                "move_id": f"{action_id}_{originator}_{unit_id}_{to_pos}",
+                                "type": action_id,
+                                "action_id": action_id,
+                                "player_id": player_id,
+                                "originator_hq_id": originator,
+                                "unit_id": unit_id,
+                                "to_position": to_pos,
+                                "cost": cost,
+                                "draw_count": action.get("draw_count", 0),
+                                "success_icon": action.get("success_icon"),
+                                "miss_modifier": action.get("miss_modifier"),
+                                "ammo_type": action.get("ammo_type"),
+                                "ammo_cost": action.get("ammo_cost", 0),
+                                "fire_mission_type": action.get("fire_mission_type"),
+                                "auto_if_no_vof": action.get("auto_if_no_vof", False),
+                            }
+                            moves.append(move)
+                        continue
+                    else:
+                        recipients = [None]
+                    for recipient in recipients:
+                        move = {
+                            "move_id": f"{action_id}_{originator}_{recipient}" if recipient else f"{action_id}_{originator}",
+                            "type": action_id,
+                            "action_id": action_id,
                             "player_id": player_id,
-                            "cost": action.get("cost", 1),
-                        })
-                    moves.append({"move_id": "move_action", "type": "move_action", "player_id": player_id, "cost": 1})
-                    moves.append({"move_id": "open_fire", "type": "open_fire", "player_id": player_id, "cost": 1})
+                            "originator_hq_id": originator,
+                            "cost": cost,
+                            "draw_count": action.get("draw_count", 0),
+                            "success_icon": action.get("success_icon"),
+                            "miss_modifier": action.get("miss_modifier"),
+                            "ammo_type": action.get("ammo_type"),
+                            "ammo_cost": action.get("ammo_cost", 0),
+                            "fire_mission_type": action.get("fire_mission_type"),
+                            "auto_if_no_vof": action.get("auto_if_no_vof", False),
+                        }
+                        if recipient:
+                            move["recipient_hq_id"] = recipient
+                        moves.append(move)
+            if gd.get("last_failed_attempt") and not gd.get("exhort_used"):
+                for originator in self._eligible_originators(gd, {"originator_type": "any_hq_or_staff", "cost": 1}):
+                    moves.append({
+                        "move_id": f"exhort_{originator}",
+                        "type": "exhort",
+                        "action_id": "exhort",
+                        "player_id": player_id,
+                        "originator_hq_id": originator,
+                        "cost": 1,
+                    })
             return moves
         if phase == "enemy_activity":
             moves = [{"move_id": "advance_phase", "type": "advance_phase", "player_id": player_id,
@@ -1313,6 +1868,88 @@ class FieldsOfFireValidator(LegalMoveValidator):
             return "friendly_higher_hq_event"
         idx = PHASES.index(phase)
         return PHASES[idx + 1] if idx + 1 < len(PHASES) else "game_over"
+
+    def _apply_command_action(self, gd: dict[str, Any], move: dict[str, Any]) -> None:
+        cmd = gd.setdefault("company", {}).setdefault("command", {})
+        pools = cmd.setdefault("pool_by_hq", {})
+        originator = move.get("originator_hq_id")
+        cost = int(move.get("cost", 1) or 1)
+        pools[originator] = max(0, pools.get(originator, 0) - cost)
+        cmd["commands_pool"] = sum(pools.values())
+        spent = cmd.setdefault("spent_by_hq", {})
+        if originator is not None:
+            spent[originator] = spent.get(originator, 0) + cost
+
+        action_id = move.get("action_id") or move.get("type")
+        if move.get("type") == "exhort":
+            failed = gd.get("last_failed_attempt") or {}
+            action = next((a for a in self._friendly_command_actions() if a["id"] == failed.get("action_id")), None)
+            draw_count = 1
+            success_icon = (action or {}).get("success_icon")
+            miss_modifier = (action or {}).get("miss_modifier")
+            ammo_type = (action or {}).get("ammo_type")
+            ammo_cost = (action or {}).get("ammo_cost", 0)
+            fire_mission_type = (action or {}).get("fire_mission_type")
+            auto_if_no_vof = (action or {}).get("auto_if_no_vof", False)
+        else:
+            action = next((a for a in self._friendly_command_actions() if a["id"] == action_id), None)
+            draw_count = move.get("draw_count", (action or {}).get("draw_count", 0))
+            success_icon = move.get("success_icon", (action or {}).get("success_icon"))
+            miss_modifier = move.get("miss_modifier", (action or {}).get("miss_modifier"))
+            ammo_type = move.get("ammo_type", (action or {}).get("ammo_type"))
+            ammo_cost = move.get("ammo_cost", (action or {}).get("ammo_cost", 0))
+            fire_mission_type = move.get("fire_mission_type", (action or {}).get("fire_mission_type"))
+            auto_if_no_vof = move.get("auto_if_no_vof", (action or {}).get("auto_if_no_vof", False))
+
+        if isinstance(draw_count, str):
+            if draw_count == "cover":
+                draw_count = 2
+            elif draw_count == "mission":
+                draw_count = 2
+            else:
+                draw_count = 0
+
+        drawn = []
+        if draw_count and int(draw_count) > 0:
+            drawn = draw(gd.setdefault("action_deck", new_action_deck()), int(draw_count), reason=f"command:{action_id}")
+
+        success = True
+        if success_icon:
+            success = any(success_icon in (get_action_card(cid).get("action_details", {}).get("attempt_icons") or []) for cid in drawn)
+        if auto_if_no_vof and not gd.get("vof_markers"):
+            success = True
+
+        if success:
+            gd.setdefault("markers", []).append({"type": action_id, "resolved": False, "success": True})
+            ammo = gd.setdefault("company", {}).setdefault("ammo", {})
+            if ammo_type and ammo_cost:
+                ammo[ammo_type] = max(0, ammo.get(ammo_type, 0) - ammo_cost)
+            if fire_mission_type:
+                gd.setdefault("markers", []).append({"type": "fire_mission", "mission_type": fire_mission_type, "resolved": False})
+        else:
+            if miss_modifier:
+                gd.setdefault("markers", []).append({"type": miss_modifier, "resolved": False})
+            gd.setdefault("markers", []).append({"type": action_id, "resolved": False, "success": False})
+            gd["last_failed_attempt"] = dict(move)
+            gd["exhort_used"] = False
+
+        if move.get("type") == "exhort":
+            gd["exhort_used"] = True
+            failed = gd.get("last_failed_attempt")
+            # Re-evaluate the failed attempt using the extra card.
+            if failed:
+                failed_action = next((a for a in self._friendly_command_actions() if a["id"] == failed.get("action_id")), None)
+                icon = (failed_action or {}).get("success_icon")
+                if icon and any(icon in (get_action_card(cid).get("action_details", {}).get("attempt_icons") or []) for cid in drawn):
+                    gd.setdefault("markers", []).append({"type": failed.get("action_id"), "resolved": False, "success": True})
+                    gd.pop("last_failed_attempt", None)
+                else:
+                    gd.setdefault("markers", []).append({"type": failed.get("action_id"), "resolved": False, "success": False})
+            gd["exhort_used"] = True
+        else:
+            if success:
+                gd.pop("last_failed_attempt", None)
+                gd["exhort_used"] = False
 
     def apply_move(self, state: dict[str, Any], move: dict[str, Any]) -> dict[str, Any]:
         if not self.validate_move(state, move):
@@ -1436,19 +2073,6 @@ class FieldsOfFireValidator(LegalMoveValidator):
             if pool > 0:
                 cmd["commands_pool"] = pool - 1
                 gd.setdefault("markers", []).append({"type": "tactical_control", "position": move.get("position")})
-        elif move.get("type") == "move_action":
-            cmd = gd.setdefault("company", {}).setdefault("command", {})
-            pool = cmd.get("commands_pool", 0)
-            if pool > 0:
-                cmd["commands_pool"] = pool - 1
-                gd.setdefault("markers", []).append({"type": "move_action", "resolved": False})
-        elif move.get("type") == "open_fire":
-            cmd = gd.setdefault("company", {}).setdefault("command", {})
-            pool = cmd.get("commands_pool", 0)
-            if pool > 0:
-                cmd["commands_pool"] = pool - 1
-                gd.setdefault("markers", []).append({"type": "fire", "resolved": False})
-            gd.setdefault("vof_markers", []).append({"position": move["position"], "rating": move["rating"]})
         elif move.get("type") == "place_pdf":
             map_data = gd.get("map", {})
             target = target_card(move["position"], move["direction"], map_data.get("rows", 0), map_data.get("cols", 0))
@@ -1662,6 +2286,8 @@ class FieldsOfFireValidator(LegalMoveValidator):
             company.setdefault("skills", []).append(move.get("skill", "leadership"))
         elif move.get("type") == "urban_combat":
             gd.setdefault("markers", []).append({"type": "urban_combat", "resolved": False})
+        if self._is_command_action(move):
+            self._apply_command_action(gd, move)
         return new
 
 

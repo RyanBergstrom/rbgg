@@ -3,6 +3,7 @@
   import { IS_DEV } from '$lib/dev';
   import { API_BASE } from '$lib/api';
   import { fofCommand } from '$lib/stores/fofCommand';
+import { eligibleMoveUnits, validMoveDestinations, movementAction as movementActionStore } from '$lib/stores/fofCommand';
   import TurnSequenceTracker from './TurnSequenceTracker.svelte';
 
   export let game = null;
@@ -32,6 +33,10 @@
     dispatchMove: (move) => dispatch('select-move', move),
   });
   onDestroy(() => fofCommand.set(null));
+
+  // Movement action derived stores for board highlighting
+  $: eligibleUnitIds = $eligibleMoveUnits;
+  $: validDestIds = $validMoveDestinations;
 
   let mapCards = [];
   let units = [];
@@ -392,6 +397,23 @@ legalMoves = screenState.legal_moves || legalMoves;
       submitStackMove(idx, stackId);
       return;
     }
+    
+    // Check if we're in movement action mode
+    const $movementAction = $movementActionStore;
+    if ($movementAction.type && $movementAction.step === 'select_unit') {
+      // Find the unit ID from the clicked counter
+      const unitId = event.currentTarget.getAttribute('data-unit-id');
+      if (unitId) {
+        movementActionStore.set({
+          type: $movementAction.type,
+          step: 'select_destination',
+          selectedUnitId: unitId,
+          originatorId: $movementAction.originatorId,
+        });
+      }
+      return;
+    }
+    
     popupIdx = null;
     focusedStack = { position: idx, stackId };
     positionPopup(event.currentTarget);
@@ -811,8 +833,8 @@ legalMoves = screenState.legal_moves || legalMoves;
           class:placing-target={popupIdx === idx}
           class:stack-focused={focusedStack?.position === idx}
           class:hovered-card={hoveredStack?.position === idx}
-          class:move-destination={!!movingSelection}
-          class:legal-destination={!!movingSelection && legalMoves.some(move => move.from_position === movingSelection.fromPosition && move.to_position === idx && (move.type === 'move_unit' ? move.unit_id === movingSelection.unitId : move.type === 'move_stack' && move.unit_ids?.length === movingSelection.unitIds?.length && movingSelection.unitIds?.every(id => move.unit_ids.includes(id))))}
+          class:move-destination={validDestIds?.has(idx)}
+          class:legal-destination={validDestIds?.has(idx)}
           on:click={(e) => handleCardClick(e, idx)}
           disabled={!!winner || actionInProgress || (phase?.phase_name === 'setup' && !isStagingCard(idx))}
         >
@@ -865,6 +887,7 @@ legalMoves = screenState.legal_moves || legalMoves;
                       role="button"
                       tabindex="0"
                       class:selected-counter={movingSelection?.unitId === unit.id || movingSelection?.unitIds?.includes(unit.id)}
+                      class:move-eligible={eligibleUnitIds?.has(unit.id)}
                       data-unit-id={unit.id}
                       style="left: {depth * 2}px; top: {depth * 2}px; z-index: {unitIndex + 1};"
                       title={`${getUnitDisplayName(unit)}${getUnitSetupDetails(unit) ? ` · ${getUnitSetupDetails(unit)}` : ''}`}
@@ -1670,6 +1693,18 @@ legalMoves = screenState.legal_moves || legalMoves;
     outline-offset: 1px;
   }
 
+  .unit-counter-tile.move-eligible {
+    box-shadow: 0 0 0 3px #ffd700, 0 0 10px rgba(255, 215, 0, 0.6);
+    border-color: #ffd700;
+    transform: scale(1.05);
+    z-index: 100;
+  }
+
+  .unit-counter-tile.move-eligible:hover {
+    box-shadow: 0 0 0 4px #ffd700, 0 0 15px rgba(255, 215, 0, 0.8);
+    transform: scale(1.1);
+  }
+
   .stack-hover-preview {
     position: absolute;
     left: 0;
@@ -1755,23 +1790,31 @@ legalMoves = screenState.legal_moves || legalMoves;
 
   .fof-layout {
     gap: var(--fof-space-3);
+    min-height: 0;
+  }
+
+  .fof-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .fof-sidebar,
   .draw-pile-panel,
   .audit-panel {
-    width: 240px;
+    width: 170px;
     background: var(--fof-surface);
     border: 1px solid var(--fof-border);
     border-radius: var(--fof-radius-md);
-    padding: var(--fof-space-3);
+    padding: var(--fof-space-2);
     color: var(--fof-text);
     box-shadow: none;
   }
 
   .draw-pile-panel,
   .audit-panel {
-    width: 240px;
+    width: 170px;
   }
 
   .dp-count {
@@ -1901,7 +1944,12 @@ legalMoves = screenState.legal_moves || legalMoves;
   }
 
   .map-container {
-    max-width: 960px;
+    width: 100%;
+    max-width: none;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .map-grid {
@@ -1910,6 +1958,8 @@ legalMoves = screenState.legal_moves || legalMoves;
     border-radius: var(--fof-radius-md);
     gap: var(--fof-space-3);
     padding: var(--fof-space-3);
+    flex: 1;
+    min-height: 0;
   }
 
   .map-card {
@@ -1940,13 +1990,19 @@ legalMoves = screenState.legal_moves || legalMoves;
     box-shadow: 0 0 0 2px var(--fof-accent);
   }
 
-  .map-card.stack-focused {
-    border: 2px solid var(--fof-success);
-    box-shadow: 0 0 0 2px var(--fof-success);
+  .map-card.move-destination {
+    box-shadow: inset 0 0 0 4px #27ae60, 0 0 20px rgba(39, 174, 96, 0.5);
+    border-color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .map-card.move-destination:hover {
+    box-shadow: inset 0 0 0 5px #27ae60, 0 0 30px rgba(39, 174, 96, 0.7);
   }
 
   .map-card.move-destination.legal-destination {
-    border-color: var(--fof-success);
+    border-color: #27ae60;
   }
 
   .map-card.move-destination:not(.legal-destination) {
