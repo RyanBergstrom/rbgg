@@ -6,6 +6,7 @@
   import DebugPanel from '$lib/components/DebugPanel.svelte';
   import SettingsPanel from '$lib/components/SettingsPanel.svelte';
   import { settings } from '$lib/stores/settings';
+  import { fofCommand } from '$lib/stores/fofCommand';
   import { traceApi, traceState, traceMove, tracePhase } from '$lib/dev';
 
   export let data;
@@ -56,6 +57,7 @@
   $: currentPlayer = screenState?.current_player || game?.state?.player_turn || null;
   $: isHumanTurn = (isHotSeatGame || currentPlayer === HUMAN_PLAYER) && !screenState?.winner && !game?.state?.winner;
   $: isAiTurn = !isHotSeatGame && currentPlayer && currentPlayer !== HUMAN_PLAYER && !screenState?.winner && !game?.state?.winner;
+  $: fofMode = !!$fofCommand && ['friendly_higher_hq_event', 'friendly_command', 'mutual_combat'].includes($fofCommand.phaseName) && !screenState?.winner && !game?.state?.winner;
 
   $: if (currentPlayer) {
     tracePhase('play:page', 'turn state', { currentPlayer, isHumanTurn, isAiTurn });
@@ -502,6 +504,7 @@
   });
 </script>
 
+<div class="play-shell" class:fof-mode={fofMode}>
 <div class="game-container">
   {#if gameId === 'lost_cities' && $settings.show_ai_controls !== false}
     <label class="ai-provider-control">
@@ -595,6 +598,8 @@
   on:start-mission={handleStartMission}
 />
 
+</div>
+
 {#if gameId !== 'fields_of_fire'}
   <GameAuditLog entries={auditLog} />
 {/if}
@@ -639,6 +644,29 @@
     left: 0;
     right: 0;
     z-index: 100;
+  }
+
+  :global(body:has(.play-shell.fof-mode)) {
+    margin: 0;
+  }
+
+  .play-shell.fof-mode {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .play-shell.fof-mode .game-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 0;
+  }
+
+  .play-shell.fof-mode :global(.game-progress-panel) {
+    position: static;
+    flex: 0 0 auto;
   }
 
   .error-state {

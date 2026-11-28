@@ -1,9 +1,10 @@
 from pathlib import Path
 
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.base import BaseHTTPMiddleware
 
 from app.routes.games import router as games_router
 from app.routes.moves import router as moves_router
@@ -16,27 +17,67 @@ app = FastAPI(title="rbgg API", version="0.1.0")
 from app.core.legal_move_interface import IllegalMoveError
 
 
+ALLOWED_ORIGINS = (
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+    "https://rbgg-web.onrender.com",
+)
+
+
+class CORSMiddleware(BaseHTTPMiddleware):
+    """Complete CORS handling including preflight."""
+    async def dispatch(self, request: Request, call_next):
+        origin = request.headers.get("origin")
+        
+        # Handle preflight OPTIONS requests
+        if request.method == "OPTIONS":
+            if origin in ALLOWED_ORIGINS:
+                return Response(
+                    status_code=200,
+                    headers={
+                        "Access-Control-Allow-Origin": origin,
+                        "Access-Control-Allow-Credentials": "true",
+                        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS, PATCH",
+                        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+                        "Access-Control-Max-Age": "86400",
+                    },
+                )
+            return Response(status_code=400)
+        
+        # Process actual request
+        response = await call_next(request)
+        
+        # Add CORS headers to all responses
+        if origin in ALLOWED_ORIGINS:
+            response.headers["Access-Control-Allow-Origin"] = origin
+            response.headers["Access-Control-Allow-Credentials"] = "true"
+        
+        return response
+
+
 @app.exception_handler(IllegalMoveError)
-async def illegal_move_handler(request, exc: IllegalMoveError):
+async def illegal_move_handler(request: Request, exc: IllegalMoveError):
+    origin = request.headers.get("origin", "*")
     return JSONResponse(
         status_code=422,
         content={"error": {"code": "ILLEGAL_MOVE", "message": str(exc)}},
+        headers={"Access-Control-Allow-Origin": origin, "Access-Control-Allow-Credentials": "true"} if origin in ALLOWED_ORIGINS else {},
     )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
-        "https://rbgg-web.onrender.com",
-    ],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    origin = request.headers.get("origin", "*")
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors()},
+        headers={"Access-Control-Allow-Origin": origin, "Access-Control-Allow-Credentials": "true"} if origin in ALLOWED_ORIGINS else {},
+    )
+
+
+app.add_middleware(CORSMiddleware)
 app.include_router(games_router)
 app.include_router(moves_router)
 app.include_router(sessions_router)

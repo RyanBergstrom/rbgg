@@ -4,6 +4,7 @@
   // and any row can be opened or closed. Setup and game over are not shown.
   export let sequence = [];
   export let currentPhase = null;
+  export let commandSubphase = 0;
   export let turn = 1;
   export let durationTurns = null;
 
@@ -66,8 +67,17 @@
             <div class="tt-segments">
               <strong>This phase:</strong>
               <ul>
-                {#each step.segments as segment}
-                  <li>{segment.label} <span class="tt-rule">{segment.rule}</span></li>
+                {#each step.segments as segment, segmentIndex (segment.label)}
+                  {@const segmentState = step.phase === 'friendly_command'
+                    ? (segmentIndex < commandSubphase
+                      ? 'done'
+                      : segmentIndex === commandSubphase ? 'current' : 'future')
+                    : null}
+                  <li
+                    class:segment-done={segmentState === 'done'}
+                    class:segment-current={segmentState === 'current'}
+                    class:segment-future={segmentState === 'future'}
+                  >{segment.label} <span class="tt-rule">{segment.rule}</span></li>
                 {/each}
               </ul>
             </div>
@@ -319,6 +329,19 @@
 
   .tt-segments li {
     margin-bottom: var(--fof-space-1);
+  }
+
+  .tt-segments li.segment-done {
+    color: var(--fof-success);
+  }
+
+  .tt-segments li.segment-current {
+    color: var(--fof-text);
+    font-weight: 500;
+  }
+
+  .tt-segments li.segment-future {
+    color: var(--fof-text-2);
   }
 
   button:focus-visible {

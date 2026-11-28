@@ -5,6 +5,8 @@
   import { fofCommand } from '$lib/stores/fofCommand';
 import { eligibleMoveUnits, validMoveDestinations, movementAction as movementActionStore } from '$lib/stores/fofCommand';
   import TurnSequenceTracker from './TurnSequenceTracker.svelte';
+  import CounterFlag from './CounterFlag.svelte';
+  import { getCounterFlags } from './counterFlags';
 
   export let game = null;
   export let legalMoves = [];
@@ -29,7 +31,9 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
     activated: commandActivated,
     hqLabels,
     hqOrder,
+    hqStatus: commandHqStatus,
     phaseName: phase?.phase_name || phase,
+    commandSubphase,
     dispatchMove: (move) => dispatch('select-move', move),
   });
   onDestroy(() => fofCommand.set(null));
@@ -45,8 +49,28 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
   let markers = [];
   let vofMarkers = [];
   let pcMarkers = [];
-  let currentPlayerId = 'player_1';
+  let coverMarkers = [];
+  let commandSubphase = 0;
+  let currentActivity = 'no_contact';
+  let visibility = { condition: 'daylight', modifier: 0, limited: false };
   let phase = null;
+  const ACTIVITY_LABELS = {
+    no_contact: 'No Contact',
+    contact: 'Contact',
+    engaged: 'Engaged',
+    heavily_engaged: 'Heavily Engaged',
+  };
+  const VISIBILITY_LABELS = {
+    daylight: 'Daylight',
+    moon: 'Moon',
+    dawn: 'Dawn',
+    dusk: 'Dusk',
+  };
+  $: activityLabel = ACTIVITY_LABELS[currentActivity] || 'No Contact';
+  $: visibilityModifier = Number.isFinite(Number(visibility?.modifier)) ? Number(visibility.modifier) : 0;
+  $: visibilityLimited = Boolean(visibility?.limited) || visibilityModifier > 1;
+  $: visibilityCondition = VISIBILITY_LABELS[visibility?.condition] || (visibility?.condition || 'Daylight');
+  $: visibilityLabel = `${visibilityCondition} (+${visibilityModifier})${visibilityLimited ? ', Limited' : ''}`;
   let winner = null;
   let turnNumber = 1;
   let setupStatus = { complete: false, reason: '', placed: 0, total: 0 };
@@ -84,12 +108,47 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
   $: cardsLeft = actionDeck?.draw_pile?.length ?? 0;
   $: discardPile = actionDeck?.discard || [];
   $: discardCount = discardPile.length;
+
+  function actionCardNumber(cardId) {
+    const match = String(cardId || '').match(/(\d+)$/);
+    return match ? parseInt(match[1], 10) : 0;
+  }
+
+  function actionCardImageUrl(cardId) {
+    const number = actionCardNumber(cardId);
+    return number > 0 ? `${API_BASE}/img/fof/cards/A${String(number).padStart(2, '0')}.jpg` : null;
+  }
+
   $: topDiscardId = discardPile.length ? discardPile[discardPile.length - 1] : null;
-  $: topDiscardNum = topDiscardId ? (parseInt((topDiscardId.match(/(\d+)$/) || [])[1] || '0', 10)) : 0;
+  $: topDiscardNum = actionCardNumber(topDiscardId);
   $: topDiscard = screenState?.game_data?.top_discard || null;
   $: topDiscardUrl = topDiscard?.image_url
     ? (topDiscard.image_url.startsWith('http') ? topDiscard.image_url : `${API_BASE.replace(/\/api\/v1\/?$/, '')}${topDiscard.image_url}`)
-    : (topDiscardNum > 0 ? `${API_BASE}/img/fof/cards/Action Cards Draw/A${String(topDiscardNum).padStart(2, '0')}.jpg` : null);
+    : actionCardImageUrl(topDiscardId);
+
+  // 0 is the newest discard; larger offsets walk backwards through the pile.
+  let discardViewOffset = 0;
+  $: if (discardViewOffset > Math.max(0, discardCount - 1)) {
+    discardViewOffset = Math.max(0, discardCount - 1);
+  }
+  $: discardViewId = discardCount > 0 ? discardPile[discardCount - 1 - discardViewOffset] : null;
+  $: displayedDiscardUrl = discardViewOffset === 0 && topDiscardUrl ? topDiscardUrl : actionCardImageUrl(discardViewId);
+  $: discardViewName = String(discardViewId || '').includes('RESHUFFLE')
+    ? 'Reshuffle card'
+    : (discardViewId ? `Action card ${actionCardNumber(discardViewId)}` : 'Last played card');
+
+  function showOlderDiscard() {
+    if (discardCount === 0) return;
+    discardViewOffset = Math.min(discardCount - 1, discardViewOffset + 1);
+    clearDiscardHover();
+  }
+
+  function showNewerDiscard() {
+    if (discardCount === 0) return;
+    discardViewOffset = Math.max(0, discardViewOffset - 1);
+    clearDiscardHover();
+  }
+
   let auditCollapsed = false;
   function formatAuditTime(ts) {
     const d = new Date(ts);
@@ -99,6 +158,7 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
   let commandPool = 0;
   let commandActivated = [];
   let commandPools = {};
+  let commandHqStatus = {};
   let lastCommandDraw = null;
   let hqLabels = {};
   let hqOrder = [];
@@ -154,7 +214,10 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
       markers = gd.markers || [];
       vofMarkers = gd.vof_markers || [];
       pcMarkers = gd.pc_markers || [];
-      currentPlayerId = screenState.current_player || gd.current_player || 'player_1';
+      coverMarkers = gd.cover_markers || [];
+      commandSubphase = gd.company?.command?.command_subphase ?? 0;
+      currentActivity = gd.current_activity || 'no_contact';
+      visibility = gd.visibility || screenState.visibility || { condition: 'daylight', modifier: 0, limited: false };
       winner = screenState.winner || gd.winner || null;
       turnSequence = screenState.game_data?.turn_sequence || [];
       turnNumber = gd.turn || 1;
@@ -162,6 +225,7 @@ import { eligibleMoveUnits, validMoveDestinations, movementAction as movementAct
       commandPool = gd.company?.command?.commands_pool ?? 0;
       commandActivated = gd.company?.command?.activated ?? [];
       commandPools = gd.company?.command?.pool_by_hq ?? {};
+      commandHqStatus = screenState.command_hq_status ?? gd.command_hq_status ?? screenState.game_data?.command_hq_status ?? {};
       lastCommandDraw = screenState.game_data?.last_command_draw ?? null;
       hqOrder = [
         gd.company?.command?.bn_hq,
@@ -190,17 +254,25 @@ legalMoves = screenState.legal_moves || legalMoves;
       markers = gd.markers || [];
       vofMarkers = gd.vof_markers || [];
       pcMarkers = gd.pc_markers || [];
-      currentPlayerId = game?.state?.player_turn || 'player_1';
+      coverMarkers = gd.cover_markers || [];
+      commandSubphase = gd.company?.command?.command_subphase ?? 0;
+      currentActivity = gd.current_activity || gd.contact_level || 'no_contact';
+      visibility = gd.visibility || { condition: 'daylight', modifier: 0, limited: false };
       winner = game?.state?.winner || null;
       phase = gd.phase ? { phase_name: gd.phase, confirm_required: false } : null;
       deployment_zones = gd.deployment_zones || deployment_zones;
       scenario_id = gd.scenario_id || scenario_id;
     } else {
+      currentActivity = 'no_contact';
+      visibility = { condition: 'daylight', modifier: 0, limited: false };
       mapCards = [];
       units = [];
       markers = [];
       vofMarkers = [];
       pcMarkers = [];
+      coverMarkers = [];
+      commandSubphase = 0;
+      commandHqStatus = {};
       terrainDecks = [];
       cardLayout = [];
     }
@@ -327,6 +399,23 @@ legalMoves = screenState.legal_moves || legalMoves;
       return;
     }
 
+    // Movement action: select_destination step - complete the move.
+    // Platoon moves have no selected unit; the backend moves the whole platoon.
+    const $movementAction = $movementActionStore;
+    if ($movementAction.type && $movementAction.step === 'select_destination') {
+      const move = legalMoves.find(m =>
+        m.type === $movementAction.type &&
+        m.originator_hq_id === $movementAction.originatorId &&
+        (!$movementAction.selectedUnitId || m.unit_id === $movementAction.selectedUnitId) &&
+        m.to_position === idx
+      );
+      if (move) {
+        dispatch('select-move', move);
+        movementActionStore.set({ type: null, step: 'idle', selectedUnitId: null, originatorId: null });
+      }
+      return;
+    }
+
     // Setup phase: choose any card as a destination for a new stack.
     if (phaseName === 'setup') {
       focusedStack = null;
@@ -404,6 +493,20 @@ legalMoves = screenState.legal_moves || legalMoves;
       // Find the unit ID from the clicked counter
       const unitId = event.currentTarget.getAttribute('data-unit-id');
       if (unitId) {
+        if (
+          $movementAction.type === 'attempt_to_infiltrate_within_a_card' ||
+          $movementAction.type === 'attempt_to_seek_cover'
+        ) {
+          // These unit-target actions complete when the eligible counter is clicked.
+          const move = legalMoves.find(m =>
+            m.type === $movementAction.type &&
+            m.originator_hq_id === $movementAction.originatorId &&
+            m.unit_id === unitId
+          );
+          if (move) dispatch('select-move', move);
+          movementActionStore.set({ type: null, step: 'idle', selectedUnitId: null, originatorId: null });
+          return;
+        }
         movementActionStore.set({
           type: $movementAction.type,
           step: 'select_destination',
@@ -547,6 +650,16 @@ legalMoves = screenState.legal_moves || legalMoves;
       : null;
   }
 
+  function getCoverCounterImage(coverMarker) {
+    const counterId = String(coverMarker?.counter_id || '');
+    const asset = counterId === 'MARKER-STANDARD-cover1'
+      ? 'Cover - Standard +1.png'
+      : coverMarker?.counter_image;
+    return asset
+      ? `${API_BASE}/img/fof/counters/${encodeURIComponent(String(asset).split('/').pop())}`
+      : null;
+  }
+
   function getUnitSetupDetails(unit) {
     return [
       unit.experience,
@@ -608,25 +721,52 @@ legalMoves = screenState.legal_moves || legalMoves;
   <TurnSequenceTracker
     sequence={turnSequence}
     currentPhase={phase?.phase_name || phase}
+    commandSubphase={commandSubphase}
     turn={turnNumber}
     durationTurns={durationTurns}
   />
     <div class="draw-pile-panel">
       <div class="dp-count">{cardsLeft}</div>
       <div class="dp-label">Cards remaining</div>
-      <div class="dp-pile" role="img" aria-label="Last played card" on:mouseenter={startDiscardHover} on:mouseleave={clearDiscardHover}>
-        {#if topDiscardUrl}
-          <img src={topDiscardUrl} alt="Last played card" class="dp-card-img" />
-        {:else}
-          <div class="dp-card dp-card-back"></div>
-        {/if}
-        {#if discardHovered && topDiscardUrl}
-          <div class="dp-hover-preview">
-            <img src={topDiscardUrl} alt="Last played card" />
-          </div>
-        {/if}
+      <div class="dp-cycle-row">
+        <button
+          type="button"
+          class="dp-cycle"
+          aria-label="Previous discarded card"
+          title="Older discarded card"
+          disabled={discardCount === 0 || discardViewOffset >= discardCount - 1}
+          on:click={showOlderDiscard}
+        >←</button>
+        <div
+          class="dp-pile"
+          role="img"
+          aria-label={`Discard card ${discardViewOffset + 1} of ${discardCount}`}
+          on:mouseenter={startDiscardHover}
+          on:mouseleave={clearDiscardHover}
+        >
+          {#if displayedDiscardUrl}
+            <img src={displayedDiscardUrl} alt={discardViewName} class="dp-card-img" />
+          {:else}
+            <div class="dp-card dp-card-back"></div>
+          {/if}
+          {#if discardHovered && displayedDiscardUrl}
+            <div class="dp-hover-preview">
+              <img src={displayedDiscardUrl} alt={discardViewName} />
+            </div>
+          {/if}
+        </div>
+        <button
+          type="button"
+          class="dp-cycle"
+          aria-label="Next discarded card"
+          title="Newer discarded card"
+          disabled={discardCount === 0 || discardViewOffset <= 0}
+          on:click={showNewerDiscard}
+        >→</button>
       </div>
-      <div class="dp-discard">Discard {discardCount}</div>
+      <div class="dp-discard">
+        Discard {discardCount}{#if discardCount > 0} · {discardViewOffset + 1}/{discardCount}{/if}
+      </div>
     </div>
     <div class="audit-panel" class:collapsed={auditCollapsed}>
       <div class="ap-top">
@@ -670,10 +810,11 @@ legalMoves = screenState.legal_moves || legalMoves;
   {/if}
 
   <div class="info-bar">
-    <span>Player: {currentPlayerId}</span>
     {#if phase}
-      <span> | Phase: {phase.phase_name || phase}</span>
+      <span>Phase: {phase.phase_name || phase}</span>
     {/if}
+    <span> | Activity: {activityLabel}</span>
+    <span> | Visibility: {visibilityLabel}</span>
     {#if scenario_id}
       <span> | Scenario: {scenario_id}</span>
     {/if}
@@ -882,12 +1023,14 @@ legalMoves = screenState.legal_moves || legalMoves;
                 >
                   {#each stackUnits as unit, unitIndex (unit.id)}
                     {@const depth = stackUnits.length - unitIndex - 1}
+                    {@const coverMarker = coverMarkers.find(marker => String(marker?.unit_id) === String(unit.id))}
                     <span
                       class="unit-counter-tile"
                       role="button"
                       tabindex="0"
                       class:selected-counter={movingSelection?.unitId === unit.id || movingSelection?.unitIds?.includes(unit.id)}
                       class:move-eligible={eligibleUnitIds?.has(unit.id)}
+                      class:unit-exposed={unit.exposed === true}
                       data-unit-id={unit.id}
                       style="left: {depth * 2}px; top: {depth * 2}px; z-index: {unitIndex + 1};"
                       title={`${getUnitDisplayName(unit)}${getUnitSetupDetails(unit) ? ` · ${getUnitSetupDetails(unit)}` : ''}`}
@@ -900,7 +1043,21 @@ legalMoves = screenState.legal_moves || legalMoves;
                       {:else}
                         <span class="counter-fallback">{getUnitDisplayName(unit)}</span>
                       {/if}
+                      {#each getCounterFlags(unit) as flag (flag.id)}
+                        <CounterFlag label={flag.label} tone={flag.tone} compact />
+                      {/each}
                     </span>
+                    {#if coverMarker && getCoverCounterImage(coverMarker)}
+                      <span
+                        class="cover-counter-tile"
+                        role="img"
+                        aria-label={`Cover counter on ${getUnitDisplayName(unit)}`}
+                        title="Cover counter"
+                        style="left: {depth * 2}px; top: {depth * 2}px; z-index: {stackUnits.length + unitIndex + 2};"
+                      >
+                        <img class="map-counter-image" src={getCoverCounterImage(coverMarker)} alt="Cover counter" />
+                      </span>
+                    {/if}
                   {/each}
                   {#if hoveredStack?.position === idx && hoveredStack?.stackId === stack.stackId}
                     <div class="stack-hover-preview">
@@ -911,6 +1068,9 @@ legalMoves = screenState.legal_moves || legalMoves;
                             {#if getUnitCounterImage(unit)}
                               <img src={getUnitCounterImage(unit)} alt={getUnitDisplayName(unit)} />
                             {/if}
+                            {#each getCounterFlags(unit) as flag (flag.id)}
+                              <CounterFlag label={flag.label} tone={flag.tone} />
+                            {/each}
                             <small>{getUnitDisplayName(unit)}</small>
                           </div>
                         {/each}
@@ -929,7 +1089,7 @@ legalMoves = screenState.legal_moves || legalMoves;
 
   <div class="bottom-bar">
     <div class="markers">
-      <strong>Markers:</strong> {markers.length} | <strong>VOF:</strong> {vofMarkers.length}
+      <strong>Markers:</strong> {markers.length} | <strong>VOF:</strong> {vofMarkers.length} | <strong>Cover:</strong> {coverMarkers.length}
     </div>
   </div>
 </div>
@@ -978,10 +1138,48 @@ legalMoves = screenState.legal_moves || legalMoves;
     margin-bottom: 0.4rem;
   }
 
+  .dp-cycle-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .dp-cycle {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--fof-border-strong, #62624d);
+    border-radius: 4px;
+    background: var(--fof-surface-2, #2d2d20);
+    color: var(--fof-accent, #ffd700);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .dp-cycle:hover:not(:disabled) {
+    border-color: var(--fof-accent, #ffd700);
+    color: #fff;
+  }
+
+  .dp-cycle:focus-visible {
+    outline: 2px solid var(--fof-accent, #ffd700);
+    outline-offset: 1px;
+  }
+
+  .dp-cycle:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
   .dp-pile {
     position: relative;
-    margin: 0 auto 0.4rem;
-    width: 150px;
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 180px;
     aspect-ratio: 3 / 4;
     display: flex;
     align-items: center;
@@ -1011,6 +1209,7 @@ legalMoves = screenState.legal_moves || legalMoves;
     left: 100%;
     margin-left: 0.5rem;
     z-index: 100;
+    pointer-events: none;
     background: #1a1a0a;
     border: 2px solid #ffd700;
     border-radius: 8px;
@@ -1662,16 +1861,18 @@ legalMoves = screenState.legal_moves || legalMoves;
   }
 
   .card-stacks {
+    --counter-inset: 48px;
     position: absolute;
     z-index: 3;
-    left: 2px;
-    bottom: 4px;
+    left: calc(var(--counter-inset) - 15px);
+    bottom: var(--counter-inset);
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: flex-end;
     gap: 3px;
-    max-width: calc(100% - 8px);
-    max-height: 78%;
+    max-width: calc(100% - var(--counter-inset) + 15px - 8px);
+    max-height: calc(100% - var(--counter-inset) - 8px);
     overflow: visible;
   }
 
@@ -1686,6 +1887,16 @@ legalMoves = screenState.legal_moves || legalMoves;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
     cursor: pointer;
     pointer-events: auto;
+  }
+
+  .cover-counter-tile {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
+    border-radius: 4px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.85));
+    pointer-events: none;
   }
 
   .unit-counter-tile.selected-counter {
@@ -1703,6 +1914,19 @@ legalMoves = screenState.legal_moves || legalMoves;
   .unit-counter-tile.move-eligible:hover {
     box-shadow: 0 0 0 4px #ffd700, 0 0 15px rgba(255, 215, 0, 0.8);
     transform: scale(1.1);
+  }
+
+  .unit-counter-tile.unit-exposed::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: repeating-linear-gradient(
+      135deg,
+      rgba(201, 75, 31, 0) 0 7px,
+      rgba(201, 75, 31, 0.32) 7px 11px
+    );
+    pointer-events: none;
   }
 
   .stack-hover-preview {
@@ -1734,6 +1958,7 @@ legalMoves = screenState.legal_moves || legalMoves;
   }
 
   .hover-counter-item {
+    position: relative;
     display: grid;
     justify-items: center;
     gap: 0.2rem;
@@ -1803,7 +2028,6 @@ legalMoves = screenState.legal_moves || legalMoves;
   .fof-sidebar,
   .draw-pile-panel,
   .audit-panel {
-    width: 170px;
     background: var(--fof-surface);
     border: 1px solid var(--fof-border);
     border-radius: var(--fof-radius-md);
@@ -1812,7 +2036,11 @@ legalMoves = screenState.legal_moves || legalMoves;
     box-shadow: none;
   }
 
-  .draw-pile-panel,
+  .fof-sidebar,
+  .draw-pile-panel {
+    width: 250px;
+  }
+
   .audit-panel {
     width: 170px;
   }

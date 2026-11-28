@@ -8,6 +8,7 @@
   export let hqLabels = {};
   export let phaseName = null;
   export let hqOrder = [];
+  export let hqStatus = {};
   export let pools = {};
   export let lastFire = null;
   export let canUndo = false;
@@ -16,8 +17,12 @@
   const dispatch = createEventDispatcher();
 
   let selectedCommander = null;
+  let collapsed = false;
+  let pendingActivationType = null;
   function toggleCommander(id) {
+    collapsed = false;
     selectedCommander = selectedCommander === id ? null : id;
+    pendingActivationType = null;
   }
 
   // Short labels so the command box fits the footer.
@@ -35,13 +40,20 @@
   $: hqRows = hqOrder.map(id => ({
     id,
     label: abbr(hqLabels[id] || id),
-    state: activated.includes(id) ? 'done' : readyIds.has(id) ? 'ready' : 'waiting',
+    state: hqStatus[id] === 'waiting'
+      ? 'waiting'
+      : hqStatus[id] === 'done'
+        ? 'finished'
+        : activated.includes(id)
+          ? ((pools[id] ?? 0) <= 0 && !legalMoves.some(m => m.type === 'draw_commands' && m.hq_id === id) ? 'finished' : 'done')
+          : readyIds.has(id) ? 'ready' : 'waiting',
     move: activateMoves.find(m => m.hq_id === id),
     pool: pools[id] ?? 0,
     draw: legalMoves.find(m => m.type === 'draw_commands' && m.hq_id === id),
     spend: legalMoves.find(m => m.type === 'spend_command' && m.hq_id === id),
   }));
   $: advanceMove = legalMoves.find(m => m.type === 'advance_phase');
+  $: subphaseMove = legalMoves.find(m => m.type === 'advance_command_subphase');
   $: commandStripMoves = [
     ...new Map(
       (legalMoves || [])
@@ -56,7 +68,10 @@
         .map(m => [m.move_id, m])
     ).values(),
   ];
-  $: if (legalMoves) selectedCommander = null;
+  $: if (legalMoves) {
+    selectedCommander = null;
+    pendingActivationType = null;
+  }
   $: visible = phaseName === 'friendly_command' || phaseName === 'mutual_combat';
   // 6.4: fire is offered per VOF-marked card in Mutual Combat.
   $: fireMoves = legalMoves.filter(m => m.type === 'fire');
@@ -130,7 +145,6 @@
     'combat': 'Combat',
   };
 
-  let selectedCategory = null;
   $: commandCategories = (() => {
     const byCat = new Map();
     for (const move of commandStripMoves) {
@@ -152,13 +166,27 @@
     });
   })();
 
-  // Movement action: click button → board highlights eligible units → click unit → board highlights destinations → click destination
+  // Movement actions: single-unit actions highlight a counter first; platoon
+  // actions highlight destinations directly because the server moves the platoon.
   let moveActionType = null;
   let selectedMoveUnit = null;
   let selectedMoveDest = null;
 
+  const PLATOON_ACTION_TYPES = new Set([
+    'move_a_platoon_to_an_adjacent_card',
+    'attempt_to_have_a_platoon_infiltrate_an_adjacent_card',
+  ]);
+  const MOVEMENT_ACTION_TYPES = new Set([
+    'move_to_an_adjacent_card',
+    'move_a_platoon_to_an_adjacent_card',
+    'attempt_to_seek_cover',
+    'attempt_to_infiltrate_an_adjacent_card',
+    'attempt_to_have_a_platoon_infiltrate_an_adjacent_card',
+    'attempt_to_infiltrate_within_a_card',
+  ]);
+
   function isMovementAction(type) {
-    return type === 'move_to_an_adjacent_card' || type === 'move_a_platoon_to_an_adjacent_card';
+    return MOVEMENT_ACTION_TYPES.has(type);
   }
 
   function startMoveSelection(type) {
@@ -167,7 +195,7 @@
     selectedMoveDest = null;
     movementAction.set({
       type,
-      step: 'select_unit',
+      step: PLATOON_ACTION_TYPES.has(type) ? 'select_destination' : 'select_unit',
       selectedUnitId: null,
       originatorId: selectedCommander,
     });
@@ -179,6 +207,18 @@
       .replace(/_/g, ' ')
       .replace(/\b\w/g, char => char.toUpperCase());
   }
+
+  $: activationTargets = pendingActivationType
+    ? new Map(
+        legalMoves
+          .filter(move =>
+            move.type === pendingActivationType &&
+            move.originator_hq_id === selectedCommander &&
+            move.recipient_hq_id
+          )
+          .map(move => [move.recipient_hq_id, move])
+      )
+    : new Map();
 </script>
 
 {#if phaseName === 'friendly_higher_hq_event' && advanceMove}
@@ -195,63 +235,97 @@
   <section class="command-panel" aria-label="Command controls">
     <div class="cp-row cp-order">
       <span class="cp-label">Order:</span>
-      {#each hqRows as row (row.id)}
-        <div class="cp-hq-group">
+      <div class="cp-hq-strip">
+        {#each hqRows as row (row.id)}
+          <div class="cp-hq-group">
+            <button
+              type="button"
+              class="cp-btn cp-hq cp-{row.state}"
+              class:cp-expanded={selectedCommander === row.id}
+              class:cp-activation-target={activationTargets.has(row.id)}
+              disabled={(row.state === 'waiting' && !row.move && !activationTargets.has(row.id)) || row.state === 'finished'}
+              title={activationTargets.has(row.id) ? `Activate ${row.label}` : row.state === 'waiting' ? (row.move ? 'Click to activate' : (activated.includes(row.id) ? 'Activated: draw when your subphase starts' : 'Waiting: an earlier HQ must activate first')) : row.state === 'finished' ? 'No commands remaining' : row.state === 'done' ? (row.pool > 0 ? 'Click to use a command' : (row.draw ? 'Click to draw commands' : 'Already activated this turn')) : (row.id === hqOrder[0] || activated.length === 0) ? 'Click to activate (free)' : 'Click a commander to activate'}
+              on:click={() => {
+                if (pendingActivationType) {
+                  const activationMove = activationTargets.get(row.id);
+                  if (activationMove) {
+                    dispatchMove(activationMove);
+                    pendingActivationType = null;
+                    selectedCommander = null;
+                  }
+                  return;
+                }
+                // The first HQ in the activation chain activates for free directly:
+                // BN HQ when it is on the map, otherwise the CO HQ. Later HQs can
+                // be activated directly from their own row when they are targets.
+                const isFirstActivation = row.id === hqOrder[0] || activated.length === 0;
+                if (row.state === 'ready' && row.move && isFirstActivation) { dispatchMove(row.move); selectedCommander = null; }
+                else if (row.state === 'waiting' && row.move) { dispatchMove(row.move); selectedCommander = null; }
+                else if (row.state === 'done' && row.pool > 0) { toggleCommander(row.id); }
+                else if (row.state === 'done' && row.pool === 0 && row.draw) { dispatchMove(row.draw); selectedCommander = null; }
+              }}
+            >
+              {row.label}
+              <small>{activationTargets.has(row.id) ? 'Activate' : row.state === 'finished' ? 'finished' : row.state === 'done' ? (row.pool > 0 ? `${row.pool} Available` : (row.draw ? 'Draw' : 'finished')) : row.state === 'ready' ? 'Ready' : (row.move ? 'Activate' : (activated.includes(row.id) ? 'Draw' : 'Waiting'))}</small>
+            </button>
+          </div>
+        {/each}
+      </div>
+      <div class="cp-utilities">
+        {#if selectedCommander !== null}
           <button
             type="button"
-            class="cp-btn cp-hq cp-{row.state}"
-            class:cp-expanded={selectedCommander === row.id}
-            disabled={row.state === 'waiting'}
-            title={row.state === 'waiting' ? 'Waiting: an earlier HQ must activate first' : row.state === 'done' ? (row.pool > 0 ? 'Click to use a command' : (row.draw ? 'Click to draw commands' : 'Already activated this turn')) : (row.id === hqOrder[0] || activated.length === 0) ? 'Click to activate (free)' : 'Click a commander to activate'}
-            on:click={() => {
-              // The first HQ in the activation chain activates for free directly:
-              // BN HQ when it is on the map, otherwise the CO HQ. All later
-              // activations go through a commander's action strip.
-              const isFirstActivation = row.id === hqOrder[0] || activated.length === 0;
-              if (row.state === 'ready' && row.move && isFirstActivation) { dispatchMove(row.move); selectedCommander = null; }
-              else if (row.state === 'done' && row.pool > 0) { toggleCommander(row.id); }
-              else if (row.state === 'done' && row.pool === 0 && row.draw) { dispatchMove(row.draw); selectedCommander = null; }
-            }}
+            class="cp-btn cp-collapse"
+            aria-expanded={!collapsed}
+            title={collapsed ? 'Show actions for this commander' : 'Hide actions to reveal the board'}
+            on:click={() => collapsed = !collapsed}
           >
-            {row.label}
-            <small>{row.state === 'done' ? (row.pool > 0 ? `${row.pool} Available` : (row.draw ? 'Draw' : 'finished')) : row.state === 'ready' ? 'Ready' : 'finished'}</small>
+            {collapsed ? 'Show actions' : 'Hide actions'}
           </button>
-        </div>
-      {/each}
-      <div class="cp-exit-group">
+        {/if}
+        {#if pendingActivationType}
+          <button type="button" class="cp-btn cp-undo" on:click={() => pendingActivationType = null}>Cancel</button>
+        {/if}
         <button type="button" class="cp-btn cp-exit" on:click={() => dispatch('exit')}>Exit</button>
-        {#if advanceMove}
+        {#if subphaseMove}
+          <button type="button" class="cp-btn cp-next" title="Advance to the next Friendly Command subphase" on:click={() => dispatchMove(subphaseMove)}>Next Subphase</button>
+        {:else if advanceMove}
           <button type="button" class="cp-btn cp-next" on:click={() => dispatchMove(advanceMove)}>End Cmd</button>
         {/if}
         <button type="button" class="cp-btn cp-undo" disabled={!canUndo} on:click={() => dispatch('undo')}>Undo</button>
-        </div>
       </div>
-    {#if selectedCommander !== null}
+    </div>
+    {#if selectedCommander !== null && !collapsed}
       <div class="cp-command-strip">
-        {#each commandCategories as category}
-          <div class="cp-category">
-            <button type="button" class="cp-cat-btn" class:cp-expanded={selectedCategory === category.key} on:click={() => selectedCategory = selectedCategory === category.key ? null : category.key} aria-expanded={selectedCategory === category.key}>
-              {category.label}
-            </button>
-            {#if selectedCategory === category.key}
-              <div class="cp-category-actions cp-cols-3">
-                {#each category.groups as group (group.type)}
-                  <div class="cp-cmd-group">
-                    {#if isMovementAction(group.type)}
-                      <button type="button" class="cp-btn cp-cmd" on:click={() => startMoveSelection(group.type)}>
-                        {commandActionLabel(group.moves[0])}
-                      </button>
-                    {:else}
-                      <button type="button" class="cp-btn cp-cmd" on:click={() => {
+        {#each commandCategories as category (category.key)}
+          <section class="cp-category" aria-label={category.label}>
+            <h4 class="cp-cat-title">{category.label}</h4>
+            <div class="cp-category-actions">
+              {#each category.groups as group (group.type)}
+                <div class="cp-cmd-group">
+                  {#if isMovementAction(group.type)}
+                    <button type="button" class="cp-btn cp-cmd" on:click={() => startMoveSelection(group.type)}>
+                      {commandActionLabel(group.moves[0])}
+                    </button>
+                  {:else}
+                    <button
+                      type="button"
+                      class="cp-btn cp-cmd"
+                      class:cp-pending={pendingActivationType === group.type}
+                      on:click={() => {
+                        if (group.moves.some(move => move.recipient_hq_id)) {
+                          pendingActivationType = pendingActivationType === group.type ? null : group.type;
+                          return;
+                        }
                         const selected = group.moves[0];
                         if (selected) { dispatchMove(selected); selectedCommander = null; }
-                      }}>{commandActionLabel(group.moves[0])}</button>
-                    {/if}
-                  </div>
-                {/each}
-              </div>
-            {/if}
-          </div>
+                      }}
+                    >{pendingActivationType === group.type ? 'Pick subordinate above' : commandActionLabel(group.moves[0])}</button>
+                  {/if}
+                </div>
+              {/each}
+            </div>
+          </section>
         {/each}
       </div>
     {/if}
@@ -361,12 +435,23 @@
     color: #8fbf8f;
   }
 
-  .cp-exit-group {
+  .cp-utilities {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 0.35rem;
-    align-items: stretch;
+    align-items: center;
     margin-left: auto;
+  }
+
+  .cp-utilities .cp-exit {
+    margin-left: 0;
+  }
+
+  .cp-collapse {
+    background: var(--fof-surface-3);
+    border-color: var(--fof-border-strong);
+    color: var(--fof-text-2);
   }
   .cp-undo {
     background: #6c757d;
@@ -380,7 +465,11 @@
   }
   .cp-command-strip {
     width: 100%;
-    margin-top: 0.15rem;
+    margin-top: var(--fof-space-1);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--fof-space-2);
+    align-items: start;
     box-sizing: border-box;
   }
 
@@ -427,6 +516,25 @@
   .cp-row {
     gap: var(--fof-space-1);
     margin-bottom: var(--fof-space-1);
+  }
+
+  .cp-order {
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: var(--fof-space-1);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--fof-surface);
+    padding-bottom: var(--fof-space-1);
+  }
+
+  .cp-hq-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--fof-space-1);
+    min-width: 0;
   }
 
   .cp-label {
@@ -518,7 +626,8 @@
     box-shadow: 0 0 0 2px var(--fof-accent);
   }
 
-  .cp-waiting {
+  .cp-waiting,
+  .cp-finished {
     opacity: 0.45;
   }
 
@@ -530,36 +639,37 @@
     font-family: var(--fof-font);
   }
 
+  .cp-activation-target {
+    box-shadow: 0 0 0 2px var(--fof-accent), 0 0 10px rgba(255, 215, 0, 0.35);
+    border-color: var(--fof-accent);
+    color: var(--fof-accent-text);
+  }
+
+  .cp-pending {
+    box-shadow: 0 0 0 2px var(--fof-accent);
+  }
+
   button:focus-visible,
   select:focus-visible {
     outline: 2px solid var(--fof-accent);
     outline-offset: 2px;
   }
 
-  /* Consistent command-bar buttons — no more unstyled white squares */
-  .cp-cat-btn {
-    width: 100%;
-    padding: 0.28rem 0.45rem;
-    border: 1px solid var(--fof-border-strong);
-    border-radius: var(--fof-radius-sm);
+  /* Category columns — always visible, no accordion */
+  .cp-category {
+    min-width: 0;
     background: var(--fof-surface-2);
-    color: var(--fof-text);
-    font-family: var(--fof-font);
+    border: 1px solid var(--fof-border);
+    border-radius: var(--fof-radius-sm);
+    padding: var(--fof-space-2);
+  }
+
+  .cp-cat-title {
+    margin: 0 0 var(--fof-space-1);
+    color: var(--fof-accent);
     font-size: 0.68rem;
     font-weight: 600;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color var(--fof-dur-fast) var(--fof-ease), border-color var(--fof-dur-fast) var(--fof-ease);
-  }
-
-  .cp-cat-btn:hover {
-    background: var(--fof-surface-3);
-    border-color: var(--fof-accent);
-  }
-
-  .cp-cat-btn[aria-expanded="true"] {
-    background: var(--fof-surface-3);
-    border-color: var(--fof-accent);
+    letter-spacing: 0.02em;
   }
 
   .cp-move-unit,
@@ -568,14 +678,19 @@
   .cp-cmd {
     padding: 0.25rem 0.4rem;
     font-size: 0.66rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  }
+
+  .cp-cmd {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: left;
   }
 
   .cp-category-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--fof-space-1);
-    padding: var(--fof-space-1);
+    align-items: start;
   }
 
   .cp-cmd-group {

@@ -10,6 +10,7 @@ You operate under a strict daily API request budget. Minimize round-trip tool ca
 4. **Fast-Fail on Errors:** If any command, build script, or test returns a non-zero exit code, STOP immediately and report the error. Do not enter an autonomous auto-fix loop.
 5. **Isolated Testing Only:** Never run global test suites (e.g., root `pytest`). Only run targeted test files when explicitly asked to verify. Never run the 60-seed Twilight floor test autonomously (takes up to 14 minutes).
 6. **UI Validation Policy:** Never create or modify Playwright test files. Validate UI changes via `agent-browser` against `http://localhost:5173` (one action at a time, inspect console/network, then close).
+7. **Port Discipline & Final Restart:** The canonical dev ports are API `8000` (`http://127.0.0.1:8000`) and frontend `5173` (`http://localhost:5173`). The final step of every bug-fix task is to stop any existing processes on those ports, restart both servers on exactly those ports, and verify `GET /api/v1/games/` and `GET http://localhost:5173/` both return 200 before reporting completion. If a listener cannot be stopped from the current shell, report that explicitly instead of assuming the restart succeeded. Never leave a second background API or frontend process on a different port.
 
 ## 2. Session Startup Protocol
 

@@ -161,7 +161,7 @@
       "_fofCommand.js"
     ],
     "css": [
-      "_app/immutable/assets/FieldsOfFireBoard.D35JPUxF.css"
+      "_app/immutable/assets/FieldsOfFireBoard.B8xYgu2j.css"
     ]
   },
   "src/lib/components/games/lost_cities/LostCitiesBoard.svelte": {
@@ -287,7 +287,7 @@
       "src/lib/components/games/twilight_struggle/TwilightStruggleBoard.svelte"
     ],
     "css": [
-      "_app/immutable/assets/_page.rxPsGjFv.css"
+      "_app/immutable/assets/_page.CyDHhRh_.css"
     ]
   },
   "src/routes/games/[gameId]/setup/+page.js": {

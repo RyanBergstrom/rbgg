@@ -8,7 +8,7 @@ import { t as settings } from "../../../../../chunks/settings.js";
 //#region src/lib/components/games/fields_of_fire/CommandPanel.svelte
 function CommandPanel($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
-		let activateMoves, readyIds, hqRows, advanceMove, commandStripMoves, visible, fireMoves, vofMoves, vofOrigins, vofTargets, vofRatings, infiltrateMoves, infilUnits, infilDests, selectedInfil, commandCategories;
+		let activateMoves, readyIds, hqRows, advanceMove, commandStripMoves, visible, fireMoves, vofMoves, vofOrigins, vofTargets, vofRatings, commandCategories;
 		let legalMoves = fallback($$props["legalMoves"], () => [], true);
 		let activated = fallback($$props["activated"], () => [], true);
 		let hqLabels = fallback($$props["hqLabels"], () => ({}), true);
@@ -26,8 +26,6 @@ function CommandPanel($$renderer, $$props) {
 		let vofOrigin = null;
 		let vofTarget = null;
 		let vofRating = null;
-		let infilUnit = null;
-		let infilDest = null;
 		const ACTION_CATEGORY = {
 			"activate_a_subordinate_hq_or_staff": "cmd_ctrl",
 			"exhort": "cmd_ctrl",
@@ -85,7 +83,6 @@ function CommandPanel($$renderer, $$props) {
 			"rally": "Rally",
 			"combat": "Combat"
 		};
-		let selectedCategory = null;
 		function isMovementAction(type) {
 			return type === "move_to_an_adjacent_card" || type === "move_a_platoon_to_an_adjacent_card";
 		}
@@ -131,12 +128,6 @@ function CommandPanel($$renderer, $$props) {
 		$: vofRatings = vofMoves.filter((m) => m.from_position === vofOrigin && m.position === vofTarget).map((m) => m.rating);
 		$: if (!vofRatings.includes(vofRating)) vofRating = vofRatings[0] ?? null;
 		$: vofMoves.find((m) => m.from_position === vofOrigin && m.position === vofTarget && m.rating === vofRating);
-		$: infiltrateMoves = legalMoves.filter((m) => m.type === "infiltrate");
-		$: infilUnits = [...new Set(infiltrateMoves.map((m) => m.unit_id))];
-		$: if (!infilUnits.includes(infilUnit)) infilUnit = infilUnits[0] ?? null;
-		$: infilDests = infiltrateMoves.filter((m) => m.unit_id === infilUnit).map((m) => m.to_position);
-		$: if (!infilDests.includes(infilDest)) infilDest = infilDests[0] ?? null;
-		$: selectedInfil = infiltrateMoves.find((m) => m.unit_id === infilUnit && m.to_position === infilDest);
 		$: commandCategories = (() => {
 			const byCat = /* @__PURE__ */ new Map();
 			for (const move of commandStripMoves) {
@@ -160,109 +151,47 @@ function CommandPanel($$renderer, $$props) {
 				};
 			});
 		})();
-		$: commandCategories.flatMap((c) => c.groups).filter((g) => isMovementAction(g.type));
 		if (phaseName === "friendly_higher_hq_event" && advanceMove) $$renderer.push(`<!--[0--><section class="command-panel svelte-1kjy6xs" aria-label="Higher HQ Event controls"><div class="cp-row svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">HQ Event (T2+)</span> <button type="button" class="cp-btn cp-next svelte-1kjy6xs">Continue</button> <button type="button" class="cp-btn cp-exit svelte-1kjy6xs">Exit</button></div></section>`);
 		else $$renderer.push("<!--[-1-->");
 		$$renderer.push(`<!--]--> `);
 		if (visible) {
-			$$renderer.push(`<!--[0--><section class="command-panel svelte-1kjy6xs" aria-label="Command controls"><div class="cp-row cp-order svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Order:</span> <!--[-->`);
+			$$renderer.push(`<!--[0--><section class="command-panel svelte-1kjy6xs" aria-label="Command controls"><div class="cp-row cp-order svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Order:</span> <div class="cp-hq-strip svelte-1kjy6xs"><!--[-->`);
 			const each_array = ensure_array_like(hqRows);
 			for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
 				let row = each_array[$$index];
 				$$renderer.push(`<div class="cp-hq-group"><button type="button"${attr_class(`cp-btn cp-hq cp-${stringify(row.state)}`, "svelte-1kjy6xs", { "cp-expanded": selectedCommander === row.id })}${attr("disabled", row.state === "waiting", true)}${attr("title", row.state === "waiting" ? "Waiting: an earlier HQ must activate first" : row.state === "done" ? row.pool > 0 ? "Click to use a command" : row.draw ? "Click to draw commands" : "Already activated this turn" : row.id === hqOrder[0] || activated.length === 0 ? "Click to activate (free)" : "Click a commander to activate")}>${escape_html(row.label)} <small class="svelte-1kjy6xs">${escape_html(row.state === "done" ? row.pool > 0 ? `${row.pool} Available` : row.draw ? "Draw" : "finished" : row.state === "ready" ? "Ready" : "finished")}</small></button></div>`);
 			}
-			$$renderer.push(`<!--]--> <div class="cp-exit-group svelte-1kjy6xs"><button type="button" class="cp-btn cp-exit svelte-1kjy6xs">Exit</button> `);
+			$$renderer.push(`<!--]--></div> <div class="cp-utilities svelte-1kjy6xs">`);
+			if (selectedCommander !== null) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-collapse svelte-1kjy6xs"${attr("aria-expanded", true)}${attr("title", "Hide actions to reveal the board")}>${escape_html("Hide actions")}</button>`);
+			else $$renderer.push("<!--[-1-->");
+			$$renderer.push(`<!--]--> <button type="button" class="cp-btn cp-exit svelte-1kjy6xs">Exit</button> `);
 			if (advanceMove) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-next svelte-1kjy6xs">End Cmd</button>`);
 			else $$renderer.push("<!--[-1-->");
 			$$renderer.push(`<!--]--> <button type="button" class="cp-btn cp-undo svelte-1kjy6xs"${attr("disabled", !canUndo, true)}>Undo</button></div></div> `);
-			if (selectedCommander !== null) {
+			if (selectedCommander !== null && true) {
 				$$renderer.push(`<!--[0--><div class="cp-command-strip svelte-1kjy6xs"><!--[-->`);
 				const each_array_1 = ensure_array_like(commandCategories);
-				for (let $$index_5 = 0, $$length = each_array_1.length; $$index_5 < $$length; $$index_5++) {
-					let category = each_array_1[$$index_5];
-					$$renderer.push(`<div class="cp-category"><button type="button"${attr_class("cp-cat-btn svelte-1kjy6xs", void 0, { "cp-expanded": selectedCategory === category.key })}${attr("aria-expanded", selectedCategory === category.key)}>${escape_html(category.label)}</button> `);
-					if (selectedCategory === category.key) {
-						$$renderer.push(`<!--[0--><div class="cp-category-actions cp-cols-3"><!--[-->`);
-						const each_array_2 = ensure_array_like(category.groups);
-						for (let $$index_4 = 0, $$length = each_array_2.length; $$index_4 < $$length; $$index_4++) {
-							let group = each_array_2[$$index_4];
-							$$renderer.push(`<div class="cp-cmd-group">`);
-							if (isMovementAction(group.type)) {
-								$$renderer.push(`<!--[0--><div class="cp-move-selector">`);
-								$$renderer.push(`<!--[-1--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button>`);
-								$$renderer.push(`<!--]--></div>`);
-							} else {
-								$$renderer.push(`<!--[-1--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button> `);
-								if (group.moves.length > 1) {
-									$$renderer.push("<!--[0-->");
-									$$renderer.select({
-										class: "cp-target",
-										value: selectedCommandMove[group.type],
-										"aria-label": `${stringify(commandActionLabel(group.moves[0]))} target`
-									}, ($$renderer) => {
-										$$renderer.push(`<!--[-->`);
-										const each_array_5 = ensure_array_like(group.moves);
-										for (let $$index_3 = 0, $$length = each_array_5.length; $$index_3 < $$length; $$index_3++) {
-											let move = each_array_5[$$index_3];
-											$$renderer.option({ value: move.move_id }, ($$renderer) => {
-												$$renderer.push(`${escape_html(move.originator_hq_id ?? move.move_id)}`);
-											});
-										}
-										$$renderer.push(`<!--]-->`);
-									}, "svelte-1kjy6xs");
-								} else $$renderer.push("<!--[-1-->");
-								$$renderer.push(`<!--]-->`);
-							}
-							$$renderer.push(`<!--]--></div>`);
-						}
+				for (let $$index_2 = 0, $$length = each_array_1.length; $$index_2 < $$length; $$index_2++) {
+					let category = each_array_1[$$index_2];
+					$$renderer.push(`<section class="cp-category svelte-1kjy6xs"${attr("aria-label", category.label)}><h4 class="cp-cat-title svelte-1kjy6xs">${escape_html(category.label)}</h4> <div class="cp-category-actions svelte-1kjy6xs"><!--[-->`);
+					const each_array_2 = ensure_array_like(category.groups);
+					for (let $$index_1 = 0, $$length = each_array_2.length; $$index_1 < $$length; $$index_1++) {
+						let group = each_array_2[$$index_1];
+						$$renderer.push(`<div class="cp-cmd-group svelte-1kjy6xs">`);
+						if (isMovementAction(group.type)) $$renderer.push(`<!--[0--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button>`);
+						else $$renderer.push(`<!--[-1--><button type="button" class="cp-btn cp-cmd svelte-1kjy6xs">${escape_html(commandActionLabel(group.moves[0]))}</button>`);
 						$$renderer.push(`<!--]--></div>`);
-					} else $$renderer.push("<!--[-1-->");
-					$$renderer.push(`<!--]--></div>`);
+					}
+					$$renderer.push(`<!--]--></div></section>`);
 				}
 				$$renderer.push(`<!--]--></div>`);
 			} else $$renderer.push("<!--[-1-->");
 			$$renderer.push(`<!--]--> `);
-			if (infiltrateMoves.length > 0) {
-				$$renderer.push(`<!--[0--><div class="cp-row cp-infil svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Infiltrate to</span> `);
-				$$renderer.select({
-					value: infilUnit,
-					"aria-label": "Infiltrate unit",
-					class: ""
-				}, ($$renderer) => {
-					$$renderer.push(`<!--[-->`);
-					const each_array_6 = ensure_array_like(infilUnits);
-					for (let $$index_6 = 0, $$length = each_array_6.length; $$index_6 < $$length; $$index_6++) {
-						let uid = each_array_6[$$index_6];
-						$$renderer.option({ value: uid }, ($$renderer) => {
-							$$renderer.push(`${escape_html(uid)}`);
-						});
-					}
-					$$renderer.push(`<!--]-->`);
-				}, "svelte-1kjy6xs");
-				$$renderer.push(` `);
-				$$renderer.select({
-					value: infilDest,
-					"aria-label": "Infiltrate destination",
-					class: ""
-				}, ($$renderer) => {
-					$$renderer.push(`<!--[-->`);
-					const each_array_7 = ensure_array_like(infilDests);
-					for (let $$index_7 = 0, $$length = each_array_7.length; $$index_7 < $$length; $$index_7++) {
-						let dest = each_array_7[$$index_7];
-						$$renderer.option({ value: dest }, ($$renderer) => {
-							$$renderer.push(`Card ${escape_html(dest)}`);
-						});
-					}
-					$$renderer.push(`<!--]-->`);
-				}, "svelte-1kjy6xs");
-				$$renderer.push(` <button type="button" class="cp-btn svelte-1kjy6xs"${attr("disabled", !selectedInfil, true)}>Infiltrate</button></div>`);
-			} else $$renderer.push("<!--[-1-->");
-			$$renderer.push(`<!--]--> `);
 			if (phaseName === "mutual_combat") {
 				$$renderer.push(`<!--[0--><div class="cp-row cp-fire svelte-1kjy6xs"><span class="cp-label svelte-1kjy6xs">Fire:</span> <!--[-->`);
-				const each_array_8 = ensure_array_like(fireMoves);
-				for (let $$index_8 = 0, $$length = each_array_8.length; $$index_8 < $$length; $$index_8++) {
-					let fire = each_array_8[$$index_8];
+				const each_array_3 = ensure_array_like(fireMoves);
+				for (let $$index_3 = 0, $$length = each_array_3.length; $$index_3 < $$length; $$index_3++) {
+					let fire = each_array_3[$$index_3];
 					$$renderer.push(`<button type="button" class="cp-btn svelte-1kjy6xs">Card ${escape_html(fire.position)}</button>`);
 				}
 				$$renderer.push(`<!--]--> `);
@@ -403,7 +332,7 @@ function GameAuditLog($$renderer, $$props) {
 function _page($$renderer, $$props) {
 	$$renderer.component(($$renderer) => {
 		var $$store_subs;
-		let setupComplete, isHotSeatGame, currentPlayer, isHumanTurn;
+		let setupComplete, isHotSeatGame, currentPlayer, isHumanTurn, fofMode;
 		let data = $$props["data"];
 		let gameId = data?.gameId || "{gameId}";
 		data?.sessionId;
@@ -428,12 +357,17 @@ function _page($$renderer, $$props) {
 		$: isHotSeatGame = gameId === HOT_SEAT_GAME;
 		$: currentPlayer = null;
 		$: isHumanTurn = (isHotSeatGame || currentPlayer === HUMAN_PLAYER) && true;
+		$: fofMode = !!store_get($$store_subs ??= {}, "$fofCommand", fofCommand) && [
+			"friendly_higher_hq_event",
+			"friendly_command",
+			"mutual_combat"
+		].includes(store_get($$store_subs ??= {}, "$fofCommand", fofCommand).phaseName) && true;
 		$: if (currentPlayer);
 		$: if (isHumanTurn && aiInterval) {
 			clearInterval(aiInterval);
 			aiInterval = null;
 		}
-		$$renderer.push(`<div class="game-container svelte-ndk0f">`);
+		$$renderer.push(`<div${attr_class("play-shell svelte-ndk0f", void 0, { "fof-mode": fofMode })}><div class="game-container svelte-ndk0f">`);
 		if (gameId === "lost_cities" && store_get($$store_subs ??= {}, "$settings", settings).show_ai_controls !== false) {
 			$$renderer.push(`<!--[0--><label class="ai-provider-control svelte-ndk0f">AI opponent `);
 			$$renderer.select({
@@ -487,7 +421,7 @@ function _page($$renderer, $$props) {
 			gameId,
 			setupComplete
 		});
-		$$renderer.push(`<!----> `);
+		$$renderer.push(`<!----></div> `);
 		if (gameId !== "fields_of_fire") {
 			$$renderer.push("<!--[0-->");
 			GameAuditLog($$renderer, { entries: auditLog });

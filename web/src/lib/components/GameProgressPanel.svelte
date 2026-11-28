@@ -115,6 +115,7 @@
             activated={$fofCommand.activated}
             hqLabels={$fofCommand.hqLabels}
             hqOrder={$fofCommand.hqOrder}
+            hqStatus={$fofCommand.hqStatus}
             phaseName={$fofCommand.phaseName}
             canUndo={canUndo}
             on:exit={handleExit}
@@ -161,17 +162,36 @@
   .footer-commands {
     width: 100%;
     min-width: 0;
-    max-height: 34vh;
+    max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
   }
 
   .game-progress-panel.fof-mode {
+    display: flex;
+    flex-direction: column;
+    max-height: min(32dvh, 323px);
     padding: 0.2rem 0.4rem;
+    overflow: hidden;
+  }
+
+  .game-progress-panel.fof-mode .panel-row {
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-wrap: nowrap;
+    align-items: stretch;
+  }
+
+  .game-progress-panel.fof-mode .panel-right {
+    flex: 1 1 auto;
+    min-height: 0;
+    align-items: stretch;
   }
 
   .game-progress-panel.fof-mode .footer-commands {
-    max-height: 34vh;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
   }
@@ -190,9 +210,13 @@
   .footer-commands :global(.cp-btn) {
     white-space: normal;
     line-height: 1.2;
-    text-align: center;
-    min-width: 6.5rem;
+    text-align: left;
+    min-width: 0;
     max-width: 100%;
+  }
+
+  .footer-commands :global(.cp-hq) {
+    text-align: center;
   }
 
   .panel-name-debug {

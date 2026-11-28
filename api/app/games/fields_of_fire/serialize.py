@@ -5,6 +5,50 @@ from typing import Any
 from app.games.fields_of_fire.terrain import terrain_card
 
 
+def current_activity(game_data: dict[str, Any]) -> str:
+    """Rulebook 3.8 Current Activity Level, derived from the current map.
+
+    Levels increase: no_contact -> contact -> engaged -> heavily_engaged.
+    This is a global, read-only view of the session state (not a rule input),
+    so it is recomputed on every serialization instead of being stored.
+    """
+    gd = game_data or {}
+    company = gd.get("company") or {}
+    friendly = {
+        u.get("position") for u in (company.get("units") or [])
+        if isinstance(u, dict) and u.get("position") is not None
+    }
+    enemy_entries = [
+        e for e in (gd.get("enemy") or [])
+        if isinstance(e, dict) and e.get("position") is not None
+    ]
+    enemy = {e.get("position") for e in enemy_entries}
+    spotted = {e.get("position") for e in enemy_entries if e.get("spotted", True)}
+    # Scenario enemy packages can be on the map while still unspotted.
+    spotted |= {
+        p.get("position") for p in (gd.get("enemy_packages") or [])
+        if isinstance(p, dict) and p.get("position") is not None and p.get("spotted", False)
+    }
+
+    vof = {
+        m.get("position") for m in (gd.get("vof_markers") or [])
+        if isinstance(m, dict) and m.get("position") is not None
+    }
+    pdf = any(
+        isinstance(m, dict) and m.get("position") is not None
+        for m in (gd.get("pdf_markers") or [])
+    )
+
+    engaged = vof & (friendly | enemy)
+    if len(engaged) >= 2:
+        if any(pos in friendly and pos in enemy for pos in engaged):
+            return "heavily_engaged"
+        return "engaged"
+    if engaged or spotted or pdf:
+        return "contact"
+    return "no_contact"
+
+
 def _top_discard_card(game_data: dict[str, Any]) -> dict[str, Any] | None:
     deck = game_data.get("action_deck") or {}
     discard = deck.get("discard") or []
@@ -81,9 +125,13 @@ def serialize_game_data(game_data: dict[str, Any]) -> dict[str, Any]:
         "pdf_markers": game_data.get("pdf_markers", []),
         "smoke_markers": game_data.get("smoke_markers", []),
         "pc_markers": game_data.get("pc_markers", []),
+        "cover_markers": game_data.get("cover_markers", []),
+        "seek_cover_results": game_data.get("seek_cover_results", []),
         "action_deck": game_data.get("action_deck"),
         "top_discard": _top_discard_card(game_data),
         "contact_level": game_data.get("contact_level", "no_contact"),
+        "current_activity": current_activity(game_data),
+        "last_events": game_data.get("last_events", []),
         "visibility": game_data.get("visibility", {}),
         "urban": game_data.get("urban", {}),
         "campaign": game_data.get("campaign", {}),
@@ -93,4 +141,3 @@ def serialize_game_data(game_data: dict[str, Any]) -> dict[str, Any]:
         "game_over": game_data.get("phase") == "game_over",
         "winner": game_data.get("current_player") if game_data.get("phase") == "game_over" else None,
     }
-

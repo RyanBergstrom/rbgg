@@ -29,6 +29,10 @@
           "scenario_id": "training_1",
           "name": "Basic Training - Movement",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 4,
             "cols": 3,
@@ -161,6 +165,10 @@
           "scenario_id": "pac_run1",
           "name": "Platoon Assault Course - Run 1: Activation & Movement",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
@@ -301,6 +309,10 @@
           "scenario_id": "pac_run2",
           "name": "Platoon Assault Course - Run 2: Attacking an Enemy Position",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
@@ -451,6 +463,10 @@
           "scenario_id": "pac_run3",
           "name": "Platoon Assault Course - Run 3: Potential Contact",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
@@ -643,6 +659,10 @@
           "scenario_id": "cac_run1",
           "name": "Company Assault Course - Run 1: Assaulting a Known Position",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
@@ -889,6 +909,10 @@
           "scenario_id": "cac_run2",
           "name": "Company Assault Course - Run 2: Potential Contact System",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
@@ -1158,6 +1182,10 @@
           "scenario_id": "cac_run3",
           "name": "Company Assault Course - Run 3: Adding Communications",
           "mission_type": "training",
+          "visibility": {
+            "condition": "daylight",
+            "modifier": 0
+          },
           "map_layout": {
             "rows": 3,
             "cols": 4,
